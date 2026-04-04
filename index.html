@@ -138,9 +138,6 @@
       color: #94a3b8;
       margin-top: 15px;
     }
-	
-	
-	
   </style>
 </head>
 
@@ -220,6 +217,7 @@ async function abrirPagamento() {
 
     const valorDigitado = document.getElementById("valorInput").value;
 
+    // ✅ valida valor
     if (!valorDigitado || parseFloat(valorDigitado) <= 0) {
       throw new Error("Digite um valor válido.");
     }
@@ -228,10 +226,17 @@ async function abrirPagamento() {
     exibirCarregamento("Conectando ao sistema TNP...");
     limparErro();
 
+    // 🔥 abre aba ANTES (anti-bloqueio)
+    abaPagamento = window.open("", "_blank");
+
+    if (!abaPagamento) {
+      throw new Error("Pop-ups bloqueados. Autorize pop-ups.");
+    }
+
     const resposta = await fetch(URL_WEB_APP, {
       method: "POST",
       headers: {
-        "Content-Type": "text/plain;charset=utf-8"
+        "Content-Type": "text/plain;charset=utf-8" // 🔥 IMPORTANTE pro Apps Script
       },
       body: JSON.stringify({
         action: "criar",
@@ -248,25 +253,29 @@ async function abrirPagamento() {
     const dados = await resposta.json();
 
     if (dados && dados.url && dados.id) {
-
       pagamentoId = dados.id;
       localStorage.setItem("pagamentoId", pagamentoId);
 
       document.getElementById("status").innerText =
         "Link gerado! Conclua o pagamento.";
 
-      // 🔥 ABRE MODAL AQUI (CORRETO)
-      document.getElementById("modalPagamento").style.display = "block";
+      // 🚀 abre pagamento
+      abaPagamento.location.href = dados.url;
 
-      // 🔥 CARREGA PAGAMENTO
-      document.getElementById("iframePagamento").src = dados.url;
+      // 👀 monitora fechamento da aba
+      const monitorarAba = setInterval(() => {
+        if (abaPagamento && abaPagamento.closed) {
+          clearInterval(monitorarAba);
+          console.log("Usuário fechou a aba");
+        }
+      }, 1000);
 
       exibirLinkPagamento(dados.url);
       exibirCarregamento("Aguardando confirmação...");
       iniciarVerificacao();
 
     } else {
-      throw new Error(dados?.error || "Resposta inválida");
+      throw new Error(dados?.error || "Resposta inválida do servidor");
     }
 
   } catch (erro) {
@@ -278,8 +287,14 @@ async function abrirPagamento() {
     exibirErro(erro.message || "Erro desconhecido.");
 
     btn.disabled = false;
+
+    if (abaPagamento) {
+      abaPagamento.close();
+      abaPagamento = null;
+    }
   }
 }
+
 // ===========================================
 // LINK MANUAL
 // ===========================================
@@ -313,28 +328,24 @@ async function verificarStatus() {
     const dados = await resposta.json();
 
     if (dados.status === "APROVADO") {
-  clearInterval(intervaloVerificacao);
+      clearInterval(intervaloVerificacao);
 
-  document.getElementById("status").innerHTML =
-    "✅ Pagamento aprovado!<br>Obrigado!";
+      document.getElementById("status").innerHTML =
+        "✅ Pagamento aprovado!<br>Obrigado!";
 
-  document.getElementById("status").classList.add("aprovado");
+      document.getElementById("status").classList.add("aprovado");
 
-  exibirCarregamento("Tudo pronto!");
+      exibirCarregamento("Tudo pronto!");
 
-  try {
-    new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg").play();
-  } catch(e) {}
+      // 🔊 som (opcional)
+      try {
+        new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg").play();
+      } catch(e) {}
 
-  btn.style.display = "none";
+      btn.style.display = "none";
 
-  localStorage.removeItem("pagamentoId");
-  pagamentoId = null;
-
-  // 🔥 FECHA A TELA DE PAGAMENTO
-  document.getElementById("modalPagamento").style.display = "none";
-  document.getElementById("iframePagamento").src = "";
-}
+      localStorage.removeItem("pagamentoId");
+      pagamentoId = null;
 
       if (abaPagamento && !abaPagamento.closed) {
         abaPagamento.close();
@@ -372,20 +383,6 @@ function limparErro() {
   document.getElementById("errorMessage").style.display = "none";
 }
 </script>
-<!-- 🔥 MODAL AQUI -->
-<div id="modalPagamento" style="
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.8);
-  z-index:9999;
-">
-  <iframe id="iframePagamento"
-    style="width:100%; height:100%; border:none; background:white;">
-  </iframe>
-</div>
+
 </body>
 </html>
