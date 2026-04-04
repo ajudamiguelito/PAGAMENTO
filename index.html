@@ -214,52 +214,37 @@ document.addEventListener("DOMContentLoaded", function() {
 async function abrirPagamento() {
   try {
     btn.disabled = true;
+
+    const valorDigitado = document.getElementById("valorInput").value;
+
+    // ✅ valida valor
+    if (!valorDigitado || parseFloat(valorDigitado) <= 0) {
+      throw new Error("Digite um valor válido.");
+    }
+
     document.getElementById("status").innerText = "Gerando seu link...";
     exibirCarregamento("Conectando ao sistema TNP...");
     limparErro();
 
+    // 🔥 abre aba ANTES (anti-bloqueio)
     abaPagamento = window.open("", "_blank");
 
     if (!abaPagamento) {
       throw new Error("Pop-ups bloqueados. Autorize pop-ups.");
     }
 
-    // ⏱️ Timeout
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
-
     const resposta = await fetch(URL_WEB_APP, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "text/plain;charset=utf-8" // 🔥 IMPORTANTE pro Apps Script
       },
       body: JSON.stringify({
         action: "criar",
         key: KEY,
-        const valorDigitado = document.getElementById("valorInput").value;
-
-if (!valorDigitado || valorDigitado <= 0) {
-  throw new Error("Digite um valor válido.");
-}
-
-const resposta = await fetch(URL_WEB_APP, {
-  method: "POST",
-  headers: {
-    "Content-Type": "text/plain;charset=utf-8"
-  },
-  body: JSON.stringify({
-    action: "criar",
-    key: KEY,
-    value: parseFloat(valorDigitado),
-    title: "Pagamento TNP MOB"
-  })
-});
+        value: parseFloat(valorDigitado),
         title: "Pagamento TNP MOB"
-      }),
-      signal: controller.signal
+      })
     });
-
-    clearTimeout(timeout);
 
     if (!resposta.ok) {
       throw new Error(`Erro HTTP: ${resposta.status}`);
@@ -271,20 +256,22 @@ const resposta = await fetch(URL_WEB_APP, {
       pagamentoId = dados.id;
       localStorage.setItem("pagamentoId", pagamentoId);
 
-      document.getElementById("status").innerText = "Link gerado! Conclua o pagamento.";
+      document.getElementById("status").innerText =
+        "Link gerado! Conclua o pagamento.";
 
+      // 🚀 abre pagamento
       abaPagamento.location.href = dados.url;
 
-      // 👀 Monitorar se usuário fecha a aba
+      // 👀 monitora fechamento da aba
       const monitorarAba = setInterval(() => {
         if (abaPagamento && abaPagamento.closed) {
           clearInterval(monitorarAba);
-          console.log("Usuário fechou a aba de pagamento");
+          console.log("Usuário fechou a aba");
         }
       }, 1000);
 
       exibirLinkPagamento(dados.url);
-      exibirCarregamento("Aguardando confirmação automática...");
+      exibirCarregamento("Aguardando confirmação...");
       iniciarVerificacao();
 
     } else {
@@ -294,7 +281,9 @@ const resposta = await fetch(URL_WEB_APP, {
   } catch (erro) {
     console.error("Erro:", erro);
 
-    document.getElementById("status").innerText = "Erro ao gerar pagamento ❌";
+    document.getElementById("status").innerText =
+      "Erro ao gerar pagamento ❌";
+
     exibirErro(erro.message || "Erro desconhecido.");
 
     btn.disabled = false;
