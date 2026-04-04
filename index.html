@@ -213,19 +213,27 @@ async function abrirPagamento() {
     const valorRaw = document.getElementById("valorInput").value;
     const valorNumerico = parseFloat(valorRaw.replace(/\./g, "").replace(",", "."));
 
-    if (!valorNumerico || valorNumerico <= 0) {
-      alert("Digite um valor válido.");
-      return;
-    }
+    if (!valorNumerico || valorNumerico <= 0) return alert("Digite um valor!");
 
     btn.disabled = true;
-    document.getElementById("status").innerText = "Gerando seu link...";
-    exibirCarregamento("Conectando ao sistema TNP...");
+    exibirCarregamento("Gerando link...");
 
-    abaPagamento = window.open("", "_blank");
+    // --- CONFIGURAÇÃO DA JANELA POP-UP ---
+    const largura = 450;
+    const altura = 600;
+    const esquerda = (window.screen.width / 2) - (largura / 2);
+    const topo = (window.screen.height / 2) - (altura / 2);
+    
+    // Abre uma janela pequena e centralizada
+    abaPagamento = window.open(
+      "", 
+      "PagamentoTNP", 
+      `width=${largura},height=${altura},left=${esquerda},top=${topo},scrollbars=yes,status=no,toolbar=no,menubar=no`
+    );
+
     if (!abaPagamento) {
       btn.disabled = false;
-      alert("Pop-ups bloqueados. Autorize pop-ups.");
+      alert("Pop-up bloqueado! Por favor, autorize pop-ups para realizar o pagamento.");
       return;
     }
 
@@ -239,8 +247,10 @@ async function abrirPagamento() {
     if (dados && dados.url) {
       pagamentoId = dados.id;
       localStorage.setItem("pagamentoId", pagamentoId);
-      abaPagamento.location.href = dados.url;
       
+      // Direciona a janelinha para o link do checkout
+      abaPagamento.location.href = dados.url;
+
       document.getElementById("linkPagamentoHref").href = dados.url;
       document.getElementById("linkPagamento").style.display = "block";
       document.getElementById("status").innerText = "Aguardando confirmação...";
@@ -248,8 +258,8 @@ async function abrirPagamento() {
     }
   } catch (erro) {
     btn.disabled = false;
-    document.getElementById("status").innerText = "Erro ao gerar pagamento ❌";
     if (abaPagamento) abaPagamento.close();
+    console.error(erro);
   }
 }
 
