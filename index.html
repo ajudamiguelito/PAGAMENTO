@@ -5,62 +5,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TNP MOB - Pagamento</title>
   <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .container { width: 90%; max-width: 400px; text-align: center; }
-    .card { background: #1e293b; padding: 30px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #334155; }
-    h1 { font-size: 22px; margin-bottom: 10px; color: #f8fafc; }
-    .status { margin: 25px 0; font-size: 17px; min-height: 50px; display: flex; align-items: center; justify-content: center; }
-    button { width: 100%; padding: 16px; border: none; border-radius: 14px; background: #22c55e; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
-    button:hover { background: #16a34a; transform: translateY(-2px); }
-    button:disabled { background: #475569; cursor: not-allowed; transform: none; }
-    .loading { margin-top: 20px; font-size: 13px; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 20px; }
-    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #94a3b8; border-top-color: #22c55e; border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .aprovado { color: #4ade80; font-weight: bold; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-    .erro { color: #ff6b6b; font-size: 14px; margin-top: 10px; background: rgba(255,107,107,0.1); padding: 10px; border-radius: 8px; display: none; }
-    .link-pagamento { margin-top: 20px; padding: 15px; background: #0f172a; border-radius: 10px; border: 1px solid #334155; word-break: break-all; display: none; }
-    .link-pagamento a { color: #22c55e; text-decoration: none; font-weight: bold; }
-    .info-texto { font-size: 12px; color: #94a3b8; margin-top: 15px; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      border: 1px solid #334155;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #f8fafc;
+    }
+
+    .status {
+      margin: 25px 0;
+      font-size: 17px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: #22c55e;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+    }
+
+    button:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background: #475569;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .loading {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 20px;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #94a3b8;
+      border-top-color: #22c55e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .aprovado {
+      color: #4ade80;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    .erro {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .link-pagamento {
+      margin-top: 20px;
+      padding: 15px;
+      background: #0f172a;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      word-break: break-all;
+    }
+
+    .link-pagamento a {
+      color: #22c55e;
+      text-decoration: none;
+      font-weight: bold;
+      word-break: break-all;
+    }
+
+    .link-pagamento a:hover {
+      text-decoration: underline;
+    }
+
+    .info-texto {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 15px;
+    }
   </style>
 </head>
+
 <body>
 
 <div class="container">
   <div class="card">
     <h1>TNP MOB</h1>
     <p style="color: #94a3b8; font-size: 14px;">Checkout Seguro</p>
-    <div id="status" class="status">Aguardando início...</div>
-    
-    <!-- O botão PRECISA ter o id="btnPagar" -->
+
+    <div id="status" class="status">
+      Aguardando início...
+    </div>
+
     <button id="btnPagar" onclick="abrirPagamento()">Pagar com Pix / TNP</button>
-    
+
     <div id="loading" class="loading"></div>
-    
-    <div id="linkPagamento" class="link-pagamento">
+
+    <div id="linkPagamento" class="link-pagamento" style="display: none;">
       <p style="margin-top: 0; color: #94a3b8; font-size: 12px;">Clique no link abaixo se a janela não abrir:</p>
       <a id="linkPagamentoHref" href="#" target="_blank">Clique aqui para pagar</a>
     </div>
-    
-    <div id="errorMessage" class="erro"></div>
-    
-    <p class="info-texto">Seu pagamento é processado de forma segura pela TNP MOB</p>
+
+    <div id="errorMessage" class="erro" style="display: none;"></div>
+
+    <p class="info-texto">
+      Seu pagamento é processado de forma segura pela TNP MOB
+    </p>
   </div>
 </div>
 
 <script>
 // ============================================
-// CONFIGURAÇÃO - VERIFIQUE ESTA URL
+// CONFIGURAÇÃO
 // ============================================
 const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbzfECILT1uZZKyB040VPfssKjw4fmZkEHW_rMDaK1A3mhftkxsBSmyoDFQ7OXMx37DX/exec";
 const KEY = "higo123seguro";
 
-let pagamentoId = localStorage.getItem("pagamentoId" );
+let pagamentoId = localStorage.getItem("pagamentoId");
 let abaPagamento = null;
 let intervaloVerificacao = null;
 const btn = document.getElementById("btnPagar");
 
-// Inicialização
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
 document.addEventListener("DOMContentLoaded", function() {
   if (pagamentoId) {
     document.getElementById("status").innerText = "Verificando pagamento anterior...";
@@ -68,86 +191,163 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// Função para abrir o pagamento
+// ============================================
+// ABRIR PAGAMENTO (CORRIGIDO POST)
+// ============================================
 async function abrirPagamento() {
-  if (!btn) return;
-  
-  btn.disabled = true;
-  document.getElementById("status").innerText = "Gerando seu link...";
-  exibirCarregamento("Conectando ao sistema TNP...");
-  limparErro();
-
   try {
+    btn.disabled = true;
+    document.getElementById("status").innerText = "Gerando seu link...";
+    exibirCarregamento("Conectando ao sistema TNP...");
+    limparErro();
+
     abaPagamento = window.open("", "_blank");
+
     if (!abaPagamento) {
-      throw new Error("Pop-ups bloqueados. Por favor, autorize pop-ups neste site.");
+      throw new Error("Pop-ups bloqueados. Autorize pop-ups.");
     }
 
-    const resposta = await fetch(`${URL_WEB_APP}?action=criar&key=${KEY}`);
-    if (!resposta.ok) throw new Error("Erro na conexão com o servidor.");
+    // ⏱️ Timeout
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+
+    const resposta = await fetch(URL_WEB_APP, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        action: "criar",
+        key: KEY,
+        value: 10.00,
+        title: "Pagamento TNP MOB"
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeout);
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP: ${resposta.status}`);
+    }
 
     const dados = await resposta.json();
 
-    if (dados.error) {
-      throw new Error(dados.msg || dados.error);
-    }
-
-    if (dados.url && dados.id) {
+    if (dados && dados.url && dados.id) {
       pagamentoId = dados.id;
       localStorage.setItem("pagamentoId", pagamentoId);
+
       document.getElementById("status").innerText = "Link gerado! Conclua o pagamento.";
+
       abaPagamento.location.href = dados.url;
+
+      // 👀 Monitorar se usuário fecha a aba
+      const monitorarAba = setInterval(() => {
+        if (abaPagamento && abaPagamento.closed) {
+          clearInterval(monitorarAba);
+          console.log("Usuário fechou a aba de pagamento");
+        }
+      }, 1000);
+
       exibirLinkPagamento(dados.url);
-      exibirCarregamento("Aguardando confirmação...");
+      exibirCarregamento("Aguardando confirmação automática...");
       iniciarVerificacao();
+
+    } else {
+      throw new Error(dados?.error || "Resposta inválida do servidor");
     }
+
   } catch (erro) {
     console.error("Erro:", erro);
+
     document.getElementById("status").innerText = "Erro ao gerar pagamento ❌";
-    exibirErro(erro.message);
-    if (abaPagamento) abaPagamento.close();
-  } finally {
+    exibirErro(erro.message || "Erro desconhecido.");
+
     btn.disabled = false;
+
+    if (abaPagamento) {
+      abaPagamento.close();
+      abaPagamento = null;
+    }
   }
 }
 
+// ============================================
+// LINK MANUAL
+// ============================================
+function exibirLinkPagamento(url) {
+  document.getElementById("linkPagamentoHref").href = url;
+  document.getElementById("linkPagamento").style.display = "block";
+}
+
+// ============================================
+// VERIFICAÇÃO AUTOMÁTICA
+// ============================================
 function iniciarVerificacao() {
   if (intervaloVerificacao) clearInterval(intervaloVerificacao);
   verificarStatus();
   intervaloVerificacao = setInterval(verificarStatus, 5000);
 }
 
+// ============================================
+// VERIFICAR STATUS
+// ============================================
 async function verificarStatus() {
   if (!pagamentoId) return;
+
   try {
     const resposta = await fetch(`${URL_WEB_APP}?action=status&id=${pagamentoId}&key=${KEY}`);
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP: ${resposta.status}`);
+    }
+
     const dados = await resposta.json();
 
     if (dados.status === "APROVADO") {
       clearInterval(intervaloVerificacao);
-      document.getElementById("status").innerHTML = "✅ Pagamento aprovado!  
-Obrigado!";
+
+      document.getElementById("status").innerHTML =
+        "✅ Pagamento aprovado!<br>Obrigado!";
+
       document.getElementById("status").classList.add("aprovado");
-      exibirCarregamento("Concluído!");
+
+      exibirCarregamento("Tudo pronto!");
+
+      // 🔊 som (opcional)
+      try {
+        new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg").play();
+      } catch(e) {}
+
       btn.style.display = "none";
+
       localStorage.removeItem("pagamentoId");
       pagamentoId = null;
-      if (abaPagamento && !abaPagamento.closed) abaPagamento.close();
+
+      if (abaPagamento && !abaPagamento.closed) {
+        abaPagamento.close();
+      }
+
+    } else if (dados.status === "ERRO") {
+      exibirCarregamento("Erro ao verificar status");
+
     } else {
-      exibirCarregamento("Aguardando pagamento...");
+      if (!btn.disabled) {
+        exibirCarregamento("Verificando status...");
+      }
     }
+
   } catch (e) {
     console.log("Erro na verificação:", e.message);
   }
 }
 
-function exibirLinkPagamento(url) {
-  document.getElementById("linkPagamentoHref").href = url;
-  document.getElementById("linkPagamento").style.display = "block";
-}
-
+// ============================================
+// UI HELPERS
+// ============================================
 function exibirCarregamento(texto) {
-  document.getElementById("loading").innerHTML = texto ? `<div class="spinner"></div> ${texto}` : "";
+  document.getElementById("loading").innerHTML =
+    texto ? `<div class="spinner"></div> ${texto}` : "";
 }
 
 function exibirErro(msg) {
