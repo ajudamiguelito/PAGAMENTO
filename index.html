@@ -139,41 +139,36 @@
 
 <div class="container">
   <div class="card">
+  <div id="conteudoPagamento">
+    <h1>TNP MOB</h1>
     
-    <div id="conteudoPagamento">
-      <h1>TNP MOB</h1>
-      <input 
-        id="valorInput" 
-        type="tel" 
-        value="0,00"
-        oninput="formatarMoeda(this)"
-      />
+    <input id="valorInput" type="tel" value="0,00" oninput="formatarMoeda(this)" />
 
-      <div id="status" class="status">Aguardando início...</div>
+    <div id="status" class="status">Aguardando início...</div>
 
-      <button id="btnPagar" onclick="abrirPagamento()">Pagar com Pix / TNP</button>
+    <button id="btnPagar" onclick="abrirPagamento()">Pagar com Pix / TNP</button>
 
-      <div id="loading" class="loading"></div>
+    <div id="loading" class="loading"></div>
 
-      <div id="linkPagamento" class="link-pagamento" style="display: none;">
-        <p style="margin-top: 0; color: #94a3b8; font-size: 12px;">Clique no link abaixo se a janela não abrir:</p>
-        <a id="linkPagamentoHref" href="#" target="_blank">Clique aqui para pagar</a>
-      </div>
-
-      <div id="errorMessage" style="color: #ff6b6b; display: none; margin-top: 10px;"></div>
+    <div id="linkPagamento" class="link-pagamento" style="display: none; margin-top: 15px;">
+      <a id="linkPagamentoHref" href="#" target="_blank" style="color: #22c55e; font-size: 14px;">
+        Clique aqui se a janela não abriu
+      </a>
     </div>
-
-    <div id="telaSucesso">
-      <div class="check-icon">✅</div>
-      <h2 style="color: #f8fafc; margin: 0; font-size: 20px;">Pagamento Aprovado!</h2>
-      <p style="color: #94a3b8; font-size: 14px;">Obrigado por utilizar a TNP MOB.</p>
-      <div id="timerVolta" style="color: #22c55e; font-size: 12px; margin-top: 20px; font-weight: bold;">
-        Voltando para o início em 5s...
-      </div>
-    </div>
-
-    <p class="info-texto">Seu pagamento é processado de forma segura pela TNP MOB</p>
   </div>
+
+  <div id="telaSucesso">
+    <div class="check-icon">✅</div>
+    <h2 style="color: #f8fafc; margin: 0;">Pagamento Aprovado!</h2>
+    <p style="color: #94a3b8; margin-top: 10px;">Obrigado por utilizar a TNP MOB.</p>
+    <div id="timerVolta" style="color: #22c55e; font-size: 13px; margin-top: 25px; font-weight: bold;">
+      Reiniciando em 5s...
+    </div>
+  </div>
+
+  <p class="info-texto" id="textoSeguranca">
+    Seu pagamento é processado de forma segura pela TNP MOB
+  </p>
 </div>
 
 <script>
@@ -303,16 +298,23 @@ async function verificarStatus() {
 } // <--- Essa chave fecha a função. Se ela faltar, o script morre!
 
 function mostrarSucesso() {
+  // Esconde TUDO do pagamento
   document.getElementById("conteudoPagamento").style.display = "none";
+  document.getElementById("textoSeguranca").style.display = "none"; // Esconde o texto pequeno
+  
+  // Mostra o sucesso limpo
   document.getElementById("telaSucesso").style.display = "flex";
+
   let segundos = 5;
   const timerTexto = document.getElementById("timerVolta");
+
   const contador = setInterval(() => {
     segundos--;
-    if (timerTexto) timerTexto.innerText = `Voltando para o início em ${segundos}s...`;
+    if (timerTexto) timerTexto.innerText = `Reiniciando em ${segundos}s...`;
+    
     if (segundos <= 0) {
       clearInterval(contador);
-      voltarAoInicio(); 
+      location.reload(); // Recarrega a página para limpar tudo 100%
     }
   }, 1000);
 }
