@@ -138,6 +138,21 @@
       color: #94a3b8;
       margin-top: 15px;
     }
+    /* Remove setas de inputs numéricos */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#valorInput:focus {
+  border-color: #22c55e;
+}
+    
   </style>
 </head>
 
@@ -147,21 +162,23 @@
   <div class="card">
     <h1>TNP MOB</h1>
    <input 
-  id="valorInput"
-  type="number" 
-  placeholder="Digite o valor (ex: 0.10)"
-  step="0.01"
-  min="0.01"
+  id="valorInput" 
+  type="tel" 
+  value="0,00"
+  oninput="formatarMoeda(this)"
   style="
     width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #334155;
+    padding: 20px 0;
+    border-radius: 16px;
+    border: 2px solid #334155;
     background: #0f172a;
-    color: white;
-    font-size: 15px;
+    color: #22c55e;
+    font-size: 32px; /* Maior e mais visível */
+    font-weight: bold;
+    text-align: center; /* Centralizado */
     margin: 15px 0;
     outline: none;
+    transition: border-color 0.3s;
   "
 />
 
@@ -211,14 +228,30 @@ document.addEventListener("DOMContentLoaded", function() {
 // ============================================
 // ABRIR PAGAMENTO (CORRIGIDO POST)
 // ============================================
-async function abrirPagamento() {
+
+  // Função para formatar o valor em tempo real (ex: 1 -> 0,01)
+function formatarMoeda(input) {
+  let valor = input.value.replace(/\D/g, ""); // Remove tudo que não é número
+  valor = (valor / 100).toFixed(2) + ""; // Divide por 100 e fixa 2 casas
+  valor = valor.replace(".", ","); // Troca ponto por vírgula
+  valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // Adiciona pontos de milhar
+  input.value = valor;
+}
+
+// AJUSTE NECESSÁRIO NA FUNÇÃO abrirPagamento
+// Como o valor agora tem vírgula (ex: 10,50), precisamos converter para número real
+// No seu código, procure a linha: const valorDigitado = document.getElementById("valorInput").value;
+// E substitua por:
+  
+  async function abrirPagamento() {
   try {
     btn.disabled = true;
 
-    const valorDigitado = document.getElementById("valorInput").value;
+    // Converte "1.250,50" para o formato numérico 1250.50
+    const valorRaw = document.getElementById("valorInput").value;
+    const valorNumerico = parseFloat(valorRaw.replace(/\./g, "").replace(",", "."));
 
-    // ✅ valida valor
-    if (!valorDigitado || parseFloat(valorDigitado) <= 0) {
+    if (!valorNumerico || valorNumerico <= 0) {
       throw new Error("Digite um valor válido.");
     }
 
@@ -226,7 +259,7 @@ async function abrirPagamento() {
     exibirCarregamento("Conectando ao sistema TNP...");
     limparErro();
 
-    // 🔥 abre aba ANTES (anti-bloqueio)
+    // Abre aba antes para evitar bloqueio de popup
     abaPagamento = window.open("", "_blank");
 
     if (!abaPagamento) {
@@ -236,19 +269,17 @@ async function abrirPagamento() {
     const resposta = await fetch(URL_WEB_APP, {
       method: "POST",
       headers: {
-        "Content-Type": "text/plain;charset=utf-8" // 🔥 IMPORTANTE pro Apps Script
+        "Content-Type": "text/plain;charset=utf-8"
       },
       body: JSON.stringify({
         action: "criar",
         key: KEY,
-        value: parseFloat(valorDigitado),
+        value: valorNumerico,
         title: "Pagamento TNP MOB"
       })
     });
 
-    if (!resposta.ok) {
-      throw new Error(`Erro HTTP: ${resposta.status}`);
-    }
+    if (!resposta.ok) throw new Error(`Erro HTTP: ${resposta.status}`);
 
     const dados = await resposta.json();
 
@@ -256,19 +287,10 @@ async function abrirPagamento() {
       pagamentoId = dados.id;
       localStorage.setItem("pagamentoId", pagamentoId);
 
-      document.getElementById("status").innerText =
-        "Link gerado! Conclua o pagamento.";
+      document.getElementById("status").innerText = "Link gerado! Conclua o pagamento.";
 
-      // 🚀 abre pagamento
+      // Direciona a aba aberta para a URL da TNP
       abaPagamento.location.href = dados.url;
-
-      // 👀 monitora fechamento da aba
-      const monitorarAba = setInterval(() => {
-        if (abaPagamento && abaPagamento.closed) {
-          clearInterval(monitorarAba);
-          console.log("Usuário fechou a aba");
-        }
-      }, 1000);
 
       exibirLinkPagamento(dados.url);
       exibirCarregamento("Aguardando confirmação...");
@@ -280,18 +302,10 @@ async function abrirPagamento() {
 
   } catch (erro) {
     console.error("Erro:", erro);
-
-    document.getElementById("status").innerText =
-      "Erro ao gerar pagamento ❌";
-
-    exibirErro(erro.message || "Erro desconhecido.");
-
+    document.getElementById("status").innerText = "Erro ao gerar pagamento ❌";
+    exibirErro(erro.message);
     btn.disabled = false;
-
-    if (abaPagamento) {
-      abaPagamento.close();
-      abaPagamento = null;
-    }
+    if (abaPagamento) abaPagamento.close();
   }
 }
 
