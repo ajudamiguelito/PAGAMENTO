@@ -261,33 +261,45 @@ function iniciarVerificacao() {
 
 async function verificarStatus() {
   if (!pagamentoId) return;
+
   try {
     const resposta = await fetch(`${URL_WEB_APP}?action=status&id=${pagamentoId}&key=${KEY}`);
+    
+    // Verifica se a resposta do servidor faz sentido antes de tentar ler o JSON
+    if (!resposta.ok) return; 
+
     const dados = await resposta.json();
 
-    if (dados.status === "APROVADO") {
+    if (dados && dados.status === "APROVADO") {
+      // 1. Para a verificação imediatamente
       clearInterval(intervaloVerificacao);
 
-      // --- EFEITO SONORO DE SUCESSO ---
+      // 2. Tenta tocar o som (se falhar, o código continua)
       try {
-        // Som de caixa registradora (curto e nítido)
         const audio = new Audio("https://www.myinstants.com/media/sounds/cash-register-purchase.mp3");
-        audio.volume = 0.5; // Ajusta o volume para 50%
-        audio.play();
+        audio.volume = 0.5;
+        audio.play().catch(e => console.log("Áudio bloqueado pelo navegador"));
       } catch (e) {
-        console.log("O navegador bloqueou o áudio inicial: ", e);
+        console.log("Erro no áudio");
       }
-      // -------------------------------
 
+      // 3. Limpa os dados do pagamento aprovado
       localStorage.removeItem("pagamentoId");
       pagamentoId = null;
-      
+
+      // 4. Fecha a aba se ela existir
       if (abaPagamento && !abaPagamento.closed) {
         abaPagamento.close();
       }
-      
+
+      // 5. Mostra a tela de sucesso
       mostrarSucesso();
     }
+  } catch (erro) {
+    // Se der erro na rede, ele apenas loga e não trava o resto do site
+    console.error("Erro na verificação de status:", erro);
+  }
+} // <--- Essa chave fecha a função. Se ela faltar, o script morre!
 
 function mostrarSucesso() {
   document.getElementById("conteudoPagamento").style.display = "none";
