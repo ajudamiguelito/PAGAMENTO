@@ -267,14 +267,27 @@ async function verificarStatus() {
 
     if (dados.status === "APROVADO") {
       clearInterval(intervaloVerificacao);
-      try { new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg").play(); } catch(e) {}
+
+      // --- EFEITO SONORO DE SUCESSO ---
+      try {
+        // Som de caixa registradora (curto e nítido)
+        const audio = new Audio("https://www.myinstants.com/media/sounds/cash-register-purchase.mp3");
+        audio.volume = 0.5; // Ajusta o volume para 50%
+        audio.play();
+      } catch (e) {
+        console.log("O navegador bloqueou o áudio inicial: ", e);
+      }
+      // -------------------------------
+
       localStorage.removeItem("pagamentoId");
       pagamentoId = null;
-      if (abaPagamento && !abaPagamento.closed) abaPagamento.close();
+      
+      if (abaPagamento && !abaPagamento.closed) {
+        abaPagamento.close();
+      }
+      
       mostrarSucesso();
     }
-  } catch (e) { console.log("Verificando..."); }
-}
 
 function mostrarSucesso() {
   document.getElementById("conteudoPagamento").style.display = "none";
