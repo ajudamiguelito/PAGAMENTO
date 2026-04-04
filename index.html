@@ -152,6 +152,32 @@ input[type=number] {
 #valorInput:focus {
   border-color: #22c55e;
 }
+    /* --- ADICIONE ISSO NO FINAL DO SEU STYLE --- */
+#telaSucesso {
+  display: none; /* Começa escondida */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.check-icon {
+  font-size: 70px;
+  color: #22c55e;
+  margin-bottom: 20px;
+  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+#timerVolta {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 15px;
+}
     
   </style>
 </head>
@@ -182,27 +208,80 @@ input[type=number] {
   "
 />
 
-    <div id="status" class="status">
-      Aguardando início...
+    <div id="conteudoPagamento">
+      <div id="status" class="status">
+        Aguardando início...
+      </div>
+
+      <button id="btnPagar" onclick="abrirPagamento()">Pagar com Pix / TNP</button>
+
+      <div id="loading" class="loading"></div>
+
+      <div id="linkPagamento" class="link-pagamento" style="display: none;">
+        <p style="margin-top: 0; color: #94a3b8; font-size: 12px;">Clique no link abaixo se a janela não abrir:</p>
+        <a id="linkPagamentoHref" href="#" target="_blank">Clique aqui para pagar</a>
+      </div>
+
+      <div id="errorMessage" class="erro" style="display: none;"></div>
     </div>
 
-    <button id="btnPagar" onclick="abrirPagamento()">Pagar com Pix / TNP</button>
-
-    <div id="loading" class="loading"></div>
-
-    <div id="linkPagamento" class="link-pagamento" style="display: none;">
-      <p style="margin-top: 0; color: #94a3b8; font-size: 12px;">Clique no link abaixo se a janela não abrir:</p>
-      <a id="linkPagamentoHref" href="#" target="_blank">Clique aqui para pagar</a>
+    <div id="telaSucesso" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+      <div style="font-size: 60px; color: #22c55e; margin-bottom: 15px;">✅</div>
+      <h2 style="color: #f8fafc; margin: 0; font-size: 20px;">Pagamento Aprovado!</h2>
+      <p style="color: #94a3b8; font-size: 14px;">Obrigado por utilizar a TNP MOB.</p>
+      <div id="timerVolta" style="color: #22c55e; font-size: 12px; margin-top: 20px; font-weight: bold;">
+        Voltando para o início em 5s...
+      </div>
     </div>
-
-    <div id="errorMessage" class="erro" style="display: none;"></div>
 
     <p class="info-texto">
       Seu pagamento é processado de forma segura pela TNP MOB
     </p>
-  </div>
-</div>
+  </div> </div> ```
 
+---
+
+### 2. No JavaScript (Lógica de Troca)
+Agora, você precisa adicionar estas duas funções dentro da sua tag `<script>` para que a mágica aconteça quando o pagamento for aprovado:
+
+```javascript
+// Função que esconde o formulário e mostra o sucesso
+function mostrarSucesso() {
+  // Esconde o que estava na tela
+  document.getElementById("conteudoPagamento").style.display = "none";
+  // Mostra a tela de sucesso
+  document.getElementById("telaSucesso").style.display = "flex";
+
+  let segundos = 5;
+  const timerTexto = document.getElementById("timerVolta");
+
+  // Inicia contagem regressiva
+  const contador = setInterval(() => {
+    segundos--;
+    timerTexto.innerText = `Voltando para o início em ${segundos}s...`;
+    
+    if (segundos <= 0) {
+      clearInterval(contador);
+      voltarAoInicio(); // Função que reseta tudo
+    }
+  }, 1000);
+}
+
+// Função que limpa os dados e volta para a tela inicial
+function voltarAoInicio() {
+  // Troca as telas de volta
+  document.getElementById("telaSucesso").style.display = "none";
+  document.getElementById("conteudoPagamento").style.display = "block";
+
+  // Reseta os campos e botões
+  document.getElementById("valorInput").value = "0,00";
+  document.getElementById("status").innerText = "Aguardando início...";
+  document.getElementById("status").classList.remove("aprovado");
+  document.getElementById("loading").innerHTML = "";
+  document.getElementById("btnPagar").disabled = false;
+  document.getElementById("btnPagar").style.display = "block";
+  document.getElementById("linkPagamento").style.display = "none";
+}
 <script>
 // ============================================
 // CONFIGURAÇÃO
@@ -342,35 +421,32 @@ async function verificarStatus() {
     const dados = await resposta.json();
 
     if (dados.status === "APROVADO") {
+      // 1. Para a verificação
       clearInterval(intervaloVerificacao);
 
-      document.getElementById("status").innerHTML =
-        "✅ Pagamento aprovado!<br>Obrigado!";
-
-      document.getElementById("status").classList.add("aprovado");
-
-      exibirCarregamento("Tudo pronto!");
-
-      // 🔊 som (opcional)
+      // 2. Toca o som de sucesso
       try {
         new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg").play();
       } catch(e) {}
 
-      btn.style.display = "none";
-
+      // 3. Limpa os dados de cache
       localStorage.removeItem("pagamentoId");
       pagamentoId = null;
 
+      // 4. Fecha a aba do checkout se ainda estiver aberta
       if (abaPagamento && !abaPagamento.closed) {
         abaPagamento.close();
       }
 
+      // 5. CHAMA A TRANSIÇÃO DE TELA (A mágica acontece aqui)
+      mostrarSucesso();
+
     } else if (dados.status === "ERRO") {
       exibirCarregamento("Erro ao verificar status");
-
     } else {
-      if (!btn.disabled) {
-        exibirCarregamento("Verificando status...");
+      // Enquanto estiver pendente, apenas mantém o feedback discreto
+      if (btn.disabled) {
+        exibirCarregamento("Aguardando confirmação do Pix...");
       }
     }
 
@@ -379,6 +455,40 @@ async function verificarStatus() {
   }
 }
 
+// --- FUNÇÃO DE TRANSIÇÃO (Certifique-se de ter esta função no final do seu script) ---
+function mostrarSucesso() {
+  // Esconde o formulário e mostra a tela de check
+  document.getElementById("conteudoPagamento").style.display = "none";
+  document.getElementById("telaSucesso").style.display = "flex";
+
+  let segundos = 5;
+  const timerTexto = document.getElementById("timerVolta");
+
+  // Inicia contagem para voltar ao início
+  const contador = setInterval(() => {
+    segundos--;
+    if (timerTexto) timerTexto.innerText = `Voltando para o início em ${segundos}s...`;
+    
+    if (segundos <= 0) {
+      clearInterval(contador);
+      voltarAoInicio(); 
+    }
+  }, 1000);
+}
+
+// --- FUNÇÃO DE RESET (Limpa tudo para o próximo cliente) ---
+function voltarAoInicio() {
+  // Troca as telas de volta
+  document.getElementById("telaSucesso").style.display = "none";
+  document.getElementById("conteudoPagamento").style.display = "block";
+
+  // Reseta o visual e o valor
+  document.getElementById("valorInput").value = "0,00";
+  document.getElementById("status").innerText = "Aguardando início...";
+  document.getElementById("loading").innerHTML = "";
+  document.getElementById("btnPagar").disabled = false;
+  document.getElementById("linkPagamento").style.display = "none";
+}
 // ============================================
 // UI HELPERS
 // ============================================
