@@ -739,48 +739,187 @@
     </button>
 
 </div>
+<!-- TELA 7: ÁREA DO PASSAGEIRO / CONVITE PARA COMPLETAR CADASTRO - PREFIXO SEXTAPAG -->
+<div id="SEXTAPAG_Login_screen_area_passageiro" class="PRIMEIRAPAG_Login_screen">
 
+    <div class="PRIMEIRAPAG_Login_error" id="SEXTAPAG_Login_error_area_passageiro"></div>
 
+    <h3 class="PRIMEIRAPAG_Login_step_title">Área do passageiro</h3>
 
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Bem-vindo ao TNP MoB</h4>
+        <p>
+            Seu cadastro rápido foi concluído. Você já pode conhecer o app,
+            mas recomendamos completar seu perfil para usar com mais segurança.
+        </p>
+    </div>
 
+    <div class="PRIMEIRAPAG_Login_status_box">
+        <strong>Complete seu cadastro</strong><br><br>
 
+        Por segurança sua, do motorista e de toda a comunidade TNP MoB,
+        finalize seu perfil completo.<br><br>
 
+        Você pode usar o app inicialmente, mas algumas verificações serão solicitadas
+        conforme o uso da plataforma.
 
-
-
-
-            <!-- TELA TEMPORÁRIA: BEM-VINDO USUÁRIO -->
-            <div id="PRIMEIRAPAG_Login_screen_welcome_usuario" class="PRIMEIRAPAG_Login_screen Welcome_bg">
-                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center; padding:20px;">
-                    <h2 style="color:var(--Fame_gold); font-size:1.7rem; margin-bottom:12px;">BEM-VINDO AO TNP MoB</h2>
-
-                    <p style="color:#ffffff; font-size:1rem; margin-bottom:18px;">
-                        Sua área de passageiro será conectada aqui.
-                    </p>
-
-                    <div class="PRIMEIRAPAG_Login_status_box">
-                        <strong>Complete seu cadastro</strong><br><br>
-                        Por segurança sua, do motorista e de toda a comunidade TNP MoB,
-                        finalize sua verificação.<br><br>
-                        Você pode realizar até <strong>3 corridas iniciais</strong>.
-                        Depois disso, será necessário completar o cadastro para continuar usando sem bloqueios.
-
-                        <div class="PRIMEIRAPAG_Login_progress_wrap">
-                            <div class="PRIMEIRAPAG_Login_progress_text">
-                                <span>Corridas usadas</span>
-                                <span>0 de 3</span>
-                            </div>
-                            <div class="PRIMEIRAPAG_Login_progress_bar_fake">
-                                <div style="width:0%;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" style="max-width:220px;" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
-                        SAIR
-                    </button>
-                </div>
+        <div class="PRIMEIRAPAG_Login_progress_wrap">
+            <div class="PRIMEIRAPAG_Login_progress_text">
+                <span>Progresso do perfil</span>
+                <span id="SEXTAPAG_Login_txt_progresso_perfil">Cadastro rápido concluído</span>
             </div>
+            <div class="PRIMEIRAPAG_Login_progress_bar_fake">
+                <div id="SEXTAPAG_Login_barra_progresso_perfil" style="width:45%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_status_box">
+        <strong>Ativação TNP e cashback</strong><br><br>
+
+        Sem ID TNP informado e sem pagamento de ativação, você poderá usar até
+        <strong>10 corridas iniciais</strong>.<br><br>
+
+        Se realizar o pagamento de ativação pelo app, sua conta continua liberada.
+        Se informar seu ID TNP, você também poderá liberar benefícios e cashback.
+
+        <div class="PRIMEIRAPAG_Login_progress_wrap">
+            <div class="PRIMEIRAPAG_Login_progress_text">
+                <span>Corridas sem ativação</span>
+                <span id="SEXTAPAG_Login_txt_corridas_tnp">0 de 10</span>
+            </div>
+            <div class="PRIMEIRAPAG_Login_progress_bar_fake">
+                <div id="SEXTAPAG_Login_barra_corridas_tnp" style="width:0%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="SEXTAPAG_Login_func_iniciarCadastroCompleto()"
+    >
+        COMPLETAR CADASTRO
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="SEXTAPAG_Login_func_continuarParaApp()"
+    >
+        CONTINUAR PARA O APP
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
+    >
+        SAIR
+    </button>
+
+</div>
+<!-- TELA 8: DADOS PESSOAIS DO PASSAGEIRO - PREFIXO SETIMAPAG -->
+<div id="SETIMAPAG_Login_screen_dados_pessoais" class="PRIMEIRAPAG_Login_screen">
+
+    <div class="PRIMEIRAPAG_Login_error" id="SETIMAPAG_Login_error_dados_pessoais"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Dados pessoais</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Complete seu perfil</h4>
+        <p>
+            Informe seus dados principais para aumentar a segurança da sua conta.
+            As fotos do documento poderão ficar pendentes até 10 corridas.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label>Tipo de documento</label>
+
+        <input type="hidden" id="SETIMAPAG_Login_tipo_documento" value="cpf">
+
+        <div class="PRIMEIRAPAG_Login_tipo_cards">
+            <div
+                id="SETIMAPAG_Login_card_cpf"
+                class="PRIMEIRAPAG_Login_tipo_card active"
+                onclick="SETIMAPAG_Login_func_selecionarTipoDocumento('cpf')"
+            >
+                CPF
+            </div>
+
+            <div
+                id="SETIMAPAG_Login_card_cnpj"
+                class="PRIMEIRAPAG_Login_tipo_card"
+                onclick="SETIMAPAG_Login_func_selecionarTipoDocumento('cnpj')"
+            >
+                CNPJ
+            </div>
+        </div>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label id="SETIMAPAG_Login_label_cpf_cnpj" for="SETIMAPAG_Login_input_cpf_cnpj">CPF</label>
+        <input
+            type="tel"
+            id="SETIMAPAG_Login_input_cpf_cnpj"
+            placeholder="Digite seu CPF"
+            oninput="SETIMAPAG_Login_func_maskCpfCnpj(this)"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label id="SETIMAPAG_Login_label_nome" for="SETIMAPAG_Login_input_nome_documento">Nome completo</label>
+        <input
+            type="text"
+            id="SETIMAPAG_Login_input_nome_documento"
+            placeholder="Digite seu nome completo"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label id="SETIMAPAG_Login_label_data" for="SETIMAPAG_Login_input_data_documento">Data de nascimento</label>
+        <input
+            type="date"
+            id="SETIMAPAG_Login_input_data_documento"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="SETIMAPAG_Login_select_genero">Gênero</label>
+        <select id="SETIMAPAG_Login_select_genero">
+            <option value="">Prefiro não informar</option>
+            <option value="feminino">Feminino</option>
+            <option value="masculino">Masculino</option>
+            <option value="outro">Outro</option>
+        </select>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_aviso_analise">
+        Documento de identidade, carteira ou foto segurando documento poderão ser solicitados depois.
+        O limite para completar essa verificação será de até 10 corridas.
+    </div>
+
+    <button
+        id="SETIMAPAG_Login_btn_salvar_dados"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="SETIMAPAG_Login_func_salvarDadosPessoais()"
+    >
+        SALVAR E CONTINUAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('SEXTAPAG_Login_screen_area_passageiro')"
+    >
+        VOLTAR
+    </button>
+
+</div>
+
+
+
+
+
+
+
 
             <!-- TELA TEMPORÁRIA: BEM-VINDO MOTORISTA -->
             <div id="PRIMEIRAPAG_Login_screen_welcome_motorista" class="PRIMEIRAPAG_Login_screen Welcome_bg">
@@ -965,9 +1104,9 @@
                         : PRIMEIRAPAG_user.status;
 
                     if (PRIMEIRAPAG_tipo === 'passageiro') {
-                        PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_welcome_usuario');
-                        return;
-                    }
+					SEXTAPAG_Login_func_carregarAreaPassageiro();
+					return;
+				}
 
                     if (PRIMEIRAPAG_tipo === 'motorista') {
                         if (PRIMEIRAPAG_status === "aprovado") {
@@ -1503,7 +1642,7 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
         QUINTAPAG_Login_btn.disabled = false;
         QUINTAPAG_Login_btn.innerText = "CONFIRMAR SELFIE";
 
-        PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_welcome_usuario');
+        SEXTAPAG_Login_func_carregarAreaPassageiro();
 
     } catch (QUINTAPAG_Login_erro) {
         QUINTAPAG_Login_btn.disabled = false;
@@ -1514,7 +1653,326 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
             'Erro ao salvar selfie: ' + QUINTAPAG_Login_erro.message
         );
     }
-}	
+}
+// ========== TELA 7: ÁREA DO PASSAGEIRO COM PREFIXO SEXTAPAG ==========
+
+async function SEXTAPAG_Login_func_carregarAreaPassageiro() {
+    const SEXTAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!SEXTAPAG_Login_user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    try {
+        const SEXTAPAG_Login_doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(SEXTAPAG_Login_user.uid)
+            .get();
+
+        if (SEXTAPAG_Login_doc.exists) {
+            const SEXTAPAG_Login_dados = SEXTAPAG_Login_doc.data();
+
+            const SEXTAPAG_Login_corridasUsadas =
+                SEXTAPAG_Login_dados.corridasUsadasSemTnp ||
+                SEXTAPAG_Login_dados.corridasUsadasSemCadastro ||
+                0;
+
+            const SEXTAPAG_Login_limite =
+                SEXTAPAG_Login_dados.corridasSemTnpLimite || 10;
+
+            const SEXTAPAG_Login_percentualCorridas = Math.min(
+                (SEXTAPAG_Login_corridasUsadas / SEXTAPAG_Login_limite) * 100,
+                100
+            );
+
+            const SEXTAPAG_Login_txtCorridas = document.getElementById('SEXTAPAG_Login_txt_corridas_tnp');
+            const SEXTAPAG_Login_barraCorridas = document.getElementById('SEXTAPAG_Login_barra_corridas_tnp');
+
+            if (SEXTAPAG_Login_txtCorridas) {
+                SEXTAPAG_Login_txtCorridas.innerText =
+                    `${SEXTAPAG_Login_corridasUsadas} de ${SEXTAPAG_Login_limite}`;
+            }
+
+            if (SEXTAPAG_Login_barraCorridas) {
+                SEXTAPAG_Login_barraCorridas.style.width = `${SEXTAPAG_Login_percentualCorridas}%`;
+            }
+
+            let SEXTAPAG_Login_progressoPerfil = 45;
+            let SEXTAPAG_Login_textoPerfil = "Cadastro rápido concluído";
+
+            if (SEXTAPAG_Login_dados.dadosPessoaisConcluidos) {
+                SEXTAPAG_Login_progressoPerfil = 60;
+                SEXTAPAG_Login_textoPerfil = "Dados pessoais concluídos";
+            }
+
+            if (SEXTAPAG_Login_dados.enderecoConcluido) {
+                SEXTAPAG_Login_progressoPerfil = 72;
+                SEXTAPAG_Login_textoPerfil = "Endereço concluído";
+            }
+
+            if (SEXTAPAG_Login_dados.contatoEmergenciaConcluido) {
+                SEXTAPAG_Login_progressoPerfil = 84;
+                SEXTAPAG_Login_textoPerfil = "Contato de emergência concluído";
+            }
+
+            if (SEXTAPAG_Login_dados.termosAceitos) {
+                SEXTAPAG_Login_progressoPerfil = 92;
+                SEXTAPAG_Login_textoPerfil = "Termos aceitos";
+            }
+
+            if (SEXTAPAG_Login_dados.cadastroCompleto === true) {
+                SEXTAPAG_Login_progressoPerfil = 100;
+                SEXTAPAG_Login_textoPerfil = "Cadastro completo";
+            }
+
+            const SEXTAPAG_Login_txtPerfil = document.getElementById('SEXTAPAG_Login_txt_progresso_perfil');
+            const SEXTAPAG_Login_barraPerfil = document.getElementById('SEXTAPAG_Login_barra_progresso_perfil');
+
+            if (SEXTAPAG_Login_txtPerfil) {
+                SEXTAPAG_Login_txtPerfil.innerText = SEXTAPAG_Login_textoPerfil;
+            }
+
+            if (SEXTAPAG_Login_barraPerfil) {
+                SEXTAPAG_Login_barraPerfil.style.width = `${SEXTAPAG_Login_progressoPerfil}%`;
+            }
+        }
+
+        PRIMEIRAPAG_Login_func_irPara('SEXTAPAG_Login_screen_area_passageiro');
+
+    } catch (SEXTAPAG_Login_erro) {
+        PRIMEIRAPAG_Login_func_irPara('SEXTAPAG_Login_screen_area_passageiro');
+    }
+}
+
+function SEXTAPAG_Login_func_iniciarCadastroCompleto() {
+    const SEXTAPAG_Login_telaDados = document.getElementById('SETIMAPAG_Login_screen_dados_pessoais');
+
+    if (!SEXTAPAG_Login_telaDados) {
+        alert("A próxima etapa será a tela de dados pessoais. Vamos criar essa parte agora.");
+        return;
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+}
+
+function SEXTAPAG_Login_func_continuarParaApp() {
+    alert("Aqui será aberta a tela principal do app ou o mapa do passageiro.");
+}		
+		
+// ========== TELA 8: DADOS PESSOAIS DO PASSAGEIRO COM PREFIXO SETIMAPAG ==========
+
+function SETIMAPAG_Login_func_selecionarTipoDocumento(SETIMAPAG_Login_tipo) {
+    document.getElementById('SETIMAPAG_Login_tipo_documento').value = SETIMAPAG_Login_tipo;
+
+    const SETIMAPAG_Login_cardCpf = document.getElementById('SETIMAPAG_Login_card_cpf');
+    const SETIMAPAG_Login_cardCnpj = document.getElementById('SETIMAPAG_Login_card_cnpj');
+
+    SETIMAPAG_Login_cardCpf.classList.remove('active');
+    SETIMAPAG_Login_cardCnpj.classList.remove('active');
+
+    const SETIMAPAG_Login_inputDoc = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+    const SETIMAPAG_Login_inputNome = document.getElementById('SETIMAPAG_Login_input_nome_documento');
+
+    if (SETIMAPAG_Login_tipo === 'cpf') {
+        SETIMAPAG_Login_cardCpf.classList.add('active');
+
+        document.getElementById('SETIMAPAG_Login_label_cpf_cnpj').innerText = 'CPF';
+        document.getElementById('SETIMAPAG_Login_label_nome').innerText = 'Nome completo';
+        document.getElementById('SETIMAPAG_Login_label_data').innerText = 'Data de nascimento';
+
+        SETIMAPAG_Login_inputDoc.placeholder = 'Digite seu CPF';
+        SETIMAPAG_Login_inputNome.placeholder = 'Digite seu nome completo';
+    } else {
+        SETIMAPAG_Login_cardCnpj.classList.add('active');
+
+        document.getElementById('SETIMAPAG_Login_label_cpf_cnpj').innerText = 'CNPJ';
+        document.getElementById('SETIMAPAG_Login_label_nome').innerText = 'Nome ou razão social';
+        document.getElementById('SETIMAPAG_Login_label_data').innerText = 'Data de abertura';
+
+        SETIMAPAG_Login_inputDoc.placeholder = 'Digite seu CNPJ';
+        SETIMAPAG_Login_inputNome.placeholder = 'Digite o nome ou razão social';
+    }
+
+    SETIMAPAG_Login_inputDoc.value = '';
+}
+
+function SETIMAPAG_Login_func_maskCpfCnpj(SETIMAPAG_Login_input) {
+    const SETIMAPAG_Login_tipo = document.getElementById('SETIMAPAG_Login_tipo_documento').value;
+
+    let SETIMAPAG_Login_valor = SETIMAPAG_Login_input.value.replace(/\D/g, "");
+
+    if (SETIMAPAG_Login_tipo === 'cpf') {
+        if (SETIMAPAG_Login_valor.length > 11) {
+            SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.substring(0, 11);
+        }
+
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/(\d{3})(\d)/, "$1.$2");
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/(\d{3})(\d)/, "$1.$2");
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    } else {
+        if (SETIMAPAG_Login_valor.length > 14) {
+            SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.substring(0, 14);
+        }
+
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/^(\d{2})(\d)/, "$1.$2");
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        SETIMAPAG_Login_valor = SETIMAPAG_Login_valor.replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    SETIMAPAG_Login_input.value = SETIMAPAG_Login_valor;
+}
+
+function SETIMAPAG_Login_func_validarDocumentoBasico(SETIMAPAG_Login_tipo, SETIMAPAG_Login_valor) {
+    const SETIMAPAG_Login_numeros = SETIMAPAG_Login_valor.replace(/\D/g, "");
+
+    if (SETIMAPAG_Login_tipo === 'cpf' && SETIMAPAG_Login_numeros.length !== 11) {
+        return false;
+    }
+
+    if (SETIMAPAG_Login_tipo === 'cnpj' && SETIMAPAG_Login_numeros.length !== 14) {
+        return false;
+    }
+
+    if (/^(\d)\1+$/.test(SETIMAPAG_Login_numeros)) {
+        return false;
+    }
+
+    return true;
+}
+
+function SETIMAPAG_Login_func_calcularIdade(SETIMAPAG_Login_data) {
+    const SETIMAPAG_Login_hoje = new Date();
+    const SETIMAPAG_Login_nascimento = new Date(SETIMAPAG_Login_data);
+
+    let SETIMAPAG_Login_idade = SETIMAPAG_Login_hoje.getFullYear() - SETIMAPAG_Login_nascimento.getFullYear();
+    const SETIMAPAG_Login_mes = SETIMAPAG_Login_hoje.getMonth() - SETIMAPAG_Login_nascimento.getMonth();
+
+    if (
+        SETIMAPAG_Login_mes < 0 ||
+        (SETIMAPAG_Login_mes === 0 && SETIMAPAG_Login_hoje.getDate() < SETIMAPAG_Login_nascimento.getDate())
+    ) {
+        SETIMAPAG_Login_idade--;
+    }
+
+    return SETIMAPAG_Login_idade;
+}
+
+async function SETIMAPAG_Login_func_salvarDadosPessoais() {
+    const SETIMAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+    const SETIMAPAG_Login_btn = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
+
+    const SETIMAPAG_Login_tipoDocumento = document.getElementById('SETIMAPAG_Login_tipo_documento').value;
+    const SETIMAPAG_Login_documento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj').value.trim();
+    const SETIMAPAG_Login_nomeDocumento = document.getElementById('SETIMAPAG_Login_input_nome_documento').value.trim();
+    const SETIMAPAG_Login_dataDocumento = document.getElementById('SETIMAPAG_Login_input_data_documento').value;
+    const SETIMAPAG_Login_genero = document.getElementById('SETIMAPAG_Login_select_genero').value;
+
+    if (!SETIMAPAG_Login_user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+    if (!SETIMAPAG_Login_func_validarDocumentoBasico(SETIMAPAG_Login_tipoDocumento, SETIMAPAG_Login_documento)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            SETIMAPAG_Login_tipoDocumento === 'cpf'
+                ? 'Digite um CPF válido.'
+                : 'Digite um CNPJ válido.'
+        );
+    }
+
+    if (SETIMAPAG_Login_nomeDocumento.length < 3) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            SETIMAPAG_Login_tipoDocumento === 'cpf'
+                ? 'Digite seu nome completo.'
+                : 'Digite o nome ou razão social.'
+        );
+    }
+
+    if (!SETIMAPAG_Login_dataDocumento) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            SETIMAPAG_Login_tipoDocumento === 'cpf'
+                ? 'Informe sua data de nascimento.'
+                : 'Informe a data de abertura.'
+        );
+    }
+
+    let SETIMAPAG_Login_idade = null;
+
+    if (SETIMAPAG_Login_tipoDocumento === 'cpf') {
+        SETIMAPAG_Login_idade = SETIMAPAG_Login_func_calcularIdade(SETIMAPAG_Login_dataDocumento);
+
+        if (SETIMAPAG_Login_idade < 18) {
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'SETIMAPAG_Login_error_dados_pessoais',
+                'Para usar o TNP MoB, é necessário ter pelo menos 18 anos.'
+            );
+        }
+    }
+
+    SETIMAPAG_Login_btn.disabled = true;
+    SETIMAPAG_Login_btn.innerText = "SALVANDO...";
+
+    try {
+        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(SETIMAPAG_Login_user.uid).set({
+            tipoDocumento: SETIMAPAG_Login_tipoDocumento,
+            documentoNumero: SETIMAPAG_Login_documento.replace(/\D/g, ""),
+            documentoFormatado: SETIMAPAG_Login_documento,
+
+            nomeDocumento: SETIMAPAG_Login_nomeDocumento,
+
+            dataNascimento: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumento : "",
+            dataAbertura: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumento : "",
+
+            idade: SETIMAPAG_Login_idade,
+            genero: SETIMAPAG_Login_genero || "",
+
+            dadosPessoaisConcluidos: true,
+
+            documentoIdentidadePendente: true,
+            selfieComDocumentoPendente: true,
+            limiteDocumentoAteCorrida: 10,
+
+            etapaCadastroCompleto: "endereco",
+            atualizadoEm: new Date(),
+
+            statusCadastroPassageiro: {
+                dadosPessoais: "concluido",
+                documentos: "pendente_ate_10_corridas"
+            }
+        }, { merge: true });
+
+        SETIMAPAG_Login_btn.disabled = false;
+        SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+        alert("Dados pessoais salvos com sucesso. A próxima etapa será o endereço.");
+
+        /*
+            FUTURO:
+            Quando a Tela 9 de endereço estiver pronta, trocar por:
+            PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+        */
+
+        SEXTAPAG_Login_func_carregarAreaPassageiro();
+
+    } catch (SETIMAPAG_Login_erro) {
+        SETIMAPAG_Login_btn.disabled = false;
+        SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            'Erro ao salvar dados pessoais: ' + SETIMAPAG_Login_erro.message
+        );
+    }
+}		
+		
+		
+		
 		
 		
     </script>
