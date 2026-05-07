@@ -911,9 +911,127 @@
     >
         VOLTAR
     </button>
+</div>
+<!-- TELA 9: ENDEREÇO DO PASSAGEIRO - PREFIXO OITAVAPAG -->
+<div id="OITAVAPAG_Login_screen_endereco" class="PRIMEIRAPAG_Login_screen">
+
+    <div class="PRIMEIRAPAG_Login_error" id="OITAVAPAG_Login_error_endereco"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Endereço</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Endereço principal</h4>
+        <p>
+            Digite seu CEP. Vamos buscar seu endereço automaticamente.
+            Depois você só completa o número e, se quiser, complemento e referência.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_cep">CEP</label>
+        <input
+            type="tel"
+            id="OITAVAPAG_Login_input_cep"
+            placeholder="00000-000"
+            oninput="OITAVAPAG_Login_func_maskCep(this)"
+            onblur="OITAVAPAG_Login_func_buscarCep()"
+        >
+    </div>
+
+    <button
+        type="button"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        style="margin-top:0;"
+        onclick="OITAVAPAG_Login_func_buscarCep()"
+    >
+        BUSCAR CEP
+    </button>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_rua">Rua / Avenida</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_rua"
+            placeholder="Preenchido pelo CEP"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_bairro">Bairro</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_bairro"
+            placeholder="Preenchido pelo CEP"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_cidade">Cidade</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_cidade"
+            placeholder="Preenchido pelo CEP"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_estado">Estado</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_estado"
+            placeholder="UF"
+            maxlength="2"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_numero">Número</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_numero"
+            placeholder="Número da residência"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_complemento">Complemento</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_complemento"
+            placeholder="Apartamento, bloco, casa, lote... opcional"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="OITAVAPAG_Login_input_referencia">Ponto de referência</label>
+        <input
+            type="text"
+            id="OITAVAPAG_Login_input_referencia"
+            placeholder="Ex: perto da praça, mercado, igreja..."
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_aviso_analise">
+        A foto do comprovante de endereço poderá ficar pendente até 10 corridas.
+        Depois desse limite, ela poderá ser solicitada para manter sua conta completa.
+    </div>
+
+    <button
+        id="OITAVAPAG_Login_btn_salvar_endereco"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="OITAVAPAG_Login_func_salvarEndereco()"
+    >
+        SALVAR E CONTINUAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais')"
+    >
+        VOLTAR
+    </button>
 
 </div>
-
 
 
 
@@ -1987,7 +2105,9 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
         SETIMAPAG_Login_btn.disabled = false;
         SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
-        alert("Dados pessoais salvos com sucesso. A próxima etapa será o endereço.");
+        alert("Dados pessoais salvos com sucesso. Agora vamos para o endereço.");
+
+		PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
 
         /*
             FUTURO:
@@ -2007,7 +2127,188 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
         );
     }
 }		
-		
+// ========== TELA 9: ENDEREÇO DO PASSAGEIRO COM PREFIXO OITAVAPAG ==========
+
+function OITAVAPAG_Login_func_maskCep(OITAVAPAG_Login_input) {
+    let OITAVAPAG_Login_valor = OITAVAPAG_Login_input.value.replace(/\D/g, "");
+
+    if (OITAVAPAG_Login_valor.length > 8) {
+        OITAVAPAG_Login_valor = OITAVAPAG_Login_valor.substring(0, 8);
+    }
+
+    if (OITAVAPAG_Login_valor.length > 5) {
+        OITAVAPAG_Login_valor =
+            OITAVAPAG_Login_valor.substring(0, 5) + "-" +
+            OITAVAPAG_Login_valor.substring(5, 8);
+    }
+
+    OITAVAPAG_Login_input.value = OITAVAPAG_Login_valor;
+}
+
+async function OITAVAPAG_Login_func_buscarCep() {
+    const OITAVAPAG_Login_cepInput = document.getElementById('OITAVAPAG_Login_input_cep');
+    const OITAVAPAG_Login_cep = OITAVAPAG_Login_cepInput.value.replace(/\D/g, "");
+
+    if (OITAVAPAG_Login_cep.length !== 8) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Digite um CEP válido com 8 números.'
+        );
+    }
+
+    try {
+        OITAVAPAG_Login_cepInput.disabled = true;
+        OITAVAPAG_Login_cepInput.value = "Buscando...";
+
+        const OITAVAPAG_Login_res = await fetch(`https://viacep.com.br/ws/${OITAVAPAG_Login_cep}/json/`);
+        const OITAVAPAG_Login_dados = await OITAVAPAG_Login_res.json();
+
+        OITAVAPAG_Login_cepInput.disabled = false;
+        OITAVAPAG_Login_func_maskCep(OITAVAPAG_Login_cepInput);
+
+        if (OITAVAPAG_Login_dados.erro) {
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'OITAVAPAG_Login_error_endereco',
+                'CEP não encontrado. Confira o número digitado.'
+            );
+        }
+
+        document.getElementById('OITAVAPAG_Login_input_rua').value = OITAVAPAG_Login_dados.logradouro || "";
+        document.getElementById('OITAVAPAG_Login_input_bairro').value = OITAVAPAG_Login_dados.bairro || "";
+        document.getElementById('OITAVAPAG_Login_input_cidade').value = OITAVAPAG_Login_dados.localidade || "";
+        document.getElementById('OITAVAPAG_Login_input_estado').value = OITAVAPAG_Login_dados.uf || "";
+
+        document.getElementById('OITAVAPAG_Login_input_numero').focus();
+
+    } catch (OITAVAPAG_Login_erro) {
+        OITAVAPAG_Login_cepInput.disabled = false;
+        OITAVAPAG_Login_cepInput.value = OITAVAPAG_Login_cep;
+        OITAVAPAG_Login_func_maskCep(OITAVAPAG_Login_cepInput);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Não foi possível buscar o CEP agora. Preencha o endereço manualmente.'
+        );
+    }
+}
+
+async function OITAVAPAG_Login_func_salvarEndereco() {
+    const OITAVAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+    const OITAVAPAG_Login_btn = document.getElementById('OITAVAPAG_Login_btn_salvar_endereco');
+
+    const OITAVAPAG_Login_cep = document.getElementById('OITAVAPAG_Login_input_cep').value.trim();
+    const OITAVAPAG_Login_rua = document.getElementById('OITAVAPAG_Login_input_rua').value.trim();
+    const OITAVAPAG_Login_bairro = document.getElementById('OITAVAPAG_Login_input_bairro').value.trim();
+    const OITAVAPAG_Login_cidade = document.getElementById('OITAVAPAG_Login_input_cidade').value.trim();
+    const OITAVAPAG_Login_estado = document.getElementById('OITAVAPAG_Login_input_estado').value.trim().toUpperCase();
+    const OITAVAPAG_Login_numero = document.getElementById('OITAVAPAG_Login_input_numero').value.trim();
+    const OITAVAPAG_Login_complemento = document.getElementById('OITAVAPAG_Login_input_complemento').value.trim();
+    const OITAVAPAG_Login_referencia = document.getElementById('OITAVAPAG_Login_input_referencia').value.trim();
+
+    if (!OITAVAPAG_Login_user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+    if (OITAVAPAG_Login_cep.replace(/\D/g, "").length !== 8) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Digite um CEP válido com 8 números.'
+        );
+    }
+
+    if (OITAVAPAG_Login_rua.length < 3) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Informe a rua ou avenida.'
+        );
+    }
+
+    if (OITAVAPAG_Login_bairro.length < 2) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Informe o bairro.'
+        );
+    }
+
+    if (OITAVAPAG_Login_cidade.length < 2) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Informe a cidade.'
+        );
+    }
+
+    if (OITAVAPAG_Login_estado.length !== 2) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Informe o estado com 2 letras. Ex: MG, SP, RJ.'
+        );
+    }
+
+    if (!OITAVAPAG_Login_numero) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Digite o número do endereço.'
+        );
+    }
+
+    OITAVAPAG_Login_btn.disabled = true;
+    OITAVAPAG_Login_btn.innerText = "SALVANDO...";
+
+    try {
+        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(OITAVAPAG_Login_user.uid).set({
+            endereco: {
+                cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
+                cepFormatado: OITAVAPAG_Login_cep,
+                rua: OITAVAPAG_Login_rua,
+                bairro: OITAVAPAG_Login_bairro,
+                cidade: OITAVAPAG_Login_cidade,
+                estado: OITAVAPAG_Login_estado,
+                numero: OITAVAPAG_Login_numero,
+                complemento: OITAVAPAG_Login_complemento || "",
+                referencia: OITAVAPAG_Login_referencia || ""
+            },
+
+            enderecoConcluido: true,
+
+            comprovanteEnderecoPendente: true,
+            fotoEnderecoPendente: true,
+            limiteEnderecoFotoAteCorrida: 10,
+
+            etapaCadastroCompleto: "contato_emergencia",
+            atualizadoEm: new Date(),
+
+            statusCadastroPassageiro: {
+                endereco: "concluido",
+                comprovanteEndereco: "pendente_ate_10_corridas"
+            }
+        }, { merge: true });
+
+        OITAVAPAG_Login_btn.disabled = false;
+        OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+        alert("Endereço salvo com sucesso. A próxima etapa será o contato de emergência.");
+
+        /*
+            FUTURO:
+            Quando a Tela 10 estiver pronta, trocar por:
+            PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+        */
+
+        SEXTAPAG_Login_func_carregarAreaPassageiro();
+
+    } catch (OITAVAPAG_Login_erro) {
+        OITAVAPAG_Login_btn.disabled = false;
+        OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'OITAVAPAG_Login_error_endereco',
+            'Erro ao salvar endereço: ' + OITAVAPAG_Login_erro.message
+        );
+    }
+}		
 		
 		
 		
