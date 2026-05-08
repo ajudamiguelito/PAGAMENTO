@@ -483,8 +483,8 @@
 
                 <p class="PRIMEIRAPAG_Login_novo_texto">Novo por aqui?</p>
 
-                <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido')">
-				CRIAR NOVA CONTA
+                <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')">
+				COMEÇAR CADASTRO
 				</button>
 
                 <div class="PRIMEIRAPAG_Login_aviso_analise">
@@ -498,6 +498,326 @@
                 </div>
 
             </div>
+			
+<!-- TELA 1.1: PRIVACIDADE E ACEITE - PREFIXO PRIMEIRAPAG -->
+<div id="PRIMEIRAPAG_Login_screen_privacidade" class="PRIMEIRAPAG_Login_screen">
+
+    <div class="PRIMEIRAPAG_Login_error" id="PRIMEIRAPAG_Login_error_privacidade"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Privacidade e uso</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Antes de continuar</h4>
+        <p>
+            Para criar sua conta no TNP MoB, você precisa concordar com nossos Termos de Uso,
+            Política de Privacidade, regras de segurança, cashback e avaliação.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_status_box">
+        Ao continuar, você confirma que seus dados serão usados para segurança da plataforma,
+        funcionamento das corridas, comunicação, verificação de conta e benefícios vinculados ao TNP MoB.
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
+    >
+        TERMOS DE USO DO TNP MOB
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_concordarTermos()"
+    >
+        CONCORDO
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
+    >
+        SAIR
+    </button>
+
+</div>
+
+
+<!-- TELA 1.2: LISTA DE TERMOS - PREFIXO PRIMEIRAPAG -->
+<div id="PRIMEIRAPAG_Login_screen_lista_termos" class="PRIMEIRAPAG_Login_screen">
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Termos de uso do TNP MoB</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Escolha o que deseja ler</h4>
+        <p>
+            Você pode abrir cada tópico para entender melhor as regras.
+            Depois volte ao início para concordar e continuar.
+        </p>
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_termo_responsabilidade')"
+    >
+        RESPONSABILIDADES DO PASSAGEIRO
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_termo_cashback')"
+    >
+        CASHBACK E BENEFÍCIOS
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_termo_privacidade')"
+    >
+        POLÍTICAS E PRIVACIDADE
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_termo_avaliacao')"
+    >
+        REGRAS DE AVALIAÇÃO
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+    >
+        INÍCIO
+    </button>
+
+</div>
+
+
+<!-- TELA 1.3: RESPONSABILIDADES DO PASSAGEIRO -->
+<div id="PRIMEIRAPAG_Login_screen_termo_responsabilidade" class="PRIMEIRAPAG_Login_screen">
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Responsabilidades do passageiro</h3>
+
+    <div class="PRIMEIRAPAG_Login_status_box" style="text-align:left;">
+        O passageiro deve informar dados verdadeiros, manter seu WhatsApp atualizado,
+        respeitar motoristas, não solicitar corridas falsas, não usar a plataforma para golpes,
+        agressões, ameaças ou qualquer conduta que coloque outras pessoas em risco.
+        <br><br>
+        O TNP MoB poderá bloquear ou revisar contas em caso de uso indevido, dados falsos,
+        comportamento abusivo ou tentativa de fraude.
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
+    >
+        VOLTAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+    >
+        INÍCIO
+    </button>
+
+</div>
+
+
+<!-- TELA 1.4: CASHBACK -->
+<div id="PRIMEIRAPAG_Login_screen_termo_cashback" class="PRIMEIRAPAG_Login_screen">
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Cashback e benefícios</h3>
+
+    <div class="PRIMEIRAPAG_Login_status_box" style="text-align:left;">
+        Os benefícios, cashback e vínculos de pagamento podem depender do cadastro TNP,
+        ID TNP informado corretamente, pagamento de ativação quando aplicável e regras
+        internas da plataforma.
+        <br><br>
+        O cashback poderá ser liberado quando a conta estiver vinculada corretamente
+        e de acordo com as condições vigentes do TNP MoB e parceiros envolvidos.
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
+    >
+        VOLTAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+    >
+        INÍCIO
+    </button>
+
+</div>
+
+
+<!-- TELA 1.5: PRIVACIDADE -->
+<div id="PRIMEIRAPAG_Login_screen_termo_privacidade" class="PRIMEIRAPAG_Login_screen">
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Políticas e privacidade</h3>
+
+    <div class="PRIMEIRAPAG_Login_status_box" style="text-align:left;">
+        O TNP MoB poderá coletar e usar informações como nome, e-mail, WhatsApp,
+        CPF/CNPJ, selfie, endereço, localização, dados de corrida, avaliações e informações
+        necessárias para segurança da plataforma.
+        <br><br>
+        Esses dados ajudam no funcionamento do app, prevenção de fraudes, suporte,
+        comunicação, proteção de passageiros, motoristas e melhoria da experiência.
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
+    >
+        VOLTAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+    >
+        INÍCIO
+    </button>
+
+</div>
+
+
+<!-- TELA 1.6: AVALIAÇÃO -->
+<div id="PRIMEIRAPAG_Login_screen_termo_avaliacao" class="PRIMEIRAPAG_Login_screen">
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Regras de avaliação</h3>
+
+    <div class="PRIMEIRAPAG_Login_status_box" style="text-align:left;">
+        Passageiros e motoristas poderão ser avaliados após o uso da plataforma.
+        As avaliações ajudam a manter a qualidade, segurança e confiança da comunidade.
+        <br><br>
+        Condutas graves, avaliações ruins repetidas, denúncias ou uso indevido poderão
+        gerar análise, restrições ou bloqueio da conta.
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
+    >
+        VOLTAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+    >
+        INÍCIO
+    </button>
+
+</div>
+
+
+<!-- TELA 1.7: PERMISSÕES -->
+<div id="PRIMEIRAPAG_Login_screen_permissoes" class="PRIMEIRAPAG_Login_screen">
+
+    <div class="PRIMEIRAPAG_Login_error" id="PRIMEIRAPAG_Login_error_permissoes"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Permissões</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Permissões importantes</h4>
+        <p>
+            Para funcionar melhor, o TNP MoB poderá solicitar permissões de localização,
+            câmera e notificações.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_status_box" style="text-align:left;">
+        <strong>Localização:</strong> ajuda em corridas, origem, destino e segurança.<br><br>
+        <strong>Câmera:</strong> usada para selfie e verificações de conta.<br><br>
+        <strong>Notificações:</strong> usadas para avisos importantes, corridas e atualizações.
+    </div>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro()"
+    >
+        PERMITIR E CONTINUAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_verificar_documento')"
+    >
+        AGORA NÃO
+    </button>
+
+</div>
+
+
+<!-- TELA 1.8: VERIFICAR CPF/CNPJ -->
+<div id="PRIMEIRAPAG_Login_screen_verificar_documento" class="PRIMEIRAPAG_Login_screen">
+
+    <div class="PRIMEIRAPAG_Login_error" id="PRIMEIRAPAG_Login_error_verificar_documento"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Verificar CPF/CNPJ</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Evite cadastro duplicado</h4>
+        <p>
+            Informe seu CPF ou CNPJ para verificarmos se já existe cadastro no TNP MoB.
+            Se você já começou antes, poderá continuar de onde parou.
+        </p>
+    </div>
+
+    <input type="hidden" id="PRIMEIRAPAG_Login_tipo_documento_inicial" value="cpf">
+
+    <div class="PRIMEIRAPAG_Login_tipo_cards">
+        <div
+            id="PRIMEIRAPAG_Login_card_doc_cpf"
+            class="PRIMEIRAPAG_Login_tipo_card active"
+            onclick="PRIMEIRAPAG_Login_func_selecionarDocumentoInicial('cpf')"
+        >
+            CPF
+        </div>
+
+        <div
+            id="PRIMEIRAPAG_Login_card_doc_cnpj"
+            class="PRIMEIRAPAG_Login_tipo_card"
+            onclick="PRIMEIRAPAG_Login_func_selecionarDocumentoInicial('cnpj')"
+        >
+            CNPJ
+        </div>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group" style="margin-top:18px;">
+        <label id="PRIMEIRAPAG_Login_label_documento_inicial" for="PRIMEIRAPAG_Login_input_documento_inicial">CPF</label>
+        <input
+            type="tel"
+            id="PRIMEIRAPAG_Login_input_documento_inicial"
+            placeholder="Digite seu CPF"
+            oninput="PRIMEIRAPAG_Login_func_maskDocumentoInicial(this)"
+        >
+    </div>
+
+    <button
+        id="PRIMEIRAPAG_Login_btn_verificar_documento"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_verificarDocumentoInicial()"
+    >
+        VERIFICAR E CONTINUAR
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+    >
+        VOLTAR
+    </button>
+
+</div>			
+			
+			
 
             <!-- TELA 2: CADASTRO RÁPIDO - FUNCIONANDO -->
 <div id="SEGUNDAPAG_Login_screen_cadastro_rapido" class="PRIMEIRAPAG_Login_screen">
@@ -1538,6 +1858,151 @@
                     );
                 });
         }
+		
+		
+		
+		
+		// ========== TELAS INICIAIS: TERMOS, PERMISSÕES E VERIFICAÇÃO CPF/CNPJ ==========
+
+let PRIMEIRAPAG_Login_var_termosAceitosAntesCadastro = false;
+let PRIMEIRAPAG_Login_var_documentoInicial = "";
+let PRIMEIRAPAG_Login_var_tipoDocumentoInicial = "cpf";
+
+function PRIMEIRAPAG_Login_func_concordarTermos() {
+    PRIMEIRAPAG_Login_var_termosAceitosAntesCadastro = true;
+    PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_permissoes');
+}
+
+async function PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro() {
+    try {
+        if ("Notification" in window && Notification.permission === "default") {
+            await Notification.requestPermission();
+        }
+    } catch (e) {}
+
+    PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_verificar_documento');
+}
+
+function PRIMEIRAPAG_Login_func_selecionarDocumentoInicial(PRIMEIRAPAG_tipo) {
+    PRIMEIRAPAG_Login_var_tipoDocumentoInicial = PRIMEIRAPAG_tipo;
+
+    document.getElementById('PRIMEIRAPAG_Login_tipo_documento_inicial').value = PRIMEIRAPAG_tipo;
+
+    const cardCpf = document.getElementById('PRIMEIRAPAG_Login_card_doc_cpf');
+    const cardCnpj = document.getElementById('PRIMEIRAPAG_Login_card_doc_cnpj');
+    const input = document.getElementById('PRIMEIRAPAG_Login_input_documento_inicial');
+
+    cardCpf.classList.remove('active');
+    cardCnpj.classList.remove('active');
+
+    input.value = "";
+
+    if (PRIMEIRAPAG_tipo === "cpf") {
+        cardCpf.classList.add('active');
+        document.getElementById('PRIMEIRAPAG_Login_label_documento_inicial').innerText = "CPF";
+        input.placeholder = "Digite seu CPF";
+    } else {
+        cardCnpj.classList.add('active');
+        document.getElementById('PRIMEIRAPAG_Login_label_documento_inicial').innerText = "CNPJ";
+        input.placeholder = "Digite seu CNPJ";
+    }
+}
+
+function PRIMEIRAPAG_Login_func_maskDocumentoInicial(input) {
+    const tipo = document.getElementById('PRIMEIRAPAG_Login_tipo_documento_inicial').value;
+    let valor = input.value.replace(/\D/g, "");
+
+    if (tipo === "cpf") {
+        if (valor.length > 11) valor = valor.substring(0, 11);
+
+        valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+        valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    } else {
+        if (valor.length > 14) valor = valor.substring(0, 14);
+
+        valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    input.value = valor;
+}
+
+function PRIMEIRAPAG_Login_func_validarDocumentoInicial(tipo, valor) {
+    const numeros = valor.replace(/\D/g, "");
+
+    if (tipo === "cpf" && numeros.length !== 11) return false;
+    if (tipo === "cnpj" && numeros.length !== 14) return false;
+    if (/^(\d)\1+$/.test(numeros)) return false;
+
+    return true;
+}
+
+async function PRIMEIRAPAG_Login_func_verificarDocumentoInicial() {
+    const btn = document.getElementById('PRIMEIRAPAG_Login_btn_verificar_documento');
+    const tipo = document.getElementById('PRIMEIRAPAG_Login_tipo_documento_inicial').value;
+    const documentoFormatado = document.getElementById('PRIMEIRAPAG_Login_input_documento_inicial').value.trim();
+    const documentoNumero = documentoFormatado.replace(/\D/g, "");
+
+    if (!PRIMEIRAPAG_Login_var_termosAceitosAntesCadastro) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PRIMEIRAPAG_Login_error_verificar_documento',
+            'Antes de continuar, é necessário concordar com os termos.'
+        );
+    }
+
+    if (!PRIMEIRAPAG_Login_func_validarDocumentoInicial(tipo, documentoFormatado)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PRIMEIRAPAG_Login_error_verificar_documento',
+            tipo === "cpf" ? "Digite um CPF válido." : "Digite um CNPJ válido."
+        );
+    }
+
+    btn.disabled = true;
+    btn.innerText = "VERIFICANDO...";
+
+    try {
+        const consulta = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .where('documentoNumero', '==', documentoNumero)
+            .limit(1)
+            .get();
+
+        btn.disabled = false;
+        btn.innerText = "VERIFICAR E CONTINUAR";
+
+        if (!consulta.empty) {
+            const doc = consulta.docs[0];
+            const dados = doc.data();
+
+            if (dados.cadastroCompleto === true || dados.cadastroPrincipalConcluido === true || dados.cadastroRapidoConcluido === true) {
+                alert("Já encontramos um cadastro com esse CPF/CNPJ. Faça login ou fale com o suporte.");
+                PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+                return;
+            }
+        }
+
+        PRIMEIRAPAG_Login_var_documentoInicial = documentoNumero;
+
+        localStorage.setItem("TNP_MOB_TIPO_DOCUMENTO_INICIAL", tipo);
+        localStorage.setItem("TNP_MOB_DOCUMENTO_INICIAL", documentoNumero);
+        localStorage.setItem("TNP_MOB_DOCUMENTO_FORMATADO_INICIAL", documentoFormatado);
+        localStorage.setItem("TNP_MOB_TERMOS_ACEITOS", "true");
+
+        PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido');
+
+    } catch (erro) {
+        btn.disabled = false;
+        btn.innerText = "VERIFICAR E CONTINUAR";
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'PRIMEIRAPAG_Login_error_verificar_documento',
+            'Erro ao verificar cadastro: ' + erro.message
+        );
+    }
+}
 
                 // ========== TELA 2 E 3: CADASTRO RÁPIDO COM PREFIXO SEGUNDAPAG ==========
 
@@ -1557,6 +2022,7 @@
             const SEGUNDAPAG_Login_senha = document.getElementById('SEGUNDAPAG_Login_rapido_senha').value;
             const SEGUNDAPAG_Login_confirmarSenha = document.getElementById('SEGUNDAPAG_Login_rapido_confirmar_senha').value;
             const SEGUNDAPAG_Login_btn = document.getElementById('SEGUNDAPAG_Login_btn_criar_conta');
+			
 
             if (SEGUNDAPAG_Login_nome.length < 3) {
                 return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -1607,22 +2073,49 @@
                 await SEGUNDAPAG_Login_user.sendEmailVerification();
 
                 await PRIMEIRAPAG_Login_db.collection('usuarios').doc(SEGUNDAPAG_Login_user.uid).set({
-                    uid: SEGUNDAPAG_Login_user.uid,
-                    nome: SEGUNDAPAG_Login_nome,
-                    email: SEGUNDAPAG_Login_email,
-                    tipo: "passageiro",
-                    cadastroCompleto: false,
-                    emailVerificado: false,
-                    etapaCadastro: "confirmar_email",
-                    corridasIniciaisLiberadas: 3,
-                    corridasUsadasSemCadastro: 0,
-                    bloqueadoPorCadastro: false,
-                    status: {
-                        geral: "cadastro_rapido",
-                        atualizadoEm: new Date()
-                    },
-                    criadoEm: new Date()
-                }, { merge: true });
+    uid: SEGUNDAPAG_Login_user.uid,
+    nome: SEGUNDAPAG_Login_nome,
+    email: SEGUNDAPAG_Login_email,
+    tipo: "passageiro",
+
+    // Documento informado antes do cadastro rápido
+    tipoDocumentoInicial: localStorage.getItem("TNP_MOB_TIPO_DOCUMENTO_INICIAL") || "",
+    documentoInicialNumero: localStorage.getItem("TNP_MOB_DOCUMENTO_INICIAL") || "",
+    documentoInicialFormatado: localStorage.getItem("TNP_MOB_DOCUMENTO_FORMATADO_INICIAL") || "",
+
+    // Aceite inicial dos termos
+    termosAceitos: localStorage.getItem("TNP_MOB_TERMOS_ACEITOS") === "true",
+    termosAceitosEm: new Date(),
+    versaoTermos: "1.0",
+
+    cadastroCompleto: false,
+    cadastroPrincipalConcluido: false,
+    cadastroRapidoConcluido: false,
+
+    emailVerificado: false,
+    etapaCadastro: "confirmar_email",
+
+    corridasIniciaisLiberadas: 3,
+    corridasUsadasSemCadastro: 0,
+
+    corridasSemTnpLimite: 10,
+    corridasUsadasSemTnp: 0,
+
+    idTnpInformado: false,
+    cadastroTnpConcluido: false,
+    pagamentoAppAtivo: false,
+
+    bloqueadoPorCadastro: false,
+    bloqueadoPorTnp: false,
+    bloqueadoPorPagamento: false,
+
+    status: {
+        geral: "cadastro_rapido",
+        atualizadoEm: new Date()
+    },
+
+    criadoEm: new Date()
+}, { merge: true });
 
                 document.getElementById('SEGUNDAPAG_Login_email_destino').innerText = SEGUNDAPAG_Login_email;
 
