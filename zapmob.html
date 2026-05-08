@@ -857,11 +857,11 @@
     <h3 class="PRIMEIRAPAG_Login_step_title">Confirmar WhatsApp</h3>
 
     <div class="PRIMEIRAPAG_Login_cadastro_info_box">
-        <h4>Segurança da sua conta</h4>
+		<h4>Segurança da sua conta</h4>
         <p>
-            Informe seu WhatsApp principal. Ele será usado para contato em corridas,
-            avisos importantes e segurança da comunidade TNP MoB.
-        </p>
+		Informe seu WhatsApp para receber o código de confirmação.
+		Depois confirme se seu telefone principal é o mesmo ou informe outro número.
+		</p>
     </div>
 
     <div class="PRIMEIRAPAG_Login_form_group">
@@ -873,6 +873,7 @@
             oninput="TERCEIRAPAG_Login_func_maskZap(this)"
         >
     </div>
+	
 	<div class="PRIMEIRAPAG_Login_aviso_analise">
     <label style="display:flex; align-items:center; gap:8px; justify-content:center; cursor:pointer;">
         <input
@@ -909,7 +910,7 @@
         <div class="PRIMEIRAPAG_Login_form_group">
             <label for="TERCEIRAPAG_Login_input_codigo">Código recebido</label>
             <input 
-                type="text" 
+                type="tel"  
                 id="TERCEIRAPAG_Login_input_codigo" 
                 placeholder="0000" 
                 maxlength="4"
@@ -917,13 +918,19 @@
         </div>
 
         <button 
-            id="TERCEIRAPAG_Login_btn_validar_zap"
-            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary" 
-            onclick="TERCEIRAPAG_Login_func_validarCodigoZap()"
-        >
-            VALIDAR WHATSAPP
-        </button>
+    id="TERCEIRAPAG_Login_btn_validar_zap"
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary" 
+    onclick="TERCEIRAPAG_Login_func_validarCodigoZap()"
+>
+    VALIDAR WHATSAPP
+</button>
 
+<button 
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+    onclick="TERCEIRAPAG_Login_func_corrigirWhatsapp()"
+>
+    CORRIGIR WHATSAPP
+</button>
 
     </div>
 
@@ -2122,9 +2129,6 @@ function TERCEIRAPAG_Login_func_toggleTelefonePrincipal() {
         TERCEIRAPAG_Login_inputTelefone.value = "";
     } else {
         TERCEIRAPAG_Login_boxTelefone.style.display = "block";
-		document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = true;
-		document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').disabled = true;
-		document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').innerText = "CÓDIGO ENVIADO";
         TERCEIRAPAG_Login_inputTelefone.focus();
     }
 }
@@ -2154,6 +2158,22 @@ function TERCEIRAPAG_Login_func_enviarCodigoZap() {
     );
 
     document.getElementById('TERCEIRAPAG_Login_area_codigo').style.display = "block";
+
+    document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = true;
+    document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').disabled = true;
+    document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').innerText = "CÓDIGO ENVIADO";
+}
+function TERCEIRAPAG_Login_func_corrigirWhatsapp() {
+    TERCEIRAPAG_Login_var_codigoZap = null;
+    TERCEIRAPAG_Login_var_whatsappValidado = false;
+
+    document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = false;
+    document.getElementById('TERCEIRAPAG_Login_input_codigo').value = "";
+    document.getElementById('TERCEIRAPAG_Login_area_codigo').style.display = "none";
+
+    const TERCEIRAPAG_Login_btnEnviar = document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap');
+    TERCEIRAPAG_Login_btnEnviar.disabled = false;
+    TERCEIRAPAG_Login_btnEnviar.innerText = "ENVIAR CÓDIGO VIA WHATSAPP";
 }
 
 async function TERCEIRAPAG_Login_func_validarCodigoZap() {
@@ -2195,6 +2215,12 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
             'Envie o código pelo WhatsApp primeiro.'
         );
     }
+	if (TERCEIRAPAG_Login_codigoDigitado.length !== 4) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'TERCEIRAPAG_Login_error_whatsapp',
+			'Digite o código de 4 números recebido no WhatsApp.'
+		);
+	}	
 
     if (TERCEIRAPAG_Login_codigoDigitado != TERCEIRAPAG_Login_var_codigoZap) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -2210,25 +2236,33 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
         );
     }
 
-    TERCEIRAPAG_Login_var_whatsappValidado = true;
+       TERCEIRAPAG_Login_var_whatsappValidado = true;
 
-    await PRIMEIRAPAG_Login_db.collection('usuarios').doc(TERCEIRAPAG_Login_user.uid).set({
-        whatsapp: TERCEIRAPAG_Login_whatsapp,
-        whatsappFormatado: TERCEIRAPAG_Login_whatsappFormatado,
-        whatsappValidado: true,
+    try {
+        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(TERCEIRAPAG_Login_user.uid).set({
+            whatsapp: TERCEIRAPAG_Login_whatsapp,
+            whatsappFormatado: TERCEIRAPAG_Login_whatsappFormatado,
+            whatsappValidado: true,
 
-        telefonePrincipal: TERCEIRAPAG_Login_telefonePrincipal,
-        telefonePrincipalFormatado: TERCEIRAPAG_Login_telefonePrincipalFormatado,
-        telefonePrincipalMesmoWhatsapp: TERCEIRAPAG_Login_mesmoTelefone,
+            telefonePrincipal: TERCEIRAPAG_Login_telefonePrincipal,
+            telefonePrincipalFormatado: TERCEIRAPAG_Login_telefonePrincipalFormatado,
+            telefonePrincipalMesmoWhatsapp: TERCEIRAPAG_Login_mesmoTelefone,
 
-        etapaCadastro: "tipo_conta",
-        status: {
-            geral: "cadastro_rapido",
-            atualizadoEm: new Date()
-        }
-    }, { merge: true });
+            etapaCadastro: "tipo_conta",
+            status: {
+                geral: "cadastro_rapido",
+                atualizadoEm: new Date()
+            }
+        }, { merge: true });
 
-    PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
+        PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
+
+    } catch (TERCEIRAPAG_Login_erro) {
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'TERCEIRAPAG_Login_error_whatsapp',
+            'Erro ao salvar WhatsApp: ' + TERCEIRAPAG_Login_erro.message
+        );
+    }
 }
 // ========== TELA 5: TIPO DE CONTA COM PREFIXO QUARTAPAG ==========
 
