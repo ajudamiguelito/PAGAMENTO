@@ -509,12 +509,13 @@
 
     <button
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-        onclick="PRIMEIRAPAG_Login_func_concordarTermos()"
+		onclick="PRIMEIRAPAG_Login_func_concordarTermos()"
     >
         CONCORDO
     </button>
 	<button
 			class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+			style="margin-bottom:16px;"
 			onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
 		>
 			TERMOS DE USO DO TNP MOB
@@ -581,7 +582,8 @@
 
     <button
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
+        style="margin-bottom:16px;"
+		onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
     >
         INÍCIO
     </button>
@@ -731,7 +733,7 @@
         <h4>Permissões importantes</h4>
         <p>
             Para funcionar melhor, o TNP MoB poderá solicitar permissões de localização,
-            câmera e notificações.
+            câmera e notificações...
         </p>
     </div>
 
@@ -752,7 +754,7 @@
     class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
     onclick="PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido')"
 >
-    AGORA NÃO
+    CONTINUAR SEM PERMITIR AGORA
 </button>
 
 </div>
@@ -767,14 +769,6 @@
     <div class="PRIMEIRAPAG_Login_error" id="SEGUNDAPAG_Login_error_cadastro_rapido"></div>
 
     <h3 class="PRIMEIRAPAG_Login_step_title">Cadastro rápido</h3>
-
-    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
-        <h4>Entre rápido no TNP MoB</h4>
-        <p>
-            Comece com o básico: nome, e-mail e senha. Depois enviaremos
-            um link de confirmação para seu e-mail.
-        </p>
-    </div>
 
     <div class="PRIMEIRAPAG_Login_form_group">
         <label for="SEGUNDAPAG_Login_rapido_nome">Nome completo</label>
@@ -807,9 +801,17 @@
         CONTINUAR
     </button>
 
-    <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
+    <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" style="margin-bottom:16px;" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
         VOLTAR
     </button>
+	
+	<div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Entre rápido no TNP MoB</h4>
+        <p>
+            Comece com o básico: nome, e-mail e senha. Depois enviaremos
+            um link de confirmação para seu e-mail.
+        </p>
+    </div>
 
 </div>
 
@@ -828,6 +830,8 @@
             <strong id="SEGUNDAPAG_Login_email_destino" style="color: var(--Fame_gold);">seu e-mail</strong>
             <br><br>
             Clique no link recebido e depois volte aqui para continuar.
+			<br><br>
+			Se não encontrar, verifique também a caixa de spam ou lixo eletrônico.
         </p>
     </div>
 
@@ -836,7 +840,7 @@
     </button>
 
     <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="SEGUNDAPAG_Login_func_reenviarEmailConfirmacao()">
-        REENVIAR LINK
+        REENVIAR E-MAIL
     </button>
 
     <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido')">
@@ -1838,40 +1842,49 @@ async function PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro() {
         }
 
         async function SEGUNDAPAG_Login_func_criarContaRapida() {
-            const SEGUNDAPAG_Login_nome = document.getElementById('SEGUNDAPAG_Login_rapido_nome').value.trim();
-            const SEGUNDAPAG_Login_email = document.getElementById('SEGUNDAPAG_Login_rapido_email').value.trim();
-            const SEGUNDAPAG_Login_senha = document.getElementById('SEGUNDAPAG_Login_rapido_senha').value;
-            const SEGUNDAPAG_Login_confirmarSenha = document.getElementById('SEGUNDAPAG_Login_rapido_confirmar_senha').value;
-            const SEGUNDAPAG_Login_btn = document.getElementById('SEGUNDAPAG_Login_btn_criar_conta');
-			
+    const SEGUNDAPAG_Login_nome = document.getElementById('SEGUNDAPAG_Login_rapido_nome').value.trim();
+    const SEGUNDAPAG_Login_email = document.getElementById('SEGUNDAPAG_Login_rapido_email').value.trim();
+    const SEGUNDAPAG_Login_senha = document.getElementById('SEGUNDAPAG_Login_rapido_senha').value;
+    const SEGUNDAPAG_Login_confirmarSenha = document.getElementById('SEGUNDAPAG_Login_rapido_confirmar_senha').value;
+    const SEGUNDAPAG_Login_btn = document.getElementById('SEGUNDAPAG_Login_btn_criar_conta');
 
-            if (SEGUNDAPAG_Login_nome.length < 3) {
-                return PRIMEIRAPAG_Login_func_mostrarErro(
-                    'SEGUNDAPAG_Login_error_cadastro_rapido',
-                    'Digite seu nome completo com pelo menos 3 letras.'
-                );
-            }
+    // Segurança: impede criar conta se não passou pela tela de termos
+    if (localStorage.getItem("TNP_MOB_TERMOS_ACEITOS") !== "true") {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SEGUNDAPAG_Login_error_cadastro_rapido',
+            'Antes de criar sua conta, é necessário aceitar os termos de uso.'
+        );
+    }
 
-            if (!PRIMEIRAPAG_Login_func_isEmailValid(SEGUNDAPAG_Login_email)) {
-                return PRIMEIRAPAG_Login_func_mostrarErro(
-                    'SEGUNDAPAG_Login_error_cadastro_rapido',
-                    'Digite um e-mail válido.'
-                );
-            }
+    if (SEGUNDAPAG_Login_nome.length < 3) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SEGUNDAPAG_Login_error_cadastro_rapido',
+            'Digite seu nome completo com pelo menos 3 letras.'
+        );
+    }
 
-            if (!SEGUNDAPAG_Login_func_isSenhaForte(SEGUNDAPAG_Login_senha)) {
-                return PRIMEIRAPAG_Login_func_mostrarErro(
-                    'SEGUNDAPAG_Login_error_cadastro_rapido',
-                    'A senha precisa ter no mínimo 6 caracteres, com letra maiúscula, letra minúscula e número.'
-                );
-            }
+    if (!PRIMEIRAPAG_Login_func_isEmailValid(SEGUNDAPAG_Login_email)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SEGUNDAPAG_Login_error_cadastro_rapido',
+            'Digite um e-mail válido.'
+        );
+    }
 
-            if (SEGUNDAPAG_Login_senha !== SEGUNDAPAG_Login_confirmarSenha) {
-                return PRIMEIRAPAG_Login_func_mostrarErro(
-                    'SEGUNDAPAG_Login_error_cadastro_rapido',
-                    'As senhas não conferem.'
-                );
-            }
+    if (!SEGUNDAPAG_Login_func_isSenhaForte(SEGUNDAPAG_Login_senha)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SEGUNDAPAG_Login_error_cadastro_rapido',
+            'A senha precisa ter no mínimo 6 caracteres, com letra maiúscula, letra minúscula e número.'
+        );
+    }
+
+    if (SEGUNDAPAG_Login_senha !== SEGUNDAPAG_Login_confirmarSenha) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SEGUNDAPAG_Login_error_cadastro_rapido',
+            'As senhas não conferem.'
+        );
+    }
+
+           
 
             SEGUNDAPAG_Login_btn.disabled = true;
             SEGUNDAPAG_Login_btn.innerText = "CRIANDO CONTA...";
@@ -1898,12 +1911,7 @@ async function PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro() {
     nome: SEGUNDAPAG_Login_nome,
     email: SEGUNDAPAG_Login_email,
     tipo: "passageiro",
-
-    // Documento informado antes do cadastro rápido
-    tipoDocumentoInicial: localStorage.getItem("TNP_MOB_TIPO_DOCUMENTO_INICIAL") || "",
-    documentoInicialNumero: localStorage.getItem("TNP_MOB_DOCUMENTO_INICIAL") || "",
-    documentoInicialFormatado: localStorage.getItem("TNP_MOB_DOCUMENTO_FORMATADO_INICIAL") || "",
-
+	
     // Aceite inicial dos termos
     termosAceitos: localStorage.getItem("TNP_MOB_TERMOS_ACEITOS") === "true",
     termosAceitosEm: new Date(),
@@ -2000,7 +2008,7 @@ async function PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro() {
 
                     return PRIMEIRAPAG_Login_func_mostrarErro(
                         'SEGUNDAPAG_Login_error_confirmar_email',
-                        'O e-mail ainda não foi confirmado. Clique no link enviado para sua caixa de entrada.'
+                        'O e-mail ainda não foi confirmado. Clique no link enviado e depois volte aqui. Verifique também a caixa de spam ou lixo eletrônico.'
                     );
                 }
 
