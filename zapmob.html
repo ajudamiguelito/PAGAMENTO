@@ -488,8 +488,7 @@
 				</button>
 
                 <div class="PRIMEIRAPAG_Login_aviso_analise">
-                    Passageiros podem iniciar com cadastro rápido e até 3 corridas liberadas.
-                    Motoristas precisam de análise antes de aceitar corridas.
+                    Que Deus abençoe sua viagem em nome de Jesus Cristo 🙏
                 </div>
 
                 <div class="PRIMEIRAPAG_Login_footer_suporte">
@@ -506,7 +505,23 @@
 
     <h3 class="PRIMEIRAPAG_Login_step_title">Privacidade e uso</h3>
 
-    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+    
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_concordarTermos()"
+    >
+        CONCORDO
+    </button>
+	<button
+			class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+			onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
+		>
+			TERMOS DE USO DO TNP MOB
+		</button>
+  
+	
+	<div class="PRIMEIRAPAG_Login_cadastro_info_box">
         <h4>Antes de continuar</h4>
         <p>
             Para criar sua conta no TNP MoB, você precisa concordar com nossos Termos de Uso,
@@ -518,22 +533,8 @@
         Ao continuar, você confirma que seus dados serão usados para segurança da plataforma,
         funcionamento das corridas, comunicação, verificação de conta e benefícios vinculados ao TNP MoB.
     </div>
-
-    <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_lista_termos')"
-    >
-        TERMOS DE USO DO TNP MOB
-    </button>
-
-    <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-        onclick="PRIMEIRAPAG_Login_func_concordarTermos()"
-    >
-        CONCORDO
-    </button>
-
-    <button
+	
+	  <button
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
     >
@@ -548,13 +549,7 @@
 
     <h3 class="PRIMEIRAPAG_Login_step_title">Termos de uso do TNP MoB</h3>
 
-    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
-        <h4>Escolha o que deseja ler</h4>
-        <p>
-            Você pode abrir cada tópico para entender melhor as regras.
-            Depois volte ao início para concordar e continuar.
-        </p>
-    </div>
+   
 
     <button
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
@@ -590,6 +585,14 @@
     >
         INÍCIO
     </button>
+	
+	 <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Escolha o que deseja ler</h4>
+        <p>
+            Você pode abrir cada tópico para entender melhor as regras.
+            Depois volte ao início para concordar e continuar.
+        </p>
+    </div>
 
 </div>
 
@@ -746,78 +749,17 @@
     </button>
 
     <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_verificar_documento')"
-    >
-        AGORA NÃO
-    </button>
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+    onclick="PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido')"
+>
+    AGORA NÃO
+</button>
 
 </div>
 
 
-<!-- TELA 1.8: VERIFICAR CPF/CNPJ -->
-<div id="PRIMEIRAPAG_Login_screen_verificar_documento" class="PRIMEIRAPAG_Login_screen">
-
-    <div class="PRIMEIRAPAG_Login_error" id="PRIMEIRAPAG_Login_error_verificar_documento"></div>
-
-    <h3 class="PRIMEIRAPAG_Login_step_title">Verificar CPF/CNPJ</h3>
-
-    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
-        <h4>Evite cadastro duplicado</h4>
-        <p>
-            Informe seu CPF ou CNPJ para verificarmos se já existe cadastro no TNP MoB.
-            Se você já começou antes, poderá continuar de onde parou.
-        </p>
-    </div>
-
-    <input type="hidden" id="PRIMEIRAPAG_Login_tipo_documento_inicial" value="cpf">
-
-    <div class="PRIMEIRAPAG_Login_tipo_cards">
-        <div
-            id="PRIMEIRAPAG_Login_card_doc_cpf"
-            class="PRIMEIRAPAG_Login_tipo_card active"
-            onclick="PRIMEIRAPAG_Login_func_selecionarDocumentoInicial('cpf')"
-        >
-            CPF
-        </div>
-
-        <div
-            id="PRIMEIRAPAG_Login_card_doc_cnpj"
-            class="PRIMEIRAPAG_Login_tipo_card"
-            onclick="PRIMEIRAPAG_Login_func_selecionarDocumentoInicial('cnpj')"
-        >
-            CNPJ
-        </div>
-    </div>
-
-    <div class="PRIMEIRAPAG_Login_form_group" style="margin-top:18px;">
-        <label id="PRIMEIRAPAG_Login_label_documento_inicial" for="PRIMEIRAPAG_Login_input_documento_inicial">CPF</label>
-        <input
-            type="tel"
-            id="PRIMEIRAPAG_Login_input_documento_inicial"
-            placeholder="Digite seu CPF"
-            oninput="PRIMEIRAPAG_Login_func_maskDocumentoInicial(this)"
-        >
-    </div>
-
-    <button
-        id="PRIMEIRAPAG_Login_btn_verificar_documento"
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-        onclick="PRIMEIRAPAG_Login_func_verificarDocumentoInicial()"
-    >
-        VERIFICAR E CONTINUAR
-    </button>
-
-    <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')"
-    >
-        VOLTAR
-    </button>
-
-</div>			
-			
-			
+<!-- TELA 1.8: VERIFICAR CPF/CNPJ apagou pra melhora -->
+	
 
             <!-- TELA 2: CADASTRO RÁPIDO - FUNCIONANDO -->
 <div id="SEGUNDAPAG_Login_screen_cadastro_rapido" class="PRIMEIRAPAG_Login_screen">
@@ -1862,14 +1804,14 @@
 		
 		
 		
-		// ========== TELAS INICIAIS: TERMOS, PERMISSÕES E VERIFICAÇÃO CPF/CNPJ ==========
+// ========== TELAS INICIAIS: TERMOS E PERMISSÕES parte foi apagado pra melhor controle==========
 
 let PRIMEIRAPAG_Login_var_termosAceitosAntesCadastro = false;
-let PRIMEIRAPAG_Login_var_documentoInicial = "";
-let PRIMEIRAPAG_Login_var_tipoDocumentoInicial = "cpf";
 
 function PRIMEIRAPAG_Login_func_concordarTermos() {
     PRIMEIRAPAG_Login_var_termosAceitosAntesCadastro = true;
+    localStorage.setItem("TNP_MOB_TERMOS_ACEITOS", "true");
+
     PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_permissoes');
 }
 
@@ -1880,128 +1822,7 @@ async function PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro() {
         }
     } catch (e) {}
 
-    PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_verificar_documento');
-}
-
-function PRIMEIRAPAG_Login_func_selecionarDocumentoInicial(PRIMEIRAPAG_tipo) {
-    PRIMEIRAPAG_Login_var_tipoDocumentoInicial = PRIMEIRAPAG_tipo;
-
-    document.getElementById('PRIMEIRAPAG_Login_tipo_documento_inicial').value = PRIMEIRAPAG_tipo;
-
-    const cardCpf = document.getElementById('PRIMEIRAPAG_Login_card_doc_cpf');
-    const cardCnpj = document.getElementById('PRIMEIRAPAG_Login_card_doc_cnpj');
-    const input = document.getElementById('PRIMEIRAPAG_Login_input_documento_inicial');
-
-    cardCpf.classList.remove('active');
-    cardCnpj.classList.remove('active');
-
-    input.value = "";
-
-    if (PRIMEIRAPAG_tipo === "cpf") {
-        cardCpf.classList.add('active');
-        document.getElementById('PRIMEIRAPAG_Login_label_documento_inicial').innerText = "CPF";
-        input.placeholder = "Digite seu CPF";
-    } else {
-        cardCnpj.classList.add('active');
-        document.getElementById('PRIMEIRAPAG_Login_label_documento_inicial').innerText = "CNPJ";
-        input.placeholder = "Digite seu CNPJ";
-    }
-}
-
-function PRIMEIRAPAG_Login_func_maskDocumentoInicial(input) {
-    const tipo = document.getElementById('PRIMEIRAPAG_Login_tipo_documento_inicial').value;
-    let valor = input.value.replace(/\D/g, "");
-
-    if (tipo === "cpf") {
-        if (valor.length > 11) valor = valor.substring(0, 11);
-
-        valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
-        valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
-        valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    } else {
-        if (valor.length > 14) valor = valor.substring(0, 14);
-
-        valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
-        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
-        valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
-        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
-    }
-
-    input.value = valor;
-}
-
-function PRIMEIRAPAG_Login_func_validarDocumentoInicial(tipo, valor) {
-    const numeros = valor.replace(/\D/g, "");
-
-    if (tipo === "cpf" && numeros.length !== 11) return false;
-    if (tipo === "cnpj" && numeros.length !== 14) return false;
-    if (/^(\d)\1+$/.test(numeros)) return false;
-
-    return true;
-}
-
-async function PRIMEIRAPAG_Login_func_verificarDocumentoInicial() {
-    const btn = document.getElementById('PRIMEIRAPAG_Login_btn_verificar_documento');
-    const tipo = document.getElementById('PRIMEIRAPAG_Login_tipo_documento_inicial').value;
-    const documentoFormatado = document.getElementById('PRIMEIRAPAG_Login_input_documento_inicial').value.trim();
-    const documentoNumero = documentoFormatado.replace(/\D/g, "");
-
-    if (!PRIMEIRAPAG_Login_var_termosAceitosAntesCadastro) {
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'PRIMEIRAPAG_Login_error_verificar_documento',
-            'Antes de continuar, é necessário concordar com os termos.'
-        );
-    }
-
-    if (!PRIMEIRAPAG_Login_func_validarDocumentoInicial(tipo, documentoFormatado)) {
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'PRIMEIRAPAG_Login_error_verificar_documento',
-            tipo === "cpf" ? "Digite um CPF válido." : "Digite um CNPJ válido."
-        );
-    }
-
-    btn.disabled = true;
-    btn.innerText = "VERIFICANDO...";
-
-    try {
-        const consulta = await PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .where('documentoNumero', '==', documentoNumero)
-            .limit(1)
-            .get();
-
-        btn.disabled = false;
-        btn.innerText = "VERIFICAR E CONTINUAR";
-
-        if (!consulta.empty) {
-            const doc = consulta.docs[0];
-            const dados = doc.data();
-
-            if (dados.cadastroCompleto === true || dados.cadastroPrincipalConcluido === true || dados.cadastroRapidoConcluido === true) {
-                alert("Já encontramos um cadastro com esse CPF/CNPJ. Faça login ou fale com o suporte.");
-                PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
-                return;
-            }
-        }
-
-        PRIMEIRAPAG_Login_var_documentoInicial = documentoNumero;
-
-        localStorage.setItem("TNP_MOB_TIPO_DOCUMENTO_INICIAL", tipo);
-        localStorage.setItem("TNP_MOB_DOCUMENTO_INICIAL", documentoNumero);
-        localStorage.setItem("TNP_MOB_DOCUMENTO_FORMATADO_INICIAL", documentoFormatado);
-        localStorage.setItem("TNP_MOB_TERMOS_ACEITOS", "true");
-
-        PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido');
-
-    } catch (erro) {
-        btn.disabled = false;
-        btn.innerText = "VERIFICAR E CONTINUAR";
-
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'PRIMEIRAPAG_Login_error_verificar_documento',
-            'Erro ao verificar cadastro: ' + erro.message
-        );
-    }
+    PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido');
 }
 
                 // ========== TELA 2 E 3: CADASTRO RÁPIDO COM PREFIXO SEGUNDAPAG ==========
