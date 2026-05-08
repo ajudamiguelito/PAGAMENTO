@@ -873,6 +873,28 @@
             oninput="TERCEIRAPAG_Login_func_maskZap(this)"
         >
     </div>
+	<div class="PRIMEIRAPAG_Login_aviso_analise">
+    <label style="display:flex; align-items:center; gap:8px; justify-content:center; cursor:pointer;">
+        <input
+            type="checkbox"
+            id="TERCEIRAPAG_Login_check_mesmo_telefone"
+            checked
+            onchange="TERCEIRAPAG_Login_func_toggleTelefonePrincipal()"
+            style="width:auto;"
+        >
+        Meu telefone principal é o mesmo do WhatsApp
+    </label>
+</div>
+
+<div class="PRIMEIRAPAG_Login_form_group" id="TERCEIRAPAG_Login_box_telefone_principal" style="display:none;">
+    <label for="TERCEIRAPAG_Login_input_telefone_principal">Telefone principal</label>
+    <input
+        type="tel"
+        id="TERCEIRAPAG_Login_input_telefone_principal"
+        placeholder="(31) 9.9999-9999"
+        oninput="TERCEIRAPAG_Login_func_maskZap(this)"
+    >
+</div>
 
     <button 
         id="TERCEIRAPAG_Login_btn_enviar_zap"
@@ -901,6 +923,7 @@
         >
             VALIDAR WHATSAPP
         </button>
+
 
     </div>
 
@@ -2089,6 +2112,22 @@ function TERCEIRAPAG_Login_func_maskZap(TERCEIRAPAG_Login_input) {
         TERCEIRAPAG_Login_input.value = "(" + TERCEIRAPAG_Login_valor;
     }
 }
+function TERCEIRAPAG_Login_func_toggleTelefonePrincipal() {
+    const TERCEIRAPAG_Login_check = document.getElementById('TERCEIRAPAG_Login_check_mesmo_telefone');
+    const TERCEIRAPAG_Login_boxTelefone = document.getElementById('TERCEIRAPAG_Login_box_telefone_principal');
+    const TERCEIRAPAG_Login_inputTelefone = document.getElementById('TERCEIRAPAG_Login_input_telefone_principal');
+
+    if (TERCEIRAPAG_Login_check.checked) {
+        TERCEIRAPAG_Login_boxTelefone.style.display = "none";
+        TERCEIRAPAG_Login_inputTelefone.value = "";
+    } else {
+        TERCEIRAPAG_Login_boxTelefone.style.display = "block";
+		document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = true;
+		document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').disabled = true;
+		document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').innerText = "CÓDIGO ENVIADO";
+        TERCEIRAPAG_Login_inputTelefone.focus();
+    }
+}
 
 function TERCEIRAPAG_Login_func_enviarCodigoZap() {
     const TERCEIRAPAG_Login_whatsapp = document
@@ -2123,10 +2162,23 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
         .value
         .trim();
 
-    const TERCEIRAPAG_Login_whatsapp = document
+    const TERCEIRAPAG_Login_whatsappFormatado = document
         .getElementById('TERCEIRAPAG_Login_input_whatsapp')
         .value
-        .replace(/\D/g, "");
+        .trim();
+
+    const TERCEIRAPAG_Login_whatsapp = TERCEIRAPAG_Login_whatsappFormatado.replace(/\D/g, "");
+
+    const TERCEIRAPAG_Login_mesmoTelefone = document
+        .getElementById('TERCEIRAPAG_Login_check_mesmo_telefone')
+        .checked;
+
+    const TERCEIRAPAG_Login_telefonePrincipalFormatado = TERCEIRAPAG_Login_mesmoTelefone
+        ? TERCEIRAPAG_Login_whatsappFormatado
+        : document.getElementById('TERCEIRAPAG_Login_input_telefone_principal').value.trim();
+
+    const TERCEIRAPAG_Login_telefonePrincipal =
+        TERCEIRAPAG_Login_telefonePrincipalFormatado.replace(/\D/g, "");
 
     const TERCEIRAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
 
@@ -2151,11 +2203,24 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
         );
     }
 
+    if (!TERCEIRAPAG_Login_mesmoTelefone && TERCEIRAPAG_Login_telefonePrincipal.length < 10) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'TERCEIRAPAG_Login_error_whatsapp',
+            'Digite um telefone principal válido ou marque que é o mesmo do WhatsApp.'
+        );
+    }
+
     TERCEIRAPAG_Login_var_whatsappValidado = true;
 
     await PRIMEIRAPAG_Login_db.collection('usuarios').doc(TERCEIRAPAG_Login_user.uid).set({
         whatsapp: TERCEIRAPAG_Login_whatsapp,
+        whatsappFormatado: TERCEIRAPAG_Login_whatsappFormatado,
         whatsappValidado: true,
+
+        telefonePrincipal: TERCEIRAPAG_Login_telefonePrincipal,
+        telefonePrincipalFormatado: TERCEIRAPAG_Login_telefonePrincipalFormatado,
+        telefonePrincipalMesmoWhatsapp: TERCEIRAPAG_Login_mesmoTelefone,
+
         etapaCadastro: "tipo_conta",
         status: {
             geral: "cadastro_rapido",
