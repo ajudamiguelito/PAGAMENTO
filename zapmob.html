@@ -2380,7 +2380,7 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
     );
 }
 
-    let SETIMAPAG_Login_idade = null;
+       let SETIMAPAG_Login_idade = null;
 
     if (SETIMAPAG_Login_tipoDocumento === 'cpf') {
         SETIMAPAG_Login_idade = SETIMAPAG_Login_func_calcularIdade(SETIMAPAG_Login_dataDocumento);
@@ -2392,6 +2392,9 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
             );
         }
     }
+
+    const SETIMAPAG_Login_dataDocumentoIso =
+        SETIMAPAG_Login_func_converterDataBrParaIso(SETIMAPAG_Login_dataDocumento);
 
     SETIMAPAG_Login_btn.disabled = true;
     SETIMAPAG_Login_btn.innerText = "SALVANDO...";
@@ -2405,10 +2408,10 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
             nomeDocumento: SETIMAPAG_Login_nomeDocumento,
 
             dataNascimento: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumentoIso : "",
-			dataNascimentoFormatada: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumento : "",
+            dataNascimentoFormatada: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumento : "",
 
-			dataAbertura: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumentoIso : "",
-			dataAberturaFormatada: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumento : "",
+            dataAbertura: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumentoIso : "",
+            dataAberturaFormatada: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumento : "",
 
             idade: SETIMAPAG_Login_idade,
             genero: SETIMAPAG_Login_genero || "",
