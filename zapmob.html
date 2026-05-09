@@ -483,7 +483,7 @@
 
                 <p class="PRIMEIRAPAG_Login_novo_texto">Novo por aqui?</p>
 
-                <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade')">
+                <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_comecarCadastroNovo()">
 				COMEÇAR CADASTRO
 				</button>
 
@@ -1792,6 +1792,23 @@
             window.open(`https://wa.me/${PRIMEIRAPAG_numeroSuporte}?text=${PRIMEIRAPAG_msg}`, "_blank");
         }
 		
+async function PRIMEIRAPAG_Login_func_comecarCadastroNovo() {
+    try {
+        if (PRIMEIRAPAG_Login_auth.currentUser) {
+            await PRIMEIRAPAG_Login_auth.signOut();
+        }
+    } catch (e) {}
+
+    PRIMEIRAPAG_Login_func_limparErros();
+
+    document.getElementById('SEGUNDAPAG_Login_rapido_nome').value = "";
+    document.getElementById('SEGUNDAPAG_Login_rapido_email').value = "";
+    document.getElementById('SEGUNDAPAG_Login_rapido_senha').value = "";
+    document.getElementById('SEGUNDAPAG_Login_rapido_confirmar_senha').value = "";
+
+    PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade');
+}
+		
 		async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData) {
     const PRIMEIRAPAG_user = PRIMEIRAPAG_Login_auth.currentUser;
 
@@ -1870,71 +1887,94 @@
 }
 		
 
-        function PRIMEIRAPAG_Login_func_logar() {
-            const PRIMEIRAPAG_email = document.getElementById('PRIMEIRAPAG_Login_input_email').value.trim();
-            const PRIMEIRAPAG_pass = document.getElementById('PRIMEIRAPAG_Login_input_password').value;
-            const PRIMEIRAPAG_tipo = document.getElementById('PRIMEIRAPAG_Login_select_tipo_login').value;
+function PRIMEIRAPAG_Login_func_logar() {
+    const PRIMEIRAPAG_email = document.getElementById('PRIMEIRAPAG_Login_input_email').value.trim();
+    const PRIMEIRAPAG_pass = document.getElementById('PRIMEIRAPAG_Login_input_password').value;
+    const PRIMEIRAPAG_tipo = document.getElementById('PRIMEIRAPAG_Login_select_tipo_login').value;
 
-            if (!PRIMEIRAPAG_email || !PRIMEIRAPAG_pass) {
-                return PRIMEIRAPAG_Login_func_mostrarErro(
-                    'PRIMEIRAPAG_Login_error_main',
-                    'Preencha e-mail e senha para entrar.'
-                );
+    if (!PRIMEIRAPAG_email || !PRIMEIRAPAG_pass) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PRIMEIRAPAG_Login_error_main',
+            'Preencha e-mail e senha para entrar.'
+        );
+    }
+
+    if (!PRIMEIRAPAG_Login_func_isEmailValid(PRIMEIRAPAG_email)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PRIMEIRAPAG_Login_error_main',
+            'Digite um e-mail válido.'
+        );
+    }
+
+    PRIMEIRAPAG_Login_auth.signInWithEmailAndPassword(PRIMEIRAPAG_email, PRIMEIRAPAG_pass)
+        .then(async (userCredential) => {
+            const PRIMEIRAPAG_userAuth = userCredential.user;
+            const PRIMEIRAPAG_uid = PRIMEIRAPAG_userAuth.uid;
+
+            const PRIMEIRAPAG_docUsuario = await PRIMEIRAPAG_Login_db
+                .collection('usuarios')
+                .doc(PRIMEIRAPAG_uid)
+                .get();
+
+            if (!PRIMEIRAPAG_docUsuario.exists) {
+                if (!PRIMEIRAPAG_userAuth.emailVerified) {
+                    const emailDestino = document.getElementById('SEGUNDAPAG_Login_email_destino');
+
+                    if (emailDestino) {
+                        emailDestino.innerText = PRIMEIRAPAG_userAuth.email;
+                    }
+
+                    PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_confirmar_email');
+                    return;
+                }
+
+                PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido');
+                return;
             }
 
-            if (!PRIMEIRAPAG_Login_func_isEmailValid(PRIMEIRAPAG_email)) {
-                return PRIMEIRAPAG_Login_func_mostrarErro(
-                    'PRIMEIRAPAG_Login_error_main',
-                    'Digite um e-mail válido.'
-                );
+            const PRIMEIRAPAG_user = PRIMEIRAPAG_docUsuario.data();
+
+            if (PRIMEIRAPAG_tipo === 'passageiro') {
+                PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_user);
+                return;
             }
 
-            PRIMEIRAPAG_Login_auth.signInWithEmailAndPassword(PRIMEIRAPAG_email, PRIMEIRAPAG_pass)
-                .then(async (userCredential) => {
-                    const PRIMEIRAPAG_uid = userCredential.user.uid;
-                    const PRIMEIRAPAG_pasta = PRIMEIRAPAG_tipo === 'motorista' ? 'motoristas' : 'usuarios';
+            if (PRIMEIRAPAG_tipo === 'motorista') {
+                if (PRIMEIRAPAG_user.perfis && PRIMEIRAPAG_user.perfis.motorista === true) {
+                    const PRIMEIRAPAG_docMotorista = await PRIMEIRAPAG_Login_db
+                        .collection('motoristas')
+                        .doc(PRIMEIRAPAG_uid)
+                        .get();
 
-                    const PRIMEIRAPAG_doc = await PRIMEIRAPAG_Login_db.collection(PRIMEIRAPAG_pasta).doc(PRIMEIRAPAG_uid).get();
+                    if (PRIMEIRAPAG_docMotorista.exists) {
+                        const PRIMEIRAPAG_motorista = PRIMEIRAPAG_docMotorista.data();
+                        const PRIMEIRAPAG_statusMotorista = PRIMEIRAPAG_motorista.status
+                            ? PRIMEIRAPAG_motorista.status.geral
+                            : "";
 
-                    if (!PRIMEIRAPAG_doc.exists) {
-					if (PRIMEIRAPAG_tipo === 'passageiro') {
-					alert("Encontramos sua conta, mas seu cadastro rápido ainda não foi finalizado.");
-					PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido');
-					return;
-				}
-
-					alert("Encontramos sua conta, mas seu cadastro de motorista ainda não foi finalizado.");
-					PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido');
-					return;
-				}
-
-                    const PRIMEIRAPAG_user = PRIMEIRAPAG_doc.data();
-                    const PRIMEIRAPAG_status = typeof PRIMEIRAPAG_user.status === 'object'
-                        ? PRIMEIRAPAG_user.status.geral
-                        : PRIMEIRAPAG_user.status;
-
-                    if (PRIMEIRAPAG_tipo === 'passageiro') {
-						PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_user);
-					return;
-				}
-
-                    if (PRIMEIRAPAG_tipo === 'motorista') {
-                        if (PRIMEIRAPAG_status === "aprovado") {
+                        if (PRIMEIRAPAG_statusMotorista === "aprovado") {
                             PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_welcome_motorista');
                             return;
                         }
 
-                        alert("Seu cadastro de motorista está em análise. Você pode acessar o painel, mas ainda não poderá aceitar corridas.");
+                        alert("Seu cadastro de motorista está em análise ou incompleto.");
                         PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_welcome_motorista');
+                        return;
                     }
-                })
-                .catch(() => {
-                    PRIMEIRAPAG_Login_func_mostrarErro(
-                        'PRIMEIRAPAG_Login_error_main',
-                        'Erro ao entrar. Verifique seu e-mail e senha.'
-                    );
-                });
-        }
+                }
+
+                alert("Você ainda não iniciou ou concluiu o cadastro de motorista. Entre como passageiro para continuar.");
+                PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_user);
+                return;
+            }
+        })
+        .catch(() => {
+            PRIMEIRAPAG_Login_func_mostrarErro(
+                'PRIMEIRAPAG_Login_error_main',
+                'Erro ao entrar. Verifique seu e-mail e senha.'
+            );
+        });
+}
 		
 		
 		
