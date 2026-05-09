@@ -3063,10 +3063,8 @@ const SETIMAPAG_Login_payload = {
     etapaCadastroCompleto: "endereco",
     atualizadoEm: new Date(),
 
-    statusCadastroPassageiro: {
-        dadosPessoais: "concluido",
-        documentos: "pendente_ate_10_corridas"
-    }
+    "statusCadastroPassageiro.endereco": "concluido",
+	"statusCadastroPassageiro.comprovanteEndereco": "pendente_ate_10_corridas"
 };
 
 await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
@@ -3336,51 +3334,82 @@ async function OITAVAPAG_Login_func_salvarEndereco() {
     OITAVAPAG_Login_btn.disabled = true;
     OITAVAPAG_Login_btn.innerText = "SALVANDO...";
 
-    try {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(OITAVAPAG_Login_user.uid).set({
-            endereco: {
-                cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
-                cepFormatado: OITAVAPAG_Login_cep,
-                rua: OITAVAPAG_Login_rua,
-                bairro: OITAVAPAG_Login_bairro,
-                cidade: OITAVAPAG_Login_cidade,
-                estado: OITAVAPAG_Login_estado,
-                numero: OITAVAPAG_Login_numero,
-                complemento: OITAVAPAG_Login_complemento || "",
-                referencia: OITAVAPAG_Login_referencia || ""
-            },
+ try {
+    const OITAVAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(OITAVAPAG_Login_user.uid);
 
-            enderecoConcluido: true,
+    const OITAVAPAG_Login_payload = {
+        endereco: {
+            cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
+            cepFormatado: OITAVAPAG_Login_cep,
+            rua: OITAVAPAG_Login_rua,
+            bairro: OITAVAPAG_Login_bairro,
+            cidade: OITAVAPAG_Login_cidade,
+            estado: OITAVAPAG_Login_estado,
+            numero: OITAVAPAG_Login_numero,
+            complemento: OITAVAPAG_Login_complemento || "",
+            referencia: OITAVAPAG_Login_referencia || ""
+        },
 
-            comprovanteEnderecoPendente: true,
-            fotoEnderecoPendente: true,
-            limiteEnderecoFotoAteCorrida: 10,
+        enderecoConcluido: true,
 
-            etapaCadastroCompleto: "contato_emergencia",
-            atualizadoEm: new Date(),
+        comprovanteEnderecoPendente: true,
+        fotoEnderecoPendente: true,
+        limiteEnderecoFotoAteCorrida: 10,
 
-            statusCadastroPassageiro: {
-                endereco: "concluido",
-                comprovanteEndereco: "pendente_ate_10_corridas"
-            }
-        }, { merge: true });
+        etapaCadastroCompleto: "contato_emergencia",
+        atualizadoEm: new Date(),
 
-        OITAVAPAG_Login_btn.disabled = false;
-        OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+        "statusCadastroPassageiro.endereco": "concluido",
+        "statusCadastroPassageiro.comprovanteEndereco": "pendente_ate_10_corridas"
+    };
 
-        alert("Endereço salvo com sucesso. Agora vamos para o contato de emergência.");
+    await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
+        const OITAVAPAG_Login_userSnap = await transaction.get(OITAVAPAG_Login_userRef);
 
-        PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+        const OITAVAPAG_Login_dadosAtuais = OITAVAPAG_Login_userSnap.exists
+            ? OITAVAPAG_Login_userSnap.data()
+            : {};
 
-    } catch (OITAVAPAG_Login_erro) {
-        OITAVAPAG_Login_btn.disabled = false;
-        OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+        if (OITAVAPAG_Login_dadosAtuais.enderecoConcluido === true) {
+            const OITAVAPAG_Login_historicoRef = OITAVAPAG_Login_userRef
+                .collection('historicoAlteracoes')
+                .doc();
 
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'OITAVAPAG_Login_error_endereco',
-            'Erro ao salvar endereço: ' + OITAVAPAG_Login_erro.message
-        );
-    }
+            transaction.set(OITAVAPAG_Login_historicoRef, {
+                tipo: "endereco",
+                uid: OITAVAPAG_Login_user.uid,
+
+                dadosAntes: {
+                    endereco: OITAVAPAG_Login_dadosAtuais.endereco || {}
+                },
+
+                dadosDepois: {
+                    endereco: OITAVAPAG_Login_payload.endereco
+                },
+
+                alteradoEm: new Date()
+            });
+        }
+
+        transaction.set(OITAVAPAG_Login_userRef, OITAVAPAG_Login_payload, { merge: true });
+    });
+
+    OITAVAPAG_Login_btn.disabled = false;
+    OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+    PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+
+} catch (OITAVAPAG_Login_erro) {
+    OITAVAPAG_Login_btn.disabled = false;
+    OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'OITAVAPAG_Login_error_endereco',
+        'Erro ao salvar endereço: ' + OITAVAPAG_Login_erro.message
+    );
+}
 }		
 // ========== TELA 10: CONTATO DE EMERGÊNCIA COM PREFIXO NONAPAG ==========
 
@@ -3471,16 +3500,7 @@ async function NONAPAG_Login_func_salvarContatoEmergencia() {
         NONAPAG_Login_btn.disabled = false;
         NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
-        alert("Contato de emergência salvo com sucesso. Agora vamos revisar seus dados.");
-
 		DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-
-        /*
-            FUTURO:
-            Quando a Tela 11 estiver pronta, trocar por:
-            PRIMEIRAPAG_Login_func_irPara('DECIMAPAG_Login_screen_termos');
-        */
-
         
     } catch (NONAPAG_Login_erro) {
         NONAPAG_Login_btn.disabled = false;
@@ -3743,7 +3763,7 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
     }
 
     DECIMASEGUNDAPAG_Login_btn.disabled = true;
-    DECIMASEGUNDAPAG_Login_btn.innerText = "SALVANDO...";
+    DECIMASEGUNDAPAG_Login_btn.innerText = "SALVANDO ENDEREÇO...";
 
     try {
         await PRIMEIRAPAG_Login_db.collection('usuarios').doc(DECIMASEGUNDAPAG_Login_user.uid).set({
