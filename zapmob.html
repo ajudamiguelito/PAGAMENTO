@@ -959,24 +959,25 @@
 
     <input type="hidden" id="QUARTAPAG_Login_tipo_conta_escolhido" value="passageiro">
 
-    <div class="PRIMEIRAPAG_Login_tipo_cards">
-        <div id="QUARTAPAG_Login_card_passageiro" class="PRIMEIRAPAG_Login_tipo_card active" onclick="QUARTAPAG_Login_func_selecionarTipoConta('passageiro')">
-		<span>🙋</span>
-		Passageiro
-		<small style="display:block; font-size:0.68rem; margin-top:4px; color:var(--Fame_muted);">
-        Quero solicitar corridas
-		</small>
-		</div>
+ <div class="PRIMEIRAPAG_Login_tipo_cards">
+    <div id="QUARTAPAG_Login_card_passageiro" class="PRIMEIRAPAG_Login_tipo_card active" onclick="QUARTAPAG_Login_func_selecionarTipoConta('passageiro')">
+        <span>🙋</span>
+        Passageiro
+        <small style="display:block; font-size:0.68rem; margin-top:4px; color:var(--Fame_muted);">
+            Quero solicitar corridas
+        </small>
+    </div>
 
-<div id="QUARTAPAG_Login_card_motorista" class="PRIMEIRAPAG_Login_tipo_card" onclick="QUARTAPAG_Login_func_selecionarTipoConta('motorista')">
-    <span>🚗</span>
-    Motorista
-    <small style="display:block; font-size:0.68rem; margin-top:4px; color:var(--Fame_muted);">
-        Quero dirigir e também usar
-    </small>
+    <div id="QUARTAPAG_Login_card_motorista" class="PRIMEIRAPAG_Login_tipo_card" onclick="QUARTAPAG_Login_func_selecionarTipoConta('motorista')">
+        <span>🚗</span>
+        Motorista
+        <small style="display:block; font-size:0.68rem; margin-top:4px; color:var(--Fame_muted);">
+            Quero dirigir e também usar
+        </small>
+    </div>
 </div>
 
-    <div class="PRIMEIRAPAG_Login_aviso_analise" style="margin-top:18px;">
+<div class="PRIMEIRAPAG_Login_aviso_analise" style="margin-top:18px;">
     Passageiro: cadastro rápido, selfie de perfil e uso inicial com limite de segurança.
     <br><br>
     Motorista: também poderá usar como passageiro, mas só poderá aceitar corridas
@@ -1022,15 +1023,16 @@
     >
 
     <div id="QUINTAPAG_Login_preview_area" class="QUINTAPAG_Login_preview_area">
-        <img id="QUINTAPAG_Login_preview_img" class="QUINTAPAG_Login_preview_img">
-        <div id="QUINTAPAG_Login_info" class="QUINTAPAG_Login_info"></div>
-    </div>
-	<label
-    for="QUINTAPAG_Login_input_selfie"
-    class="QUINTAPAG_Login_file_label QUINTAPAG_Login_file_label_secundario"
->
-    TROCAR FOTO
-</label>
+    <img id="QUINTAPAG_Login_preview_img" class="QUINTAPAG_Login_preview_img">
+    <div id="QUINTAPAG_Login_info" class="QUINTAPAG_Login_info"></div>
+
+    <label
+        for="QUINTAPAG_Login_input_selfie"
+        class="QUINTAPAG_Login_file_label"
+    >
+        TROCAR FOTO
+    </label>
+</div>
 
     <button
         id="QUINTAPAG_Login_btn_confirmar_selfie"
