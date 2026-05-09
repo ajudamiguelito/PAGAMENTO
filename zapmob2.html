@@ -3110,6 +3110,47 @@ function SETIMAPAG_Login_func_maskData(SETIMAPAG_Login_input) {
     SETIMAPAG_Login_input.value = SETIMAPAG_Login_valor;
 }
 
+function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
+    const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
+    const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+
+    if (erroBox) {
+        erroBox.innerHTML = `
+            <div>Este CPF/CNPJ já está cadastrado em outra conta.</div>
+            <button
+                type="button"
+                onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
+                style="
+                    margin-top:10px;
+                    width:100%;
+                    padding:10px;
+                    border-radius:8px;
+                    border:1px solid rgba(197,169,141,0.45);
+                    background:transparent;
+                    color:#c5a98d;
+                    font-weight:700;
+                    cursor:pointer;
+                "
+            >
+                VOLTAR AO INÍCIO
+            </button>
+        `;
+
+        erroBox.style.display = 'block';
+        erroBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    if (inputDocumento) {
+        inputDocumento.disabled = false;
+        inputDocumento.readOnly = false;
+
+        setTimeout(() => {
+            inputDocumento.focus();
+            inputDocumento.select();
+        }, 300);
+    }
+}
+
 async function SETIMAPAG_Login_func_salvarDadosPessoais() {
     const SETIMAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const SETIMAPAG_Login_btn = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
@@ -3223,13 +3264,8 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
         SETIMAPAG_Login_btn.disabled = false;
         SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'SETIMAPAG_Login_error_dados_pessoais',
-            SETIMAPAG_Login_tipoDocumento === 'cpf'
-                ? 'Este CPF já está cadastrado em outra conta.'
-                : 'Este CNPJ já está cadastrado em outra conta.'
-        );
-    }
+        return SETIMAPAG_Login_func_mostrarDocumentoDuplicado();
+	}
 
     SETIMAPAG_Login_btn.innerText = "SALVANDO DADOS...";
 
@@ -3368,25 +3404,22 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
         );
     }
 
-    if (
-        SETIMAPAG_Login_msgErro.includes("permission") ||
-        SETIMAPAG_Login_msgErro.includes("PERMISSION_DENIED") ||
-        SETIMAPAG_Login_msgErro.includes("Missing or insufficient permissions") ||
-        SETIMAPAG_Login_msgErro.includes("already exists") ||
-        SETIMAPAG_Login_msgErro.includes("ALREADY_EXISTS")
-    ) {
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'SETIMAPAG_Login_error_dados_pessoais',
-            'Já existe um cadastro com este CPF/CNPJ. Faça login ou fale com o suporte.'
-        );
-    }
+   if (
+    SETIMAPAG_Login_msgErro.includes("permission") ||
+    SETIMAPAG_Login_msgErro.includes("PERMISSION_DENIED") ||
+    SETIMAPAG_Login_msgErro.includes("Missing or insufficient permissions") ||
+    SETIMAPAG_Login_msgErro.includes("already exists") ||
+    SETIMAPAG_Login_msgErro.includes("ALREADY_EXISTS")
+	) {
+    return SETIMAPAG_Login_func_mostrarDocumentoDuplicado();
+	}
 
     PRIMEIRAPAG_Login_func_mostrarErro(
         'SETIMAPAG_Login_error_dados_pessoais',
         'Erro ao salvar dados pessoais: ' + SETIMAPAG_Login_msgErro
     );
-}
-}
+	}
+	}
 
 // ========== TELA 9: ENDEREÇO DO PASSAGEIRO COM PREFIXO OITAVAPAG ==========
 
