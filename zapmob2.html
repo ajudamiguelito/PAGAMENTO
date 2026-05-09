@@ -2376,10 +2376,10 @@ function TERCEIRAPAG_Login_func_toggleTelefonePrincipal() {
     const TERCEIRAPAG_Login_inputTelefone = document.getElementById('TERCEIRAPAG_Login_input_telefone_principal');
 
     if (TERCEIRAPAG_Login_check.checked) {
-        TERCEIRAPAG_Login_boxTelefone.style.display = "none";
+        TERCEIRAPAG_Login_boxTelefone.classList.add('PRIMEIRAPAG_Login_hidden');
         TERCEIRAPAG_Login_inputTelefone.value = "";
     } else {
-        TERCEIRAPAG_Login_boxTelefone.style.display = "block";
+        TERCEIRAPAG_Login_boxTelefone.classList.remove('PRIMEIRAPAG_Login_hidden');
         TERCEIRAPAG_Login_inputTelefone.focus();
     }
 }
@@ -2408,7 +2408,7 @@ function TERCEIRAPAG_Login_func_enviarCodigoZap() {
         "_blank"
     );
 
-    document.getElementById('TERCEIRAPAG_Login_area_codigo').style.display = "block";
+    document.getElementById('TERCEIRAPAG_Login_area_codigo').classList.remove('PRIMEIRAPAG_Login_hidden');
 
     document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = true;
     document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap').disabled = true;
@@ -2420,7 +2420,7 @@ function TERCEIRAPAG_Login_func_corrigirWhatsapp() {
 
     document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = false;
     document.getElementById('TERCEIRAPAG_Login_input_codigo').value = "";
-    document.getElementById('TERCEIRAPAG_Login_area_codigo').style.display = "none";
+    document.getElementById('TERCEIRAPAG_Login_area_codigo').classList.add('PRIMEIRAPAG_Login_hidden');
 
     const TERCEIRAPAG_Login_btnEnviar = document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap');
     TERCEIRAPAG_Login_btnEnviar.disabled = false;
@@ -3116,10 +3116,10 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
     const SETIMAPAG_Login_tipoDocumento = document.getElementById('SETIMAPAG_Login_tipo_documento').value;
     const SETIMAPAG_Login_documento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj').value.trim();
     const SETIMAPAG_Login_nomeDocumento = document.getElementById('SETIMAPAG_Login_input_nome_documento').value.trim();
-    const SETIMAPAG_Login_dataDocumento = document.getElementById('SETIMAPAG_Login_input_data_documento').value;
+    const SETIMAPAG_Login_dataDocumento = document.getElementById('SETIMAPAG_Login_input_data_documento').value.trim();
     const SETIMAPAG_Login_genero = document.getElementById('SETIMAPAG_Login_select_genero').value;
-	const SETIMAPAG_Login_documentoNumero = SETIMAPAG_Login_documento.replace(/\D/g, "");
-	
+    const SETIMAPAG_Login_documentoNumero = SETIMAPAG_Login_documento.replace(/\D/g, "");
+
     if (!SETIMAPAG_Login_user) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
             'SETIMAPAG_Login_error_dados_pessoais',
@@ -3146,28 +3146,29 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
     }
 
     if (!SETIMAPAG_Login_func_dataBrValida(SETIMAPAG_Login_dataDocumento)) {
-    return PRIMEIRAPAG_Login_func_mostrarErro(
-        'SETIMAPAG_Login_error_dados_pessoais',
-        SETIMAPAG_Login_tipoDocumento === 'cpf'
-            ? 'Digite uma data de nascimento válida no formato DD/MM/AAAA.'
-            : 'Digite uma data de abertura válida no formato DD/MM/AAAA.'
-    );
-}
-const SETIMAPAG_Login_dataIsoTeste = SETIMAPAG_Login_func_converterDataBrParaIso(SETIMAPAG_Login_dataDocumento);
-const SETIMAPAG_Login_dataTeste = new Date(SETIMAPAG_Login_dataIsoTeste + "T00:00:00");
-const SETIMAPAG_Login_hojeTeste = new Date();
-SETIMAPAG_Login_hojeTeste.setHours(0, 0, 0, 0);
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            SETIMAPAG_Login_tipoDocumento === 'cpf'
+                ? 'Digite uma data de nascimento válida no formato DD/MM/AAAA.'
+                : 'Digite uma data de abertura válida no formato DD/MM/AAAA.'
+        );
+    }
 
-if (SETIMAPAG_Login_dataTeste > SETIMAPAG_Login_hojeTeste) {
-    return PRIMEIRAPAG_Login_func_mostrarErro(
-        'SETIMAPAG_Login_error_dados_pessoais',
-        SETIMAPAG_Login_tipoDocumento === 'cpf'
-            ? 'A data de nascimento não pode ser futura.'
-            : 'A data de abertura não pode ser futura.'
-    );
-}
+    const SETIMAPAG_Login_dataIsoTeste = SETIMAPAG_Login_func_converterDataBrParaIso(SETIMAPAG_Login_dataDocumento);
+    const SETIMAPAG_Login_dataTeste = new Date(SETIMAPAG_Login_dataIsoTeste + "T00:00:00");
+    const SETIMAPAG_Login_hojeTeste = new Date();
+    SETIMAPAG_Login_hojeTeste.setHours(0, 0, 0, 0);
 
-       let SETIMAPAG_Login_idade = null;
+    if (SETIMAPAG_Login_dataTeste > SETIMAPAG_Login_hojeTeste) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            SETIMAPAG_Login_tipoDocumento === 'cpf'
+                ? 'A data de nascimento não pode ser futura.'
+                : 'A data de abertura não pode ser futura.'
+        );
+    }
+
+    let SETIMAPAG_Login_idade = null;
 
     if (SETIMAPAG_Login_tipoDocumento === 'cpf') {
         SETIMAPAG_Login_idade = SETIMAPAG_Login_func_calcularIdade(SETIMAPAG_Login_dataDocumento);
@@ -3189,145 +3190,148 @@ if (SETIMAPAG_Login_dataTeste > SETIMAPAG_Login_hojeTeste) {
     try {
         const SETIMAPAG_Login_uid = SETIMAPAG_Login_user.uid;
 
-const SETIMAPAG_Login_userRef = PRIMEIRAPAG_Login_db
-    .collection('usuarios')
-    .doc(SETIMAPAG_Login_uid);
+        const SETIMAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(SETIMAPAG_Login_uid);
 
-const SETIMAPAG_Login_documentoId =
-    SETIMAPAG_Login_tipoDocumento + "_" + SETIMAPAG_Login_documentoNumero;
+        const SETIMAPAG_Login_documentoId =
+            SETIMAPAG_Login_tipoDocumento + "_" + SETIMAPAG_Login_documentoNumero;
 
-const SETIMAPAG_Login_indiceRef = PRIMEIRAPAG_Login_db
-    .collection('documentosUsuarios')
-    .doc(SETIMAPAG_Login_documentoId);
+        const SETIMAPAG_Login_indiceRef = PRIMEIRAPAG_Login_db
+            .collection('documentosUsuarios')
+            .doc(SETIMAPAG_Login_documentoId);
 
-const SETIMAPAG_Login_payload = {
-    tipoDocumento: SETIMAPAG_Login_tipoDocumento,
-    documentoNumero: SETIMAPAG_Login_documentoNumero,
-    documentoFormatado: SETIMAPAG_Login_documento,
-
-    nomeDocumento: SETIMAPAG_Login_nomeDocumento,
-
-    dataNascimento: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumentoIso : "",
-    dataNascimentoFormatada: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumento : "",
-
-    dataAbertura: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumentoIso : "",
-    dataAberturaFormatada: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumento : "",
-
-    idade: SETIMAPAG_Login_idade,
-    genero: SETIMAPAG_Login_genero || "",
-
-    dadosPessoaisConcluidos: true,
-
-    documentoIdentidadePendente: true,
-    selfieComDocumentoPendente: true,
-    limiteDocumentoAteCorrida: 10,
-
-    etapaCadastroCompleto: "endereco",
-    atualizadoEm: new Date(),
-
-    "statusCadastroPassageiro.endereco": "concluido",
-	"statusCadastroPassageiro.comprovanteEndereco": "pendente_ate_10_corridas"
-};
-
-await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
-    const SETIMAPAG_Login_userSnap = await transaction.get(SETIMAPAG_Login_userRef);
-    const SETIMAPAG_Login_indiceSnap = await transaction.get(SETIMAPAG_Login_indiceRef);
-
-    const SETIMAPAG_Login_dadosAtuais = SETIMAPAG_Login_userSnap.exists
-        ? SETIMAPAG_Login_userSnap.data()
-        : {};
-
-    if (
-        SETIMAPAG_Login_dadosAtuais.documentoNumero &&
-        SETIMAPAG_Login_dadosAtuais.documentoNumero !== SETIMAPAG_Login_documentoNumero
-    ) {
-        throw new Error("DOCUMENTO_NAO_PODE_ALTERAR");
-    }
-
-    if (
-        SETIMAPAG_Login_indiceSnap.exists &&
-        SETIMAPAG_Login_indiceSnap.data().uid !== SETIMAPAG_Login_uid
-    ) {
-        throw new Error("DOCUMENTO_JA_CADASTRADO");
-    }
-
-    if (!SETIMAPAG_Login_indiceSnap.exists) {
-        transaction.set(SETIMAPAG_Login_indiceRef, {
-            uid: SETIMAPAG_Login_uid,
+        const SETIMAPAG_Login_payload = {
             tipoDocumento: SETIMAPAG_Login_tipoDocumento,
             documentoNumero: SETIMAPAG_Login_documentoNumero,
             documentoFormatado: SETIMAPAG_Login_documento,
-            criadoEm: new Date()
+
+            nomeDocumento: SETIMAPAG_Login_nomeDocumento,
+
+            dataNascimento: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumentoIso : "",
+            dataNascimentoFormatada: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumento : "",
+
+            dataAbertura: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumentoIso : "",
+            dataAberturaFormatada: SETIMAPAG_Login_tipoDocumento === 'cnpj' ? SETIMAPAG_Login_dataDocumento : "",
+
+            idade: SETIMAPAG_Login_idade,
+            genero: SETIMAPAG_Login_genero || "",
+
+            dadosPessoaisConcluidos: true,
+
+            documentoIdentidadePendente: true,
+            selfieComDocumentoPendente: true,
+            limiteDocumentoAteCorrida: 10,
+
+            etapaCadastroCompleto: "endereco",
+            atualizadoEm: new Date(),
+
+            "statusCadastroPassageiro.dadosPessoais": "concluido",
+            "statusCadastroPassageiro.documentos": "pendente_ate_10_corridas"
+        };
+
+        await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
+            const SETIMAPAG_Login_userSnap = await transaction.get(SETIMAPAG_Login_userRef);
+
+            const SETIMAPAG_Login_dadosAtuais = SETIMAPAG_Login_userSnap.exists
+                ? SETIMAPAG_Login_userSnap.data()
+                : {};
+
+            if (
+                SETIMAPAG_Login_dadosAtuais.documentoNumero &&
+                SETIMAPAG_Login_dadosAtuais.documentoNumero !== SETIMAPAG_Login_documentoNumero
+            ) {
+                throw new Error("DOCUMENTO_NAO_PODE_ALTERAR");
+            }
+
+            if (!SETIMAPAG_Login_dadosAtuais.documentoNumero) {
+                transaction.create(SETIMAPAG_Login_indiceRef, {
+                    uid: SETIMAPAG_Login_uid,
+                    tipoDocumento: SETIMAPAG_Login_tipoDocumento,
+                    documentoNumero: SETIMAPAG_Login_documentoNumero,
+                    criadoEm: new Date()
+                });
+            }
+
+            if (SETIMAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true) {
+                const SETIMAPAG_Login_historicoRef = SETIMAPAG_Login_userRef
+                    .collection('historicoAlteracoes')
+                    .doc();
+
+                transaction.set(SETIMAPAG_Login_historicoRef, {
+                    tipo: "dados_pessoais",
+                    uid: SETIMAPAG_Login_uid,
+
+                    dadosAntes: {
+                        tipoDocumento: SETIMAPAG_Login_dadosAtuais.tipoDocumento || "",
+                        documentoNumero: SETIMAPAG_Login_dadosAtuais.documentoNumero || "",
+                        documentoFormatado: SETIMAPAG_Login_dadosAtuais.documentoFormatado || "",
+                        nomeDocumento: SETIMAPAG_Login_dadosAtuais.nomeDocumento || "",
+                        dataNascimento: SETIMAPAG_Login_dadosAtuais.dataNascimento || "",
+                        dataNascimentoFormatada: SETIMAPAG_Login_dadosAtuais.dataNascimentoFormatada || "",
+                        dataAbertura: SETIMAPAG_Login_dadosAtuais.dataAbertura || "",
+                        dataAberturaFormatada: SETIMAPAG_Login_dadosAtuais.dataAberturaFormatada || "",
+                        idade: SETIMAPAG_Login_dadosAtuais.idade || null,
+                        genero: SETIMAPAG_Login_dadosAtuais.genero || ""
+                    },
+
+                    dadosDepois: {
+                        tipoDocumento: SETIMAPAG_Login_payload.tipoDocumento,
+                        documentoNumero: SETIMAPAG_Login_payload.documentoNumero,
+                        documentoFormatado: SETIMAPAG_Login_payload.documentoFormatado,
+                        nomeDocumento: SETIMAPAG_Login_payload.nomeDocumento,
+                        dataNascimento: SETIMAPAG_Login_payload.dataNascimento,
+                        dataNascimentoFormatada: SETIMAPAG_Login_payload.dataNascimentoFormatada,
+                        dataAbertura: SETIMAPAG_Login_payload.dataAbertura,
+                        dataAberturaFormatada: SETIMAPAG_Login_payload.dataAberturaFormatada,
+                        idade: SETIMAPAG_Login_payload.idade,
+                        genero: SETIMAPAG_Login_payload.genero
+                    },
+
+                    alteradoEm: new Date()
+                });
+            }
+
+            transaction.set(SETIMAPAG_Login_userRef, SETIMAPAG_Login_payload, { merge: true });
         });
-    }
-
-    if (SETIMAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true) {
-        const SETIMAPAG_Login_historicoRef = SETIMAPAG_Login_userRef
-            .collection('historicoAlteracoes')
-            .doc();
-
-        transaction.set(SETIMAPAG_Login_historicoRef, {
-            tipo: "dados_pessoais",
-            uid: SETIMAPAG_Login_uid,
-dadosAntes: {
-    tipoDocumento: SETIMAPAG_Login_dadosAtuais.tipoDocumento || "",
-    documentoNumero: SETIMAPAG_Login_dadosAtuais.documentoNumero || "",
-    documentoFormatado: SETIMAPAG_Login_dadosAtuais.documentoFormatado || "",
-    nomeDocumento: SETIMAPAG_Login_dadosAtuais.nomeDocumento || "",
-    dataNascimento: SETIMAPAG_Login_dadosAtuais.dataNascimento || "",
-    dataNascimentoFormatada: SETIMAPAG_Login_dadosAtuais.dataNascimentoFormatada || "",
-    dataAbertura: SETIMAPAG_Login_dadosAtuais.dataAbertura || "",
-    dataAberturaFormatada: SETIMAPAG_Login_dadosAtuais.dataAberturaFormatada || "",
-    idade: SETIMAPAG_Login_dadosAtuais.idade || null,
-    genero: SETIMAPAG_Login_dadosAtuais.genero || ""
-},
-dadosDepois: {
-    tipoDocumento: SETIMAPAG_Login_payload.tipoDocumento,
-    documentoNumero: SETIMAPAG_Login_payload.documentoNumero,
-    documentoFormatado: SETIMAPAG_Login_payload.documentoFormatado,
-    nomeDocumento: SETIMAPAG_Login_payload.nomeDocumento,
-    dataNascimento: SETIMAPAG_Login_payload.dataNascimento,
-    dataNascimentoFormatada: SETIMAPAG_Login_payload.dataNascimentoFormatada,
-    dataAbertura: SETIMAPAG_Login_payload.dataAbertura,
-    dataAberturaFormatada: SETIMAPAG_Login_payload.dataAberturaFormatada,
-    idade: SETIMAPAG_Login_payload.idade,
-    genero: SETIMAPAG_Login_payload.genero
-},
-            alteradoEm: new Date()
-        });
-    }
-
-    transaction.set(SETIMAPAG_Login_userRef, SETIMAPAG_Login_payload, { merge: true });
-});
 
         SETIMAPAG_Login_btn.disabled = false;
         SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
-		PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
-		
+
+        PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+
     } catch (SETIMAPAG_Login_erro) {
         SETIMAPAG_Login_btn.disabled = false;
         SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
-        if (SETIMAPAG_Login_erro.message === "DOCUMENTO_JA_CADASTRADO") {
-    return PRIMEIRAPAG_Login_func_mostrarErro(
-        'SETIMAPAG_Login_error_dados_pessoais',
-        'Já existe um cadastro com este CPF/CNPJ. Faça login ou fale com o suporte.'
-    );
-}
+        const SETIMAPAG_Login_msgErro = SETIMAPAG_Login_erro.message || "";
 
-if (SETIMAPAG_Login_erro.message === "DOCUMENTO_NAO_PODE_ALTERAR") {
-    return PRIMEIRAPAG_Login_func_mostrarErro(
-        'SETIMAPAG_Login_error_dados_pessoais',
-        'CPF/CNPJ não pode ser alterado por aqui. Para corrigir esse dado, fale com o suporte.'
-    );
-}
+        if (SETIMAPAG_Login_msgErro === "DOCUMENTO_NAO_PODE_ALTERAR") {
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'SETIMAPAG_Login_error_dados_pessoais',
+                'CPF/CNPJ não pode ser alterado por aqui. Para corrigir esse dado, fale com o suporte.'
+            );
+        }
 
-PRIMEIRAPAG_Login_func_mostrarErro(
-    'SETIMAPAG_Login_error_dados_pessoais',
-    'Erro ao salvar dados pessoais: ' + SETIMAPAG_Login_erro.message
-);
+        if (
+            SETIMAPAG_Login_msgErro.includes("permission") ||
+            SETIMAPAG_Login_msgErro.includes("PERMISSION_DENIED") ||
+            SETIMAPAG_Login_msgErro.includes("Missing or insufficient permissions") ||
+            SETIMAPAG_Login_msgErro.includes("already exists") ||
+            SETIMAPAG_Login_msgErro.includes("ALREADY_EXISTS")
+        ) {
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'SETIMAPAG_Login_error_dados_pessoais',
+                'Já existe um cadastro com este CPF/CNPJ. Faça login ou fale com o suporte.'
+            );
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'SETIMAPAG_Login_error_dados_pessoais',
+            'Erro ao salvar dados pessoais: ' + SETIMAPAG_Login_msgErro
+        );
     }
-}	
+}
 
 // ========== TELA 9: ENDEREÇO DO PASSAGEIRO COM PREFIXO OITAVAPAG ==========
 
