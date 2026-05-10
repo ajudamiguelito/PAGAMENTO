@@ -3110,46 +3110,6 @@ function SETIMAPAG_Login_func_maskData(SETIMAPAG_Login_input) {
     SETIMAPAG_Login_input.value = SETIMAPAG_Login_valor;
 }
 
-function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
-    const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
-    const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
-
-    if (erroBox) {
-        erroBox.innerHTML = `
-            <div>Este CPF/CNPJ já está cadastrado em outra conta.</div>
-            <button
-                type="button"
-                onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
-                style="
-                    margin-top:10px;
-                    width:100%;
-                    padding:10px;
-                    border-radius:8px;
-                    border:1px solid rgba(197,169,141,0.45);
-                    background:transparent;
-                    color:#c5a98d;
-                    font-weight:700;
-                    cursor:pointer;
-                "
-            >
-                VOLTAR AO INÍCIO
-            </button>
-        `;
-
-        erroBox.style.display = 'block';
-        erroBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    if (inputDocumento) {
-        inputDocumento.disabled = false;
-        inputDocumento.readOnly = false;
-
-        setTimeout(() => {
-            inputDocumento.focus();
-            inputDocumento.select();
-        }, 300);
-    }
-}
 function SETIMAPAG_Login_func_limparTelaDadosPessoais() {
     const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
     const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
@@ -3201,8 +3161,15 @@ function SETIMAPAG_Login_func_corrigirDocumentoDuplicado() {
     }
 }
 
-function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
+async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
     SETIMAPAG_Login_func_limparTelaDadosPessoais();
+
+    try {
+        await PRIMEIRAPAG_Login_auth.signOut();
+    } catch (e) {
+        console.warn("Erro ao sair:", e);
+    }
+
     PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
 }
 
@@ -3444,8 +3411,7 @@ if (SETIMAPAG_Login_erroBox) {
         criadoEm: new Date()
     });
 }
-        }
-
+        
         if (SETIMAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true) {
             const SETIMAPAG_Login_historicoRef = SETIMAPAG_Login_userRef
                 .collection('historicoAlteracoes')
