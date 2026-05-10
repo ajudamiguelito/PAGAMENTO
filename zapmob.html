@@ -1624,17 +1624,17 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
     <div class="PRIMEIRAPAG_Login_aviso_analise">
-        Documento com foto, foto segurando documento e comprovante de endereço
-        poderão ficar pendentes até 10 corridas.
+        Confira seus dados antes de continuar. 
+		Na próxima etapa você poderá informar seu ID TNP para ativar cashback e benefícios.
     </div>
 
     <button
-        id="DECIMAPRIMEIRAPAG_Login_btn_finalizar"
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-        onclick="DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal()"
-    >
-        FINALIZAR CADASTRO PRINCIPAL
-    </button>
+    id="DECIMAPRIMEIRAPAG_Login_btn_finalizar"
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+    onclick="DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal()"
+>
+    CONFIRMAR E CONTINUAR
+</button>
 
     <button
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
@@ -4028,32 +4028,65 @@ async function NONAPAG_Login_func_salvarContatoEmergencia() {
     }
 
     NONAPAG_Login_btn.disabled = true;
-    NONAPAG_Login_btn.innerText = "SALVANDO...";
+    NONAPAG_Login_btn.innerText = "SALVANDO CONTATO...";
 
-    try {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(NONAPAG_Login_user.uid).set({
-            contatoEmergencia: {
-                nome: NONAPAG_Login_nome,
-                whatsapp: NONAPAG_Login_whatsapp.replace(/\D/g, ""),
-                whatsappFormatado: NONAPAG_Login_whatsapp,
-                relacao: NONAPAG_Login_relacao
-            },
+try {
+    const NONAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(NONAPAG_Login_user.uid);
 
-            contatoEmergenciaConcluido: true,
-            etapaCadastroCompleto: "revisao_final",
-            atualizadoEm: new Date(),
+    const NONAPAG_Login_payload = {
+        contatoEmergencia: {
+            nome: NONAPAG_Login_nome,
+            whatsapp: NONAPAG_Login_whatsapp.replace(/\D/g, ""),
+            whatsappFormatado: NONAPAG_Login_whatsapp,
+            relacao: NONAPAG_Login_relacao
+        },
 
-            statusCadastroPassageiro: {
-                contatoEmergencia: "concluido"
-            }
-        }, { merge: true });
+        contatoEmergenciaConcluido: true,
+        etapaCadastroCompleto: "revisao_final",
+        atualizadoEm: new Date(),
 
-        NONAPAG_Login_btn.disabled = false;
-        NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+        "statusCadastroPassageiro.contatoEmergencia": "concluido"
+    };
 
-		DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-        
-    } catch (NONAPAG_Login_erro) {
+    await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
+        const NONAPAG_Login_userSnap = await transaction.get(NONAPAG_Login_userRef);
+
+        const NONAPAG_Login_dadosAtuais = NONAPAG_Login_userSnap.exists
+            ? NONAPAG_Login_userSnap.data()
+            : {};
+
+        if (NONAPAG_Login_dadosAtuais.contatoEmergenciaConcluido === true) {
+            const NONAPAG_Login_historicoRef = NONAPAG_Login_userRef
+                .collection('historicoAlteracoes')
+                .doc();
+
+            transaction.set(NONAPAG_Login_historicoRef, {
+                tipo: "contato_emergencia",
+                uid: NONAPAG_Login_user.uid,
+
+                dadosAntes: {
+                    contatoEmergencia: NONAPAG_Login_dadosAtuais.contatoEmergencia || {}
+                },
+
+                dadosDepois: {
+                    contatoEmergencia: NONAPAG_Login_payload.contatoEmergencia
+                },
+
+                alteradoEm: new Date()
+            });
+        }
+
+        transaction.set(NONAPAG_Login_userRef, NONAPAG_Login_payload, { merge: true });
+    });
+
+    NONAPAG_Login_btn.disabled = false;
+    NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+
+    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+
+} catch (NONAPAG_Login_erro) {
         NONAPAG_Login_btn.disabled = false;
         NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
@@ -4202,55 +4235,63 @@ async function DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal() {
     }
 
     DECIMAPRIMEIRAPAG_Login_btn.disabled = true;
-    DECIMAPRIMEIRAPAG_Login_btn.innerText = "FINALIZANDO...";
+    DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONTINUANDO...";
 
     try {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(DECIMAPRIMEIRAPAG_Login_user.uid).set({
-            cadastroPrincipalConcluido: true,
-            cadastroCompleto: true,
-            perfil100: false,
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(DECIMAPRIMEIRAPAG_Login_user.uid)
+            .set({
+                cadastroPrincipalConcluido: true,
 
-            etapaCadastroCompleto: "tnp",
-            idTnpInformado: false,
-            cadastroTnpConcluido: false,
+                // Só vira true depois da etapa TNP/cashback
+                cadastroCompleto: false,
+                perfil100: false,
 
-            documentosPendentes: true,
-            documentoIdentidadePendente: true,
-            selfieComDocumentoPendente: true,
-            comprovanteEnderecoPendente: true,
+                // Próxima etapa oficial
+                etapaCadastroCompleto: "tnp",
 
-            limiteDocumentoAteCorrida: 10,
-            limiteEnderecoFotoAteCorrida: 10,
-            corridasSemTnpLimite: 10,
+                // Etapa TNP
+                idTnpInformado: false,
+                cadastroTnpConcluido: false,
 
-            status: {
-                geral: "ativo_com_pendencias",
+                // Regra das 10 corridas sem TNP/pagamento
+                corridasSemTnpLimite: 10,
+                corridasUsadasSemTnp: 0,
+                bloqueadoPorTnp: false,
+
+                // Comprovante/endereço fica controlado internamente
+                comprovanteEnderecoPendente: true,
+                fotoEnderecoPendente: true,
+                limiteEnderecoFotoAteCorrida: 10,
+
+                // Etapa extra futura: selfie com documento
+                // Não entra como perfil incompleto agora
+                selfieDocumentoExtraPendente: true,
+                selfieDocumentoExtraConcluida: false,
+                limiteSelfieDocumentoExtraAteCorrida: 20,
+                bloqueadoPorSelfieDocumentoExtra: false,
+
+                status: {
+                    geral: "ativo_com_pendencias_leves",
+                    atualizadoEm: new Date()
+                },
+
                 atualizadoEm: new Date()
-            },
-
-            atualizadoEm: new Date()
-        }, { merge: true });
+            }, { merge: true });
 
         DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
-        DECIMAPRIMEIRAPAG_Login_btn.innerText = "FINALIZAR CADASTRO PRINCIPAL";
+        DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
 
-        alert("Cadastro principal finalizado. A próxima etapa será o cadastro TNP para cashback e benefícios.");
-		PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
-        /*
-            FUTURO:
-            Quando a Tela 12 TNP estiver pronta, trocar por:
-            PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
-        */
-
-        
+        PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
 
     } catch (DECIMAPRIMEIRAPAG_Login_erro) {
         DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
-        DECIMAPRIMEIRAPAG_Login_btn.innerText = "FINALIZAR CADASTRO PRINCIPAL";
+        DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
 
         PRIMEIRAPAG_Login_func_mostrarErro(
             'DECIMAPRIMEIRAPAG_Login_error_revisao',
-            'Erro ao finalizar cadastro: ' + DECIMAPRIMEIRAPAG_Login_erro.message
+            'Erro ao continuar: ' + DECIMAPRIMEIRAPAG_Login_erro.message
         );
     }
 }
@@ -4361,7 +4402,7 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
     }
 }
 	
-		
+
 		
 		
     </script>
