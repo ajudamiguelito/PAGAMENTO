@@ -1413,6 +1413,12 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     BUSCAR CEP
 </button>
 
+<div
+    id="OITAVAPAG_Login_status_cep"
+    class="QUINTAPAG_Login_info"
+    style="display:none; margin-top:8px;"
+></div>
+
     <div class="PRIMEIRAPAG_Login_form_group">
         <label for="OITAVAPAG_Login_input_rua">Rua / Avenida</label>
         <input
@@ -1478,8 +1484,8 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
     <div class="PRIMEIRAPAG_Login_aviso_analise">
-        A foto do comprovante de endereço poderá ficar pendente até 10 corridas.
-        Depois desse limite, ela poderá ser solicitada para manter sua conta completa.
+        Você pode melhor preencher agora. 
+		Isso é necessário para manter sua conta segura e completa.
     </div>
 
     <button
@@ -3688,6 +3694,7 @@ function OITAVAPAG_Login_func_maskCep(OITAVAPAG_Login_input) {
 async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false) {
     const OITAVAPAG_Login_cepInput = document.getElementById('OITAVAPAG_Login_input_cep');
     const OITAVAPAG_Login_btnSalvar = document.getElementById('OITAVAPAG_Login_btn_salvar_endereco');
+    const OITAVAPAG_Login_statusCep = document.getElementById('OITAVAPAG_Login_status_cep');
 
     const OITAVAPAG_Login_cepNumeros = OITAVAPAG_Login_cepInput.value.replace(/\D/g, "");
 
@@ -3697,6 +3704,11 @@ async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false
 
     if (OITAVAPAG_Login_cepNumeros.length !== 8) {
         if (OITAVAPAG_Login_silencioso) return;
+
+        if (OITAVAPAG_Login_statusCep) {
+            OITAVAPAG_Login_statusCep.style.display = 'none';
+            OITAVAPAG_Login_statusCep.innerText = '';
+        }
 
         return PRIMEIRAPAG_Login_func_mostrarErro(
             'OITAVAPAG_Login_error_endereco',
@@ -3715,7 +3727,11 @@ async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false
 
         if (OITAVAPAG_Login_btnSalvar) {
             OITAVAPAG_Login_btnSalvar.disabled = true;
-            OITAVAPAG_Login_btnSalvar.innerText = "BUSCANDO CEP...";
+        }
+
+        if (OITAVAPAG_Login_statusCep) {
+            OITAVAPAG_Login_statusCep.style.display = 'block';
+            OITAVAPAG_Login_statusCep.innerText = 'Buscando endereço, aguarde...';
         }
 
         const OITAVAPAG_Login_res = await fetch(
@@ -3733,6 +3749,11 @@ async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false
         }
 
         if (OITAVAPAG_Login_dados.erro) {
+            if (OITAVAPAG_Login_statusCep) {
+                OITAVAPAG_Login_statusCep.style.display = 'block';
+                OITAVAPAG_Login_statusCep.innerText = 'CEP não encontrado. Confira o número ou preencha manualmente.';
+            }
+
             return PRIMEIRAPAG_Login_func_mostrarErro(
                 'OITAVAPAG_Login_error_endereco',
                 'CEP não encontrado. Confira o número digitado.'
@@ -3751,6 +3772,11 @@ async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false
         document.getElementById('OITAVAPAG_Login_input_estado').value =
             OITAVAPAG_Login_dados.uf || "";
 
+        if (OITAVAPAG_Login_statusCep) {
+            OITAVAPAG_Login_statusCep.style.display = 'block';
+            OITAVAPAG_Login_statusCep.innerText = 'Endereço encontrado. Complete o número da residência.';
+        }
+
         document.getElementById('OITAVAPAG_Login_input_numero').focus();
 
     } catch (OITAVAPAG_Login_erro) {
@@ -3760,6 +3786,11 @@ async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false
         if (OITAVAPAG_Login_btnSalvar) {
             OITAVAPAG_Login_btnSalvar.disabled = false;
             OITAVAPAG_Login_btnSalvar.innerText = "SALVAR E CONTINUAR";
+        }
+
+        if (OITAVAPAG_Login_statusCep) {
+            OITAVAPAG_Login_statusCep.style.display = 'block';
+            OITAVAPAG_Login_statusCep.innerText = 'Não foi possível buscar o CEP agora. Preencha o endereço manualmente.';
         }
 
         PRIMEIRAPAG_Login_func_mostrarErro(
@@ -3823,6 +3854,19 @@ async function OITAVAPAG_Login_func_salvarEndereco() {
             'Informe o estado com 2 letras. Ex: MG, SP, RJ.'
         );
     }
+	
+	const OITAVAPAG_Login_ufsValidas = [
+    "AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS",
+    "MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC",
+    "SP","SE","TO"
+	];
+
+	if (!OITAVAPAG_Login_ufsValidas.includes(OITAVAPAG_Login_estado)) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'OITAVAPAG_Login_error_endereco',
+			'Informe um estado válido. Ex: MG, SP, RJ.'
+		);
+	}
 
     if (!OITAVAPAG_Login_numero) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -3835,24 +3879,26 @@ async function OITAVAPAG_Login_func_salvarEndereco() {
     OITAVAPAG_Login_btn.innerText = "SALVANDO...";
 
  try {
-    const OITAVAPAG_Login_userRef = PRIMEIRAPAG_Login_db
-        .collection('usuarios')
-        .doc(OITAVAPAG_Login_user.uid);
+const OITAVAPAG_Login_payload = {
+    endereco: {
+        cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
+        cepFormatado: OITAVAPAG_Login_cep,
+        rua: OITAVAPAG_Login_rua,
+        bairro: OITAVAPAG_Login_bairro,
+        cidade: OITAVAPAG_Login_cidade,
+        estado: OITAVAPAG_Login_estado,
+        numero: OITAVAPAG_Login_numero,
+        complemento: OITAVAPAG_Login_complemento || "",
+        referencia: OITAVAPAG_Login_referencia || ""
+    },
 
-    const OITAVAPAG_Login_payload = {
-        endereco: {
-            cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
-            cepFormatado: OITAVAPAG_Login_cep,
-            rua: OITAVAPAG_Login_rua,
-            bairro: OITAVAPAG_Login_bairro,
-            cidade: OITAVAPAG_Login_cidade,
-            estado: OITAVAPAG_Login_estado,
-            numero: OITAVAPAG_Login_numero,
-            complemento: OITAVAPAG_Login_complemento || "",
-            referencia: OITAVAPAG_Login_referencia || ""
-        },
+    enderecoFormatado:
+        `${OITAVAPAG_Login_rua}, ${OITAVAPAG_Login_numero}` +
+        `${OITAVAPAG_Login_complemento ? ' - ' + OITAVAPAG_Login_complemento : ''}` +
+        ` - ${OITAVAPAG_Login_bairro}, ${OITAVAPAG_Login_cidade}/${OITAVAPAG_Login_estado}` +
+        ` - CEP ${OITAVAPAG_Login_cep}`,
 
-        enderecoConcluido: true,
+    enderecoConcluido: true,
 
         comprovanteEnderecoPendente: true,
         fotoEnderecoPendente: true,
