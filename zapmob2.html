@@ -3150,8 +3150,132 @@ function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
         }, 300);
     }
 }
+function SETIMAPAG_Login_func_limparTelaDadosPessoais() {
+    const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
+    const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+    const inputNome = document.getElementById('SETIMAPAG_Login_input_nome_documento');
+    const inputData = document.getElementById('SETIMAPAG_Login_input_data_documento');
+    const inputGenero = document.getElementById('SETIMAPAG_Login_select_genero');
+
+    if (erroBox) {
+        erroBox.innerHTML = "";
+        erroBox.style.display = "none";
+    }
+
+    if (inputDocumento) {
+        inputDocumento.value = "";
+        inputDocumento.disabled = false;
+        inputDocumento.readOnly = false;
+    }
+
+    if (inputNome) {
+        inputNome.value = "";
+    }
+
+    if (inputData) {
+        inputData.value = "";
+    }
+
+    if (inputGenero) {
+        inputGenero.value = "";
+    }
+}
+
+function SETIMAPAG_Login_func_corrigirDocumentoDuplicado() {
+    const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
+    const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+
+    if (erroBox) {
+        erroBox.innerHTML = "";
+        erroBox.style.display = "none";
+    }
+
+    if (inputDocumento) {
+        inputDocumento.value = "";
+        inputDocumento.disabled = false;
+        inputDocumento.readOnly = false;
+
+        setTimeout(() => {
+            inputDocumento.focus();
+        }, 200);
+    }
+}
+
+function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
+    SETIMAPAG_Login_func_limparTelaDadosPessoais();
+    PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+}
+
+function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
+    const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
+    const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+
+    if (erroBox) {
+        erroBox.innerHTML = `
+            <div style="margin-bottom:10px;">
+                Este CPF/CNPJ já está cadastrado em outra conta.
+            </div>
+
+            <div style="
+                display:flex;
+                gap:8px;
+                flex-wrap:wrap;
+            ">
+                <button
+                    type="button"
+                    onclick="SETIMAPAG_Login_func_corrigirDocumentoDuplicado()"
+                    style="
+                        flex:1;
+                        min-width:120px;
+                        padding:10px;
+                        border-radius:8px;
+                        border:none;
+                        background:#c5a98d;
+                        color:#1e1b19;
+                        font-weight:700;
+                        cursor:pointer;
+                    "
+                >
+                    CORRIGIR CPF
+                </button>
+
+                <button
+                    type="button"
+                    onclick="SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado()"
+                    style="
+                        flex:1;
+                        min-width:120px;
+                        padding:10px;
+                        border-radius:8px;
+                        border:1px solid rgba(197,169,141,0.45);
+                        background:transparent;
+                        color:#c5a98d;
+                        font-weight:700;
+                        cursor:pointer;
+                    "
+                >
+                    VOLTAR AO INÍCIO
+                </button>
+            </div>
+        `;
+
+        erroBox.style.display = 'block';
+        erroBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    if (inputDocumento) {
+        inputDocumento.disabled = false;
+        inputDocumento.readOnly = false;
+    }
+}
 
 async function SETIMAPAG_Login_func_salvarDadosPessoais() {
+const SETIMAPAG_Login_erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
+
+if (SETIMAPAG_Login_erroBox) {
+    SETIMAPAG_Login_erroBox.innerHTML = "";
+    SETIMAPAG_Login_erroBox.style.display = "none";
+}
     const SETIMAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const SETIMAPAG_Login_btn = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
 
@@ -3313,12 +3437,13 @@ async function SETIMAPAG_Login_func_salvarDadosPessoais() {
         }
 
         if (!SETIMAPAG_Login_dadosAtuais.documentoNumero) {
-            transaction.create(SETIMAPAG_Login_indiceRef, {
-                uid: SETIMAPAG_Login_uid,
-                tipoDocumento: SETIMAPAG_Login_tipoDocumento,
-                documentoNumero: SETIMAPAG_Login_documentoNumero,
-                criadoEm: new Date()
-            });
+    transaction.set(SETIMAPAG_Login_indiceRef, {
+        uid: SETIMAPAG_Login_uid,
+        tipoDocumento: SETIMAPAG_Login_tipoDocumento,
+        documentoNumero: SETIMAPAG_Login_documentoNumero,
+        criadoEm: new Date()
+    });
+}
         }
 
         if (SETIMAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true) {
