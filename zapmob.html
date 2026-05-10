@@ -1166,6 +1166,12 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <img id="QUINTAPAG_Login_preview_img" class="QUINTAPAG_Login_preview_img">
     <div id="QUINTAPAG_Login_info" class="QUINTAPAG_Login_info"></div>
 
+    <div
+        id="QUINTAPAG_Login_status_selfie"
+        class="QUINTAPAG_Login_info"
+        style="display:none; margin-top:10px;"
+    ></div>
+
     <label
         for="QUINTAPAG_Login_input_selfie"
         class="QUINTAPAG_Login_file_label"
@@ -1179,7 +1185,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
         onclick="QUINTAPAG_Login_func_confirmarSelfie()"
     >
-        CONFIRMAR FOTO
+        ENVIAR FOTO
     </button>
 
     <button
@@ -2087,12 +2093,36 @@ function PRIMEIRAPAG_Login_func_logar() {
                 return;
             }
         })
-        .catch(() => {
-            PRIMEIRAPAG_Login_func_mostrarErro(
-                'PRIMEIRAPAG_Login_error_main',
-                'Erro ao entrar. Verifique seu e-mail e senha.'
-            );
-        });
+        .catch((erro) => {
+    console.error("ERRO REAL NO LOGIN:", erro.code, erro.message);
+
+    let mensagem = "Erro ao entrar. Verifique seu e-mail e senha.";
+
+    if (erro.code === "auth/invalid-credential") {
+        mensagem = "E-mail ou senha incorretos. Confira os dados ou use Esqueci minha senha.";
+    }
+
+    if (erro.code === "auth/wrong-password") {
+        mensagem = "Senha incorreta. Confira a senha ou use Esqueci minha senha.";
+    }
+
+    if (erro.code === "auth/user-not-found") {
+        mensagem = "Este e-mail ainda não possui cadastro.";
+    }
+
+    if (erro.code === "auth/too-many-requests") {
+        mensagem = "Muitas tentativas de login. Aguarde alguns minutos e tente novamente.";
+    }
+
+    if (erro.code === "auth/user-disabled") {
+        mensagem = "Esta conta está desativada. Fale com o suporte.";
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'PRIMEIRAPAG_Login_error_main',
+        mensagem
+    );
+});
 }
 		
 		
@@ -2663,7 +2693,26 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 let QUINTAPAG_Login_var_selfieProcessada = null;
 
 async function QUINTAPAG_Login_func_processarSelfie(QUINTAPAG_Login_input) {
+    const QUINTAPAG_Login_status = document.getElementById('QUINTAPAG_Login_status_selfie');
+    const QUINTAPAG_Login_previewArea = document.getElementById('QUINTAPAG_Login_preview_area');
+    const QUINTAPAG_Login_btnConfirmar = document.getElementById('QUINTAPAG_Login_btn_confirmar_selfie');
+
+    QUINTAPAG_Login_var_selfieProcessada = null;
+
+    QUINTAPAG_Login_btnConfirmar.style.display = 'none';
+    QUINTAPAG_Login_btnConfirmar.disabled = true;
+    QUINTAPAG_Login_btnConfirmar.innerText = 'ENVIAR FOTO';
+
+    if (QUINTAPAG_Login_status) {
+        QUINTAPAG_Login_status.style.display = 'block';
+        QUINTAPAG_Login_status.innerText = 'Processando foto, aguarde...';
+    }
+
     if (!QUINTAPAG_Login_input.files || !QUINTAPAG_Login_input.files[0]) {
+        if (QUINTAPAG_Login_status) {
+            QUINTAPAG_Login_status.style.display = 'none';
+        }
+
         return PRIMEIRAPAG_Login_func_mostrarErro(
             'QUINTAPAG_Login_error_selfie',
             'Nenhuma imagem selecionada.'
@@ -2673,33 +2722,61 @@ async function QUINTAPAG_Login_func_processarSelfie(QUINTAPAG_Login_input) {
     const QUINTAPAG_Login_arquivoOriginal = QUINTAPAG_Login_input.files[0];
 
     if (!QUINTAPAG_Login_arquivoOriginal.type.startsWith('image/')) {
+        if (QUINTAPAG_Login_status) {
+            QUINTAPAG_Login_status.style.display = 'none';
+        }
+
         return PRIMEIRAPAG_Login_func_mostrarErro(
             'QUINTAPAG_Login_error_selfie',
             'Selecione uma imagem válida.'
         );
     }
 
-    const QUINTAPAG_Login_tamanhoOriginalKB = (QUINTAPAG_Login_arquivoOriginal.size / 1024).toFixed(2);
+    try {
+        const QUINTAPAG_Login_tamanhoOriginalKB = (QUINTAPAG_Login_arquivoOriginal.size / 1024).toFixed(2);
 
-    const QUINTAPAG_Login_arquivoComprimido = await QUINTAPAG_Login_func_comprimirImagem(
-        QUINTAPAG_Login_arquivoOriginal,
-        0.75,
-        900,
-        900
-    );
+        const QUINTAPAG_Login_arquivoComprimido = await QUINTAPAG_Login_func_comprimirImagem(
+            QUINTAPAG_Login_arquivoOriginal,
+            0.75,
+            900,
+            900
+        );
 
-    QUINTAPAG_Login_var_selfieProcessada = QUINTAPAG_Login_arquivoComprimido;
+        QUINTAPAG_Login_var_selfieProcessada = QUINTAPAG_Login_arquivoComprimido;
 
-    const QUINTAPAG_Login_tamanhoFinalKB = (QUINTAPAG_Login_arquivoComprimido.size / 1024).toFixed(2);
+        const QUINTAPAG_Login_tamanhoFinalKB = (QUINTAPAG_Login_arquivoComprimido.size / 1024).toFixed(2);
 
-    const QUINTAPAG_Login_preview = document.getElementById('QUINTAPAG_Login_preview_img');
-    QUINTAPAG_Login_preview.src = URL.createObjectURL(QUINTAPAG_Login_arquivoComprimido);
+        const QUINTAPAG_Login_preview = document.getElementById('QUINTAPAG_Login_preview_img');
+        QUINTAPAG_Login_preview.src = URL.createObjectURL(QUINTAPAG_Login_arquivoComprimido);
 
-    document.getElementById('QUINTAPAG_Login_preview_area').style.display = 'block';
+        QUINTAPAG_Login_previewArea.style.display = 'block';
 
-    document.getElementById('QUINTAPAG_Login_info').innerHTML =
-        `Original: ${QUINTAPAG_Login_tamanhoOriginalKB} KB<br>` +
-        `Comprimida: ${QUINTAPAG_Login_tamanhoFinalKB} KB`;
+        document.getElementById('QUINTAPAG_Login_info').innerHTML =
+            `Original: ${QUINTAPAG_Login_tamanhoOriginalKB} KB<br>` +
+            `Comprimida: ${QUINTAPAG_Login_tamanhoFinalKB} KB`;
+
+        if (QUINTAPAG_Login_status) {
+            QUINTAPAG_Login_status.style.display = 'block';
+            QUINTAPAG_Login_status.innerText = 'Foto pronta. Agora toque em ENVIAR FOTO.';
+        }
+
+        QUINTAPAG_Login_btnConfirmar.style.display = 'block';
+        QUINTAPAG_Login_btnConfirmar.disabled = false;
+        QUINTAPAG_Login_btnConfirmar.innerText = 'ENVIAR FOTO';
+
+    } catch (erro) {
+        QUINTAPAG_Login_var_selfieProcessada = null;
+
+        if (QUINTAPAG_Login_status) {
+            QUINTAPAG_Login_status.style.display = 'block';
+            QUINTAPAG_Login_status.innerText = 'Não foi possível processar a foto. Tente tirar outra.';
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'QUINTAPAG_Login_error_selfie',
+            'Erro ao processar foto: ' + erro.message
+        );
+    }
 }
 
 function QUINTAPAG_Login_func_comprimirImagem(file, quality, maxWidth, maxHeight) {
@@ -2776,8 +2853,15 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
         );
     }
 
-    QUINTAPAG_Login_btn.disabled = true;
-    QUINTAPAG_Login_btn.innerText = "SALVANDO FOTO...";
+const QUINTAPAG_Login_status = document.getElementById('QUINTAPAG_Login_status_selfie');
+
+QUINTAPAG_Login_btn.disabled = true;
+QUINTAPAG_Login_btn.innerText = "ENVIANDO FOTO...";
+
+if (QUINTAPAG_Login_status) {
+    QUINTAPAG_Login_status.style.display = 'block';
+    QUINTAPAG_Login_status.innerText = 'Enviando foto para sua conta. Aguarde...';
+}
 
     try {
         const QUINTAPAG_Login_caminho = `usuarios/${QUINTAPAG_Login_user.uid}/foto-perfil.jpg`;
@@ -2816,13 +2900,13 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
 }, { merge: true });
 
         QUINTAPAG_Login_btn.disabled = false;
-        QUINTAPAG_Login_btn.innerText = "CONFIRMAR FOTO";
+        QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
 
         SEXTAPAG_Login_func_carregarAreaPassageiro();
 
     } catch (QUINTAPAG_Login_erro) {
         QUINTAPAG_Login_btn.disabled = false;
-        QUINTAPAG_Login_btn.innerText = "CONFIRMAR FOTO";
+        QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
 
         PRIMEIRAPAG_Login_func_mostrarErro(
             'QUINTAPAG_Login_error_selfie',
@@ -3213,14 +3297,14 @@ function SETIMAPAG_Login_func_corrigirDocumentoDuplicado() {
 }
 
 async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
-    const btnSalvar = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
-
-    if (btnSalvar) {
-        btnSalvar.disabled = true;
-        btnSalvar.innerText = "SAINDO...";
-    }
-
     SETIMAPAG_Login_func_limparTelaDadosPessoais();
+
+    const emailLogin = document.getElementById('PRIMEIRAPAG_Login_input_email');
+    const senhaLogin = document.getElementById('PRIMEIRAPAG_Login_input_password');
+
+    if (senhaLogin) {
+        senhaLogin.value = "";
+    }
 
     try {
         await PRIMEIRAPAG_Login_auth.signOut();
@@ -3228,12 +3312,13 @@ async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
         console.warn("Erro ao sair:", e);
     }
 
-    if (btnSalvar) {
-        btnSalvar.disabled = false;
-        btnSalvar.innerText = "SALVAR E CONTINUAR";
-    }
-
     PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+
+    if (emailLogin) {
+        setTimeout(() => {
+            emailLogin.focus();
+        }, 200);
+    }
 }
 
 function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
