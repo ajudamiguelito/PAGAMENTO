@@ -1965,37 +1965,39 @@ async function PRIMEIRAPAG_Login_func_comecarCadastroNovo() {
         return PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
     }
 
-    if (!cadastroRapidoConcluido || etapaCadastro === "entrada_app") {
-        return SEXTAPAG_Login_func_carregarAreaPassageiro();
-    }
+    if (!cadastroRapidoConcluido) {
+		return SEXTAPAG_Login_func_carregarAreaPassageiro();
+	}
 
-    if (!dadosPessoaisConcluidos || etapaCadastroCompleto === "dados_pessoais") {
-        return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
-    }
+// Se o usuário já começou o cadastro completo,
+// respeita a etapa em que ele parou.
+	if (etapaCadastroCompleto === "dados_pessoais" || !dadosPessoaisConcluidos) {
+		return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+	}
 
-    if (!enderecoConcluido || etapaCadastroCompleto === "endereco") {
-        return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
-    }
+	if (etapaCadastroCompleto === "endereco" || !enderecoConcluido) {
+		return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+	}
 
-    if (!contatoEmergenciaConcluido || etapaCadastroCompleto === "contato_emergencia") {
-        return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
-    }
+	if (etapaCadastroCompleto === "contato_emergencia" || !contatoEmergenciaConcluido) {
+		return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+	}
 
-    if (!cadastroPrincipalConcluido || etapaCadastroCompleto === "revisao_final") {
-        return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-    }
+	if (etapaCadastroCompleto === "revisao_final" || !cadastroPrincipalConcluido) {
+		return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+	}
 
-    if (!cadastroTnpConcluido || etapaCadastroCompleto === "tnp") {
-        return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
-    }
-
-    if (cadastroCompleto === true) {
+// TNP só força se a etapa estiver marcada como TNP.
+// A regra das 10 corridas pode ficar separada depois.
+	if (etapaCadastroCompleto === "tnp") {
+		return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
+	}
+		if (cadastroCompleto === true) {
         return SEXTAPAG_Login_func_carregarAreaPassageiro();
     }
 
     return SEXTAPAG_Login_func_carregarAreaPassageiro();
-}
-		
+	}
 
 function PRIMEIRAPAG_Login_func_logar() {
     const PRIMEIRAPAG_email = document.getElementById('PRIMEIRAPAG_Login_input_email').value.trim();
@@ -2927,15 +2929,51 @@ async function SEXTAPAG_Login_func_carregarAreaPassageiro() {
     }
 }
 
-function SEXTAPAG_Login_func_iniciarCadastroCompleto() {
-    const SEXTAPAG_Login_telaDados = document.getElementById('SETIMAPAG_Login_screen_dados_pessoais');
+async function SEXTAPAG_Login_func_iniciarCadastroCompleto() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
 
-    if (!SEXTAPAG_Login_telaDados) {
-        alert("A próxima etapa será a tela de dados pessoais. Vamos criar essa parte agora.");
-        return;
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
     }
 
-    PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+    try {
+        const doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        if (!doc.exists) {
+            return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+        }
+
+        const dados = doc.data();
+
+        if (dados.dadosPessoaisConcluidos !== true || dados.etapaCadastroCompleto === "dados_pessoais") {
+            return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+        }
+
+        if (dados.enderecoConcluido !== true || dados.etapaCadastroCompleto === "endereco") {
+            return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+        }
+
+        if (dados.contatoEmergenciaConcluido !== true || dados.etapaCadastroCompleto === "contato_emergencia") {
+            return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+        }
+
+        if (dados.cadastroPrincipalConcluido !== true || dados.etapaCadastroCompleto === "revisao_final") {
+            return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+        }
+
+        if (dados.etapaCadastroCompleto === "tnp" || dados.cadastroTnpConcluido !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
+        }
+
+        return SEXTAPAG_Login_func_carregarAreaPassageiro();
+
+    } catch (erro) {
+        console.error("Erro ao iniciar cadastro completo:", erro);
+        return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+    }
 }
 
 function SEXTAPAG_Login_func_continuarParaApp() {
@@ -3403,14 +3441,15 @@ if (SETIMAPAG_Login_erroBox) {
             throw new Error("DOCUMENTO_NAO_PODE_ALTERAR");
         }
 
-        if (!SETIMAPAG_Login_dadosAtuais.documentoNumero) {
-    transaction.set(SETIMAPAG_Login_indiceRef, {
-        uid: SETIMAPAG_Login_uid,
-        tipoDocumento: SETIMAPAG_Login_tipoDocumento,
-        documentoNumero: SETIMAPAG_Login_documentoNumero,
-        criadoEm: new Date()
-    });
-}
+            if (!SETIMAPAG_Login_dadosAtuais.documentoNumero) {
+            transaction.set(SETIMAPAG_Login_indiceRef, {
+                uid: SETIMAPAG_Login_uid,
+                tipoDocumento: SETIMAPAG_Login_tipoDocumento,
+                documentoNumero: SETIMAPAG_Login_documentoNumero,
+                criadoEm: new Date()
+            });
+        }
+
         
         if (SETIMAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true) {
             const SETIMAPAG_Login_historicoRef = SETIMAPAG_Login_userRef
