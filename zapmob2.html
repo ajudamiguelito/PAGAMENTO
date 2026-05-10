@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -2088,12 +2087,36 @@ function PRIMEIRAPAG_Login_func_logar() {
                 return;
             }
         })
-        .catch(() => {
-            PRIMEIRAPAG_Login_func_mostrarErro(
-                'PRIMEIRAPAG_Login_error_main',
-                'Erro ao entrar. Verifique seu e-mail e senha.'
-            );
-        });
+        .catch((erro) => {
+    console.error("ERRO REAL NO LOGIN:", erro.code, erro.message);
+
+    let mensagem = "Erro ao entrar. Verifique seu e-mail e senha.";
+
+    if (erro.code === "auth/invalid-credential") {
+        mensagem = "E-mail ou senha incorretos. Confira os dados ou use Esqueci minha senha.";
+    }
+
+    if (erro.code === "auth/wrong-password") {
+        mensagem = "Senha incorreta. Confira a senha ou use Esqueci minha senha.";
+    }
+
+    if (erro.code === "auth/user-not-found") {
+        mensagem = "Este e-mail ainda não possui cadastro.";
+    }
+
+    if (erro.code === "auth/too-many-requests") {
+        mensagem = "Muitas tentativas de login. Aguarde alguns minutos e tente novamente.";
+    }
+
+    if (erro.code === "auth/user-disabled") {
+        mensagem = "Esta conta está desativada. Fale com o suporte.";
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'PRIMEIRAPAG_Login_error_main',
+        mensagem
+    );
+});
 }
 		
 		
@@ -3214,14 +3237,14 @@ function SETIMAPAG_Login_func_corrigirDocumentoDuplicado() {
 }
 
 async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
-    const btnSalvar = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
-
-    if (btnSalvar) {
-        btnSalvar.disabled = true;
-        btnSalvar.innerText = "SAINDO...";
-    }
-
     SETIMAPAG_Login_func_limparTelaDadosPessoais();
+
+    const emailLogin = document.getElementById('PRIMEIRAPAG_Login_input_email');
+    const senhaLogin = document.getElementById('PRIMEIRAPAG_Login_input_password');
+
+    if (senhaLogin) {
+        senhaLogin.value = "";
+    }
 
     try {
         await PRIMEIRAPAG_Login_auth.signOut();
@@ -3229,12 +3252,13 @@ async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
         console.warn("Erro ao sair:", e);
     }
 
-    if (btnSalvar) {
-        btnSalvar.disabled = false;
-        btnSalvar.innerText = "SALVAR E CONTINUAR";
-    }
-
     PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+
+    if (emailLogin) {
+        setTimeout(() => {
+            emailLogin.focus();
+        }, 200);
+    }
 }
 
 function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
