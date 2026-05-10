@@ -3879,6 +3879,11 @@ async function OITAVAPAG_Login_func_salvarEndereco() {
     OITAVAPAG_Login_btn.innerText = "SALVANDO...";
 
  try {
+    
+	const OITAVAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(OITAVAPAG_Login_user.uid);
+		
 const OITAVAPAG_Login_payload = {
     endereco: {
         cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
