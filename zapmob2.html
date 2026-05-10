@@ -3189,6 +3189,7 @@ function SETIMAPAG_Login_func_limparTelaDadosPessoais() {
 function SETIMAPAG_Login_func_corrigirDocumentoDuplicado() {
     const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
     const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+    const btnSalvar = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
 
     if (erroBox) {
         erroBox.innerHTML = "";
@@ -3204,9 +3205,21 @@ function SETIMAPAG_Login_func_corrigirDocumentoDuplicado() {
             inputDocumento.focus();
         }, 200);
     }
+
+    if (btnSalvar) {
+        btnSalvar.disabled = false;
+        btnSalvar.innerText = "SALVAR E CONTINUAR";
+    }
 }
 
 async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
+    const btnSalvar = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
+
+    if (btnSalvar) {
+        btnSalvar.disabled = true;
+        btnSalvar.innerText = "SAINDO...";
+    }
+
     SETIMAPAG_Login_func_limparTelaDadosPessoais();
 
     try {
@@ -3215,12 +3228,28 @@ async function SETIMAPAG_Login_func_voltarInicioDocumentoDuplicado() {
         console.warn("Erro ao sair:", e);
     }
 
+    if (btnSalvar) {
+        btnSalvar.disabled = false;
+        btnSalvar.innerText = "SALVAR E CONTINUAR";
+    }
+
     PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
 }
 
 function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
     const erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
     const inputDocumento = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+    const btnSalvar = document.getElementById('SETIMAPAG_Login_btn_salvar_dados');
+
+    if (btnSalvar) {
+        btnSalvar.disabled = false;
+        btnSalvar.innerText = "SALVAR E CONTINUAR";
+    }
+
+    if (inputDocumento) {
+        inputDocumento.disabled = false;
+        inputDocumento.readOnly = false;
+    }
 
     if (erroBox) {
         erroBox.innerHTML = `
@@ -3273,11 +3302,6 @@ function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
 
         erroBox.style.display = 'block';
         erroBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    if (inputDocumento) {
-        inputDocumento.disabled = false;
-        inputDocumento.readOnly = false;
     }
 }
 
