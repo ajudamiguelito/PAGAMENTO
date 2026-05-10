@@ -1919,7 +1919,7 @@ async function PRIMEIRAPAG_Login_func_comecarCadastroNovo() {
     PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade');
 }
 		
-		async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData) {
+async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData) {
     const PRIMEIRAPAG_user = PRIMEIRAPAG_Login_auth.currentUser;
 
     if (!PRIMEIRAPAG_user) {
@@ -1942,9 +1942,11 @@ async function PRIMEIRAPAG_Login_func_comecarCadastroNovo() {
     const cadastroCompleto = PRIMEIRAPAG_userData.cadastroCompleto === true;
     const cadastroTnpConcluido = PRIMEIRAPAG_userData.cadastroTnpConcluido === true;
 
+    // 1. E-MAIL
     if (!emailVerificado || etapaCadastro === "confirmar_email") {
         if (PRIMEIRAPAG_user.email) {
             const emailDestino = document.getElementById('SEGUNDAPAG_Login_email_destino');
+
             if (emailDestino) {
                 emailDestino.innerText = PRIMEIRAPAG_user.email;
             }
@@ -1953,51 +1955,56 @@ async function PRIMEIRAPAG_Login_func_comecarCadastroNovo() {
         return PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_confirmar_email');
     }
 
+    // 2. WHATSAPP
     if (!whatsappValidado || etapaCadastro === "whatsapp") {
         return PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
     }
 
+    // 3. TIPO DE CONTA
     if (!tipoContaEscolhido || etapaCadastro === "tipo_conta") {
         return PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
     }
 
+    // 4. SELFIE
     if (!selfieEnviada || etapaCadastro === "selfie") {
         return PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
     }
 
+    // 5. CADASTRO RÁPIDO AINDA NÃO MARCADO COMO CONCLUÍDO
+    // Se chegou até aqui, e-mail, whatsapp, tipo e selfie já passaram.
+    // Então marca/manda para área do passageiro, mas só depois dessas etapas.
     if (!cadastroRapidoConcluido) {
-		return SEXTAPAG_Login_func_carregarAreaPassageiro();
-	}
+        return SEXTAPAG_Login_func_carregarAreaPassageiro();
+    }
 
-// Se o usuário já começou o cadastro completo,
-// respeita a etapa em que ele parou.
-	if (etapaCadastroCompleto === "dados_pessoais" || !dadosPessoaisConcluidos) {
-		return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
-	}
+    // 6. CADASTRO COMPLETO DO PASSAGEIRO
+    if (etapaCadastroCompleto === "dados_pessoais" || !dadosPessoaisConcluidos) {
+        return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+    }
 
-	if (etapaCadastroCompleto === "endereco" || !enderecoConcluido) {
-		return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
-	}
+    if (etapaCadastroCompleto === "endereco" || !enderecoConcluido) {
+        return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+    }
 
-	if (etapaCadastroCompleto === "contato_emergencia" || !contatoEmergenciaConcluido) {
-		return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
-	}
+    if (etapaCadastroCompleto === "contato_emergencia" || !contatoEmergenciaConcluido) {
+        return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+    }
 
-	if (etapaCadastroCompleto === "revisao_final" || !cadastroPrincipalConcluido) {
-		return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-	}
+    if (etapaCadastroCompleto === "revisao_final" || !cadastroPrincipalConcluido) {
+        return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+    }
 
-// TNP só força se a etapa estiver marcada como TNP.
-// A regra das 10 corridas pode ficar separada depois.
-	if (etapaCadastroCompleto === "tnp") {
-		return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
-	}
-		if (cadastroCompleto === true) {
+    // 7. TNP
+    if (etapaCadastroCompleto === "tnp") {
+        return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
+    }
+
+    if (cadastroCompleto === true) {
         return SEXTAPAG_Login_func_carregarAreaPassageiro();
     }
 
     return SEXTAPAG_Login_func_carregarAreaPassageiro();
-	}
+}
 
 function PRIMEIRAPAG_Login_func_logar() {
     const PRIMEIRAPAG_email = document.getElementById('PRIMEIRAPAG_Login_input_email').value.trim();
