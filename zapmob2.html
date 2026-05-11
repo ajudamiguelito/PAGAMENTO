@@ -1634,7 +1634,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
-        onclick="PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp')"
+        onclick="DECIMAPRIMEIRAPAG_Login_func_editarContatos()"
     >
         EDITAR CONTATOS
     </button>
@@ -4225,6 +4225,18 @@ function DECIMAPRIMEIRAPAG_Login_func_textoSeguro(valor, padrao = "-") {
 }
 function DECIMAPRIMEIRAPAG_Login_func_editarContatos() {
     sessionStorage.setItem("TNP_MOB_EDITANDO_CONTATOS", "true");
+
+    TERCEIRAPAG_Login_var_codigoZap = null;
+    TERCEIRAPAG_Login_var_whatsappValidado = false;
+
+    document.getElementById('TERCEIRAPAG_Login_input_whatsapp').disabled = false;
+    document.getElementById('TERCEIRAPAG_Login_input_codigo').value = "";
+    document.getElementById('TERCEIRAPAG_Login_area_codigo').classList.add('PRIMEIRAPAG_Login_hidden');
+
+    const btnEnviar = document.getElementById('TERCEIRAPAG_Login_btn_enviar_zap');
+    btnEnviar.disabled = false;
+    btnEnviar.innerText = "ENVIAR CÓDIGO VIA WHATSAPP";
+
     PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
 }
 
