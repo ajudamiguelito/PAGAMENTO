@@ -1589,40 +1589,114 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
     <div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
-        <strong>Conta</strong><br><br>
-        Nome: <span id="DECIMAPRIMEIRAPAG_Login_rev_nome">-</span><br>
-        E-mail: <span id="DECIMAPRIMEIRAPAG_Login_rev_email">-</span><br>
-        WhatsApp: <span id="DECIMAPRIMEIRAPAG_Login_rev_whatsapp">-</span><br>
-        Selfie: <span id="DECIMAPRIMEIRAPAG_Login_rev_selfie">-</span>
+    <strong>Conta</strong><br><br>
+
+    <div style="text-align:center; margin-bottom:14px;">
+        <img
+            id="DECIMAPRIMEIRAPAG_Login_rev_foto_perfil"
+            src=""
+            alt="Foto de perfil"
+            style="
+                width:90px;
+                height:90px;
+                border-radius:50%;
+                object-fit:cover;
+                border:3px solid rgba(255,255,255,0.25);
+                display:none;
+                margin:0 auto 8px auto;
+                background:#ddd;
+            "
+        >
+
+        <div
+            id="DECIMAPRIMEIRAPAG_Login_rev_foto_status"
+            style="font-size:13px; opacity:0.85; margin-bottom:8px;"
+        >
+            Foto de perfil: -
+        </div>
+
+        <button
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            style="margin-top:6px; padding:8px 12px; font-size:12px;"
+            onclick="PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie')"
+        >
+            EDITAR FOTO
+        </button>
     </div>
 
-    <div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
-        <strong>Dados pessoais</strong><br><br>
-        Tipo: <span id="DECIMAPRIMEIRAPAG_Login_rev_tipo_doc">-</span><br>
-        Documento: <span id="DECIMAPRIMEIRAPAG_Login_rev_documento">-</span><br>
-        Nome/Razão social: <span id="DECIMAPRIMEIRAPAG_Login_rev_nome_doc">-</span><br>
-        Data: <span id="DECIMAPRIMEIRAPAG_Login_rev_data_doc">-</span><br>
-        Gênero: <span id="DECIMAPRIMEIRAPAG_Login_rev_genero">-</span>
+    Nome: <span id="DECIMAPRIMEIRAPAG_Login_rev_nome">-</span><br>
+    E-mail: <span id="DECIMAPRIMEIRAPAG_Login_rev_email">-</span><br>
+    WhatsApp: <span id="DECIMAPRIMEIRAPAG_Login_rev_whatsapp">-</span><br>
+    Telefone principal: <span id="DECIMAPRIMEIRAPAG_Login_rev_telefone_principal">-</span><br>
+
+    <button
+        type="button"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        style="margin-top:10px; padding:8px 12px; font-size:12px;"
+        onclick="PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp')"
+    >
+        EDITAR CONTATOS
+    </button>
+</div>
+
+<div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
+    <strong>Dados pessoais</strong><br><br>
+    Tipo: <span id="DECIMAPRIMEIRAPAG_Login_rev_tipo_doc">-</span><br>
+    Documento: <span id="DECIMAPRIMEIRAPAG_Login_rev_documento">-</span><br>
+    Nome/Razão social: <span id="DECIMAPRIMEIRAPAG_Login_rev_nome_doc">-</span><br>
+    Data: <span id="DECIMAPRIMEIRAPAG_Login_rev_data_doc">-</span><br>
+    Gênero: <span id="DECIMAPRIMEIRAPAG_Login_rev_genero">-</span>
+
+    <div style="margin-top:10px; font-size:12px; opacity:0.85;">
+        O CPF/CNPJ não pode ser alterado pelo usuário depois de salvo.
     </div>
 
-    <div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
-        <strong>Endereço</strong><br><br>
-        CEP: <span id="DECIMAPRIMEIRAPAG_Login_rev_cep">-</span><br>
-        Rua: <span id="DECIMAPRIMEIRAPAG_Login_rev_rua">-</span><br>
-        Número: <span id="DECIMAPRIMEIRAPAG_Login_rev_numero">-</span><br>
-        Bairro: <span id="DECIMAPRIMEIRAPAG_Login_rev_bairro">-</span><br>
-        Cidade/UF: <span id="DECIMAPRIMEIRAPAG_Login_rev_cidade_uf">-</span><br>
-        Complemento: <span id="DECIMAPRIMEIRAPAG_Login_rev_complemento">-</span><br>
-        Referência: <span id="DECIMAPRIMEIRAPAG_Login_rev_referencia">-</span>
-    </div>
+    <button
+        type="button"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        style="margin-top:10px; padding:8px 12px; font-size:12px;"
+        onclick="PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais')"
+    >
+        EDITAR DADOS
+    </button>
+</div>
 
-    <div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
-        <strong>Contato de emergência</strong><br><br>
-        Nome: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_nome">-</span><br>
-        WhatsApp: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_whatsapp">-</span><br>
-        Relação: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_relacao">-</span>
-    </div>
+<div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
+    <strong>Endereço</strong><br><br>
+    CEP: <span id="DECIMAPRIMEIRAPAG_Login_rev_cep">-</span><br>
+    Rua: <span id="DECIMAPRIMEIRAPAG_Login_rev_rua">-</span><br>
+    Número: <span id="DECIMAPRIMEIRAPAG_Login_rev_numero">-</span><br>
+    Bairro: <span id="DECIMAPRIMEIRAPAG_Login_rev_bairro">-</span><br>
+    Cidade/UF: <span id="DECIMAPRIMEIRAPAG_Login_rev_cidade_uf">-</span><br>
+    Complemento: <span id="DECIMAPRIMEIRAPAG_Login_rev_complemento">-</span><br>
+    Referência: <span id="DECIMAPRIMEIRAPAG_Login_rev_referencia">-</span>
 
+    <button
+        type="button"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        style="margin-top:10px; padding:8px 12px; font-size:12px;"
+        onclick="PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco')"
+    >
+        EDITAR ENDEREÇO
+    </button>
+</div>
+
+<div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
+    <strong>Contato de emergência</strong><br><br>
+    Nome: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_nome">-</span><br>
+    WhatsApp: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_whatsapp">-</span><br>
+    Relação: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_relacao">-</span>
+
+    <button
+        type="button"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        style="margin-top:10px; padding:8px 12px; font-size:12px;"
+        onclick="PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia')"
+    >
+        EDITAR CONTATO
+    </button>
+</div>
     <div class="PRIMEIRAPAG_Login_aviso_analise">
         Confira seus dados antes de continuar. 
 		Na próxima etapa você poderá informar seu ID TNP para ativar cashback e benefícios.
@@ -4163,8 +4237,30 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_whatsapp').innerText =
             DECIMAPRIMEIRAPAG_Login_func_textoSeguro(d.whatsappFormatado || d.whatsapp);
 
-        document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_selfie').innerText =
-            d.selfieEnviada ? "Enviada" : "Pendente";
+        document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_telefone_principal').innerText =
+            DECIMAPRIMEIRAPAG_Login_func_textoSeguro(
+                d.telefonePrincipalFormatado || d.telefonePrincipal,
+                "Não informado"
+            );
+
+        const DECIMAPRIMEIRAPAG_Login_fotoPerfil =
+            d.fotoPerfilUrl || d.selfieUrl || "";
+
+        const DECIMAPRIMEIRAPAG_Login_imgPerfil =
+            document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_foto_perfil');
+
+        const DECIMAPRIMEIRAPAG_Login_statusFoto =
+            document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_foto_status');
+
+        if (DECIMAPRIMEIRAPAG_Login_fotoPerfil) {
+            DECIMAPRIMEIRAPAG_Login_imgPerfil.src = DECIMAPRIMEIRAPAG_Login_fotoPerfil;
+            DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'block';
+            DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil enviada';
+        } else {
+            DECIMAPRIMEIRAPAG_Login_imgPerfil.removeAttribute('src');
+            DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'none';
+            DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil pendente';
+        }
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_tipo_doc').innerText =
             d.tipoDocumento === "cnpj" ? "CNPJ" : "CPF";
@@ -4208,7 +4304,9 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
             DECIMAPRIMEIRAPAG_Login_func_textoSeguro(contato.nome);
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_contato_whatsapp').innerText =
-            DECIMAPRIMEIRAPAG_Login_func_textoSeguro(contato.whatsappFormatado || contato.whatsapp);
+            DECIMAPRIMEIRAPAG_Login_func_textoSeguro(
+                contato.whatsappFormatado || contato.whatsapp
+            );
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_contato_relacao').innerText =
             DECIMAPRIMEIRAPAG_Login_func_relacaoTexto(contato.relacao);
