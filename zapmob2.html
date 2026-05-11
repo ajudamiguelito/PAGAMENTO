@@ -1615,15 +1615,15 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             Foto de perfil: -
         </div>
 
-        <button
-            type="button"
-            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-            style="margin-top:6px; padding:8px 12px; font-size:12px;"
-            onclick="PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie')"
-        >
-            EDITAR FOTO
-        </button>
-    </div>
+	<button
+		type="button"
+		class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+		style="margin-top:6px; padding:8px 12px; font-size:12px;"
+		onclick="DECIMAPRIMEIRAPAG_Login_func_editarFotoPerfil()"
+	>
+		EDITAR FOTO
+	</button>
+ </div>
 
     Nome: <span id="DECIMAPRIMEIRAPAG_Login_rev_nome">-</span><br>
     E-mail: <span id="DECIMAPRIMEIRAPAG_Login_rev_email">-</span><br>
@@ -2918,6 +2918,7 @@ function QUINTAPAG_Login_func_comprimirImagem(file, quality, maxWidth, maxHeight
 async function QUINTAPAG_Login_func_confirmarSelfie() {
     const QUINTAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const QUINTAPAG_Login_btn = document.getElementById('QUINTAPAG_Login_btn_confirmar_selfie');
+    const QUINTAPAG_Login_status = document.getElementById('QUINTAPAG_Login_status_selfie');
 
     if (!QUINTAPAG_Login_user) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -2933,15 +2934,16 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
         );
     }
 
-const QUINTAPAG_Login_status = document.getElementById('QUINTAPAG_Login_status_selfie');
+    const QUINTAPAG_Login_editandoFotoPerfil =
+        sessionStorage.getItem("TNP_MOB_EDITANDO_FOTO_PERFIL") === "true";
 
-QUINTAPAG_Login_btn.disabled = true;
-QUINTAPAG_Login_btn.innerText = "ENVIANDO FOTO...";
+    QUINTAPAG_Login_btn.disabled = true;
+    QUINTAPAG_Login_btn.innerText = "ENVIANDO FOTO...";
 
-if (QUINTAPAG_Login_status) {
-    QUINTAPAG_Login_status.style.display = 'block';
-    QUINTAPAG_Login_status.innerText = 'Enviando foto para sua conta. Aguarde...';
-}
+    if (QUINTAPAG_Login_status) {
+        QUINTAPAG_Login_status.style.display = 'block';
+        QUINTAPAG_Login_status.innerText = 'Enviando foto para sua conta. Aguarde...';
+    }
 
     try {
         const QUINTAPAG_Login_caminho = `usuarios/${QUINTAPAG_Login_user.uid}/foto-perfil.jpg`;
@@ -2954,35 +2956,57 @@ if (QUINTAPAG_Login_status) {
 
         const QUINTAPAG_Login_selfieUrl = await QUINTAPAG_Login_storageRef.getDownloadURL();
 
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(QUINTAPAG_Login_user.uid).set({
-    selfieUrl: QUINTAPAG_Login_selfieUrl,
-    selfieEnviada: true,
+        const QUINTAPAG_Login_payloadFoto = {
+            selfieUrl: QUINTAPAG_Login_selfieUrl,
+            selfieEnviada: true,
 
-    fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
-    fotoPerfilEnviada: true,
-    fotoPerfilObrigatoria: true,
+            fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
+            fotoPerfilEnviada: true,
+            fotoPerfilObrigatoria: true,
 
-    cadastroRapidoConcluido: true,
-    cadastroCompleto: false,
-    etapaCadastro: "entrada_app",
+            atualizadoEm: new Date()
+        };
 
-    corridasIniciaisLiberadas: 3,
-    corridasUsadasSemCadastro: 0,
+        if (!QUINTAPAG_Login_editandoFotoPerfil) {
+            Object.assign(QUINTAPAG_Login_payloadFoto, {
+                cadastroRapidoConcluido: true,
+                cadastroCompleto: false,
+                etapaCadastro: "entrada_app",
 
-    corridasSemTnpLimite: 10,
-    corridasUsadasSemTnp: 0,
+                corridasIniciaisLiberadas: 3,
+                corridasUsadasSemCadastro: 0,
 
-    bloqueadoPorCadastro: false,
-    status: {
-        geral: "liberado_com_limite",
-        atualizadoEm: new Date()
-    }
-}, { merge: true });
+                corridasSemTnpLimite: 10,
+                corridasUsadasSemTnp: 0,
+
+                bloqueadoPorCadastro: false,
+
+                status: {
+                    geral: "liberado_com_limite",
+                    atualizadoEm: new Date()
+                }
+            });
+        }
+
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(QUINTAPAG_Login_user.uid)
+            .set(QUINTAPAG_Login_payloadFoto, { merge: true });
 
         QUINTAPAG_Login_btn.disabled = false;
         QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
 
-        SEXTAPAG_Login_func_carregarAreaPassageiro();
+        if (QUINTAPAG_Login_status) {
+            QUINTAPAG_Login_status.style.display = 'block';
+            QUINTAPAG_Login_status.innerText = 'Foto salva com sucesso.';
+        }
+
+        if (QUINTAPAG_Login_editandoFotoPerfil) {
+            sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+            DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+        } else {
+            SEXTAPAG_Login_func_carregarAreaPassageiro();
+        }
 
     } catch (QUINTAPAG_Login_erro) {
         QUINTAPAG_Login_btn.disabled = false;
@@ -4180,6 +4204,11 @@ function DECIMAPRIMEIRAPAG_Login_func_textoSeguro(valor, padrao = "-") {
     return valor;
 }
 
+function DECIMAPRIMEIRAPAG_Login_func_editarFotoPerfil() {
+    sessionStorage.setItem("TNP_MOB_EDITANDO_FOTO_PERFIL", "true");
+    PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+}
+
 function DECIMAPRIMEIRAPAG_Login_func_relacaoTexto(valor) {
     const mapa = {
         mae: "Mãe",
@@ -4253,7 +4282,8 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
             document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_foto_status');
 
         if (DECIMAPRIMEIRAPAG_Login_fotoPerfil) {
-            DECIMAPRIMEIRAPAG_Login_imgPerfil.src = DECIMAPRIMEIRAPAG_Login_fotoPerfil;
+            DECIMAPRIMEIRAPAG_Login_imgPerfil.src =
+			DECIMAPRIMEIRAPAG_Login_fotoPerfil + "?v=" + Date.now();
             DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'block';
             DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil enviada';
         } else {
