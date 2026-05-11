@@ -4282,15 +4282,31 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
             document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_foto_status');
 
         if (DECIMAPRIMEIRAPAG_Login_fotoPerfil) {
-            DECIMAPRIMEIRAPAG_Login_imgPerfil.src =
-			DECIMAPRIMEIRAPAG_Login_fotoPerfil + "?v=" + Date.now();
-            DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'block';
-            DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil enviada';
-        } else {
-            DECIMAPRIMEIRAPAG_Login_imgPerfil.removeAttribute('src');
-            DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'none';
-            DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil pendente';
-        }
+    const DECIMAPRIMEIRAPAG_Login_fotoComCache =
+        DECIMAPRIMEIRAPAG_Login_fotoPerfil +
+        (DECIMAPRIMEIRAPAG_Login_fotoPerfil.includes("?") ? "&v=" : "?v=") +
+        Date.now();
+
+    DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'none';
+    DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Carregando foto de perfil...';
+
+    DECIMAPRIMEIRAPAG_Login_imgPerfil.onload = function() {
+        DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'block';
+        DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil enviada';
+    };
+
+    DECIMAPRIMEIRAPAG_Login_imgPerfil.onerror = function() {
+        DECIMAPRIMEIRAPAG_Login_imgPerfil.removeAttribute('src');
+        DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'none';
+        DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Não foi possível carregar a foto. Tente atualizar.';
+    };
+
+    DECIMAPRIMEIRAPAG_Login_imgPerfil.src = DECIMAPRIMEIRAPAG_Login_fotoComCache;
+} else {
+    DECIMAPRIMEIRAPAG_Login_imgPerfil.removeAttribute('src');
+    DECIMAPRIMEIRAPAG_Login_imgPerfil.style.display = 'none';
+    DECIMAPRIMEIRAPAG_Login_statusFoto.innerText = 'Foto de perfil pendente';
+}
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_tipo_doc').innerText =
             d.tipoDocumento === "cnpj" ? "CNPJ" : "CPF";
