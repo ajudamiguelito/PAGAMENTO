@@ -4341,10 +4341,6 @@ function DECIMAPRIMEIRAPAG_Login_func_editarDadosPessoais() {
     }
 }
 
-function DECIMAPRIMEIRAPAG_Login_func_editarContatos() {
-    sessionStorage.setItem("TNP_MOB_EDITANDO_CONTATOS", "true");
-    PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
-}
 
 function DECIMAPRIMEIRAPAG_Login_func_relacaoTexto(valor) {
     const mapa = {
@@ -4395,10 +4391,11 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
         const endereco = d.endereco || {};
         const contato = d.contatoEmergencia || {};
 
-        document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_nome').innerText =
-		DECIMAPRIMEIRAPAG_Login_func_textoSeguro(
-        d.nomeDocumento || d.nome || DECIMAPRIMEIRAPAG_Login_user.displayName
-			);
+        const DECIMAPRIMEIRAPAG_Login_nomeConta =
+		d.nomeDocumento || d.nome || DECIMAPRIMEIRAPAG_Login_user.displayName || "-";
+
+		document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_nome').innerText =
+		DECIMAPRIMEIRAPAG_Login_nomeConta;
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_email').innerText =
             DECIMAPRIMEIRAPAG_Login_func_textoSeguro(d.email || DECIMAPRIMEIRAPAG_Login_user.email);
