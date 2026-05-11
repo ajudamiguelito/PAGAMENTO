@@ -2585,12 +2585,13 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
             'Envie o código pelo WhatsApp primeiro.'
         );
     }
-	if (TERCEIRAPAG_Login_codigoDigitado.length !== 4) {
-		return PRIMEIRAPAG_Login_func_mostrarErro(
-			'TERCEIRAPAG_Login_error_whatsapp',
-			'Digite o código de 4 números recebido no WhatsApp.'
-		);
-	}	
+
+    if (TERCEIRAPAG_Login_codigoDigitado.length !== 4) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'TERCEIRAPAG_Login_error_whatsapp',
+            'Digite o código de 4 números recebido no WhatsApp.'
+        );
+    }
 
     if (TERCEIRAPAG_Login_codigoDigitado != TERCEIRAPAG_Login_var_codigoZap) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -2606,10 +2607,13 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
         );
     }
 
-       TERCEIRAPAG_Login_var_whatsappValidado = true;
+    TERCEIRAPAG_Login_var_whatsappValidado = true;
 
     try {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(TERCEIRAPAG_Login_user.uid).set({
+        const TERCEIRAPAG_Login_editandoContatos =
+            sessionStorage.getItem("TNP_MOB_EDITANDO_CONTATOS") === "true";
+
+        const TERCEIRAPAG_Login_payloadContatos = {
             whatsapp: TERCEIRAPAG_Login_whatsapp,
             whatsappFormatado: TERCEIRAPAG_Login_whatsappFormatado,
             whatsappValidado: true,
@@ -2618,14 +2622,30 @@ async function TERCEIRAPAG_Login_func_validarCodigoZap() {
             telefonePrincipalFormatado: TERCEIRAPAG_Login_telefonePrincipalFormatado,
             telefonePrincipalMesmoWhatsapp: TERCEIRAPAG_Login_mesmoTelefone,
 
-            etapaCadastro: "tipo_conta",
-            status: {
-                geral: "cadastro_rapido",
-                atualizadoEm: new Date()
-            }
-        }, { merge: true });
+            atualizadoEm: new Date()
+        };
 
-        PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
+        if (!TERCEIRAPAG_Login_editandoContatos) {
+            Object.assign(TERCEIRAPAG_Login_payloadContatos, {
+                etapaCadastro: "tipo_conta",
+                status: {
+                    geral: "cadastro_rapido",
+                    atualizadoEm: new Date()
+                }
+            });
+        }
+
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(TERCEIRAPAG_Login_user.uid)
+            .set(TERCEIRAPAG_Login_payloadContatos, { merge: true });
+
+        if (TERCEIRAPAG_Login_editandoContatos) {
+            sessionStorage.removeItem("TNP_MOB_EDITANDO_CONTATOS");
+            DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+        } else {
+            PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
+        }
 
     } catch (TERCEIRAPAG_Login_erro) {
         PRIMEIRAPAG_Login_func_mostrarErro(
@@ -4203,6 +4223,10 @@ function DECIMAPRIMEIRAPAG_Login_func_textoSeguro(valor, padrao = "-") {
 
     return valor;
 }
+function DECIMAPRIMEIRAPAG_Login_func_editarContatos() {
+    sessionStorage.setItem("TNP_MOB_EDITANDO_CONTATOS", "true");
+    PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
+}
 
 function DECIMAPRIMEIRAPAG_Login_func_editarFotoPerfil() {
     sessionStorage.setItem("TNP_MOB_EDITANDO_FOTO_PERFIL", "true");
@@ -4252,6 +4276,7 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
                 'Não encontramos seus dados. Volte e revise o cadastro.'
             );
         }
+
 
         const d = DECIMAPRIMEIRAPAG_Login_doc.data();
         const endereco = d.endereco || {};
