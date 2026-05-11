@@ -1656,7 +1656,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
-        onclick="PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais')"
+        onclick="DECIMAPRIMEIRAPAG_Login_func_editarDadosPessoais()"
     >
         EDITAR DADOS
     </button>
@@ -3232,7 +3232,9 @@ function SETIMAPAG_Login_func_selecionarTipoDocumento(SETIMAPAG_Login_tipo) {
         SETIMAPAG_Login_inputNome.placeholder = 'Digite o nome ou razão social';
     }
 
+    if (sessionStorage.getItem("TNP_MOB_EDITANDO_DADOS_PESSOAIS") !== "true") {
     SETIMAPAG_Login_inputDoc.value = '';
+}
 }
 
 function SETIMAPAG_Login_func_maskCpfCnpj(SETIMAPAG_Login_input) {
@@ -3514,6 +3516,53 @@ function SETIMAPAG_Login_func_mostrarDocumentoDuplicado() {
     }
 }
 
+async function SETIMAPAG_Login_func_carregarDadosParaEdicao() {
+    const SETIMAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!SETIMAPAG_Login_user) return;
+
+    const SETIMAPAG_Login_doc = await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(SETIMAPAG_Login_user.uid)
+        .get();
+
+    if (!SETIMAPAG_Login_doc.exists) return;
+
+    const d = SETIMAPAG_Login_doc.data();
+
+    const SETIMAPAG_Login_tipo = d.tipoDocumento || "cpf";
+    const SETIMAPAG_Login_inputDoc = document.getElementById('SETIMAPAG_Login_input_cpf_cnpj');
+    const SETIMAPAG_Login_inputNome = document.getElementById('SETIMAPAG_Login_input_nome_documento');
+    const SETIMAPAG_Login_inputData = document.getElementById('SETIMAPAG_Login_input_data_documento');
+    const SETIMAPAG_Login_selectGenero = document.getElementById('SETIMAPAG_Login_select_genero');
+
+    document.getElementById('SETIMAPAG_Login_tipo_documento').value = SETIMAPAG_Login_tipo;
+
+    SETIMAPAG_Login_func_selecionarTipoDocumento(SETIMAPAG_Login_tipo);
+
+    SETIMAPAG_Login_inputDoc.value = d.documentoFormatado || d.documentoNumero || "";
+    SETIMAPAG_Login_inputNome.value = d.nomeDocumento || "";
+
+    if (SETIMAPAG_Login_tipo === "cpf") {
+        SETIMAPAG_Login_inputData.value = d.dataNascimentoFormatada || d.dataNascimento || "";
+    } else {
+        SETIMAPAG_Login_inputData.value = d.dataAberturaFormatada || d.dataAbertura || "";
+    }
+
+    SETIMAPAG_Login_selectGenero.value = d.genero || "";
+
+    SETIMAPAG_Login_inputDoc.readOnly = true;
+    SETIMAPAG_Login_inputDoc.disabled = false;
+    SETIMAPAG_Login_inputDoc.style.opacity = "0.65";
+    SETIMAPAG_Login_inputDoc.style.cursor = "not-allowed";
+    SETIMAPAG_Login_inputDoc.title = "CPF/CNPJ não pode ser alterado depois de salvo.";
+
+    document.getElementById('SETIMAPAG_Login_card_cpf').style.pointerEvents = "none";
+    document.getElementById('SETIMAPAG_Login_card_cnpj').style.pointerEvents = "none";
+    document.getElementById('SETIMAPAG_Login_card_cpf').style.opacity = "0.65";
+    document.getElementById('SETIMAPAG_Login_card_cnpj').style.opacity = "0.65";
+}
+
 async function SETIMAPAG_Login_func_salvarDadosPessoais() {
 const SETIMAPAG_Login_erroBox = document.getElementById('SETIMAPAG_Login_error_dados_pessoais');
 
@@ -3598,12 +3647,30 @@ if (SETIMAPAG_Login_erroBox) {
     SETIMAPAG_Login_btn.disabled = true;
     SETIMAPAG_Login_btn.innerText = "SALVANDO DADOS...";
 
-  try {
+try {
     const SETIMAPAG_Login_uid = SETIMAPAG_Login_user.uid;
+
+    const SETIMAPAG_Login_editandoDadosPessoais =
+        sessionStorage.getItem("TNP_MOB_EDITANDO_DADOS_PESSOAIS") === "true";
 
     const SETIMAPAG_Login_userRef = PRIMEIRAPAG_Login_db
         .collection('usuarios')
         .doc(SETIMAPAG_Login_uid);
+
+    const SETIMAPAG_Login_userSnapAntes = await SETIMAPAG_Login_userRef.get();
+
+    const SETIMAPAG_Login_dadosAtuaisAntes = SETIMAPAG_Login_userSnapAntes.exists
+        ? SETIMAPAG_Login_userSnapAntes.data()
+        : {};
+
+    const SETIMAPAG_Login_documentoJaSalvo =
+        SETIMAPAG_Login_dadosAtuaisAntes.documentoNumero || "";
+
+    const SETIMAPAG_Login_tipoDocumentoJaSalvo =
+        SETIMAPAG_Login_dadosAtuaisAntes.tipoDocumento || "";
+
+    const SETIMAPAG_Login_documentoFormatadoJaSalvo =
+        SETIMAPAG_Login_dadosAtuaisAntes.documentoFormatado || "";
 
     const SETIMAPAG_Login_documentoId =
         SETIMAPAG_Login_tipoDocumento + "_" + SETIMAPAG_Login_documentoNumero;
@@ -3612,7 +3679,13 @@ if (SETIMAPAG_Login_erroBox) {
         .collection('documentosUsuarios')
         .doc(SETIMAPAG_Login_documentoId);
 
-    // 🔎 PRIMEIRO VERIFICA NA CLOUD FUNCTION SE CPF/CNPJ JÁ EXISTE
+    if (
+    SETIMAPAG_Login_editandoDadosPessoais &&
+    SETIMAPAG_Login_documentoJaSalvo &&
+    SETIMAPAG_Login_documentoNumero === SETIMAPAG_Login_documentoJaSalvo
+) {
+    // Editando dados do próprio usuário. Não verifica duplicidade do CPF/CNPJ.
+} else {
     SETIMAPAG_Login_btn.innerText = "VERIFICANDO DOCUMENTO...";
 
     const SETIMAPAG_Login_verificarDocumento = firebase
@@ -3634,14 +3707,22 @@ if (SETIMAPAG_Login_erroBox) {
         SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
         return SETIMAPAG_Login_func_mostrarDocumentoDuplicado();
-	}
-
+    }
+}
     SETIMAPAG_Login_btn.innerText = "SALVANDO DADOS...";
 
     const SETIMAPAG_Login_payload = {
-        tipoDocumento: SETIMAPAG_Login_tipoDocumento,
-        documentoNumero: SETIMAPAG_Login_documentoNumero,
-        documentoFormatado: SETIMAPAG_Login_documento,
+ tipoDocumento: SETIMAPAG_Login_documentoJaSalvo
+    ? SETIMAPAG_Login_tipoDocumentoJaSalvo
+    : SETIMAPAG_Login_tipoDocumento,
+
+documentoNumero: SETIMAPAG_Login_documentoJaSalvo
+    ? SETIMAPAG_Login_documentoJaSalvo
+    : SETIMAPAG_Login_documentoNumero,
+
+documentoFormatado: SETIMAPAG_Login_documentoJaSalvo
+    ? SETIMAPAG_Login_documentoFormatadoJaSalvo
+    : SETIMAPAG_Login_documento,
 
         nomeDocumento: SETIMAPAG_Login_nomeDocumento,
 
@@ -3736,7 +3817,12 @@ if (SETIMAPAG_Login_erroBox) {
     SETIMAPAG_Login_btn.disabled = false;
     SETIMAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
+    if (SETIMAPAG_Login_editandoDadosPessoais) {
+    sessionStorage.removeItem("TNP_MOB_EDITANDO_DADOS_PESSOAIS");
+    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+} else {
     PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+}
 
 } catch (SETIMAPAG_Login_erro) {
     SETIMAPAG_Login_btn.disabled = false;
@@ -4243,6 +4329,20 @@ function DECIMAPRIMEIRAPAG_Login_func_editarContatos() {
 function DECIMAPRIMEIRAPAG_Login_func_editarFotoPerfil() {
     sessionStorage.setItem("TNP_MOB_EDITANDO_FOTO_PERFIL", "true");
     PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+}
+
+function DECIMAPRIMEIRAPAG_Login_func_editarDadosPessoais() {
+    sessionStorage.setItem("TNP_MOB_EDITANDO_DADOS_PESSOAIS", "true");
+    PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+
+    if (typeof SETIMAPAG_Login_func_carregarDadosParaEdicao === "function") {
+        SETIMAPAG_Login_func_carregarDadosParaEdicao();
+    }
+}
+
+function DECIMAPRIMEIRAPAG_Login_func_editarContatos() {
+    sessionStorage.setItem("TNP_MOB_EDITANDO_CONTATOS", "true");
+    PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
 }
 
 function DECIMAPRIMEIRAPAG_Login_func_relacaoTexto(valor) {
