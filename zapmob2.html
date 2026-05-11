@@ -3724,7 +3724,8 @@ documentoFormatado: SETIMAPAG_Login_documentoJaSalvo
     ? SETIMAPAG_Login_documentoFormatadoJaSalvo
     : SETIMAPAG_Login_documento,
 
-        nomeDocumento: SETIMAPAG_Login_nomeDocumento,
+        nome: SETIMAPAG_Login_nomeDocumento,
+		nomeDocumento: SETIMAPAG_Login_nomeDocumento,
 
         dataNascimento: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumentoIso : "",
         dataNascimentoFormatada: SETIMAPAG_Login_tipoDocumento === 'cpf' ? SETIMAPAG_Login_dataDocumento : "",
@@ -4395,7 +4396,9 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
         const contato = d.contatoEmergencia || {};
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_nome').innerText =
-            DECIMAPRIMEIRAPAG_Login_func_textoSeguro(d.nome || DECIMAPRIMEIRAPAG_Login_user.displayName);
+		DECIMAPRIMEIRAPAG_Login_func_textoSeguro(
+        d.nomeDocumento || d.nome || DECIMAPRIMEIRAPAG_Login_user.displayName
+			);
 
         document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_email').innerText =
             DECIMAPRIMEIRAPAG_Login_func_textoSeguro(d.email || DECIMAPRIMEIRAPAG_Login_user.email);
