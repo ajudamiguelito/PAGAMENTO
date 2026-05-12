@@ -1676,7 +1676,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
-        onclick="PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco')"
+        onclick="DECIMAPRIMEIRAPAG_Login_func_editarEndereco()"
     >
         EDITAR ENDEREÇO
     </button>
@@ -4005,6 +4005,38 @@ async function OITAVAPAG_Login_func_buscarCep(OITAVAPAG_Login_silencioso = false
     }
 }
 
+async function OITAVAPAG_Login_func_carregarEnderecoParaEdicao() {
+    const OITAVAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!OITAVAPAG_Login_user) return;
+
+    const OITAVAPAG_Login_doc = await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(OITAVAPAG_Login_user.uid)
+        .get();
+
+    if (!OITAVAPAG_Login_doc.exists) return;
+
+    const d = OITAVAPAG_Login_doc.data();
+    const endereco = d.endereco || {};
+
+    document.getElementById('OITAVAPAG_Login_input_cep').value = endereco.cepFormatado || endereco.cep || "";
+    document.getElementById('OITAVAPAG_Login_input_rua').value = endereco.rua || "";
+    document.getElementById('OITAVAPAG_Login_input_bairro').value = endereco.bairro || "";
+    document.getElementById('OITAVAPAG_Login_input_cidade').value = endereco.cidade || "";
+    document.getElementById('OITAVAPAG_Login_input_estado').value = endereco.estado || "";
+    document.getElementById('OITAVAPAG_Login_input_numero').value = endereco.numero || "";
+    document.getElementById('OITAVAPAG_Login_input_complemento').value = endereco.complemento || "";
+    document.getElementById('OITAVAPAG_Login_input_referencia').value = endereco.referencia || "";
+
+    const OITAVAPAG_Login_statusCep = document.getElementById('OITAVAPAG_Login_status_cep');
+
+    if (OITAVAPAG_Login_statusCep) {
+        OITAVAPAG_Login_statusCep.style.display = 'block';
+        OITAVAPAG_Login_statusCep.innerText = 'Endereço carregado para edição.';
+    }
+}
+
 async function OITAVAPAG_Login_func_salvarEndereco() {
     const OITAVAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const OITAVAPAG_Login_btn = document.getElementById('OITAVAPAG_Login_btn_salvar_endereco');
@@ -4155,7 +4187,15 @@ const OITAVAPAG_Login_payload = {
     OITAVAPAG_Login_btn.disabled = false;
     OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
+    const OITAVAPAG_Login_editandoEndereco =
+    sessionStorage.getItem("TNP_MOB_EDITANDO_ENDERECO") === "true";
+
+if (OITAVAPAG_Login_editandoEndereco) {
+    sessionStorage.removeItem("TNP_MOB_EDITANDO_ENDERECO");
+    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+} else {
     PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+}
 
 } catch (OITAVAPAG_Login_erro) {
     OITAVAPAG_Login_btn.disabled = false;
@@ -4338,6 +4378,15 @@ function DECIMAPRIMEIRAPAG_Login_func_editarDadosPessoais() {
 
     if (typeof SETIMAPAG_Login_func_carregarDadosParaEdicao === "function") {
         SETIMAPAG_Login_func_carregarDadosParaEdicao();
+    }
+}
+
+function DECIMAPRIMEIRAPAG_Login_func_editarEndereco() {
+    sessionStorage.setItem("TNP_MOB_EDITANDO_ENDERECO", "true");
+    PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+
+    if (typeof OITAVAPAG_Login_func_carregarEnderecoParaEdicao === "function") {
+        OITAVAPAG_Login_func_carregarEnderecoParaEdicao();
     }
 }
 
