@@ -1628,16 +1628,24 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     Nome: <span id="DECIMAPRIMEIRAPAG_Login_rev_nome">-</span><br>
     E-mail: <span id="DECIMAPRIMEIRAPAG_Login_rev_email">-</span><br>
     WhatsApp: <span id="DECIMAPRIMEIRAPAG_Login_rev_whatsapp">-</span><br>
-    Telefone principal: <span id="DECIMAPRIMEIRAPAG_Login_rev_telefone_principal">-</span><br>
+	Telefone principal: <span id="DECIMAPRIMEIRAPAG_Login_rev_telefone_principal">-</span><br>
 
-    <button
-        type="button"
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        style="margin-top:10px; padding:8px 12px; font-size:12px;"
-        onclick="DECIMAPRIMEIRAPAG_Login_func_editarContatos()"
-    >
-        EDITAR CONTATOS
-    </button>
+<div
+    id="DECIMAPRIMEIRAPAG_Login_msg_tnp"
+    class="PRIMEIRAPAG_Login_aviso_analise"
+    style="margin-top:12px;"
+>
+    -
+</div>
+
+<button
+    type="button"
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+    style="margin-top:10px; padding:8px 12px; font-size:12px;"
+    onclick="DECIMAPRIMEIRAPAG_Login_func_editarContatos()"
+>
+    EDITAR CONTATOS
+</button>
 </div>
 
 <div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
@@ -4498,6 +4506,16 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
                 d.telefonePrincipalFormatado || d.telefonePrincipal,
                 "Não informado"
             );
+			const DECIMAPRIMEIRAPAG_Login_idTnp =
+		d.idTnp || d.idTnpUsuario || d.codigoTnp || "";
+
+		if (DECIMAPRIMEIRAPAG_Login_idTnp) {
+			document.getElementById('DECIMAPRIMEIRAPAG_Login_msg_tnp').innerText =
+			`Parabéns por estar economizando com seu ID da TNP: ${DECIMAPRIMEIRAPAG_Login_idTnp}`;
+		} else {
+		document.getElementById('DECIMAPRIMEIRAPAG_Login_msg_tnp').innerText =
+        "Complete seu cadastro com seu ID da TNP e comece a ganhar cashback.";
+		}
 
         const DECIMAPRIMEIRAPAG_Login_fotoPerfil =
             d.fotoPerfilUrl || d.selfieUrl || "";
@@ -4509,7 +4527,7 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
             document.getElementById('DECIMAPRIMEIRAPAG_Login_rev_foto_status');
 
         if (DECIMAPRIMEIRAPAG_Login_fotoPerfil) {
-    const DECIMAPRIMEIRAPAG_Login_fotoComCache =
+		const DECIMAPRIMEIRAPAG_Login_fotoComCache =
         DECIMAPRIMEIRAPAG_Login_fotoPerfil +
         (DECIMAPRIMEIRAPAG_Login_fotoPerfil.includes("?") ? "&v=" : "?v=") +
         Date.now();
