@@ -3111,20 +3111,17 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
             .doc(QUINTAPAG_Login_user.uid)
             .set(QUINTAPAG_Login_payloadFoto, { merge: true });
 
-        QUINTAPAG_Login_btn.disabled = false;
-        QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+QUINTAPAG_Login_btn.disabled = false;
+QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
 
-        if (QUINTAPAG_Login_status) {
-            QUINTAPAG_Login_status.style.display = 'block';
-            QUINTAPAG_Login_status.innerText = 'Foto salva com sucesso.';
-        }
+if (QUINTAPAG_Login_status) {
+    QUINTAPAG_Login_status.style.display = 'block';
+    QUINTAPAG_Login_status.innerText = 'Foto salva com sucesso.';
+}
 
-        if (QUINTAPAG_Login_editandoFotoPerfil) {
-            sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
-            DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-        } else {
-            SEXTAPAG_Login_func_carregarAreaPassageiro();
-        }
+sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+
+SEXTAPAG_Login_func_carregarAreaPassageiro();
 
     } catch (QUINTAPAG_Login_erro) {
         QUINTAPAG_Login_btn.disabled = false;
