@@ -1616,6 +1616,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         </div>
 
 	<button
+		id="DECIMAPRIMEIRAPAG_Login_btn_editar_foto"
 		type="button"
 		class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
 		style="margin-top:6px; padding:8px 12px; font-size:12px;"
@@ -1639,6 +1640,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 </div>
 
 <button
+	id="DECIMAPRIMEIRAPAG_Login_btn_editar_contatos"
     type="button"
     class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
     style="margin-top:10px; padding:8px 12px; font-size:12px;"
@@ -1661,6 +1663,8 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
     <button
+		id="DECIMAPRIMEIRAPAG_Login_btn_editar_dados"
+		id="DECIMAPRIMEIRAPAG_Login_btn_editar_foto"
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
@@ -1681,6 +1685,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     Referência: <span id="DECIMAPRIMEIRAPAG_Login_rev_referencia">-</span>
 
     <button
+		id="DECIMAPRIMEIRAPAG_Login_btn_editar_endereco"
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
@@ -1697,6 +1702,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     Relação: <span id="DECIMAPRIMEIRAPAG_Login_rev_contato_relacao">-</span>
 
     <button
+		id="DECIMAPRIMEIRAPAG_Login_btn_editar_contato_emergencia"
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
@@ -1729,7 +1735,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 <!-- TELA 12: ID TNP E CADASTRO NA TNP - PREFIXO DECIMASEGUNDAPAG -->
 <div id="DECIMASEGUNDAPAG_Login_screen_tnp" class="PRIMEIRAPAG_Login_screen">
 
-    <div class="PRIMEIRAPAG_Login_error" id="DECIMASEGUNDAPAG_Login_error_tnp"></div>
+    <div class="PRIMEIRAPAG_Login_error" id="DECIMASEGUNDAPAG_Login_error_tnp"></div> 
 
     <h3 class="PRIMEIRAPAG_Login_step_title">TNP e cashback</h3>
 
@@ -3036,34 +3042,29 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
         }
 
         await PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .doc(QUINTAPAG_Login_user.uid)
-            .set(QUINTAPAG_Login_payloadFoto, { merge: true });
+    .collection('usuarios')
+    .doc(QUINTAPAG_Login_user.uid)
+    .set(QUINTAPAG_Login_payloadFoto, { merge: true });
 
-        QUINTAPAG_Login_btn.disabled = false;
-        QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+QUINTAPAG_Login_btn.disabled = false;
+QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
 
-        if (QUINTAPAG_Login_status) {
-            QUINTAPAG_Login_status.style.display = 'block';
-            QUINTAPAG_Login_status.innerText = 'Foto salva com sucesso.';
-        }
+if (QUINTAPAG_Login_status) {
+    QUINTAPAG_Login_status.style.display = 'block';
+    QUINTAPAG_Login_status.innerText = 'Foto salva com sucesso.';
+}
 
-        if (QUINTAPAG_Login_editandoFotoPerfil) {
-            sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
-            DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-        } else {
-            SEXTAPAG_Login_func_carregarAreaPassageiro();
-        }
+sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 
-    } catch (QUINTAPAG_Login_erro) {
-        QUINTAPAG_Login_btn.disabled = false;
-        QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+} catch (QUINTAPAG_Login_erro) {
+    QUINTAPAG_Login_btn.disabled = false;
+    QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
 
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'QUINTAPAG_Login_error_selfie',
-            'Erro ao salvar selfie: ' + QUINTAPAG_Login_erro.message
-        );
-    }
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'QUINTAPAG_Login_error_selfie',
+        'Erro ao salvar selfie: ' + QUINTAPAG_Login_erro.message
+    );
 }
 // ========== TELA 7: ÁREA DO PASSAGEIRO COM PREFIXO SEXTAPAG ==========
 
@@ -4507,6 +4508,45 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
         const d = DECIMAPRIMEIRAPAG_Login_doc.data();
         const endereco = d.endereco || {};
         const contato = d.contatoEmergencia || {};
+		const DECIMAPRIMEIRAPAG_Login_btnEditarFoto =
+    document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_editar_foto');
+
+const DECIMAPRIMEIRAPAG_Login_btnEditarContatos =
+    document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_editar_contatos');
+
+const DECIMAPRIMEIRAPAG_Login_btnEditarDados =
+    document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_editar_dados');
+
+const DECIMAPRIMEIRAPAG_Login_btnEditarEndereco =
+    document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_editar_endereco');
+
+const DECIMAPRIMEIRAPAG_Login_btnEditarContatoEmergencia =
+    document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_editar_contato_emergencia');
+
+if (DECIMAPRIMEIRAPAG_Login_btnEditarFoto) {
+    DECIMAPRIMEIRAPAG_Login_btnEditarFoto.style.display =
+        d.fotoPerfilEnviada || d.selfieEnviada ? "block" : "none";
+}
+
+if (DECIMAPRIMEIRAPAG_Login_btnEditarContatos) {
+    DECIMAPRIMEIRAPAG_Login_btnEditarContatos.style.display =
+        d.whatsappValidado === true ? "block" : "none";
+}
+
+if (DECIMAPRIMEIRAPAG_Login_btnEditarDados) {
+    DECIMAPRIMEIRAPAG_Login_btnEditarDados.style.display =
+        d.dadosPessoaisConcluidos === true ? "block" : "none";
+}
+
+if (DECIMAPRIMEIRAPAG_Login_btnEditarEndereco) {
+    DECIMAPRIMEIRAPAG_Login_btnEditarEndereco.style.display =
+        d.enderecoConcluido === true ? "block" : "none";
+}
+
+if (DECIMAPRIMEIRAPAG_Login_btnEditarContatoEmergencia) {
+    DECIMAPRIMEIRAPAG_Login_btnEditarContatoEmergencia.style.display =
+        d.contatoEmergenciaConcluido === true ? "block" : "none";
+}
 
         const DECIMAPRIMEIRAPAG_Login_nomeConta =
 		d.nomeDocumento || d.nome || DECIMAPRIMEIRAPAG_Login_user.displayName || "-";
