@@ -1240,7 +1240,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         Sua senha precisa ter no mínimo 6 caracteres, com letra maiúscula,
         letra minúscula e número.
     </div>
-
+<div style="padding-bottom:120px;">
     <button id="SEGUNDAPAG_Login_btn_criar_conta" class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary" onclick="SEGUNDAPAG_Login_func_criarContaRapida()">
         CONTINUAR
     </button>
@@ -1248,7 +1248,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_mb_16" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
         VOLTAR
     </button>
-	
+</div>
 	<div class="PRIMEIRAPAG_Login_cadastro_info_box">
         <h4>Entre rápido no TNP MoB</h4>
         <p>
@@ -1278,7 +1278,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 			Se não encontrar, verifique também a caixa de spam ou lixo eletrônico.
         </p>
     </div>
-
+<div style="padding-bottom:120px;">
     <button id="SEGUNDAPAG_Login_btn_verificar_email" class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary" onclick="SEGUNDAPAG_Login_func_verificarEmailConfirmado()">
         JÁ CONFIRMEI NO E-MAIL
     </button>
@@ -1290,7 +1290,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_cadastro_rapido')">
         VOLTAR
     </button>
-
+</div>
 </div>
 
 	<!-- TELA 4: WHATSAPP - PREFIXO TERCEIRAPAG -->
@@ -1377,14 +1377,14 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 </button>
 
     </div>
-
+<div style="padding-bottom:120px;">
     <button 
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" 
-        onclick="PRIMEIRAPAG_Login_func_irPara('SEGUNDAPAG_Login_screen_confirmar_email')"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
     >
         VOLTAR
     </button>
-
+ </div>
 </div>
 <!-- TELA 5: TIPO DE CONTA - PREFIXO QUARTAPAG -->
 <div id="QUARTAPAG_Login_screen_tipo_conta" class="PRIMEIRAPAG_Login_screen">
@@ -1427,15 +1427,15 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     Motorista: também poderá usar como passageiro, mas só poderá aceitar corridas
     após concluir categoria, CNH, veículo, Pix, termos e aprovação.
 	</div>
-
+<div style="padding-bottom:120px;">
     <button id="QUARTAPAG_Login_btn_continuar_tipo" class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary" onclick="QUARTAPAG_Login_func_continuarTipoConta()">
         CONTINUAR
     </button>
 
-    <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp')">
+    <button class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary" onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
         VOLTAR
     </button>
-
+</div>
 </div>
 
 <!-- TELA 6: SELFIE RÁPIDA - PREFIXO QUINTAPAG -->
@@ -1483,7 +1483,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         TROCAR FOTO
     </label>
 </div>
-
+<div style="padding-bottom:120px;">
     <button
         id="QUINTAPAG_Login_btn_confirmar_selfie"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
@@ -1494,11 +1494,11 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
     <button
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta')"
+        onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')"
     >
         VOLTAR
     </button>
-
+</div>
 </div>
 
 <!-- TELA 7: ÁREA DO PASSAGEIRO / CONVITE PARA COMPLETAR CADASTRO - PREFIXO SEXTAPAG -->
