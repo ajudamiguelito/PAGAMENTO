@@ -798,7 +798,7 @@
 }
 
 .PASSAGEIROPAG_Login_painel_chamada.recolhido {
-    transform: translateY(calc(100% - 118px));
+    transform: translateY(42%);
 }
 
 .PASSAGEIROPAG_Login_puxador {
@@ -2231,10 +2231,14 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
     <div id="PASSAGEIROPAG_Login_painel_chamada" class="PASSAGEIROPAG_Login_painel_chamada">
 
-        <div
-            class="PASSAGEIROPAG_Login_puxador"
-            onclick="PASSAGEIROPAG_Login_func_alternarPainel()"
-        ></div>
+<div
+    class="PASSAGEIROPAG_Login_puxador"
+    onclick="PASSAGEIROPAG_Login_func_alternarPainel()"
+    ontouchstart="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
+    ontouchmove="PASSAGEIROPAG_Login_func_movendoPainel(event)"
+    ontouchend="PASSAGEIROPAG_Login_func_fimArrastePainel()"
+    onmousedown="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
+></div>
 
         <div class="PASSAGEIROPAG_Login_card_corrida">
             <h3>Para onde vamos?</h3>
@@ -5437,11 +5441,85 @@ function PASSAGEIROPAG_Login_func_fecharMenuLateral() {
     if (menu) menu.classList.remove('active');
 }
 
+let PASSAGEIROPAG_Login_arrastandoPainel = false;
+let PASSAGEIROPAG_Login_inicioYPainel = 0;
+let PASSAGEIROPAG_Login_offsetPainel = 0;
+
 function PASSAGEIROPAG_Login_func_alternarPainel() {
     const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
 
-    if (painel) {
-        painel.classList.toggle('recolhido');
+    if (!painel) return;
+
+    painel.style.transition = "transform 0.28s ease";
+    painel.style.transform = "";
+
+    painel.classList.toggle('recolhido');
+}
+
+function PASSAGEIROPAG_Login_func_inicioArrastePainel(event) {
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    PASSAGEIROPAG_Login_arrastandoPainel = true;
+    PASSAGEIROPAG_Login_inicioYPainel =
+        event.touches ? event.touches[0].clientY : event.clientY;
+
+    PASSAGEIROPAG_Login_offsetPainel = painel.classList.contains('recolhido')
+        ? painel.offsetHeight * 0.42
+        : 0;
+
+    painel.style.transition = "none";
+
+    document.onmousemove = PASSAGEIROPAG_Login_func_movendoPainel;
+    document.onmouseup = PASSAGEIROPAG_Login_func_fimArrastePainel;
+}
+
+function PASSAGEIROPAG_Login_func_movendoPainel(event) {
+    if (!PASSAGEIROPAG_Login_arrastandoPainel) return;
+
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    const yAtual = event.touches ? event.touches[0].clientY : event.clientY;
+    const diferenca = yAtual - PASSAGEIROPAG_Login_inicioYPainel;
+
+    let novoOffset = PASSAGEIROPAG_Login_offsetPainel + diferenca;
+
+    const limiteMin = 0;
+    const limiteMax = painel.offsetHeight * 0.42;
+
+    if (novoOffset < limiteMin) novoOffset = limiteMin;
+    if (novoOffset > limiteMax) novoOffset = limiteMax;
+
+    painel.style.transform = `translateY(${novoOffset}px)`;
+}
+
+function PASSAGEIROPAG_Login_func_fimArrastePainel() {
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    PASSAGEIROPAG_Login_arrastandoPainel = false;
+
+    document.onmousemove = null;
+    document.onmouseup = null;
+
+    painel.style.transition = "transform 0.28s ease";
+
+    const transformAtual = painel.style.transform || "";
+    const valor = transformAtual.match(/translateY\(([-0-9.]+)px\)/);
+    const offsetAtual = valor ? parseFloat(valor[1]) : 0;
+
+    const limite = painel.offsetHeight * 0.21;
+
+    painel.style.transform = "";
+
+    if (offsetAtual > limite) {
+        painel.classList.add('recolhido');
+    } else {
+        painel.classList.remove('recolhido');
     }
 }
 
