@@ -569,6 +569,310 @@
             cursor: pointer;
             opacity: 0.75;
         }
+		
+		/* ===== TELA INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ===== */
+
+#PASSAGEIROPAG_Login_screen_home {
+    position: relative;
+    min-height: 100%;
+    overflow: hidden;
+    padding: 0;
+}
+
+/* FUNDO DO MAPA */
+#PASSAGEIROPAG_Login_mapa_fundo {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(197,169,141,0.18), transparent 28%),
+        radial-gradient(circle at 70% 70%, rgba(77,43,26,0.35), transparent 30%),
+        #151515;
+    overflow: hidden;
+}
+
+.PASSAGEIROPAG_Login_mapa_fake {
+    position: absolute;
+    inset: 0;
+    opacity: 0.9;
+}
+
+.PASSAGEIROPAG_Login_rua {
+    position: absolute;
+    background: rgba(255,255,255,0.08);
+    border-radius: 30px;
+}
+
+.PASSAGEIROPAG_Login_rua_1 {
+    width: 130%;
+    height: 18px;
+    left: -20%;
+    top: 38%;
+    transform: rotate(-22deg);
+}
+
+.PASSAGEIROPAG_Login_rua_2 {
+    width: 120%;
+    height: 16px;
+    left: -15%;
+    top: 58%;
+    transform: rotate(18deg);
+}
+
+.PASSAGEIROPAG_Login_pin_origem {
+    position: absolute;
+    top: 37%;
+    left: 43%;
+    font-size: 24px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
+}
+
+.PASSAGEIROPAG_Login_pin_motorista {
+    position: absolute;
+    top: 54%;
+    left: 58%;
+    font-size: 24px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
+}
+
+/* TOPO */
+.PASSAGEIROPAG_Login_topo_home {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+}
+
+.PASSAGEIROPAG_Login_btn_foto_menu {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(197,169,141,0.75);
+    background: rgba(30,27,25,0.9);
+    padding: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_btn_foto_menu img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #2a2623;
+}
+
+.PASSAGEIROPAG_Login_topo_texto {
+    flex: 1;
+    color: var(--Fame_text);
+    line-height: 1.2;
+}
+
+.PASSAGEIROPAG_Login_topo_texto strong {
+    display: block;
+    font-size: 0.98rem;
+    color: #ffffff;
+}
+
+.PASSAGEIROPAG_Login_topo_texto span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--Fame_muted);
+    margin-top: 3px;
+}
+
+.PASSAGEIROPAG_Login_btn_sininho {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(197,169,141,0.35);
+    background: rgba(30,27,25,0.92);
+    color: var(--Fame_gold);
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* MENU LATERAL */
+.PASSAGEIROPAG_Login_menu_overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9997;
+    display: none;
+}
+
+.PASSAGEIROPAG_Login_menu_overlay.active {
+    display: block;
+}
+
+.PASSAGEIROPAG_Login_menu_lateral {
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 280px;
+    max-width: 82%;
+    height: 100vh;
+    background: #1e1b19;
+    border-right: 1px solid rgba(197,169,141,0.25);
+    z-index: 9998;
+    padding: 18px 14px;
+    transition: left 0.28s ease;
+    overflow-y: auto;
+    box-shadow: 8px 0 28px rgba(0,0,0,0.45);
+}
+
+.PASSAGEIROPAG_Login_menu_lateral.active {
+    left: 0;
+}
+
+.PASSAGEIROPAG_Login_menu_header {
+    text-align: center;
+    padding-bottom: 14px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(197,169,141,0.18);
+}
+
+.PASSAGEIROPAG_Login_menu_header img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(197,169,141,0.65);
+    background: #2a2623;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+.PASSAGEIROPAG_Login_menu_header strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.PASSAGEIROPAG_Login_menu_header span {
+    display: block;
+    color: var(--Fame_muted);
+    font-size: 0.74rem;
+    margin-top: 3px;
+    word-break: break-word;
+}
+
+.PASSAGEIROPAG_Login_menu_lateral button {
+    width: 100%;
+    text-align: left;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--Fame_text);
+    font-size: 0.88rem;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.PASSAGEIROPAG_Login_menu_lateral button:hover {
+    background: rgba(197,169,141,0.10);
+    color: var(--Fame_gold);
+}
+
+/* PAINEL INFERIOR */
+.PASSAGEIROPAG_Login_painel_chamada {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+    max-height: 78%;
+    overflow-y: auto;
+    padding: 10px 16px 20px 16px;
+    background: rgba(18,18,18,0.96);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    border-top: 1px solid rgba(197,169,141,0.25);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.45);
+    transition: transform 0.28s ease;
+}
+
+.PASSAGEIROPAG_Login_painel_chamada.recolhido {
+    transform: translateY(calc(100% - 118px));
+}
+
+.PASSAGEIROPAG_Login_puxador {
+    width: 52px;
+    height: 5px;
+    border-radius: 20px;
+    background: rgba(197,169,141,0.65);
+    margin: 0 auto 14px auto;
+    cursor: pointer;
+}
+
+.PASSAGEIROPAG_Login_card_corrida,
+.PASSAGEIROPAG_Login_card_extra {
+    background: rgba(197,169,141,0.08);
+    border: 1px solid rgba(197,169,141,0.22);
+    border-radius: 18px;
+    padding: 14px;
+    margin-top: 12px;
+    color: var(--Fame_text);
+}
+
+.PASSAGEIROPAG_Login_card_corrida h3 {
+    color: var(--Fame_gold);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PASSAGEIROPAG_Login_input_fake {
+    background: var(--Fame_input);
+    border: 1px solid #3a3531;
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--Fame_text);
+    font-size: 0.88rem;
+    margin-top: 8px;
+}
+
+.PASSAGEIROPAG_Login_card_extra strong {
+    display: block;
+    color: var(--Fame_gold);
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+}
+
+.PASSAGEIROPAG_Login_card_extra p {
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.PASSAGEIROPAG_Login_card_extra .PRIMEIRAPAG_Login_btn {
+    margin-top: 10px;
+}
+
+/* TELAS PROVISÓRIAS DO PASSAGEIRO */
+.PASSAGEIROPAG_Login_pagina_simples_box {
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(197,169,141,0.08);
+    border: 1px solid rgba(197,169,141,0.22);
+    color: var(--Fame_text);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.PASSAGEIROPAG_Login_pagina_simples_box strong {
+    color: var(--Fame_gold);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+		
 
     </style>
 </head>
@@ -1827,6 +2131,177 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             IR PARA CADASTRO TNP
         </button>
     </div>
+</div>
+<!-- TELA INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG -->
+<div id="PASSAGEIROPAG_Login_screen_home" class="PRIMEIRAPAG_Login_screen">
+
+    <!-- FUNDO DO MAPA -->
+    <div id="PASSAGEIROPAG_Login_mapa_fundo">
+        <div class="PASSAGEIROPAG_Login_mapa_fake">
+            <div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_1"></div>
+            <div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_2"></div>
+            <div class="PASSAGEIROPAG_Login_pin_origem">📍</div>
+            <div class="PASSAGEIROPAG_Login_pin_motorista">🚗</div>
+        </div>
+    </div>
+
+    <!-- TOPO -->
+    <div class="PASSAGEIROPAG_Login_topo_home">
+        <button
+            type="button"
+            class="PASSAGEIROPAG_Login_btn_foto_menu"
+            onclick="PASSAGEIROPAG_Login_func_abrirMenuLateral()"
+        >
+            <img
+                id="PASSAGEIROPAG_Login_foto_perfil_topo"
+                src=""
+                alt="Perfil"
+            >
+        </button>
+
+        <div class="PASSAGEIROPAG_Login_topo_texto">
+            <strong id="PASSAGEIROPAG_Login_nome_topo">Olá!</strong>
+            <span>Para onde vamos hoje?</span>
+        </div>
+
+        <button
+            type="button"
+            class="PASSAGEIROPAG_Login_btn_sininho"
+            onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_mensagens')"
+        >
+            🔔
+        </button>
+    </div>
+
+    <!-- MENU LATERAL -->
+    <div id="PASSAGEIROPAG_Login_menu_overlay" class="PASSAGEIROPAG_Login_menu_overlay" onclick="PASSAGEIROPAG_Login_func_fecharMenuLateral()"></div>
+
+    <div id="PASSAGEIROPAG_Login_menu_lateral" class="PASSAGEIROPAG_Login_menu_lateral">
+        <div class="PASSAGEIROPAG_Login_menu_header">
+            <img
+                id="PASSAGEIROPAG_Login_foto_menu"
+                src=""
+                alt="Perfil"
+            >
+            <strong id="PASSAGEIROPAG_Login_nome_menu">Passageiro</strong>
+            <span id="PASSAGEIROPAG_Login_email_menu">-</span>
+        </div>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('DECIMAPRIMEIRAPAG_Login_screen_revisao_final')">
+            👤 Meu perfil
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_historico')">
+            🕘 Histórico
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_ajuda')">
+            ❓ Solicitar ajuda
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_mensagens')">
+            💬 Mensagens
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_seguranca')">
+            🛡️ Central de segurança
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pagamentos')">
+            💳 Métodos de pagamento
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_configuracoes')">
+            ⚙️ Configurações
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_convidar')">
+            🎁 Convidar pessoas
+        </button>
+
+        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_seja_motorista')">
+            🚗 Seja motorista
+        </button>
+
+        <button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
+            🚪 Sair
+        </button>
+    </div>
+
+    <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
+    <div id="PASSAGEIROPAG_Login_painel_chamada" class="PASSAGEIROPAG_Login_painel_chamada">
+
+        <div
+            class="PASSAGEIROPAG_Login_puxador"
+            onclick="PASSAGEIROPAG_Login_func_alternarPainel()"
+        ></div>
+
+        <div class="PASSAGEIROPAG_Login_card_corrida">
+            <h3>Para onde vamos?</h3>
+
+            <div class="PASSAGEIROPAG_Login_input_fake">
+                📍 Local de partida
+            </div>
+
+            <div class="PASSAGEIROPAG_Login_input_fake">
+                🎯 Para onde você vai?
+            </div>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pedir_corrida')"
+            >
+                PEDIR CORRIDA
+            </button>
+        </div>
+
+        <div
+            id="PASSAGEIROPAG_Login_card_verificacao"
+            class="PASSAGEIROPAG_Login_card_extra"
+        >
+            <strong>🛡️ Verificação de segurança</strong>
+            <p>
+                Envie uma selfie segurando seu documento para aumentar a proteção da sua conta.
+            </p>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_selfie_documento')"
+            >
+                ENVIAR AGORA
+            </button>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+                onclick="PASSAGEIROPAG_Login_func_fecharCardVerificacao()"
+            >
+                FAZER DEPOIS
+            </button>
+        </div>
+
+        <div class="PASSAGEIROPAG_Login_card_extra">
+            <strong>📢 Segurança na viagem</strong>
+            <p>
+                Respeite o motorista, confirme os dados da corrida e compartilhe sua rota quando necessário.
+            </p>
+        </div>
+
+        <div class="PASSAGEIROPAG_Login_card_extra">
+            <strong>💰 Promoções e benefícios</strong>
+            <p>
+                Ative seu ID TNP para acompanhar cashback, benefícios e oportunidades.
+            </p>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('DECIMASEGUNDAPAG_Login_screen_tnp')"
+            >
+                VER BENEFÍCIOS
+            </button>
+        </div>
+
+    </div>
+
 </div>
 
 
@@ -3219,10 +3694,7 @@ async function SEXTAPAG_Login_func_iniciarCadastroCompleto() {
 }
 
 function SEXTAPAG_Login_func_continuarParaApp() {
-    // Futuro destino oficial:
-    // PRIMEIRAPAG_Login_func_irPara('PASSAGEIROAPP_screen_mapa');
-
-    alert("Aqui será aberta a tela principal do app ou o mapa do passageiro.");
+    PASSAGEIROPAG_Login_func_carregarHomePassageiro();
 }		
 		
 // ========== TELA 8: DADOS PESSOAIS DO PASSAGEIRO COM PREFIXO SETIMAPAG ==========
@@ -4800,6 +5272,9 @@ async function DECIMAPRIMEIRAPAG_Login_func_confirmarEContinuar() {
         );
     }
 }
+function DECIMAPRIMEIRAPAG_Login_func_irParaPaginaInicialPassageiro() {
+    PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+}
 // ========== TELA 12: ID TNP E CADASTRO NA TNP COM PREFIXO DECIMASEGUNDAPAG ==========
 
 function DECIMASEGUNDAPAG_Login_func_abrirCadastroTnp() {
@@ -4944,7 +5419,114 @@ async function DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois() {
         );
     }
 }
-	
+// ========== TELA INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ==========
+
+function PASSAGEIROPAG_Login_func_abrirMenuLateral() {
+    const overlay = document.getElementById('PASSAGEIROPAG_Login_menu_overlay');
+    const menu = document.getElementById('PASSAGEIROPAG_Login_menu_lateral');
+
+    if (overlay) overlay.classList.add('active');
+    if (menu) menu.classList.add('active');
+}
+
+function PASSAGEIROPAG_Login_func_fecharMenuLateral() {
+    const overlay = document.getElementById('PASSAGEIROPAG_Login_menu_overlay');
+    const menu = document.getElementById('PASSAGEIROPAG_Login_menu_lateral');
+
+    if (overlay) overlay.classList.remove('active');
+    if (menu) menu.classList.remove('active');
+}
+
+function PASSAGEIROPAG_Login_func_alternarPainel() {
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (painel) {
+        painel.classList.toggle('recolhido');
+    }
+}
+
+function PASSAGEIROPAG_Login_func_irParaTela(telaId) {
+    PASSAGEIROPAG_Login_func_fecharMenuLateral();
+    PRIMEIRAPAG_Login_func_irPara(telaId);
+}
+
+function PASSAGEIROPAG_Login_func_fecharCardVerificacao() {
+    const card = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
+
+    if (card) {
+        card.style.display = 'none';
+    }
+}
+
+async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    try {
+        const doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        const d = doc.exists ? doc.data() : {};
+
+        const nome =
+            d.nomeDocumento ||
+            d.nome ||
+            user.displayName ||
+            "Passageiro";
+
+        const email =
+            d.email ||
+            user.email ||
+            "-";
+
+        const foto =
+            d.fotoPerfilUrl ||
+            d.selfieUrl ||
+            "";
+
+        const primeiroNome = nome.split(" ")[0];
+
+        const nomeTopo = document.getElementById('PASSAGEIROPAG_Login_nome_topo');
+        const nomeMenu = document.getElementById('PASSAGEIROPAG_Login_nome_menu');
+        const emailMenu = document.getElementById('PASSAGEIROPAG_Login_email_menu');
+
+        if (nomeTopo) nomeTopo.innerText = `Olá, ${primeiroNome} 👋`;
+        if (nomeMenu) nomeMenu.innerText = nome;
+        if (emailMenu) emailMenu.innerText = email;
+
+        const fotoTopo = document.getElementById('PASSAGEIROPAG_Login_foto_perfil_topo');
+        const fotoMenu = document.getElementById('PASSAGEIROPAG_Login_foto_menu');
+
+        if (foto) {
+            if (fotoTopo) fotoTopo.src = foto;
+            if (fotoMenu) fotoMenu.src = foto;
+        } else {
+            if (fotoTopo) fotoTopo.removeAttribute('src');
+            if (fotoMenu) fotoMenu.removeAttribute('src');
+        }
+
+        const cardVerificacao = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
+
+        if (cardVerificacao) {
+            if (d.selfieDocumentoExtraConcluida === true) {
+                cardVerificacao.style.display = 'none';
+            } else {
+                cardVerificacao.style.display = 'block';
+            }
+        }
+
+        PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
+
+    } catch (erro) {
+        console.error("Erro ao carregar home do passageiro:", erro);
+        PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
+    }
+}	
 		
 		
 		
