@@ -1780,12 +1780,12 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         SALVAR ID TNP
     </button>
 
-    <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="SEXTAPAG_Login_func_carregarAreaPassageiro()"
-    >
-        DEIXAR PARA DEPOIS
-    </button>
+<button
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+    onclick="DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois()"
+>
+    DEIXAR PARA DEPOIS
+</button>
 
 </div>
 <!-- MODAL: COMO PEGAR ID TNP - PREFIXO DECIMASEGUNDAPAG -->
@@ -4506,15 +4506,14 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
                 d.telefonePrincipalFormatado || d.telefonePrincipal,
                 "Não informado"
             );
-			const DECIMAPRIMEIRAPAG_Login_idTnp =
-		d.idTnp || d.idTnpUsuario || d.codigoTnp || "";
+			const DECIMAPRIMEIRAPAG_Login_idTnp = d.idTnp || "";
 
 		if (DECIMAPRIMEIRAPAG_Login_idTnp) {
 			document.getElementById('DECIMAPRIMEIRAPAG_Login_msg_tnp').innerText =
-			`Parabéns por estar economizando com seu ID da TNP: ${DECIMAPRIMEIRAPAG_Login_idTnp}`;
+			`Parabéns! Você está economizando com seu ID TNP: ${DECIMAPRIMEIRAPAG_Login_idTnp}`;
 		} else {
 		document.getElementById('DECIMAPRIMEIRAPAG_Login_msg_tnp').innerText =
-        "Complete seu cadastro com seu ID da TNP e comece a ganhar cashback.";
+        "Complete seu cadastro com seu ID TNP e comece a ganhar cashback.";
 		}
 
         const DECIMAPRIMEIRAPAG_Login_fotoPerfil =
@@ -4751,7 +4750,8 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
             idTnp: DECIMASEGUNDAPAG_Login_idTnp,
             idTnpInformado: true,
             cadastroTnpConcluido: true,
-
+			cadastroCompleto: true,
+			
             cashbackLiberado: true,
             bloqueadoPorTnp: false,
             bloqueadoPorPagamento: false,
@@ -4773,20 +4773,57 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
             atualizadoEm: new Date()
         }, { merge: true });
 
-        DECIMASEGUNDAPAG_Login_btn.disabled = false;
-        DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
+		DECIMASEGUNDAPAG_Login_btn.disabled = false;
+		DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
 
-        alert("ID TNP salvo com sucesso. Seu cadastro está vinculado para benefícios e cashback.");
+		DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+
+		} catch (DECIMASEGUNDAPAG_Login_erro) {
+			DECIMASEGUNDAPAG_Login_btn.disabled = false;
+			DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
+
+			PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMASEGUNDAPAG_Login_error_tnp',
+            'Erro ao salvar ID TNP: ' + DECIMASEGUNDAPAG_Login_erro.message
+        );
+    }
+}
+async function DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois() {
+    const DECIMASEGUNDAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!DECIMASEGUNDAPAG_Login_user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMASEGUNDAPAG_Login_error_tnp',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+    try {
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(DECIMASEGUNDAPAG_Login_user.uid)
+            .set({
+                idTnpInformado: false,
+                cadastroTnpConcluido: false,
+                cadastroCompleto: false,
+                cashbackLiberado: false,
+
+                etapaCadastroCompleto: "tnp_pendente",
+
+                status: {
+                    geral: "ativo_sem_cashback",
+                    atualizadoEm: new Date()
+                },
+
+                atualizadoEm: new Date()
+            }, { merge: true });
 
         SEXTAPAG_Login_func_carregarAreaPassageiro();
 
     } catch (DECIMASEGUNDAPAG_Login_erro) {
-        DECIMASEGUNDAPAG_Login_btn.disabled = false;
-        DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
-
         PRIMEIRAPAG_Login_func_mostrarErro(
             'DECIMASEGUNDAPAG_Login_error_tnp',
-            'Erro ao salvar ID TNP: ' + DECIMASEGUNDAPAG_Login_erro.message
+            'Erro ao continuar: ' + DECIMASEGUNDAPAG_Login_erro.message
         );
     }
 }
