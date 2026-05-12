@@ -2549,8 +2549,10 @@ async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData
     const cadastroPrincipalConcluido = PRIMEIRAPAG_userData.cadastroPrincipalConcluido === true;
     const cadastroCompleto = PRIMEIRAPAG_userData.cadastroCompleto === true;
     const cadastroTnpConcluido = PRIMEIRAPAG_userData.cadastroTnpConcluido === true;
-
-    // 1. E-MAIL
+	const idTnpInformado = PRIMEIRAPAG_userData.idTnpInformado === true;
+	const idTnpSalvo = PRIMEIRAPAG_userData.idTnp || "";
+    
+	// 1. E-MAIL
     if (!emailVerificado || etapaCadastro === "confirmar_email") {
         if (PRIMEIRAPAG_user.email) {
             const emailDestino = document.getElementById('SEGUNDAPAG_Login_email_destino');
@@ -2602,7 +2604,16 @@ async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData
         return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
     }
 
-    // 7. TNP
+    if (
+    cadastroCompleto === true ||
+    cadastroTnpConcluido === true ||
+    idTnpInformado === true ||
+    idTnpSalvo
+) {
+    return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+}
+	
+	// 7. TNP
     if (etapaCadastroCompleto === "tnp") {
         return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
     }
@@ -5334,7 +5345,8 @@ function DECIMASEGUNDAPAG_Login_func_validarIdTnp(DECIMASEGUNDAPAG_Login_idTnp) 
 async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
     const DECIMASEGUNDAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const DECIMASEGUNDAPAG_Login_btn = document.getElementById('DECIMASEGUNDAPAG_Login_btn_salvar_tnp');
-    const DECIMASEGUNDAPAG_Login_idTnp = document.getElementById('DECIMASEGUNDAPAG_Login_input_id_tnp').value.trim();
+    const DECIMASEGUNDAPAG_Login_input = document.getElementById('DECIMASEGUNDAPAG_Login_input_id_tnp');
+    const DECIMASEGUNDAPAG_Login_idTnp = DECIMASEGUNDAPAG_Login_input.value.trim();
 
     if (!DECIMASEGUNDAPAG_Login_user) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -5354,12 +5366,35 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
     DECIMASEGUNDAPAG_Login_btn.innerText = "SALVANDO ID TNP...";
 
     try {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(DECIMASEGUNDAPAG_Login_user.uid).set({
+        const DECIMASEGUNDAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(DECIMASEGUNDAPAG_Login_user.uid);
+
+        const DECIMASEGUNDAPAG_Login_doc = await DECIMASEGUNDAPAG_Login_userRef.get();
+
+        if (DECIMASEGUNDAPAG_Login_doc.exists) {
+            const d = DECIMASEGUNDAPAG_Login_doc.data();
+
+            if (d.idTnpInformado === true && d.idTnp) {
+                DECIMASEGUNDAPAG_Login_btn.disabled = false;
+                DECIMASEGUNDAPAG_Login_btn.innerText = "ID TNP JÁ CADASTRADO";
+
+                DECIMASEGUNDAPAG_Login_input.value = d.idTnp;
+                DECIMASEGUNDAPAG_Login_input.disabled = true;
+
+                return PRIMEIRAPAG_Login_func_mostrarErro(
+                    'DECIMASEGUNDAPAG_Login_error_tnp',
+                    'Seu ID TNP já foi cadastrado e não pode ser alterado pelo aplicativo.'
+                );
+            }
+        }
+
+        await DECIMASEGUNDAPAG_Login_userRef.set({
             idTnp: DECIMASEGUNDAPAG_Login_idTnp,
             idTnpInformado: true,
             cadastroTnpConcluido: true,
-			cadastroCompleto: true,
-			
+            cadastroCompleto: true,
+
             cashbackLiberado: true,
             bloqueadoPorTnp: false,
             bloqueadoPorPagamento: false,
@@ -5381,16 +5416,18 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
             atualizadoEm: new Date()
         }, { merge: true });
 
-		DECIMASEGUNDAPAG_Login_btn.disabled = false;
-		DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
+        DECIMASEGUNDAPAG_Login_btn.disabled = false;
+        DECIMASEGUNDAPAG_Login_btn.innerText = "ID TNP CADASTRADO";
 
-		DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+        DECIMASEGUNDAPAG_Login_input.disabled = true;
 
-		} catch (DECIMASEGUNDAPAG_Login_erro) {
-			DECIMASEGUNDAPAG_Login_btn.disabled = false;
-			DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
+        PASSAGEIROPAG_Login_func_carregarHomePassageiro();
 
-			PRIMEIRAPAG_Login_func_mostrarErro(
+    } catch (DECIMASEGUNDAPAG_Login_erro) {
+        DECIMASEGUNDAPAG_Login_btn.disabled = false;
+        DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
             'DECIMASEGUNDAPAG_Login_error_tnp',
             'Erro ao salvar ID TNP: ' + DECIMASEGUNDAPAG_Login_erro.message
         );
