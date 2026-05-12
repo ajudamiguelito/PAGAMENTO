@@ -2162,32 +2162,29 @@ async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData
     }
 
     // 6. CADASTRO COMPLETO DO PASSAGEIRO
-    if (etapaCadastroCompleto === "dados_pessoais" || !dadosPessoaisConcluidos) {
-        return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
-    }
-
-    if (etapaCadastroCompleto === "endereco" || !enderecoConcluido) {
-        return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
-    }
-
-    if (etapaCadastroCompleto === "contato_emergencia" || !contatoEmergenciaConcluido) {
-        return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
-    }
-
-    if (etapaCadastroCompleto === "revisao_final" || !cadastroPrincipalConcluido) {
-        return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-    }
-
-    // 7. TNP
-    if (etapaCadastroCompleto === "tnp") {
-        return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
-    }
-
-    if (cadastroCompleto === true) {
-        return SEXTAPAG_Login_func_carregarAreaPassageiro();
-    }
-
+    // 6. CADASTRO COMPLETO DO PASSAGEIRO
+// Depois do cadastro rápido, sempre mostra primeiro a Central do Perfil.
+if (
+    !dadosPessoaisConcluidos ||
+    !enderecoConcluido ||
+    !contatoEmergenciaConcluido ||
+    !cadastroPrincipalConcluido ||
+    !cadastroTnpConcluido ||
+    etapaCadastroCompleto === "dados_pessoais" ||
+    etapaCadastroCompleto === "endereco" ||
+    etapaCadastroCompleto === "contato_emergencia" ||
+    etapaCadastroCompleto === "revisao_final" ||
+    etapaCadastroCompleto === "tnp" ||
+    etapaCadastroCompleto === "tnp_pendente"
+) {
     return SEXTAPAG_Login_func_carregarAreaPassageiro();
+}
+
+if (cadastroCompleto === true) {
+    return SEXTAPAG_Login_func_carregarAreaPassageiro();
+}
+
+return SEXTAPAG_Login_func_carregarAreaPassageiro();
 }
 
 function PRIMEIRAPAG_Login_func_logar() {
