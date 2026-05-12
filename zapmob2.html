@@ -1692,7 +1692,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         style="margin-top:10px; padding:8px 12px; font-size:12px;"
-        onclick="PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia')"
+        onclick="DECIMAPRIMEIRAPAG_Login_func_editarContatoEmergencia()"
     >
         EDITAR CONTATO
     </button>
@@ -4236,6 +4236,31 @@ function NONAPAG_Login_func_maskWhatsappContato(NONAPAG_Login_input) {
     }
 }
 
+async function NONAPAG_Login_func_carregarContatoParaEdicao() {
+    const NONAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!NONAPAG_Login_user) return;
+
+    const NONAPAG_Login_doc = await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(NONAPAG_Login_user.uid)
+        .get();
+
+    if (!NONAPAG_Login_doc.exists) return;
+
+    const d = NONAPAG_Login_doc.data();
+    const contato = d.contatoEmergencia || {};
+
+    document.getElementById('NONAPAG_Login_input_nome_contato').value =
+        contato.nome || "";
+
+    document.getElementById('NONAPAG_Login_input_whatsapp_contato').value =
+        contato.whatsappFormatado || contato.whatsapp || "";
+
+    document.getElementById('NONAPAG_Login_select_relacao').value =
+        contato.relacao || "";
+}
+
 async function NONAPAG_Login_func_salvarContatoEmergencia() {
     const NONAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const NONAPAG_Login_btn = document.getElementById('NONAPAG_Login_btn_salvar_contato');
@@ -4329,7 +4354,15 @@ try {
     NONAPAG_Login_btn.disabled = false;
     NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 
+    const NONAPAG_Login_editandoContato =
+    sessionStorage.getItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA") === "true";
+
+if (NONAPAG_Login_editandoContato) {
+    sessionStorage.removeItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA");
     DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+} else {
+    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+}
 
 } catch (NONAPAG_Login_erro) {
         NONAPAG_Login_btn.disabled = false;
@@ -4390,6 +4423,14 @@ function DECIMAPRIMEIRAPAG_Login_func_editarEndereco() {
     }
 }
 
+function DECIMAPRIMEIRAPAG_Login_func_editarContatoEmergencia() {
+    sessionStorage.setItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA", "true");
+    PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+
+    if (typeof NONAPAG_Login_func_carregarContatoParaEdicao === "function") {
+        NONAPAG_Login_func_carregarContatoParaEdicao();
+    }
+}
 
 function DECIMAPRIMEIRAPAG_Login_func_relacaoTexto(valor) {
     const mapa = {
