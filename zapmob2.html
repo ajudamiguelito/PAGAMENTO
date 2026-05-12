@@ -1719,19 +1719,12 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <button
     id="DECIMAPRIMEIRAPAG_Login_btn_finalizar"
     class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-    onclick="DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal()"
+    onclick="DECIMAPRIMEIRAPAG_Login_func_confirmarEContinuar()"
 >
     CONFIRMAR E CONTINUAR
 </button>
-
-    <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia')"
-    >
-        VOLTAR
-    </button>
-
 </div>
+
 <!-- TELA 12: ID TNP E CADASTRO NA TNP - PREFIXO DECIMASEGUNDAPAG -->
 <div id="DECIMASEGUNDAPAG_Login_screen_tnp" class="PRIMEIRAPAG_Login_screen">
 
@@ -4732,6 +4725,65 @@ async function DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal() {
         DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
 
         PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
+
+    } catch (DECIMAPRIMEIRAPAG_Login_erro) {
+        DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
+        DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMAPRIMEIRAPAG_Login_error_revisao',
+            'Erro ao continuar: ' + DECIMAPRIMEIRAPAG_Login_erro.message
+        );
+    }
+}
+async function DECIMAPRIMEIRAPAG_Login_func_confirmarEContinuar() {
+    const DECIMAPRIMEIRAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
+    const DECIMAPRIMEIRAPAG_Login_btn = document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_finalizar');
+
+    if (!DECIMAPRIMEIRAPAG_Login_user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMAPRIMEIRAPAG_Login_error_revisao',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+    DECIMAPRIMEIRAPAG_Login_btn.disabled = true;
+    DECIMAPRIMEIRAPAG_Login_btn.innerText = "VERIFICANDO...";
+
+    try {
+        const DECIMAPRIMEIRAPAG_Login_doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(DECIMAPRIMEIRAPAG_Login_user.uid)
+            .get();
+
+        if (!DECIMAPRIMEIRAPAG_Login_doc.exists) {
+            DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
+            DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
+
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'DECIMAPRIMEIRAPAG_Login_error_revisao',
+                'Não encontramos seus dados. Volte e revise o cadastro.'
+            );
+        }
+
+        const d = DECIMAPRIMEIRAPAG_Login_doc.data();
+
+        DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
+        DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
+
+        if (d.dadosPessoaisConcluidos !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+        }
+
+        if (d.enderecoConcluido !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+        }
+
+        if (d.contatoEmergenciaConcluido !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+        }
+
+        return DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal();
 
     } catch (DECIMAPRIMEIRAPAG_Login_erro) {
         DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
