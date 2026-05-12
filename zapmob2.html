@@ -2020,6 +2020,25 @@ async function PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_userData
         return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
     }
 
+    await PRIMEIRAPAG_user.reload();
+
+    if (
+        PRIMEIRAPAG_user.emailVerified === true &&
+        PRIMEIRAPAG_userData.emailVerificado !== true
+    ) {
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(PRIMEIRAPAG_user.uid)
+            .set({
+                emailVerificado: true,
+                etapaCadastro: "whatsapp",
+                atualizadoEm: new Date()
+            }, { merge: true });
+
+        PRIMEIRAPAG_userData.emailVerificado = true;
+        PRIMEIRAPAG_userData.etapaCadastro = "whatsapp";
+    }
+
     const etapaCadastro = PRIMEIRAPAG_userData.etapaCadastro || "";
     const etapaCadastroCompleto = PRIMEIRAPAG_userData.etapaCadastroCompleto || "";
 
