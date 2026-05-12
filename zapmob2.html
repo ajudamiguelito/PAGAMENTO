@@ -3041,7 +3041,7 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
             });
         }
 
-        await PRIMEIRAPAG_Login_db
+       await PRIMEIRAPAG_Login_db
     .collection('usuarios')
     .doc(QUINTAPAG_Login_user.uid)
     .set(QUINTAPAG_Login_payloadFoto, { merge: true });
@@ -3065,6 +3065,7 @@ DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
         'QUINTAPAG_Login_error_selfie',
         'Erro ao salvar selfie: ' + QUINTAPAG_Login_erro.message
     );
+}
 }
 // ========== TELA 7: ÁREA DO PASSAGEIRO COM PREFIXO SEXTAPAG ==========
 
