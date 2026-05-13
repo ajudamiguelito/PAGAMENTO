@@ -12,7 +12,12 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
     <style>
-        :root {
+	
+/* ==================================================
+   1. VARIÁVEIS E BASE
+================================================== */
+
+:root {
             --Fame_dark: #121212;
             --Fame_card: #1e1b19;
             --Fame_gold: #c5a98d;
@@ -39,7 +44,10 @@
             overflow: hidden;
         }
 
-        .Fame_moldura {
+/* ==================================================
+   2. ESTRUTURA PRINCIPAL
+================================================== */
+.Fame_moldura {
             position: relative;
             width: 100%;
             height: 100vh;
@@ -51,10 +59,17 @@
             display: flex;
             flex-direction: column;
         }
-		
-		/* ===== BARRA DE ROLAGEM QUASE INVISÍVEL ===== */
+/* ==================================================
+   2. ESTRUTURA PRINCIPAL
+================================================== */
 
 .Fame_content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+
     scrollbar-width: thin;
     scrollbar-color: rgba(197, 169, 141, 0.12) transparent;
 }
@@ -75,9 +90,394 @@
 .Fame_content::-webkit-scrollbar-thumb:hover {
     background: rgba(197, 169, 141, 0.30);
 }
+/* ==================================================
+   3. RESPONSIVO
+================================================== */
+ @media (min-width: 768px) {
+            .Fame_moldura {
+                width: 95%;
+                max-width: 450px;
+                height: 90vh;
+                border-radius: 30px;
+            }
+        }
 
+        
+/* ==================================================
+   4. HEADER / TOPO GERAL
+================================================== */
+.PRIMEIRAPAG_Login_header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .PRIMEIRAPAG_Login_header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .PRIMEIRAPAG_Login_subtitle {
+            color: var(--Fame_muted);
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+/* ==================================================
+   5. TELAS
+================================================== */
+.PRIMEIRAPAG_Login_screen {
+            display: none !important;
+        }
+
+        .PRIMEIRAPAG_Login_screen.active {
+            display: flex !important;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .PRIMEIRAPAG_Login_step_title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--Fame_gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+/* ==================================================
+   6. FORMULÁRIOS
+================================================== */
+.PRIMEIRAPAG_Login_form_group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .PRIMEIRAPAG_Login_form_group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--Fame_muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .PRIMEIRAPAG_Login_form_group input,
+        .PRIMEIRAPAG_Login_form_group select {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--Fame_input);
+            border: 1px solid #3a3531;
+            border-radius: 0.5rem;
+            color: var(--Fame_text);
+            font-size: 0.95rem;
+        }
+
+        .PRIMEIRAPAG_Login_form_group input.error {
+            border-color: var(--Fame_error);
+            background-color: rgba(239, 68, 68, 0.05);
+        }
+		
+		.PRIMEIRAPAG_Login_eye_btn {
+            position: absolute;
+            right: 10px;
+            top: 32px;
+            background: none;
+            border: none;
+            color: var(--Fame_muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+		
+		
+/* ==================================================
+   7. BOTÕES
+================================================== */
+
+ .PRIMEIRAPAG_Login_btn {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .PRIMEIRAPAG_Login_btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .PRIMEIRAPAG_Login_btn_primary {
+            background-color: var(--Fame_gold);
+            color: var(--Fame_card);
+        }
+
+        .PRIMEIRAPAG_Login_btn_secondary {
+            background-color: transparent;
+            border: 1px solid #3a3531;
+            color: var(--Fame_gold);
+        }
+		   .PRIMEIRAPAG_Login_btn_small_width {
+            max-width: 220px;
+        }
+
+        .PRIMEIRAPAG_Login_btn_atualizar_teste_style {
+            position: fixed;
+            right: 14px;
+            bottom: 14px;
+            z-index: 9999;
+            width: auto;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(197, 169, 141, 0.45);
+            background: rgba(30, 27, 25, 0.85);
+            color: #c5a98d;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            opacity: 0.75;
+        }
+		 
+
+/* ==================================================
+   8. MENSAGENS / AVISOS / CARDS
+================================================== */
+ .PRIMEIRAPAG_Login_error {
+            background-color: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: #fca5a5;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+		.PRIMEIRAPAG_Login_aviso_analise {
+            margin-top: 14px;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(197, 169, 141, 0.08);
+            border: 1px solid rgba(197, 169, 141, 0.22);
+            color: var(--Fame_text);
+            font-size: 0.78rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+		.PRIMEIRAPAG_Login_cadastro_info_box {
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(197, 169, 141, 0.08);
+            border: 1px solid rgba(197, 169, 141, 0.22);
+            margin-bottom: 18px;
+        }
+
+        .PRIMEIRAPAG_Login_cadastro_info_box h4 {
+            color: var(--Fame_gold);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .PRIMEIRAPAG_Login_cadastro_info_box p {
+            color: var(--Fame_text);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .PRIMEIRAPAG_Login_status_box {
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(197, 169, 141, 0.08);
+            border: 1px solid rgba(197, 169, 141, 0.22);
+            margin-top: 20px;
+            color: var(--Fame_text);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .PRIMEIRAPAG_Login_status_box strong {
+            color: var(--Fame_gold);
+        }
+/* ==================================================
+   9. CARDS DE TIPO
+================================================== */
+.PRIMEIRAPAG_Login_tipo_cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_card {
+            background: var(--Fame_input);
+            border: 1px solid #3a3531;
+            border-radius: 12px;
+            padding: 12px 8px;
+            color: var(--Fame_text);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_card span {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_card.active {
+            border-color: var(--Fame_gold);
+            background: rgba(197, 169, 141, 0.12);
+            color: var(--Fame_gold);
+            box-shadow: 0 0 0 1px rgba(197, 169, 141, 0.2);
+        }
+		.QUARTAPAG_Login_tipo_card_desc {
+            display: block;
+            font-size: 0.68rem;
+            margin-top: 4px;
+            color: var(--Fame_muted);
+        }
+
+        
+/* ==================================================
+   10. LINKS / TEXTOS PEQUENOS
+================================================== */
+.PRIMEIRAPAG_Login_link_row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -8px;
+            margin-bottom: 5px;
+        }
+
+        .PRIMEIRAPAG_Login_small_link {
+            color: var(--Fame_gold);
+            font-size: 0.78rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .PRIMEIRAPAG_Login_novo_texto {
+            color: var(--Fame_muted);
+            text-align: center;
+            font-size: 0.82rem;
+            margin-top: 18px;
+            margin-bottom: -4px;
+        }
+		.PRIMEIRAPAG_Login_footer_suporte {
+            margin-top: auto;
+            padding-top: 18px;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--Fame_muted);
+        }
+
+        .PRIMEIRAPAG_Login_footer_suporte span {
+            color: var(--Fame_gold);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+		
+/* ==================================================
+   11. PROGRESSO
+================================================== */
+ .PRIMEIRAPAG_Login_progress_wrap {
+            margin-top: 12px;
+        }
+
+        .PRIMEIRAPAG_Login_progress_text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--Fame_muted);
+            margin-bottom: 6px;
+        }
+
+        .PRIMEIRAPAG_Login_progress_bar_fake {
+            width: 100%;
+            height: 7px;
+            background: #333;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .PRIMEIRAPAG_Login_progress_bar_fake div {
+            width: 0%;
+            height: 100%;
+            background: var(--Fame_gold);
+            border-radius: 20px;
+        }
+		.SEXTAPAG_Login_progress_45 {
+            width: 45%;
+        }
+
+        .SEXTAPAG_Login_progress_0 {
+            width: 0%;
+        }
+
+/* ==================================================
+   12. WELCOME
+================================================== */
+.Welcome_bg {
+            background-image: url('https://t2.tudocdn.net/174865?w=217&h=386');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            border-radius: inherit;
+            overflow: hidden;
+        }
+
+        .Welcome_bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1;
+        }
+
+        .Welcome_bg > div {
+            position: relative;
+            z-index: 2;
+        }
+		
+		.PRIMEIRAPAG_Login_welcome_content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .PRIMEIRAPAG_Login_welcome_title {
+            color: var(--Fame_gold);
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+        }
+
+        .PRIMEIRAPAG_Login_welcome_text {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 18px;
+        }
+
+/* ==================================================
+   13. SELFIE / FOTO
+================================================== */
 /* ===== TELA SELFIE - PREFIXO QUINTAPAG ===== */
-
 .QUINTAPAG_Login_preview_area {
     margin-top: 18px;
     text-align: center;
@@ -118,318 +518,48 @@
 }
 		
 		
-		
-		
 
-        @media (min-width: 768px) {
-            .Fame_moldura {
-                width: 95%;
-                max-width: 450px;
-                height: 90vh;
-                border-radius: 30px;
-            }
-        }
-
-        .Fame_content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .PRIMEIRAPAG_Login_header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .PRIMEIRAPAG_Login_header h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-
-        .PRIMEIRAPAG_Login_subtitle {
-            color: var(--Fame_muted);
-            font-size: 0.9rem;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        .PRIMEIRAPAG_Login_form_group {
-            margin-bottom: 1.25rem;
-            position: relative;
-        }
-
-        .PRIMEIRAPAG_Login_form_group label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--Fame_muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .PRIMEIRAPAG_Login_form_group input,
-        .PRIMEIRAPAG_Login_form_group select {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--Fame_input);
-            border: 1px solid #3a3531;
-            border-radius: 0.5rem;
-            color: var(--Fame_text);
-            font-size: 0.95rem;
-        }
-
-        .PRIMEIRAPAG_Login_form_group input.error {
-            border-color: var(--Fame_error);
-            background-color: rgba(239, 68, 68, 0.05);
-        }
-
-        .PRIMEIRAPAG_Login_btn {
-            width: 100%;
-            padding: 0.9rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            margin-top: 1rem;
-        }
-
-        .PRIMEIRAPAG_Login_btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .PRIMEIRAPAG_Login_btn_primary {
-            background-color: var(--Fame_gold);
-            color: var(--Fame_card);
-        }
-
-        .PRIMEIRAPAG_Login_btn_secondary {
-            background-color: transparent;
-            border: 1px solid #3a3531;
-            color: var(--Fame_gold);
-        }
-
-        .PRIMEIRAPAG_Login_error {
-            background-color: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            color: #fca5a5;
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
+/* ==================================================
+   14. MODAL TNP
+================================================== */
+ .DECIMASEGUNDAPAG_Login_modal_overlay {
             display: none;
-        }
-
-        .PRIMEIRAPAG_Login_screen {
-            display: none !important;
-        }
-
-        .PRIMEIRAPAG_Login_screen.active {
-            display: flex !important;
-            flex-direction: column;
-            min-height: 100%;
-        }
-
-        .PRIMEIRAPAG_Login_step_title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: var(--Fame_gold);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .PRIMEIRAPAG_Login_eye_btn {
-            position: absolute;
-            right: 10px;
-            top: 32px;
-            background: none;
-            border: none;
-            color: var(--Fame_muted);
-            cursor: pointer;
-            font-size: 1.2rem;
-            z-index: 10;
-        }
-
-        .PRIMEIRAPAG_Login_tipo_cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .PRIMEIRAPAG_Login_tipo_card {
-            background: var(--Fame_input);
-            border: 1px solid #3a3531;
-            border-radius: 12px;
-            padding: 12px 8px;
-            color: var(--Fame_text);
-            text-align: center;
-            cursor: pointer;
-            transition: 0.25s ease;
-            font-size: 0.85rem;
-            font-weight: 600;
-            user-select: none;
-        }
-
-        .PRIMEIRAPAG_Login_tipo_card span {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-        }
-
-        .PRIMEIRAPAG_Login_tipo_card.active {
-            border-color: var(--Fame_gold);
-            background: rgba(197, 169, 141, 0.12);
-            color: var(--Fame_gold);
-            box-shadow: 0 0 0 1px rgba(197, 169, 141, 0.2);
-        }
-
-        .PRIMEIRAPAG_Login_link_row {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: -8px;
-            margin-bottom: 5px;
-        }
-
-        .PRIMEIRAPAG_Login_small_link {
-            color: var(--Fame_gold);
-            font-size: 0.78rem;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .PRIMEIRAPAG_Login_novo_texto {
-            color: var(--Fame_muted);
-            text-align: center;
-            font-size: 0.82rem;
-            margin-top: 18px;
-            margin-bottom: -4px;
-        }
-
-        .PRIMEIRAPAG_Login_aviso_analise {
-            margin-top: 14px;
-            padding: 10px;
-            border-radius: 12px;
-            background: rgba(197, 169, 141, 0.08);
-            border: 1px solid rgba(197, 169, 141, 0.22);
-            color: var(--Fame_text);
-            font-size: 0.78rem;
-            line-height: 1.4;
-            text-align: center;
-        }
-
-        .PRIMEIRAPAG_Login_footer_suporte {
-            margin-top: auto;
-            padding-top: 18px;
-            text-align: center;
-            font-size: 0.78rem;
-            color: var(--Fame_muted);
-        }
-
-        .PRIMEIRAPAG_Login_footer_suporte span {
-            color: var(--Fame_gold);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .PRIMEIRAPAG_Login_cadastro_info_box {
-            padding: 14px;
-            border-radius: 14px;
-            background: rgba(197, 169, 141, 0.08);
-            border: 1px solid rgba(197, 169, 141, 0.22);
-            margin-bottom: 18px;
-        }
-
-        .PRIMEIRAPAG_Login_cadastro_info_box h4 {
-            color: var(--Fame_gold);
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .PRIMEIRAPAG_Login_cadastro_info_box p {
-            color: var(--Fame_text);
-            font-size: 0.82rem;
-            line-height: 1.45;
-        }
-
-        .PRIMEIRAPAG_Login_status_box {
-            padding: 16px;
-            border-radius: 16px;
-            background: rgba(197, 169, 141, 0.08);
-            border: 1px solid rgba(197, 169, 141, 0.22);
-            margin-top: 20px;
-            color: var(--Fame_text);
-            font-size: 0.85rem;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .PRIMEIRAPAG_Login_status_box strong {
-            color: var(--Fame_gold);
-        }
-
-        .PRIMEIRAPAG_Login_progress_wrap {
-            margin-top: 12px;
-        }
-
-        .PRIMEIRAPAG_Login_progress_text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--Fame_muted);
-            margin-bottom: 6px;
-        }
-
-        .PRIMEIRAPAG_Login_progress_bar_fake {
-            width: 100%;
-            height: 7px;
-            background: #333;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .PRIMEIRAPAG_Login_progress_bar_fake div {
-            width: 0%;
-            height: 100%;
-            background: var(--Fame_gold);
-            border-radius: 20px;
-        }
-
-        .Welcome_bg {
-            background-image: url('https://t2.tudocdn.net/174865?w=217&h=386');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100%;
-            width: 100%;
-            position: relative;
-            border-radius: inherit;
-            overflow: hidden;
-        }
-
-        .Welcome_bg::before {
-            content: "";
-            position: absolute;
+            position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .Welcome_bg > div {
-            position: relative;
-            z-index: 2;
+        .DECIMASEGUNDAPAG_Login_modal_box {
+            width: 100%;
+            max-width: 390px;
+            background: #1e1b19;
+            border: 1px solid rgba(197, 169, 141, 0.35);
+            border-radius: 18px;
+            padding: 18px;
+            color: #e0e0e0;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
         }
 
-        /* ===== CLASSES AUXILIARES PARA REMOVER CSS INLINE DO HTML ===== */
+        .DECIMASEGUNDAPAG_Login_modal_title {
+            color: #c5a98d;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .DECIMASEGUNDAPAG_Login_modal_text {
+            font-size: 0.86rem;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+
+/* ==================================================
+   15. CLASSES AUXILIARES
+================================================== */
+ /* ===== CLASSES AUXILIARES PARA REMOVER CSS INLINE DO HTML ===== */
         .PRIMEIRAPAG_Login_mb_16 {
             margin-bottom: 16px;
         }
@@ -473,104 +603,13 @@
         .PRIMEIRAPAG_Login_checkbox_auto {
             width: auto;
         }
-
-        .QUARTAPAG_Login_tipo_card_desc {
-            display: block;
-            font-size: 0.68rem;
-            margin-top: 4px;
-            color: var(--Fame_muted);
-        }
-
-        .SEGUNDAPAG_Login_email_destaque {
+		.SEGUNDAPAG_Login_email_destaque {
             color: var(--Fame_gold);
         }
 
-        .SEXTAPAG_Login_progress_45 {
-            width: 45%;
-        }
-
-        .SEXTAPAG_Login_progress_0 {
-            width: 0%;
-        }
-
-        .DECIMASEGUNDAPAG_Login_modal_overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.78);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .DECIMASEGUNDAPAG_Login_modal_box {
-            width: 100%;
-            max-width: 390px;
-            background: #1e1b19;
-            border: 1px solid rgba(197, 169, 141, 0.35);
-            border-radius: 18px;
-            padding: 18px;
-            color: #e0e0e0;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-        }
-
-        .DECIMASEGUNDAPAG_Login_modal_title {
-            color: #c5a98d;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .DECIMASEGUNDAPAG_Login_modal_text {
-            font-size: 0.86rem;
-            line-height: 1.5;
-            color: #e0e0e0;
-        }
-
-        .PRIMEIRAPAG_Login_welcome_content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .PRIMEIRAPAG_Login_welcome_title {
-            color: var(--Fame_gold);
-            font-size: 1.7rem;
-            margin-bottom: 12px;
-        }
-
-        .PRIMEIRAPAG_Login_welcome_text {
-            color: #ffffff;
-            font-size: 1rem;
-            margin-bottom: 18px;
-        }
-
-        .PRIMEIRAPAG_Login_btn_small_width {
-            max-width: 220px;
-        }
-
-        .PRIMEIRAPAG_Login_btn_atualizar_teste_style {
-            position: fixed;
-            right: 14px;
-            bottom: 14px;
-            z-index: 9999;
-            width: auto;
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(197, 169, 141, 0.45);
-            background: rgba(30, 27, 25, 0.85);
-            color: #c5a98d;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            opacity: 0.75;
-        }
-		
-		/* ===== TELA INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ===== */
+/* ==================================================
+   16. HOME DO PASSAGEIRO
+================================================== */
 
 #PASSAGEIROPAG_Login_screen_home {
     position: relative;
@@ -695,7 +734,6 @@
     cursor: pointer;
     flex-shrink: 0;
 }
-
 /* MENU LATERAL */
 .PASSAGEIROPAG_Login_menu_overlay {
     position: fixed;
@@ -872,6 +910,45 @@
     margin-bottom: 8px;
     font-size: 1rem;
 }
+/* ==================================================
+   17. AJUSTES FINAIS
+================================================== */
+
+
+.Fame_content.PASSAGEIROPAG_Login_home_ativa {
+    padding: 0;
+}
+
+.Fame_content.PASSAGEIROPAG_Login_home_ativa #PASSAGEIROPAG_Login_screen_home {
+    width: 100%;
+    min-height: 100%;
+}
+
+
+	
+
+        
+
+       
+
+        
+
+       
+
+        
+
+        
+       
+
+        
+
+     
+		
+
+
+
+
+
 		
 
     </style>
@@ -2201,45 +2278,45 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             <span id="PASSAGEIROPAG_Login_email_menu">-</span>
         </div>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('DECIMAPRIMEIRAPAG_Login_screen_revisao_final')">
-            👤 Meu perfil
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Meu perfil', 'Aqui você poderá revisar seus dados, foto, contatos, endereço e informações da sua conta.', 'DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal')">
+    👤 Meu perfil
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_historico')">
-            🕘 Histórico
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Histórico de corridas', 'Aqui você poderá acompanhar suas corridas concluídas, canceladas, valores, motoristas e detalhes das viagens.')">
+    🕘 Histórico
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_ajuda')">
-            ❓ Solicitar ajuda
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Solicitar ajuda', 'Aqui você poderá falar com o suporte, relatar problemas em corridas e tirar dúvidas sobre sua conta.')">
+    ❓ Solicitar ajuda
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_mensagens')">
-            💬 Mensagens
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Mensagens', 'Aqui ficarão suas mensagens, avisos importantes, respostas do suporte e comunicações da plataforma.')">
+    💬 Mensagens
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_seguranca')">
-            🛡️ Central de segurança
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui você encontrará recursos de proteção, contatos de emergência, verificação de conta e orientações de segurança.')">
+    🛡️ Central de segurança
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pagamentos')">
-            💳 Métodos de pagamento
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Métodos de pagamento', 'Aqui você poderá cadastrar Pix, cartões, acompanhar pagamentos e formas de cobrança.')">
+    💳 Métodos de pagamento
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_configuracoes')">
-            ⚙️ Configurações
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Configurações', 'Aqui você poderá ajustar tema do app, notificações, permissões e preferências da conta.')">
+    ⚙️ Configurações
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_convidar')">
-            🎁 Convidar pessoas
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Convidar pessoas', 'Aqui você poderá convidar amigos, passageiros e acompanhar benefícios por indicação.')">
+    🎁 Convidar pessoas
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_seja_motorista')">
-            🚗 Seja motorista
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Seja motorista', 'Aqui você poderá iniciar seu cadastro de motorista, enviar documentos e acompanhar sua aprovação.')">
+    🚗 Seja motorista
+</button>
 
-        <button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
-            🚪 Sair
-        </button>
+<button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
+    🚪 Sair
+</button>
     </div>
 
     <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
@@ -2345,7 +2422,32 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
                     </button>
                 </div>
             </div>
+			
+			
+<!-- TELA PROVISÓRIA DO MENU DO PASSAGEIRO - PREFIXO PASSAGEIROPAG -->
+<div id="PASSAGEIROPAG_Login_screen_pagina_provisoria" class="PRIMEIRAPAG_Login_screen">
 
+    <h3 class="PRIMEIRAPAG_Login_step_title" id="PASSAGEIROPAG_Login_pagina_titulo">
+        Página
+    </h3>
+
+    <div class="PASSAGEIROPAG_Login_pagina_simples_box">
+        <strong id="PASSAGEIROPAG_Login_pagina_subtitulo">Bem-vindo</strong>
+        <p id="PASSAGEIROPAG_Login_pagina_texto">
+            Esta área será construída em breve.
+        </p>
+    </div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="PASSAGEIROPAG_Login_func_carregarHomePassageiro()"
+        >
+            VOLTAR PARA INÍCIO
+        </button>
+    </div>
+
+</div>
 
 
 
@@ -2416,10 +2518,17 @@ function PRIMEIRAPAG_Login_func_irPara(telaId) {
     document.querySelectorAll('.PRIMEIRAPAG_Login_screen').forEach(s => s.classList.remove('active'));
     PRIMEIRAPAG_tela.classList.add('active');
 
-    const PRIMEIRAPAG_contentArea = document.getElementById('PRIMEIRAPAG_Login_content_area');
-    if (PRIMEIRAPAG_contentArea) {
-        PRIMEIRAPAG_contentArea.scrollTop = 0;
+const PRIMEIRAPAG_contentArea = document.getElementById('PRIMEIRAPAG_Login_content_area');
+
+if (PRIMEIRAPAG_contentArea) {
+    PRIMEIRAPAG_contentArea.scrollTop = 0;
+
+    if (telaId === 'PASSAGEIROPAG_Login_screen_home') {
+        PRIMEIRAPAG_contentArea.classList.add('PASSAGEIROPAG_Login_home_ativa');
+    } else {
+        PRIMEIRAPAG_contentArea.classList.remove('PASSAGEIROPAG_Login_home_ativa');
     }
+}
 
     PRIMEIRAPAG_Login_func_limparErros();
 }
@@ -5751,7 +5860,23 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
         PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
     }
 }	
-		
+function PASSAGEIROPAG_Login_func_abrirPaginaProvisoria(titulo, texto, funcaoEspecial) {
+    PASSAGEIROPAG_Login_func_fecharMenuLateral();
+
+    if (funcaoEspecial === "DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal") {
+        return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+    }
+
+    const tituloEl = document.getElementById('PASSAGEIROPAG_Login_pagina_titulo');
+    const subtituloEl = document.getElementById('PASSAGEIROPAG_Login_pagina_subtitulo');
+    const textoEl = document.getElementById('PASSAGEIROPAG_Login_pagina_texto');
+
+    if (tituloEl) tituloEl.innerText = titulo;
+    if (subtituloEl) subtituloEl.innerText = titulo;
+    if (textoEl) textoEl.innerText = texto;
+
+    PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_pagina_provisoria');
+}		
 		
 		
     </script>
