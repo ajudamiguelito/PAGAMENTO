@@ -306,9 +306,31 @@
             color: var(--Fame_gold);
         }
 /* CARD IMPORTANTE - TNP */
-.PASSAGEIROPAG_Login_card_importante{
+/* CARD IMPORTANTE - TNP */
+.PASSAGEIROPAG_Login_card_importante {
     margin-top: -20px;
     margin-bottom: 35px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(197, 169, 141, 0.08);
+    border: 1px solid rgba(197, 169, 141, 0.22);
+    color: var(--Fame_text);
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+.PASSAGEIROPAG_Login_card_importante strong {
+    display: block;
+    color: var(--Fame_gold);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.PASSAGEIROPAG_Login_card_importante p {
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.45;
 }
 /* ==================================================
    9. CARDS DE TIPO
@@ -521,7 +543,18 @@
 .QUINTAPAG_Login_file_input {
     display: none;
 }
-		
+/* ===== SELFIE COM DOCUMENTO - PREFIXO PASSAGEIROPAG ===== */
+
+.PASSAGEIROPAG_Login_selfie_documento_preview {
+    width: 100%;
+    max-width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 3px solid var(--Fame_gold);
+    display: block;
+    margin: 0 auto;
+}		
 		
 
 /* ==================================================
@@ -2687,7 +2720,73 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
 </div>
+<!-- TELA: SELFIE COM DOCUMENTO - PREFIXO PASSAGEIROPAG -->
+<div id="PASSAGEIROPAG_Login_screen_selfie_documento" class="PRIMEIRAPAG_Login_screen">
 
+    <div class="PRIMEIRAPAG_Login_error" id="PASSAGEIROPAG_Login_error_selfie_documento"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Selfie com documento</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Verificação de segurança</h4>
+        <p>
+            Tire uma selfie segurando seu documento próximo ao rosto.
+            A foto precisa estar nítida para confirmar sua identidade.
+        </p>
+    </div>
+
+    <label for="PASSAGEIROPAG_Login_input_selfie_documento" class="QUINTAPAG_Login_file_label">
+        TIRAR SELFIE COM DOCUMENTO
+    </label>
+
+    <input
+        type="file"
+        id="PASSAGEIROPAG_Login_input_selfie_documento"
+        class="QUINTAPAG_Login_file_input"
+        accept="image/*"
+        capture="user"
+        onchange="PASSAGEIROPAG_Login_func_processarSelfieDocumento(this)"
+    >
+
+    <div id="PASSAGEIROPAG_Login_preview_documento_area" class="QUINTAPAG_Login_preview_area">
+        <img
+            id="PASSAGEIROPAG_Login_preview_documento_img"
+            class="PASSAGEIROPAG_Login_selfie_documento_preview"
+        >
+
+        <div id="PASSAGEIROPAG_Login_info_selfie_documento" class="QUINTAPAG_Login_info"></div>
+
+        <div
+            id="PASSAGEIROPAG_Login_status_selfie_documento"
+            class="QUINTAPAG_Login_info"
+            style="display:none; margin-top:10px;"
+        ></div>
+
+        <label for="PASSAGEIROPAG_Login_input_selfie_documento" class="QUINTAPAG_Login_file_label">
+            TROCAR FOTO
+        </label>
+    </div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="PASSAGEIROPAG_Login_btn_confirmar_selfie_documento"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="PASSAGEIROPAG_Login_func_confirmarSelfieDocumento()"
+            style="display:none;"
+            disabled
+        >
+            ENVIAR SELFIE COM DOCUMENTO
+        </button>
+
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="PASSAGEIROPAG_Login_func_carregarHomePassageiro()"
+        >
+            VOLTAR PARA INÍCIO
+        </button>
+    </div>
+
+</div>
 <!-- MODAL GRANDE: SELFIE COM DOCUMENTO - PREFIXO PASSAGEIROPAG -->
 <div id="PASSAGEIROPAG_Login_modal_documento_overlay" class="PASSAGEIROPAG_Login_modal_documento_overlay">
 
@@ -6108,6 +6207,170 @@ function PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora() {
         modal.style.display = 'none';
     }
 }
+function PASSAGEIROPAG_Login_func_iniciarSelfieDocumento() {
+    PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora();
+    PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_selfie_documento');
+}
+let PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+async function PASSAGEIROPAG_Login_func_processarSelfieDocumento(input) {
+    const status = document.getElementById('PASSAGEIROPAG_Login_status_selfie_documento');
+    const previewArea = document.getElementById('PASSAGEIROPAG_Login_preview_documento_area');
+    const previewImg = document.getElementById('PASSAGEIROPAG_Login_preview_documento_img');
+    const info = document.getElementById('PASSAGEIROPAG_Login_info_selfie_documento');
+    const btnConfirmar = document.getElementById('PASSAGEIROPAG_Login_btn_confirmar_selfie_documento');
+
+    PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+    btnConfirmar.style.display = 'none';
+    btnConfirmar.disabled = true;
+    btnConfirmar.innerText = 'ENVIAR SELFIE COM DOCUMENTO';
+
+    if (status) {
+        status.style.display = 'block';
+        status.innerText = 'Processando foto, aguarde.';
+    }
+
+    if (!input.files || !input.files[0]) {
+        if (status) status.style.display = 'none';
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Nenhuma imagem selecionada.'
+        );
+    }
+
+    const arquivoOriginal = input.files[0];
+
+    if (!arquivoOriginal.type.startsWith('image/')) {
+        if (status) status.style.display = 'none';
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Selecione uma imagem válida.'
+        );
+    }
+
+    try {
+        const tamanhoOriginalKB = (arquivoOriginal.size / 1024).toFixed(2);
+
+        const arquivoComprimido = await QUINTAPAG_Login_func_comprimirImagem(
+            arquivoOriginal,
+            0.75,
+            1000,
+            1000
+        );
+
+        PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = arquivoComprimido;
+
+        const tamanhoFinalKB = (arquivoComprimido.size / 1024).toFixed(2);
+
+        previewImg.src = URL.createObjectURL(arquivoComprimido);
+        previewArea.style.display = 'block';
+
+        info.innerHTML =
+            `Original: ${tamanhoOriginalKB} KB<br>` +
+            `Comprimida: ${tamanhoFinalKB} KB`;
+
+        if (status) {
+            status.style.display = 'block';
+            status.innerText = 'Foto pronta. Agora toque em ENVIAR SELFIE COM DOCUMENTO.';
+        }
+
+        btnConfirmar.style.display = 'block';
+        btnConfirmar.disabled = false;
+
+    } catch (erro) {
+        PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+        if (status) {
+            status.style.display = 'block';
+            status.innerText = 'Não foi possível processar a foto. Tente tirar outra.';
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Erro ao processar foto: ' + erro.message
+        );
+    }
+}
+
+async function PASSAGEIROPAG_Login_func_confirmarSelfieDocumento() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('PASSAGEIROPAG_Login_btn_confirmar_selfie_documento');
+    const status = document.getElementById('PASSAGEIROPAG_Login_status_selfie_documento');
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+    if (!PASSAGEIROPAG_Login_var_selfieDocumentoProcessada) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Tire ou selecione a selfie com documento antes de continuar.'
+        );
+    }
+
+    btn.disabled = true;
+    btn.innerText = 'ENVIANDO FOTO...';
+
+    if (status) {
+        status.style.display = 'block';
+        status.innerText = 'Enviando selfie com documento para verificação. Aguarde.';
+    }
+
+    try {
+        const caminho = `usuarios/${user.uid}/verificacoes/selfie-documento-extra.jpg`;
+
+        const storageRef = PRIMEIRAPAG_Login_storage
+            .ref()
+            .child(caminho);
+
+        await storageRef.put(PASSAGEIROPAG_Login_var_selfieDocumentoProcessada);
+
+        const urlFotoDocumento = await storageRef.getDownloadURL();
+
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                selfieDocumentoExtraUrl: urlFotoDocumento,
+                selfieDocumentoExtraConcluida: true,
+                selfieDocumentoExtraPendente: false,
+                bloqueadoPorSelfieDocumentoExtra: false,
+                selfieDocumentoExtraAtualizadaEm: new Date(),
+                atualizadoEm: new Date()
+            }, { merge: true });
+
+        PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+        const card = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
+        if (card) {
+            card.style.display = 'none';
+        }
+
+        alert('Selfie com documento enviada com sucesso.');
+
+        PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+
+    } catch (erro) {
+        btn.disabled = false;
+        btn.innerText = 'ENVIAR SELFIE COM DOCUMENTO';
+
+        if (status) {
+            status.style.display = 'block';
+            status.innerText = 'Erro ao enviar foto. Tente novamente.';
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Erro ao salvar selfie com documento: ' + erro.message
+        );
+    }
+}
 
 async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
@@ -6281,6 +6544,25 @@ document.addEventListener('DOMContentLoaded', function () {
     PRIMEIRAPAG_Login_func_aplicarTemaSalvo();
 });	
     </script>
-
+<button
+    style="
+        position: fixed;
+        right: 14px;
+        bottom: 60px;
+        z-index: 9999;
+        width: auto;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(197, 169, 141, 0.45);
+        background: rgba(30, 27, 25, 0.85);
+        color: #c5a98d;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+    "
+    onclick="PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_selfie_documento')"
+>
+    TESTAR SELFIE DOC
+</button>
 </body>
 </html>
