@@ -12,54 +12,49 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
     <style>
- :root {
-    --Fame_dark: #121212;
-    --Fame_card: #1e1b19;
-    --Fame_gold: #c5a98d;
-    --Fame_text: #e0e0e0;
-    --Fame_muted: #8e8e8e;
-    --Fame_input: #2a2623;
-    --Fame_brown: #4d2b1a;
-    --Fame_error: #ef4444;
-}
+        :root {
+            --Fame_dark: #121212;
+            --Fame_card: #1e1b19;
+            --Fame_gold: #c5a98d;
+            --Fame_text: #e0e0e0;
+            --Fame_muted: #8e8e8e;
+            --Fame_input: #2a2623;
+            --Fame_brown: #4d2b1a;
+            --Fame_error: #ef4444;
+        }
 
-/* ===== RESET / BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        body {
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
 
-body {
-    background-color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
-}
-
-.Fame_moldura {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: #1a1a1a;
-    border: 3px solid var(--Fame_brown);
-    border-radius: 0;
-    box-shadow: inset 0 0 20px var(--Fame_brown);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
+        .Fame_moldura {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: #1a1a1a;
+            border: 3px solid var(--Fame_brown);
+            border-radius: 0;
+            box-shadow: inset 0 0 20px var(--Fame_brown);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+		
+		/* ===== BARRA DE ROLAGEM QUASE INVISÍVEL ===== */
 
 .Fame_content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 2rem 1.5rem;
-    display: flex;
-    flex-direction: column;
     scrollbar-width: thin;
     scrollbar-color: rgba(197, 169, 141, 0.12) transparent;
 }
@@ -79,394 +74,6 @@ body {
 
 .Fame_content::-webkit-scrollbar-thumb:hover {
     background: rgba(197, 169, 141, 0.30);
-}
-
-/* Quando a Home do Passageiro estiver ativa, remove o padding geral */
-.Fame_content.PASSAGEIROPAG_Login_home_ativa {
-    padding: 0;
-}
-
-.Fame_content.PASSAGEIROPAG_Login_home_ativa #PASSAGEIROPAG_Login_screen_home {
-    width: 100%;
-    min-height: 100%;
-}
-
-/* ===== RESPONSIVO ===== */
-
-@media (min-width: 768px) {
-    .Fame_moldura {
-        width: 95%;
-        max-width: 450px;
-        height: 90vh;
-        border-radius: 30px;
-    }
-}
-
-/* ===== HEADER / TOPO GERAL ===== */
-
-.PRIMEIRAPAG_Login_header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.PRIMEIRAPAG_Login_header h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-}
-
-.PRIMEIRAPAG_Login_subtitle {
-    color: var(--Fame_muted);
-    font-size: 0.9rem;
-    text-align: center;
-    line-height: 1.4;
-}
-
-/* ===== TELAS ===== */
-
-.PRIMEIRAPAG_Login_screen {
-    display: none !important;
-}
-
-.PRIMEIRAPAG_Login_screen.active {
-    display: flex !important;
-    flex-direction: column;
-    min-height: 100%;
-}
-
-.PRIMEIRAPAG_Login_step_title {
-    font-size: 1rem;
-    font-weight: bold;
-    color: var(--Fame_gold);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-/* ===== FORMULÁRIOS ===== */
-
-.PRIMEIRAPAG_Login_form_group {
-    margin-bottom: 1.25rem;
-    position: relative;
-}
-
-.PRIMEIRAPAG_Login_form_group label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--Fame_muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-}
-
-.PRIMEIRAPAG_Login_form_group input,
-.PRIMEIRAPAG_Login_form_group select {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: var(--Fame_input);
-    border: 1px solid #3a3531;
-    border-radius: 0.5rem;
-    color: var(--Fame_text);
-    font-size: 0.95rem;
-}
-
-.PRIMEIRAPAG_Login_form_group input.error {
-    border-color: var(--Fame_error);
-    background-color: rgba(239, 68, 68, 0.05);
-}
-
-.PRIMEIRAPAG_Login_eye_btn {
-    position: absolute;
-    right: 10px;
-    top: 32px;
-    background: none;
-    border: none;
-    color: var(--Fame_muted);
-    cursor: pointer;
-    font-size: 1.2rem;
-    z-index: 10;
-}
-
-/* ===== BOTÕES ===== */
-
-.PRIMEIRAPAG_Login_btn {
-    width: 100%;
-    padding: 0.9rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    margin-top: 1rem;
-}
-
-.PRIMEIRAPAG_Login_btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.PRIMEIRAPAG_Login_btn_primary {
-    background-color: var(--Fame_gold);
-    color: var(--Fame_card);
-}
-
-.PRIMEIRAPAG_Login_btn_secondary {
-    background-color: transparent;
-    border: 1px solid #3a3531;
-    color: var(--Fame_gold);
-}
-
-.PRIMEIRAPAG_Login_btn_small_width {
-    max-width: 220px;
-}
-
-.PRIMEIRAPAG_Login_btn_atualizar_teste_style {
-    position: fixed;
-    right: 14px;
-    bottom: 14px;
-    z-index: 9999;
-    width: auto;
-    padding: 8px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(197, 169, 141, 0.45);
-    background: rgba(30, 27, 25, 0.85);
-    color: #c5a98d;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    opacity: 0.75;
-}
-
-/* ===== MENSAGENS / AVISOS / CARDS ===== */
-
-.PRIMEIRAPAG_Login_error {
-    background-color: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.5);
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    color: #fca5a5;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-    display: none;
-}
-
-.PRIMEIRAPAG_Login_aviso_analise {
-    margin-top: 14px;
-    padding: 10px;
-    border-radius: 12px;
-    background: rgba(197, 169, 141, 0.08);
-    border: 1px solid rgba(197, 169, 141, 0.22);
-    color: var(--Fame_text);
-    font-size: 0.78rem;
-    line-height: 1.4;
-    text-align: center;
-}
-
-.PRIMEIRAPAG_Login_cadastro_info_box {
-    padding: 14px;
-    border-radius: 14px;
-    background: rgba(197, 169, 141, 0.08);
-    border: 1px solid rgba(197, 169, 141, 0.22);
-    margin-bottom: 18px;
-}
-
-.PRIMEIRAPAG_Login_cadastro_info_box h4 {
-    color: var(--Fame_gold);
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
-
-.PRIMEIRAPAG_Login_cadastro_info_box p {
-    color: var(--Fame_text);
-    font-size: 0.82rem;
-    line-height: 1.45;
-}
-
-.PRIMEIRAPAG_Login_status_box {
-    padding: 16px;
-    border-radius: 16px;
-    background: rgba(197, 169, 141, 0.08);
-    border: 1px solid rgba(197, 169, 141, 0.22);
-    margin-top: 20px;
-    color: var(--Fame_text);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    text-align: center;
-}
-
-.PRIMEIRAPAG_Login_status_box strong {
-    color: var(--Fame_gold);
-}
-
-/* ===== CARDS DE TIPO ===== */
-
-.PRIMEIRAPAG_Login_tipo_cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.PRIMEIRAPAG_Login_tipo_card {
-    background: var(--Fame_input);
-    border: 1px solid #3a3531;
-    border-radius: 12px;
-    padding: 12px 8px;
-    color: var(--Fame_text);
-    text-align: center;
-    cursor: pointer;
-    transition: 0.25s ease;
-    font-size: 0.85rem;
-    font-weight: 600;
-    user-select: none;
-}
-
-.PRIMEIRAPAG_Login_tipo_card span {
-    display: block;
-    font-size: 1.4rem;
-    margin-bottom: 4px;
-}
-
-.PRIMEIRAPAG_Login_tipo_card.active {
-    border-color: var(--Fame_gold);
-    background: rgba(197, 169, 141, 0.12);
-    color: var(--Fame_gold);
-    box-shadow: 0 0 0 1px rgba(197, 169, 141, 0.2);
-}
-
-.QUARTAPAG_Login_tipo_card_desc {
-    display: block;
-    font-size: 0.68rem;
-    margin-top: 4px;
-    color: var(--Fame_muted);
-}
-
-/* ===== LINKS / TEXTOS PEQUENOS ===== */
-
-.PRIMEIRAPAG_Login_link_row {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -8px;
-    margin-bottom: 5px;
-}
-
-.PRIMEIRAPAG_Login_small_link {
-    color: var(--Fame_gold);
-    font-size: 0.78rem;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.PRIMEIRAPAG_Login_novo_texto {
-    color: var(--Fame_muted);
-    text-align: center;
-    font-size: 0.82rem;
-    margin-top: 18px;
-    margin-bottom: -4px;
-}
-
-.PRIMEIRAPAG_Login_footer_suporte {
-    margin-top: auto;
-    padding-top: 18px;
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--Fame_muted);
-}
-
-.PRIMEIRAPAG_Login_footer_suporte span {
-    color: var(--Fame_gold);
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* ===== PROGRESSO ===== */
-
-.PRIMEIRAPAG_Login_progress_wrap {
-    margin-top: 12px;
-}
-
-.PRIMEIRAPAG_Login_progress_text {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    color: var(--Fame_muted);
-    margin-bottom: 6px;
-}
-
-.PRIMEIRAPAG_Login_progress_bar_fake {
-    width: 100%;
-    height: 7px;
-    background: #333;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.PRIMEIRAPAG_Login_progress_bar_fake div {
-    width: 0%;
-    height: 100%;
-    background: var(--Fame_gold);
-    border-radius: 20px;
-}
-
-.SEXTAPAG_Login_progress_45 {
-    width: 45%;
-}
-
-.SEXTAPAG_Login_progress_0 {
-    width: 0%;
-}
-
-/* ===== TELA WELCOME ===== */
-
-.Welcome_bg {
-    background-image: url('https://t2.tudocdn.net/174865?w=217&h=386');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    border-radius: inherit;
-    overflow: hidden;
-}
-
-.Welcome_bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    z-index: 1;
-}
-
-.Welcome_bg > div {
-    position: relative;
-    z-index: 2;
-}
-
-.PRIMEIRAPAG_Login_welcome_content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
-    padding: 20px;
-}
-
-.PRIMEIRAPAG_Login_welcome_title {
-    color: var(--Fame_gold);
-    font-size: 1.7rem;
-    margin-bottom: 12px;
-}
-
-.PRIMEIRAPAG_Login_welcome_text {
-    color: #ffffff;
-    font-size: 1rem;
-    margin-bottom: 18px;
 }
 
 /* ===== TELA SELFIE - PREFIXO QUINTAPAG ===== */
@@ -509,94 +116,461 @@ body {
 .QUINTAPAG_Login_file_input {
     display: none;
 }
+		
+		
+		
+		
 
-/* ===== MODAL TNP - PREFIXO DECIMASEGUNDAPAG ===== */
+        @media (min-width: 768px) {
+            .Fame_moldura {
+                width: 95%;
+                max-width: 450px;
+                height: 90vh;
+                border-radius: 30px;
+            }
+        }
 
-.DECIMASEGUNDAPAG_Login_modal_overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.78);
-    z-index: 10000;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
+        .Fame_content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
 
-.DECIMASEGUNDAPAG_Login_modal_box {
-    width: 100%;
-    max-width: 390px;
-    background: #1e1b19;
-    border: 1px solid rgba(197, 169, 141, 0.35);
-    border-radius: 18px;
-    padding: 18px;
-    color: #e0e0e0;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-}
+        .PRIMEIRAPAG_Login_header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-.DECIMASEGUNDAPAG_Login_modal_title {
-    color: #c5a98d;
-    margin-bottom: 12px;
-    text-align: center;
-}
+        .PRIMEIRAPAG_Login_header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
 
-.DECIMASEGUNDAPAG_Login_modal_text {
-    font-size: 0.86rem;
-    line-height: 1.5;
-    color: #e0e0e0;
-}
+        .PRIMEIRAPAG_Login_subtitle {
+            color: var(--Fame_muted);
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.4;
+        }
 
-/* ===== CLASSES AUXILIARES ===== */
+        .PRIMEIRAPAG_Login_form_group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
 
-.PRIMEIRAPAG_Login_mb_16 {
-    margin-bottom: 16px;
-}
+        .PRIMEIRAPAG_Login_form_group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--Fame_muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
 
-.PRIMEIRAPAG_Login_mt_0 {
-    margin-top: 0;
-}
+        .PRIMEIRAPAG_Login_form_group input,
+        .PRIMEIRAPAG_Login_form_group select {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--Fame_input);
+            border: 1px solid #3a3531;
+            border-radius: 0.5rem;
+            color: var(--Fame_text);
+            font-size: 0.95rem;
+        }
 
-.PRIMEIRAPAG_Login_mt_14 {
-    margin-top: 14px;
-}
+        .PRIMEIRAPAG_Login_form_group input.error {
+            border-color: var(--Fame_error);
+            background-color: rgba(239, 68, 68, 0.05);
+        }
 
-.PRIMEIRAPAG_Login_mt_15 {
-    margin-top: 15px;
-}
+        .PRIMEIRAPAG_Login_btn {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
 
-.PRIMEIRAPAG_Login_mt_18 {
-    margin-top: 18px;
-}
+        .PRIMEIRAPAG_Login_btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
-.PRIMEIRAPAG_Login_text_left {
-    text-align: left;
-}
+        .PRIMEIRAPAG_Login_btn_primary {
+            background-color: var(--Fame_gold);
+            color: var(--Fame_card);
+        }
 
-.PRIMEIRAPAG_Login_text_center {
-    text-align: center;
-}
+        .PRIMEIRAPAG_Login_btn_secondary {
+            background-color: transparent;
+            border: 1px solid #3a3531;
+            color: var(--Fame_gold);
+        }
 
-.PRIMEIRAPAG_Login_hidden {
-    display: none;
-}
+        .PRIMEIRAPAG_Login_error {
+            background-color: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: #fca5a5;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
 
-.PRIMEIRAPAG_Login_inline_checkbox_label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-    cursor: pointer;
-}
+        .PRIMEIRAPAG_Login_screen {
+            display: none !important;
+        }
 
-.PRIMEIRAPAG_Login_checkbox_auto {
-    width: auto;
-}
+        .PRIMEIRAPAG_Login_screen.active {
+            display: flex !important;
+            flex-direction: column;
+            min-height: 100%;
+        }
 
-.SEGUNDAPAG_Login_email_destaque {
-    color: var(--Fame_gold);
-}
+        .PRIMEIRAPAG_Login_step_title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--Fame_gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
 
-/* ===== TELA INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ===== */
+        .PRIMEIRAPAG_Login_eye_btn {
+            position: absolute;
+            right: 10px;
+            top: 32px;
+            background: none;
+            border: none;
+            color: var(--Fame_muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_card {
+            background: var(--Fame_input);
+            border: 1px solid #3a3531;
+            border-radius: 12px;
+            padding: 12px 8px;
+            color: var(--Fame_text);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_card span {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .PRIMEIRAPAG_Login_tipo_card.active {
+            border-color: var(--Fame_gold);
+            background: rgba(197, 169, 141, 0.12);
+            color: var(--Fame_gold);
+            box-shadow: 0 0 0 1px rgba(197, 169, 141, 0.2);
+        }
+
+        .PRIMEIRAPAG_Login_link_row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -8px;
+            margin-bottom: 5px;
+        }
+
+        .PRIMEIRAPAG_Login_small_link {
+            color: var(--Fame_gold);
+            font-size: 0.78rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .PRIMEIRAPAG_Login_novo_texto {
+            color: var(--Fame_muted);
+            text-align: center;
+            font-size: 0.82rem;
+            margin-top: 18px;
+            margin-bottom: -4px;
+        }
+
+        .PRIMEIRAPAG_Login_aviso_analise {
+            margin-top: 14px;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(197, 169, 141, 0.08);
+            border: 1px solid rgba(197, 169, 141, 0.22);
+            color: var(--Fame_text);
+            font-size: 0.78rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .PRIMEIRAPAG_Login_footer_suporte {
+            margin-top: auto;
+            padding-top: 18px;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--Fame_muted);
+        }
+
+        .PRIMEIRAPAG_Login_footer_suporte span {
+            color: var(--Fame_gold);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .PRIMEIRAPAG_Login_cadastro_info_box {
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(197, 169, 141, 0.08);
+            border: 1px solid rgba(197, 169, 141, 0.22);
+            margin-bottom: 18px;
+        }
+
+        .PRIMEIRAPAG_Login_cadastro_info_box h4 {
+            color: var(--Fame_gold);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .PRIMEIRAPAG_Login_cadastro_info_box p {
+            color: var(--Fame_text);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .PRIMEIRAPAG_Login_status_box {
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(197, 169, 141, 0.08);
+            border: 1px solid rgba(197, 169, 141, 0.22);
+            margin-top: 20px;
+            color: var(--Fame_text);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .PRIMEIRAPAG_Login_status_box strong {
+            color: var(--Fame_gold);
+        }
+
+        .PRIMEIRAPAG_Login_progress_wrap {
+            margin-top: 12px;
+        }
+
+        .PRIMEIRAPAG_Login_progress_text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--Fame_muted);
+            margin-bottom: 6px;
+        }
+
+        .PRIMEIRAPAG_Login_progress_bar_fake {
+            width: 100%;
+            height: 7px;
+            background: #333;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .PRIMEIRAPAG_Login_progress_bar_fake div {
+            width: 0%;
+            height: 100%;
+            background: var(--Fame_gold);
+            border-radius: 20px;
+        }
+
+        .Welcome_bg {
+            background-image: url('https://t2.tudocdn.net/174865?w=217&h=386');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            border-radius: inherit;
+            overflow: hidden;
+        }
+
+        .Welcome_bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1;
+        }
+
+        .Welcome_bg > div {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== CLASSES AUXILIARES PARA REMOVER CSS INLINE DO HTML ===== */
+        .PRIMEIRAPAG_Login_mb_16 {
+            margin-bottom: 16px;
+        }
+
+        .PRIMEIRAPAG_Login_mt_0 {
+            margin-top: 0;
+        }
+
+        .PRIMEIRAPAG_Login_mt_14 {
+            margin-top: 14px;
+        }
+
+        .PRIMEIRAPAG_Login_mt_15 {
+            margin-top: 15px;
+        }
+
+        .PRIMEIRAPAG_Login_mt_18 {
+            margin-top: 18px;
+        }
+
+        .PRIMEIRAPAG_Login_text_left {
+            text-align: left;
+        }
+
+        .PRIMEIRAPAG_Login_text_center {
+            text-align: center;
+        }
+
+        .PRIMEIRAPAG_Login_hidden {
+            display: none;
+        }
+
+        .PRIMEIRAPAG_Login_inline_checkbox_label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .PRIMEIRAPAG_Login_checkbox_auto {
+            width: auto;
+        }
+
+        .QUARTAPAG_Login_tipo_card_desc {
+            display: block;
+            font-size: 0.68rem;
+            margin-top: 4px;
+            color: var(--Fame_muted);
+        }
+
+        .SEGUNDAPAG_Login_email_destaque {
+            color: var(--Fame_gold);
+        }
+
+        .SEXTAPAG_Login_progress_45 {
+            width: 45%;
+        }
+
+        .SEXTAPAG_Login_progress_0 {
+            width: 0%;
+        }
+
+        .DECIMASEGUNDAPAG_Login_modal_overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .DECIMASEGUNDAPAG_Login_modal_box {
+            width: 100%;
+            max-width: 390px;
+            background: #1e1b19;
+            border: 1px solid rgba(197, 169, 141, 0.35);
+            border-radius: 18px;
+            padding: 18px;
+            color: #e0e0e0;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .DECIMASEGUNDAPAG_Login_modal_title {
+            color: #c5a98d;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .DECIMASEGUNDAPAG_Login_modal_text {
+            font-size: 0.86rem;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+
+        .PRIMEIRAPAG_Login_welcome_content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .PRIMEIRAPAG_Login_welcome_title {
+            color: var(--Fame_gold);
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+        }
+
+        .PRIMEIRAPAG_Login_welcome_text {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 18px;
+        }
+
+        .PRIMEIRAPAG_Login_btn_small_width {
+            max-width: 220px;
+        }
+
+        .PRIMEIRAPAG_Login_btn_atualizar_teste_style {
+            position: fixed;
+            right: 14px;
+            bottom: 14px;
+            z-index: 9999;
+            width: auto;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(197, 169, 141, 0.45);
+            background: rgba(30, 27, 25, 0.85);
+            color: #c5a98d;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            opacity: 0.75;
+        }
+		
+		/* ===== TELA INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ===== */
 
 #PASSAGEIROPAG_Login_screen_home {
     position: relative;
@@ -605,6 +579,7 @@ body {
     padding: 0;
 }
 
+/* FUNDO DO MAPA */
 #PASSAGEIROPAG_Login_mapa_fundo {
     position: absolute;
     inset: 0;
@@ -651,6 +626,262 @@ body {
     filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
 }
 
+.PASSAGEIROPAG_Login_pin_motorista {
+    position: absolute;
+    top: 54%;
+    left: 58%;
+    font-size: 24px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
+}
+
+/* TOPO */
+.PASSAGEIROPAG_Login_topo_home {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+}
+
+.PASSAGEIROPAG_Login_btn_foto_menu {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(197,169,141,0.75);
+    background: rgba(30,27,25,0.9);
+    padding: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_btn_foto_menu img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #2a2623;
+}
+
+.PASSAGEIROPAG_Login_topo_texto {
+    flex: 1;
+    color: var(--Fame_text);
+    line-height: 1.2;
+}
+
+.PASSAGEIROPAG_Login_topo_texto strong {
+    display: block;
+    font-size: 0.98rem;
+    color: #ffffff;
+}
+
+.PASSAGEIROPAG_Login_topo_texto span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--Fame_muted);
+    margin-top: 3px;
+}
+
+.PASSAGEIROPAG_Login_btn_sininho {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(197,169,141,0.35);
+    background: rgba(30,27,25,0.92);
+    color: var(--Fame_gold);
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* MENU LATERAL */
+.PASSAGEIROPAG_Login_menu_overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9997;
+    display: none;
+}
+
+.PASSAGEIROPAG_Login_menu_overlay.active {
+    display: block;
+}
+
+.PASSAGEIROPAG_Login_menu_lateral {
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 280px;
+    max-width: 82%;
+    height: 100vh;
+    background: #1e1b19;
+    border-right: 1px solid rgba(197,169,141,0.25);
+    z-index: 9998;
+    padding: 18px 14px;
+    transition: left 0.28s ease;
+    overflow-y: auto;
+    box-shadow: 8px 0 28px rgba(0,0,0,0.45);
+}
+
+.PASSAGEIROPAG_Login_menu_lateral.active {
+    left: 0;
+}
+
+.PASSAGEIROPAG_Login_menu_header {
+    text-align: center;
+    padding-bottom: 14px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(197,169,141,0.18);
+}
+
+.PASSAGEIROPAG_Login_menu_header img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(197,169,141,0.65);
+    background: #2a2623;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+.PASSAGEIROPAG_Login_menu_header strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.PASSAGEIROPAG_Login_menu_header span {
+    display: block;
+    color: var(--Fame_muted);
+    font-size: 0.74rem;
+    margin-top: 3px;
+    word-break: break-word;
+}
+
+.PASSAGEIROPAG_Login_menu_lateral button {
+    width: 100%;
+    text-align: left;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--Fame_text);
+    font-size: 0.88rem;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.PASSAGEIROPAG_Login_menu_lateral button:hover {
+    background: rgba(197,169,141,0.10);
+    color: var(--Fame_gold);
+}
+
+/* PAINEL INFERIOR */
+.PASSAGEIROPAG_Login_painel_chamada {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+    max-height: 78%;
+    overflow-y: auto;
+    padding: 10px 16px 20px 16px;
+    background: rgba(18,18,18,0.96);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    border-top: 1px solid rgba(197,169,141,0.25);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.45);
+    transition: transform 0.28s ease;
+}
+
+.PASSAGEIROPAG_Login_painel_chamada.recolhido {
+    transform: translateY(62%);
+}
+
+.PASSAGEIROPAG_Login_puxador {
+    width: 52px;
+    height: 5px;
+    border-radius: 20px;
+    background: rgba(197,169,141,0.65);
+    margin: 0 auto 14px auto;
+    cursor: pointer;
+}
+
+.PASSAGEIROPAG_Login_card_corrida,
+.PASSAGEIROPAG_Login_card_extra {
+    background: rgba(197,169,141,0.08);
+    border: 1px solid rgba(197,169,141,0.22);
+    border-radius: 18px;
+    padding: 14px;
+    margin-top: 12px;
+    color: var(--Fame_text);
+}
+
+.PASSAGEIROPAG_Login_card_corrida h3 {
+    color: var(--Fame_gold);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PASSAGEIROPAG_Login_input_fake {
+    background: var(--Fame_input);
+    border: 1px solid #3a3531;
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--Fame_text);
+    font-size: 0.88rem;
+    margin-top: 8px;
+}
+
+.PASSAGEIROPAG_Login_card_extra strong {
+    display: block;
+    color: var(--Fame_gold);
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+}
+
+.PASSAGEIROPAG_Login_card_extra p {
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.PASSAGEIROPAG_Login_card_extra .PRIMEIRAPAG_Login_btn {
+    margin-top: 10px;
+}
+
+/* TELAS PROVISÓRIAS DO PASSAGEIRO */
+.PASSAGEIROPAG_Login_pagina_simples_box {
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(197,169,141,0.08);
+    border: 1px solid rgba(197,169,141,0.22);
+    color: var(--Fame_text);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.PASSAGEIROPAG_Login_pagina_simples_box strong {
+    color: var(--Fame_gold);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.Fame_content.PASSAGEIROPAG_Login_home_ativa {
+    padding: 0;
+}
+
+.Fame_content.PASSAGEIROPAG_Login_home_ativa #PASSAGEIROPAG_Login_screen_home {
+    width: 100%;
+    min-height: 100%;
+}
+		
 
     </style>
 </head>
@@ -2194,10 +2425,17 @@ function PRIMEIRAPAG_Login_func_irPara(telaId) {
     document.querySelectorAll('.PRIMEIRAPAG_Login_screen').forEach(s => s.classList.remove('active'));
     PRIMEIRAPAG_tela.classList.add('active');
 
-    const PRIMEIRAPAG_contentArea = document.getElementById('PRIMEIRAPAG_Login_content_area');
-    if (PRIMEIRAPAG_contentArea) {
-        PRIMEIRAPAG_contentArea.scrollTop = 0;
+const PRIMEIRAPAG_contentArea = document.getElementById('PRIMEIRAPAG_Login_content_area');
+
+if (PRIMEIRAPAG_contentArea) {
+    PRIMEIRAPAG_contentArea.scrollTop = 0;
+
+    if (telaId === 'PASSAGEIROPAG_Login_screen_home') {
+        PRIMEIRAPAG_contentArea.classList.add('PASSAGEIROPAG_Login_home_ativa');
+    } else {
+        PRIMEIRAPAG_contentArea.classList.remove('PASSAGEIROPAG_Login_home_ativa');
     }
+}
 
     PRIMEIRAPAG_Login_func_limparErros();
 }
