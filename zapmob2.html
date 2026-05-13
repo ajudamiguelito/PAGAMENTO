@@ -928,7 +928,132 @@
     width: 100%;
     min-height: 100%;
 }
+/* ===== TEMA CLARO TNP MOB ===== */
 
+body.TNP_TEMA_CLARO {
+    --Fame_dark: #f7f2ec;
+    --Fame_card: #ffffff;
+    --Fame_gold: #7b5a3e;
+    --Fame_text: #1f1f1f;
+    --Fame_muted: #7c7065;
+    --Fame_input: #f3eee8;
+    --Fame_brown: #7b5438;
+    --Fame_error: #dc2626;
+}
+
+body.TNP_TEMA_CLARO {
+    background-color: #f7f2ec;
+}
+
+body.TNP_TEMA_CLARO .Fame_moldura {
+    background: #f7f2ec;
+    border-color: #7b5438;
+    box-shadow: inset 0 0 16px rgba(123, 84, 56, 0.22);
+}
+
+body.TNP_TEMA_CLARO .Fame_content {
+    background: #f7f2ec;
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_header h1 {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_subtitle {
+    color: #7c7065;
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_form_group input,
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_form_group select {
+    background-color: #ffffff;
+    border: 1px solid rgba(123, 84, 56, 0.32);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_btn_primary {
+    background-color: #7b5438;
+    color: #ffffff;
+    border: 1px solid rgba(123, 84, 56, 0.85);
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_btn_secondary {
+    background-color: #ffffff;
+    color: #7b5438;
+    border: 1px solid rgba(123, 84, 56, 0.55);
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_cadastro_info_box,
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_status_box,
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_aviso_analise {
+    background: #ffffff;
+    border: 1px solid rgba(123, 84, 56, 0.30);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_cadastro_info_box h4,
+body.TNP_TEMA_CLARO .PRIMEIRAPAG_Login_status_box strong {
+    color: #7b5438;
+}
+
+/* ===== TEMA CLARO NA HOME DO PASSAGEIRO ===== */
+
+body.TNP_TEMA_CLARO #PASSAGEIROPAG_Login_mapa_fundo {
+    background:
+        radial-gradient(circle at 30% 20%, rgba(123, 84, 56, 0.12), transparent 28%),
+        radial-gradient(circle at 70% 70%, rgba(197, 169, 141, 0.20), transparent 30%),
+        #f7f2ec;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_rua {
+    background: rgba(123, 84, 56, 0.12);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_painel_chamada {
+    background: rgba(255, 255, 255, 0.96);
+    border-top-color: rgba(123, 84, 56, 0.18);
+    box-shadow: 0 -10px 30px rgba(123, 84, 56, 0.12);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_card_corrida,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_card_extra {
+    background: #ffffff;
+    border: 1px solid rgba(123, 84, 56, 0.30);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_card_corrida h3,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_card_extra strong {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_card_extra p {
+    color: #3d3d3d;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_input_fake {
+    background: #f3eee8;
+    border: 1px solid rgba(123, 84, 56, 0.30);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_topo_texto strong {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_topo_texto span {
+    color: #7c7065;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_btn_foto_menu,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_btn_sininho {
+    background: #ffffff;
+    border-color: rgba(123, 84, 56, 0.25);
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_puxador {
+    background: rgba(123, 84, 56, 0.55);
+}
 
 	
 
@@ -2441,6 +2566,26 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </h3>
 
     <div class="PASSAGEIROPAG_Login_pagina_simples_box">
+	<div
+    id="PASSAGEIROPAG_Login_pagina_box_config"
+    class="PASSAGEIROPAG_Login_pagina_simples_box"
+    style="display:none; margin-top:14px;"
+>
+    <strong>Aparência do app</strong>
+    <p>
+        Escolha entre o tema escuro e o tema claro do TNP MoB.
+    </p>
+
+    <button
+        id="PRIMEIRAPAG_Login_btn_tema"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="PRIMEIRAPAG_Login_func_alternarTema()"
+    >
+        ATIVAR TEMA CLARO
+    </button>
+</div>
+	
+		
         <strong id="PASSAGEIROPAG_Login_pagina_subtitulo">Bem-vindo</strong>
         <p id="PASSAGEIROPAG_Login_pagina_texto">
             Esta área será construída em breve.
@@ -2542,7 +2687,42 @@ if (PRIMEIRAPAG_contentArea) {
     PRIMEIRAPAG_Login_func_limparErros();
 }
 
-        function PRIMEIRAPAG_Login_func_limparErros() {
+function PRIMEIRAPAG_Login_func_aplicarTemaSalvo() {
+    const temaSalvo = localStorage.getItem('TNP_MOB_TEMA');
+
+    if (temaSalvo === 'claro') {
+        document.body.classList.add('TNP_TEMA_CLARO');
+    } else {
+        document.body.classList.remove('TNP_TEMA_CLARO');
+    }
+
+    PRIMEIRAPAG_Login_func_atualizarTextoBotaoTema();
+}
+
+function PRIMEIRAPAG_Login_func_alternarTema() {
+    const temaClaroAtivo = document.body.classList.toggle('TNP_TEMA_CLARO');
+
+    localStorage.setItem(
+        'TNP_MOB_TEMA',
+        temaClaroAtivo ? 'claro' : 'escuro'
+    );
+
+    PRIMEIRAPAG_Login_func_atualizarTextoBotaoTema();
+}
+
+function PRIMEIRAPAG_Login_func_atualizarTextoBotaoTema() {
+    const btnTema = document.getElementById('PRIMEIRAPAG_Login_btn_tema');
+
+    if (!btnTema) return;
+
+    if (document.body.classList.contains('TNP_TEMA_CLARO')) {
+        btnTema.innerText = "ATIVAR TEMA ESCURO";
+    } else {
+        btnTema.innerText = "ATIVAR TEMA CLARO";
+    }
+}
+
+  function PRIMEIRAPAG_Login_func_limparErros() {
     document.querySelectorAll('.PRIMEIRAPAG_Login_error').forEach(e => {
         e.textContent = '';
         e.style.display = 'none';
@@ -5883,11 +6063,37 @@ function PASSAGEIROPAG_Login_func_abrirPaginaProvisoria(titulo, texto, funcaoEsp
     if (tituloEl) tituloEl.innerText = titulo;
     if (subtituloEl) subtituloEl.innerText = titulo;
     if (textoEl) textoEl.innerText = texto;
+	const boxConfig = document.getElementById('PASSAGEIROPAG_Login_pagina_box_config');
+
+if (boxConfig) {
+    if (titulo === "Configurações") {
+        boxConfig.style.display = "block";
+    } else {
+        boxConfig.style.display = "none";
+    }
+}
 
     PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_pagina_provisoria');
 }		
 		
-		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========== deixar tema salvo ao sair
+document.addEventListener('DOMContentLoaded', function () {
+    PRIMEIRAPAG_Login_func_aplicarTemaSalvo();
+});	
     </script>
 
 </body>
