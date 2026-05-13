@@ -882,10 +882,10 @@
     <div id="PRIMEIRAPAG_Login_container_main" class="Fame_moldura">
         <div id="PRIMEIRAPAG_Login_content_area" class="Fame_content">
 
-            <div class="PRIMEIRAPAG_Login_header">
-                <h1>TNP MoB 🚗</h1>
-                <p class="PRIMEIRAPAG_Login_subtitle">Escolha seu perfil e acesse sua conta com segurança</p>
-            </div>
+            <div id="PRIMEIRAPAG_Login_header_topo" class="PRIMEIRAPAG_Login_header">
+				<h1>TNP MoB 🚗</h1>
+				<p class="PRIMEIRAPAG_Login_subtitle">Escolha seu perfil e acesse sua conta com segurança</p>
+			</div>
 
             <!-- TELA 1: LOGIN PRINCIPAL -->
             <div id="PRIMEIRAPAG_Login_screen_main" class="PRIMEIRAPAG_Login_screen active">
@@ -2388,26 +2388,41 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         const PRIMEIRAPAG_Login_db = firebase.firestore();
         const PRIMEIRAPAG_Login_storage = firebase.storage();
 
+        
         // ========== UTILITÁRIOS ==========
-        function PRIMEIRAPAG_Login_func_irPara(telaId) {
-            const PRIMEIRAPAG_tela = document.getElementById(telaId);
+function PRIMEIRAPAG_Login_func_irPara(telaId) {
+    const PRIMEIRAPAG_tela = document.getElementById(telaId);
 
-            if (!PRIMEIRAPAG_tela) {
-                console.warn('Tela não encontrada:', telaId);
-                PRIMEIRAPAG_Login_func_limparErros();
-                return;
-            }
+    if (!PRIMEIRAPAG_tela) {
+        console.warn('Tela não encontrada:', telaId);
+        PRIMEIRAPAG_Login_func_limparErros();
+        return;
+    }
 
-            document.querySelectorAll('.PRIMEIRAPAG_Login_screen').forEach(s => s.classList.remove('active'));
-            PRIMEIRAPAG_tela.classList.add('active');
+    const PRIMEIRAPAG_Login_headerTopo =
+        document.getElementById('PRIMEIRAPAG_Login_header_topo');
 
-            const PRIMEIRAPAG_contentArea = document.getElementById('PRIMEIRAPAG_Login_content_area');
-            if (PRIMEIRAPAG_contentArea) {
-                PRIMEIRAPAG_contentArea.scrollTop = 0;
-            }
+    if (PRIMEIRAPAG_Login_headerTopo) {
+        const PRIMEIRAPAG_Login_telasSemTopo = [
+            'PASSAGEIROPAG_Login_screen_home'
+        ];
 
-            PRIMEIRAPAG_Login_func_limparErros();
-        }
+        PRIMEIRAPAG_Login_headerTopo.style.display =
+            PRIMEIRAPAG_Login_telasSemTopo.includes(telaId)
+                ? 'none'
+                : 'block';
+    }
+
+    document.querySelectorAll('.PRIMEIRAPAG_Login_screen').forEach(s => s.classList.remove('active'));
+    PRIMEIRAPAG_tela.classList.add('active');
+
+    const PRIMEIRAPAG_contentArea = document.getElementById('PRIMEIRAPAG_Login_content_area');
+    if (PRIMEIRAPAG_contentArea) {
+        PRIMEIRAPAG_contentArea.scrollTop = 0;
+    }
+
+    PRIMEIRAPAG_Login_func_limparErros();
+}
 
         function PRIMEIRAPAG_Login_func_limparErros() {
     document.querySelectorAll('.PRIMEIRAPAG_Login_error').forEach(e => {
