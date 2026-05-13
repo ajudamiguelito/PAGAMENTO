@@ -915,6 +915,67 @@
     margin-bottom: 8px;
     font-size: 1rem;
 }
+/* MODAL GRANDE DE SELFIE COM DOCUMENTO */
+
+.PASSAGEIROPAG_Login_modal_documento_overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10020;
+    background: rgba(0, 0, 0, 0.72);
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
+
+.PASSAGEIROPAG_Login_modal_documento_box {
+    width: 100%;
+    max-width: 390px;
+    background: #1e1b19;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    border-radius: 24px;
+    padding: 22px 18px;
+    color: var(--Fame_text);
+    text-align: center;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+}
+
+.PASSAGEIROPAG_Login_modal_documento_icone {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 14px auto;
+    border-radius: 50%;
+    background: rgba(197, 169, 141, 0.12);
+    border: 1px solid rgba(197, 169, 141, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.PASSAGEIROPAG_Login_modal_documento_box h3 {
+    color: var(--Fame_gold);
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+
+.PASSAGEIROPAG_Login_modal_documento_box p {
+    color: var(--Fame_text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.PASSAGEIROPAG_Login_modal_documento_aviso {
+    background: rgba(197, 169, 141, 0.08);
+    border: 1px solid rgba(197, 169, 141, 0.20);
+    border-radius: 16px;
+    padding: 12px;
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 14px;
+}
 /* ==================================================
    17. AJUSTES FINAIS
 ================================================== */
@@ -1055,7 +1116,31 @@ body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_puxador {
     background: rgba(123, 84, 56, 0.55);
 }
 
-	
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_documento_overlay {
+    background: rgba(31, 31, 31, 0.45);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_documento_box {
+    background: #ffffff;
+    border: 1px solid rgba(123, 84, 56, 0.35);
+    color: #1f1f1f;
+    box-shadow: 0 18px 45px rgba(123, 84, 56, 0.18);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_documento_box h3 {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_documento_box p {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_documento_icone,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_documento_aviso {
+    background: #f7f2ec;
+    border-color: rgba(123, 84, 56, 0.25);
+    color: #1f1f1f;
+}	
 
         
 
@@ -2603,7 +2688,43 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 </div>
 
+<!-- MODAL GRANDE: SELFIE COM DOCUMENTO - PREFIXO PASSAGEIROPAG -->
+<div id="PASSAGEIROPAG_Login_modal_documento_overlay" class="PASSAGEIROPAG_Login_modal_documento_overlay">
 
+    <div class="PASSAGEIROPAG_Login_modal_documento_box">
+
+        <div class="PASSAGEIROPAG_Login_modal_documento_icone">🛡️</div>
+
+        <h3 id="PASSAGEIROPAG_Login_modal_documento_titulo">
+            Verificação de segurança
+        </h3>
+
+        <p id="PASSAGEIROPAG_Login_modal_documento_texto">
+            Para aumentar a segurança da sua conta, envie uma selfie segurando seu documento.
+        </p>
+
+        <div class="PASSAGEIROPAG_Login_modal_documento_aviso">
+            Essa verificação ajuda a proteger passageiros, motoristas e toda a comunidade TNP MoB.
+        </div>
+
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="PASSAGEIROPAG_Login_func_iniciarSelfieDocumento()"
+        >
+            ENVIAR SELFIE COM DOCUMENTO
+        </button>
+
+        <button
+            id="PASSAGEIROPAG_Login_modal_documento_btn_depois"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora()"
+        >
+            FAZER DEPOIS
+        </button>
+
+    </div>
+
+</div>
 
 
 
@@ -5980,6 +6101,14 @@ function PASSAGEIROPAG_Login_func_fecharCardVerificacao() {
     }
 }
 
+function PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora() {
+    const modal = document.getElementById('PASSAGEIROPAG_Login_modal_documento_overlay');
+
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
 async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
 
@@ -6041,6 +6170,63 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
                 cardVerificacao.style.display = 'block';
             }
         }
+		// MODAL GRANDE DE SELFIE COM DOCUMENTO
+const modalDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_overlay');
+const tituloModalDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_titulo');
+const textoModalDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_texto');
+const btnDepoisDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_btn_depois');
+
+const corridasUsadasSemDocumento = d.corridasUsadasSemDocumento || 0;
+const limiteAvisoDocumento = d.limiteAvisoDocumento || 10;
+const limiteBloqueioDocumento = d.limiteBloqueioDocumento || 20;
+const selfieDocumentoConcluida = d.selfieDocumentoExtraConcluida === true;
+
+if (modalDocumento) {
+    if (
+        selfieDocumentoConcluida !== true &&
+        corridasUsadasSemDocumento >= limiteBloqueioDocumento
+    ) {
+        modalDocumento.style.display = 'flex';
+
+        if (tituloModalDocumento) {
+            tituloModalDocumento.innerText = '⚠️ Verificação obrigatória';
+        }
+
+        if (textoModalDocumento) {
+            textoModalDocumento.innerText =
+                'Você atingiu o limite de corridas sem enviar a selfie segurando seu documento. Para continuar solicitando corridas, conclua essa verificação.';
+        }
+
+        if (btnDepoisDocumento) {
+            btnDepoisDocumento.style.display = 'none';
+        }
+
+    } else if (
+        selfieDocumentoConcluida !== true &&
+        corridasUsadasSemDocumento >= limiteAvisoDocumento
+    ) {
+        modalDocumento.style.display = 'flex';
+
+        if (tituloModalDocumento) {
+            tituloModalDocumento.innerText = '🛡️ Verificação de segurança';
+        }
+
+        if (textoModalDocumento) {
+            textoModalDocumento.innerText =
+                'Você já pode enviar uma selfie segurando seu documento. Essa verificação será obrigatória após 20 corridas.';
+        }
+
+        if (btnDepoisDocumento) {
+            btnDepoisDocumento.style.display = 'block';
+        }
+
+    } else {
+        modalDocumento.style.display = 'none';
+    }
+}
+
+
+PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
 
         PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
 
