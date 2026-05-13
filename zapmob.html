@@ -2210,45 +2210,45 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             <span id="PASSAGEIROPAG_Login_email_menu">-</span>
         </div>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('DECIMAPRIMEIRAPAG_Login_screen_revisao_final')">
-            👤 Meu perfil
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Meu perfil', 'Aqui você poderá revisar seus dados, foto, contatos, endereço e informações da sua conta.', 'DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal')">
+    👤 Meu perfil
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_historico')">
-            🕘 Histórico
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Histórico de corridas', 'Aqui você poderá acompanhar suas corridas concluídas, canceladas, valores, motoristas e detalhes das viagens.')">
+    🕘 Histórico
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_ajuda')">
-            ❓ Solicitar ajuda
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Solicitar ajuda', 'Aqui você poderá falar com o suporte, relatar problemas em corridas e tirar dúvidas sobre sua conta.')">
+    ❓ Solicitar ajuda
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_mensagens')">
-            💬 Mensagens
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Mensagens', 'Aqui ficarão suas mensagens, avisos importantes, respostas do suporte e comunicações da plataforma.')">
+    💬 Mensagens
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_seguranca')">
-            🛡️ Central de segurança
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui você encontrará recursos de proteção, contatos de emergência, verificação de conta e orientações de segurança.')">
+    🛡️ Central de segurança
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pagamentos')">
-            💳 Métodos de pagamento
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Métodos de pagamento', 'Aqui você poderá cadastrar Pix, cartões, acompanhar pagamentos e formas de cobrança.')">
+    💳 Métodos de pagamento
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_configuracoes')">
-            ⚙️ Configurações
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Configurações', 'Aqui você poderá ajustar tema do app, notificações, permissões e preferências da conta.')">
+    ⚙️ Configurações
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_convidar')">
-            🎁 Convidar pessoas
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Convidar pessoas', 'Aqui você poderá convidar amigos, passageiros e acompanhar benefícios por indicação.')">
+    🎁 Convidar pessoas
+</button>
 
-        <button onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_seja_motorista')">
-            🚗 Seja motorista
-        </button>
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Seja motorista', 'Aqui você poderá iniciar seu cadastro de motorista, enviar documentos e acompanhar sua aprovação.')">
+    🚗 Seja motorista
+</button>
 
-        <button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
-            🚪 Sair
-        </button>
+<button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
+    🚪 Sair
+</button>
     </div>
 
     <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
@@ -2354,7 +2354,32 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
                     </button>
                 </div>
             </div>
+			
+			
+<!-- TELA PROVISÓRIA DO MENU DO PASSAGEIRO - PREFIXO PASSAGEIROPAG -->
+<div id="PASSAGEIROPAG_Login_screen_pagina_provisoria" class="PRIMEIRAPAG_Login_screen">
 
+    <h3 class="PRIMEIRAPAG_Login_step_title" id="PASSAGEIROPAG_Login_pagina_titulo">
+        Página
+    </h3>
+
+    <div class="PASSAGEIROPAG_Login_pagina_simples_box">
+        <strong id="PASSAGEIROPAG_Login_pagina_subtitulo">Bem-vindo</strong>
+        <p id="PASSAGEIROPAG_Login_pagina_texto">
+            Esta área será construída em breve.
+        </p>
+    </div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="PASSAGEIROPAG_Login_func_carregarHomePassageiro()"
+        >
+            VOLTAR PARA INÍCIO
+        </button>
+    </div>
+
+</div>
 
 
 
@@ -5767,7 +5792,23 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
         PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
     }
 }	
-		
+function PASSAGEIROPAG_Login_func_abrirPaginaProvisoria(titulo, texto, funcaoEspecial) {
+    PASSAGEIROPAG_Login_func_fecharMenuLateral();
+
+    if (funcaoEspecial === "DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal") {
+        return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+    }
+
+    const tituloEl = document.getElementById('PASSAGEIROPAG_Login_pagina_titulo');
+    const subtituloEl = document.getElementById('PASSAGEIROPAG_Login_pagina_subtitulo');
+    const textoEl = document.getElementById('PASSAGEIROPAG_Login_pagina_texto');
+
+    if (tituloEl) tituloEl.innerText = titulo;
+    if (subtituloEl) subtituloEl.innerText = titulo;
+    if (textoEl) textoEl.innerText = texto;
+
+    PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_pagina_provisoria');
+}		
 		
 		
     </script>
