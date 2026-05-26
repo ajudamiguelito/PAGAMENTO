@@ -4363,6 +4363,37 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         </div>
     </div>
 </div>
+<!-- chamar card UNIVERSAL -->
+<div
+    id="PASSAGEIROPAG_Login_card_pendencia_admin"
+    class="PRIMEIRAPAG_Login_cadastro_info_box"
+    style="display:none; border:1px solid rgba(255,193,7,0.45);"
+>
+    <h4 id="PASSAGEIROPAG_Login_pendencia_admin_titulo">
+        ⚠️ Correção solicitada
+    </h4>
+
+    <p id="PASSAGEIROPAG_Login_pendencia_admin_texto">
+        O administrador solicitou uma correção no seu cadastro.
+    </p>
+
+    <p
+        id="PASSAGEIROPAG_Login_pendencia_admin_motivo"
+        style="font-size:13px; opacity:0.9; margin-top:8px;"
+    >
+        Motivo: -
+    </p>
+
+    <button
+        type="button"
+        id="PASSAGEIROPAG_Login_btn_corrigir_pendencia_admin"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        style="margin-top:10px;"
+        onclick="PASSAGEIROPAG_Login_func_abrirPendenciaAdminPassageiro()"
+    >
+        CORRIGIR AGORA
+    </button>
+</div>
 
     <div class="PRIMEIRAPAG_Login_status_box PRIMEIRAPAG_Login_text_left">
     <strong>Conta</strong><br><br>
@@ -4603,8 +4634,6 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 </div>
 
-<!-- ========== TELA 11: fil ID TNP E CADASTRO NA TNP - PREFIXO DECIMASEGUNDAPAG ========== -->
-<!-- ========== TELA 12: HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG =========== --> 
 <!-- ========== TELA 12: HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG =========== --> 
 <div id="PASSAGEIROPAG_Login_screen_home" class="PRIMEIRAPAG_Login_screen">
 
@@ -4793,19 +4822,86 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 <!-- ========== TELA 12: final INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== -->
 
+<!-- ===================================================== -->
+<!-- MODAIS GERAIS / UNIVERSAIS DO APP -->
+<!-- ===================================================== -->
 
 
+<!-- MODAL UNIVERSAL: CORRIGIR PENDÊNCIA -->
+<div id="TNP_Login_modal_corrigir_pendencia" class="MOTORISTAPAG_Login_modal_home">
+    <div class="MOTORISTAPAG_Login_modal_home_box TNP_Login_corrigir_pendencia_box">
+
+        <button
+            class="MOTORISTAPAG_Login_modal_fechar"
+            onclick="TNP_Login_func_fecharModalCorrigirPendencia()"
+        >
+            ×
+        </button>
+
+        <div class="TNP_Login_corrigir_pendencia_icone" id="TNP_Login_corrigir_pendencia_icone">
+            ⚠️
+        </div>
+
+        <h3 id="TNP_Login_corrigir_pendencia_titulo">
+            Corrigir pendência
+        </h3>
+
+        <p id="TNP_Login_corrigir_pendencia_texto">
+            O administrador solicitou correção de uma informação.
+        </p>
+
+        <div class="TNP_Login_corrigir_pendencia_motivo_box">
+            <strong>Motivo da correção</strong>
+            <p id="TNP_Login_corrigir_pendencia_motivo">
+                Aguardando motivo informado pelo administrador.
+            </p>
+        </div>
+
+        <div id="TNP_Login_corrigir_pendencia_preview_area" class="TNP_Login_corrigir_pendencia_preview_area">
+            <img id="TNP_Login_corrigir_pendencia_preview" src="" alt="Prévia do novo arquivo">
+        </div>
+		<div
+			id="TNP_Login_corrigir_pendencia_info_compressao"
+			class="TNP_Login_corrigir_pendencia_info_compressao"
+		></div>
+       <input
+    type="file"
+    id="TNP_Login_corrigir_pendencia_input"
+    class="TNP_Login_corrigir_pendencia_file_input"
+    accept="image/*"
+    capture="environment"
+    onchange="TNP_Login_func_prepararArquivoCorrigirPendencia(event)"
+	>
+
+	<button
+    type="button"
+    id="TNP_Login_corrigir_pendencia_btn_camera"
+    class="TNP_Login_corrigir_pendencia_file_label"
+    onclick="TNP_Login_func_abrirCameraCorrigirPendencia()"
+	>
+    TIRAR NOVA FOTO
+	</button>
+
+        <div id="TNP_Login_corrigir_pendencia_error" class="PRIMEIRAPAG_Login_error"></div>
+
+        <button
+            id="TNP_Login_corrigir_pendencia_btn_enviar"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="TNP_Login_func_enviarCorrecaoPendencia()"
+            disabled
+        >
+            ENVIAR CORREÇÃO
+        </button>
+
+    </div>
+</div>
+
+<!-- MODAL UNIVERSAL: CORRIGIR PENDÊNCIA -->
 
 
-
-
-
-
-
-
-
-
-
+<!-- ===================================================== -->
+<!--  MODAIS GERAIS / UNIVERSAIS DO APP FINAL -->
+<!-- ===================================================== -->
 
 <!-- TELA 1: LOGIN PRINCIPAL mais termos-->
 <script>
@@ -9144,6 +9240,7 @@ return PRIMEIRAPAG_Login_func_mostrarErro(
     );
 }
 }
+
 async function DECIMAPRIMEIRAPAG_Login_func_confirmarEContinuar() {
     const DECIMAPRIMEIRAPAG_Login_user = PRIMEIRAPAG_Login_auth.currentUser;
     const DECIMAPRIMEIRAPAG_Login_btn = document.getElementById('DECIMAPRIMEIRAPAG_Login_btn_finalizar');
@@ -9224,6 +9321,151 @@ function DECIMAPRIMEIRAPAG_Login_func_irParaPaginaInicialPassageiro() {
         'A página inicial do passageiro ainda não foi carregada.'
     );
 }
+//chamar MODAL UNIVERSAL corrigir fotos
+ let PASSAGEIROPAG_Login_pendenciaAdminAtual = null;
+
+function PASSAGEIROPAG_Login_func_mostrarCardPendenciaAdminPassageiro(pendencia) {
+	PASSAGEIROPAG_Login_pendenciaAdminAtual = pendencia;
+
+	const card = document.getElementById('PASSAGEIROPAG_Login_card_pendencia_admin');
+	const texto = document.getElementById('PASSAGEIROPAG_Login_pendencia_admin_texto');
+	const motivoEl = document.getElementById('PASSAGEIROPAG_Login_pendencia_admin_motivo');
+
+	if (!card || !texto) return;
+
+	const avisos = pendencia.avisosMostrados || 0;
+	const limite = pendencia.limiteAvisos || 3;
+
+	const avisosRestantes = Math.max(limite - avisos, 0);
+
+	if (avisos >= limite) {
+		texto.innerText =
+			`Correção obrigatória. ` +
+			`Você atingiu o limite de ${limite} avisos. ` +
+			`Para continuar solicitando corridas, envie a correção agora.`;
+	} else {
+		texto.innerText =
+			`O administrador solicitou uma correção. ` +
+			`Você já recebeu ${avisos} de ${limite} avisos. ` +
+			`Restam ${avisosRestantes} aviso(s) antes do bloqueio para solicitar corridas.`;
+	}
+
+	if (motivoEl) {
+		motivoEl.innerText = 'Motivo: ' + (pendencia.motivo || 'Correção solicitada pelo administrador.');
+	}
+
+	card.style.display = 'block';
+}
+
+function PASSAGEIROPAG_Login_func_esconderCardPendenciaAdminPassageiro() {
+	const card = document.getElementById('PASSAGEIROPAG_Login_card_pendencia_admin');
+
+	PASSAGEIROPAG_Login_pendenciaAdminAtual = null;
+
+	if (card) {
+		card.style.display = 'none';
+	}
+}
+
+function PASSAGEIROPAG_Login_func_abrirPendenciaAdminPassageiro() {
+	if (!PASSAGEIROPAG_Login_pendenciaAdminAtual) {
+		return TNP_Login_func_abrirMensagemProvisoria(
+			'Nenhuma pendência encontrada',
+			'Não encontramos nenhuma correção solicitada pelo administrador neste momento.'
+		);
+	}
+
+	TNP_Login_func_abrirModalCorrigirPendencia(
+		'passageiro',
+		PASSAGEIROPAG_Login_pendenciaAdminAtual.tipo
+	);
+}
+
+async function PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(dadosUsuario) {
+	if (!dadosUsuario) {
+		PASSAGEIROPAG_Login_func_esconderCardPendenciaAdminPassageiro();
+		return false;
+	}
+
+	const pendencias = [
+		{
+			tipo: 'selfieDocumento',
+			status: dadosUsuario.selfieDocumentoExtra?.status,
+			motivo: dadosUsuario.selfieDocumentoExtra?.motivoReprovacao,
+			avisosMostrados: dadosUsuario.selfieDocumentoExtra?.avisosMostrados || 0,
+			limiteAvisos: dadosUsuario.selfieDocumentoExtra?.limiteAvisos || 3
+		},
+		{
+			tipo: 'comprovanteEndereco',
+			status: dadosUsuario.comprovanteEndereco?.status,
+			motivo: dadosUsuario.comprovanteEndereco?.motivoReprovacao,
+			avisosMostrados: dadosUsuario.comprovanteEndereco?.avisosMostrados || 0,
+			limiteAvisos: dadosUsuario.comprovanteEndereco?.limiteAvisos || 3
+		}
+	];
+
+	const pendencia = pendencias.find(item =>
+		item.status === 'pendente_correcao' ||
+		item.status === 'reprovado' ||
+		item.status === 'corrigir'
+	);
+
+	if (!pendencia) {
+		PASSAGEIROPAG_Login_func_esconderCardPendenciaAdminPassageiro();
+		return false;
+	}
+
+	PASSAGEIROPAG_Login_func_mostrarCardPendenciaAdminPassageiro(pendencia);
+
+	const chaveSessao = `TNP_PASSAGEIRO_PENDENCIA_${pendencia.tipo}_ABRIU`;
+	const jaAbriuNestaSessao = sessionStorage.getItem(chaveSessao) === 'true';
+
+	if (!jaAbriuNestaSessao) {
+		sessionStorage.setItem(chaveSessao, 'true');
+
+		await PASSAGEIROPAG_Login_func_registrarAvisoPendenciaAdminPassageiro(pendencia);
+
+		TNP_Login_func_abrirModalCorrigirPendencia('passageiro', pendencia.tipo);
+	}
+
+	return true;
+}
+
+async function PASSAGEIROPAG_Login_func_registrarAvisoPendenciaAdminPassageiro(pendencia) {
+	const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+	if (!user || !pendencia || !pendencia.tipo) return;
+
+	const userRef = PRIMEIRAPAG_Login_db
+		.collection('usuarios')
+		.doc(user.uid);
+
+	const update = {
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	};
+
+	if (pendencia.tipo === 'selfieDocumento') {
+		update['selfieDocumentoExtra.avisosMostrados'] = firebase.firestore.FieldValue.increment(1);
+		update['selfieDocumentoExtra.ultimoAvisoEm'] = firebase.firestore.FieldValue.serverTimestamp();
+	}
+
+	if (pendencia.tipo === 'comprovanteEndereco') {
+		update['comprovanteEndereco.avisosMostrados'] = firebase.firestore.FieldValue.increment(1);
+		update['comprovanteEndereco.ultimoAvisoEm'] = firebase.firestore.FieldValue.serverTimestamp();
+	}
+
+	if ((pendencia.avisosMostrados + 1) > pendencia.limiteAvisos) {
+		update.bloqueadoPorPendenciaAdmin = true;
+		update.bloqueadoPorCadastro = true;
+		update.motivoBloqueioPendenciaAdmin =
+			'Correção solicitada pelo administrador não foi enviada após os avisos.';
+	}
+
+	await userRef.set(update, { merge: true });
+}
+ 
+ 
+ 
  
  // ========== TELA 10: REVISÃO FINAL COM PREFIXO DECIMAPRIMEIRAPAG ==========
  
@@ -10010,26 +10252,638 @@ if (boxConfig) {
 }	
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // -- ========== TELA 12: final HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== 
 
 
 
 
 
+
+
+
+// =====================================================
+//  MODAIS GERAIS / UNIVERSAIS DO APP
+// =====================================================
+
+	//	MODAL UNIVERSAL: CORRIGIR PENDÊNCIA FINAL
+
+let TNP_Login_pendenciaAtual = null;
+let TNP_Login_arquivoCorrecaoPendente = null;
+
+function TNP_Login_func_fecharModalCorrigirPendencia() {
+    const modal = document.getElementById('TNP_Login_modal_corrigir_pendencia');
+    const input = document.getElementById('TNP_Login_corrigir_pendencia_input');
+    const previewArea = document.getElementById('TNP_Login_corrigir_pendencia_preview_area');
+    const preview = document.getElementById('TNP_Login_corrigir_pendencia_preview');
+    const infoCompressao = document.getElementById('TNP_Login_corrigir_pendencia_info_compressao');
+    const erro = document.getElementById('TNP_Login_corrigir_pendencia_error');
+    const btnEnviar = document.getElementById('TNP_Login_corrigir_pendencia_btn_enviar');
+
+    if (modal) modal.classList.remove('active');
+
+    TNP_Login_pendenciaAtual = null;
+    TNP_Login_arquivoCorrecaoPendente = null;
+
+    if (input) input.value = '';
+
+    if (preview) {
+        preview.removeAttribute('src');
+    }
+
+    if (previewArea) {
+        previewArea.style.display = 'none';
+    }
+
+    if (infoCompressao) {
+        infoCompressao.innerText = '';
+        infoCompressao.style.display = 'none';
+    }
+
+    if (erro) {
+        erro.innerText = '';
+        erro.style.display = 'none';
+    }
+
+    if (btnEnviar) {
+        btnEnviar.disabled = true;
+        btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+    }
+}
+
+function TNP_Login_func_abrirMensagemProvisoria(titulo, texto) {
+	if (typeof MOTORISTAPAG_Login_func_abrirPaginaProvisoria === "function") {
+		MOTORISTAPAG_Login_func_abrirPaginaProvisoria(titulo, texto);
+		return;
+	}
+
+	alert(titulo + "\n\n" + texto);
+}
+
+async function TNP_Login_func_abrirModalCorrigirPendencia(origem, tipoPendencia) {
+	if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+		MOTORISTAPAG_Login_func_fecharModais();
+	}
+
+	const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+	if (!user) {
+		return TNP_Login_func_abrirMensagemProvisoria(
+			'Login necessário',
+			'Faça login novamente para corrigir essa pendência.'
+		);
+	}
+	
+	if (origem !== 'motorista' && origem !== 'passageiro') {
+	return TNP_Login_func_abrirMensagemProvisoria(
+		'Origem inválida',
+		'Não foi possível identificar se a correção é de passageiro ou motorista.'
+	);
+}
+
+    const modal = document.getElementById('TNP_Login_modal_corrigir_pendencia');
+    const titulo = document.getElementById('TNP_Login_corrigir_pendencia_titulo');
+    const texto = document.getElementById('TNP_Login_corrigir_pendencia_texto');
+    const motivoEl = document.getElementById('TNP_Login_corrigir_pendencia_motivo');
+
+    if (!modal) {
+	return TNP_Login_func_abrirMensagemProvisoria(
+		'Modal não encontrado',
+		'Não foi possível abrir a tela de correção agora.'
+	);
+}
+
+    TNP_Login_func_fecharModalCorrigirPendencia();
+
+    const config = TNP_Login_func_configPendencia(origem, tipoPendencia);
+
+    if (!config) {
+        return TNP_Login_func_abrirMensagemProvisoria(
+            'Pendência não configurada',
+            'Essa pendência ainda não foi configurada no sistema.'
+        );
+    }
+
+    try {
+        const docRef = origem === 'motorista'
+            ? PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid)
+            : PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid);
+
+        const snap = await docRef.get();
+        const dados = snap.exists ? snap.data() : {};
+
+        const status = TNP_Login_func_lerCampoAninhado(dados, config.campoStatus) || '';
+        const motivo = TNP_Login_func_lerCampoAninhado(dados, config.campoMotivo) || '';
+
+        const podeCorrigir =
+            status === 'reprovado' ||
+            status === 'pendente_correcao' ||
+            status === 'corrigir';
+
+        if (!podeCorrigir) {
+            return TNP_Login_func_abrirMensagemProvisoria(
+                'Correção indisponível',
+                'Essa etapa não está liberada para reenvio. Se estiver em análise, aguarde a conferência do administrador.'
+            );
+        }
+
+        TNP_Login_pendenciaAtual = {
+            origem: origem,
+            tipoPendencia: tipoPendencia,
+            config: config
+        };
+
+        if (titulo) titulo.innerText = config.titulo;
+        if (texto) texto.innerText = config.texto;
+        if (motivoEl) motivoEl.innerText = motivo || 'O administrador solicitou uma correção nesta etapa.';
+
+        modal.classList.add('active');
+
+		} catch (erro) {
+		console.error('Erro ao abrir modal de correção:', erro);
+
+		TNP_Login_func_abrirMensagemProvisoria(
+			'Erro ao carregar pendência',
+			'Não foi possível carregar os dados da pendência agora.'
+		);
+	}
+}
+
+function TNP_Login_func_configPendencia(origem, tipoPendencia) {
+    const configs = {
+        motorista: {
+            fotoCnh: {
+                titulo: 'Reenviar foto da CNH',
+                texto: 'Envie uma nova foto da CNH conforme a orientação do administrador.',
+                pastaStorage: 'documentos',
+                campoFirestore: 'documentosMotorista.fotoCnh',
+                campoStatus: 'documentosMotorista.fotoCnh.status',
+                campoMotivo: 'documentosMotorista.fotoCnh.motivoReprovacao'
+            },
+
+            selfieComCnh: {
+                titulo: 'Reenviar selfie com CNH',
+                texto: 'Envie uma nova selfie com a CNH conforme a orientação do administrador.',
+                pastaStorage: 'documentos',
+                campoFirestore: 'documentosMotorista.selfieComCnh',
+                campoStatus: 'documentosMotorista.selfieComCnh.status',
+                campoMotivo: 'documentosMotorista.selfieComCnh.motivoReprovacao'
+            },
+
+            crlv: {
+                titulo: 'Reenviar CRLV',
+                texto: 'Envie uma nova foto do documento do veículo conforme a orientação do administrador.',
+                pastaStorage: 'documentos-veiculo',
+                campoFirestore: 'documentosVeiculo.crlv',
+                campoStatus: 'documentosVeiculo.crlv.status',
+                campoMotivo: 'documentosVeiculo.crlv.motivoReprovacao'
+            },
+
+            fotoVeiculoPlaca: {
+                titulo: 'Reenviar foto do veículo',
+                texto: 'Envie uma nova foto mostrando o veículo e a placa com nitidez.',
+                pastaStorage: 'documentos-veiculo',
+                campoFirestore: 'documentosVeiculo.fotoVeiculoPlaca',
+                campoStatus: 'documentosVeiculo.fotoVeiculoPlaca.status',
+                campoMotivo: 'documentosVeiculo.fotoVeiculoPlaca.motivoReprovacao'
+            }
+        },
+
+        passageiro: {
+				selfieDocumento: {
+					titulo: 'Reenviar selfie com documento',
+					texto: 'Envie uma nova selfie com documento conforme a orientação do administrador.',
+					pastaStorage: 'documentos',
+					campoFirestore: 'selfieDocumentoExtra',
+					campoStatus: 'selfieDocumentoExtra.status',
+					campoMotivo: 'selfieDocumentoExtra.motivoReprovacao'
+				},
+
+				comprovanteEndereco: {
+					titulo: 'Reenviar comprovante de endereço',
+					texto: 'Envie um novo comprovante de endereço legível.',
+					pastaStorage: 'documentos',
+					campoFirestore: 'comprovanteEndereco',
+					campoStatus: 'comprovanteEndereco.status',
+					campoMotivo: 'comprovanteEndereco.motivoReprovacao'
+				}
+			}
+    };
+
+    return configs?.[origem]?.[tipoPendencia] || null;
+}
+
+function TNP_Login_func_lerCampoAninhado(obj, caminho) {
+    return caminho.split('.').reduce((atual, chave) => {
+        return atual && atual[chave] !== undefined ? atual[chave] : undefined;
+    }, obj);
+}
+
+function TNP_Login_func_montarAtualizacaoCampo(caminhoBase, dados) {
+    const update = {};
+
+    Object.keys(dados).forEach(chave => {
+        update[`${caminhoBase}.${chave}`] = dados[chave];
+    });
+
+    return update;
+}
+
+function TNP_Login_func_abrirCameraCorrigirPendencia() {
+    const input = document.getElementById('TNP_Login_corrigir_pendencia_input');
+
+    if (!input) {
+        alert('Câmera não encontrada.');
+        return;
+    }
+
+    if (!TNP_Login_pendenciaAtual) {
+        alert('Nenhuma pendência selecionada.');
+        return;
+    }
+
+    input.value = '';
+    input.setAttribute('accept', 'image/*');
+    input.setAttribute('capture', 'environment');
+
+    setTimeout(() => {
+        input.click();
+    }, 80);
+}
+
+function TNP_Login_func_formatarTamanhoArquivo(bytes) {
+    if (!bytes || bytes <= 0) return '0 KB';
+
+    if (bytes < 1024 * 1024) {
+        return Math.round(bytes / 1024) + ' KB';
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(1).replace('.', ',') + ' MB';
+}
+
+function TNP_Login_func_comprimirImagem(arquivo, larguraMaxima = 900, qualidade = 0.7) {
+    return new Promise((resolve, reject) => {
+        if (!arquivo || !arquivo.type.startsWith('image/')) {
+            return resolve(arquivo);
+        }
+
+        const leitor = new FileReader();
+
+        leitor.onload = function(event) {
+            const img = new Image();
+
+            img.onload = function() {
+                let largura = img.width;
+                let altura = img.height;
+
+                if (largura > altura) {
+                    if (largura > larguraMaxima) {
+                        altura = Math.round(altura * (larguraMaxima / largura));
+                        largura = larguraMaxima;
+                    }
+                } else {
+                    if (altura > larguraMaxima) {
+                        largura = Math.round(largura * (larguraMaxima / altura));
+                        altura = larguraMaxima;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = largura;
+                canvas.height = altura;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, largura, altura);
+
+                canvas.toBlob(
+                    function(blob) {
+                        if (!blob) {
+                            return reject(new Error('Erro ao comprimir imagem.'));
+                        }
+
+                        const arquivoFinal = new File(
+                            [blob],
+                            'correcao-pendencia-tnp-mob.jpg',
+                            {
+                                type: 'image/jpeg',
+                                lastModified: Date.now()
+                            }
+                        );
+
+                        resolve(arquivoFinal);
+                    },
+                    'image/jpeg',
+                    qualidade
+                );
+            };
+
+            img.onerror = function() {
+                reject(new Error('Erro ao carregar imagem.'));
+            };
+
+            img.src = event.target.result;
+        };
+
+        leitor.onerror = function() {
+            reject(new Error('Erro ao ler arquivo.'));
+        };
+
+        leitor.readAsDataURL(arquivo);
+    });
+}
+
+async function TNP_Login_func_prepararArquivoCorrigirPendencia(event) {
+    const arquivoOriginal = event.target.files && event.target.files[0];
+
+    const previewArea = document.getElementById('TNP_Login_corrigir_pendencia_preview_area');
+    const preview = document.getElementById('TNP_Login_corrigir_pendencia_preview');
+    const infoCompressao = document.getElementById('TNP_Login_corrigir_pendencia_info_compressao');
+    const erro = document.getElementById('TNP_Login_corrigir_pendencia_error');
+    const btnEnviar = document.getElementById('TNP_Login_corrigir_pendencia_btn_enviar');
+
+    if (erro) {
+        erro.innerText = '';
+        erro.style.display = 'none';
+    }
+
+    if (infoCompressao) {
+        infoCompressao.innerText = '';
+        infoCompressao.style.display = 'none';
+    }
+	
+	if (!arquivoOriginal) {
+	if (btnEnviar) {
+		btnEnviar.disabled = true;
+		btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+	}
+
+	TNP_Login_arquivoCorrecaoPendente = null;
+	return;
+}
+
+    if (arquivoOriginal.size > 8 * 1024 * 1024) {
+	if (erro) {
+		erro.innerText = 'A foto é muito grande. Tire uma nova foto de até 8 MB.';
+		erro.style.display = 'block';
+	}
+
+	if (btnEnviar) {
+		btnEnviar.disabled = true;
+		btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+	}
+
+	TNP_Login_arquivoCorrecaoPendente = null;
+	event.target.value = '';
+	return;
+}
+
+    if (!arquivoOriginal.type.startsWith('image/')) {
+	if (erro) {
+		erro.innerText = 'Tire uma nova foto válida pelo celular.';
+		erro.style.display = 'block';
+	}
+
+	if (btnEnviar) {
+		btnEnviar.disabled = true;
+		btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+	}
+
+	TNP_Login_arquivoCorrecaoPendente = null;
+	event.target.value = '';
+	return;
+}
+
+    try {
+        if (btnEnviar) {
+            btnEnviar.disabled = true;
+            btnEnviar.innerText = 'PREPARANDO FOTO...';
+        }
+
+        const arquivoCompactado = await TNP_Login_func_comprimirImagem(
+            arquivoOriginal,
+            900,
+            0.7
+        );
+
+        const tamanhoOriginal = arquivoOriginal.size;
+        const tamanhoFinal = arquivoCompactado.size;
+        const economia = tamanhoOriginal - tamanhoFinal;
+
+        TNP_Login_arquivoCorrecaoPendente = {
+            arquivoOriginal: arquivoOriginal,
+            arquivoCompactado: arquivoCompactado,
+            tamanhoOriginal: tamanhoOriginal,
+            tamanhoFinal: tamanhoFinal,
+            economia: economia
+        };
+
+        if (preview) {
+            preview.src = URL.createObjectURL(arquivoCompactado);
+        }
+
+        if (previewArea) {
+            previewArea.style.display = 'block';
+        }
+
+        if (infoCompressao) {
+            infoCompressao.style.display = 'block';
+            infoCompressao.innerText =
+                'Compressão: ' +
+                TNP_Login_func_formatarTamanhoArquivo(tamanhoOriginal) +
+                ' → ' +
+                TNP_Login_func_formatarTamanhoArquivo(tamanhoFinal) +
+                ' | economizou ' +
+                TNP_Login_func_formatarTamanhoArquivo(economia);
+        }
+
+        if (btnEnviar) {
+            btnEnviar.disabled = false;
+            btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+        }
+
+    } catch (erroPreparar) {
+        console.error('Erro ao preparar imagem de correção:', erroPreparar);
+
+        if (erro) {
+            erro.innerText = 'Erro ao preparar a foto. Tire outra foto e tente novamente.';
+            erro.style.display = 'block';
+        }
+
+        if (btnEnviar) {
+            btnEnviar.disabled = true;
+            btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+        }
+
+    } finally {
+        event.target.value = '';
+    }
+}
+
+async function TNP_Login_func_enviarCorrecaoPendencia() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const erro = document.getElementById('TNP_Login_corrigir_pendencia_error');
+    const btnEnviar = document.getElementById('TNP_Login_corrigir_pendencia_btn_enviar');
+
+    if (erro) {
+        erro.innerText = '';
+        erro.style.display = 'none';
+    }
+
+    if (!user) {
+        if (erro) {
+            erro.innerText = 'Faça login novamente para enviar a correção.';
+            erro.style.display = 'block';
+        }
+        return;
+    }
+
+    if (!TNP_Login_pendenciaAtual || !TNP_Login_arquivoCorrecaoPendente) {
+        if (erro) {
+            erro.innerText = 'Tire uma nova foto antes de enviar a correção.';
+            erro.style.display = 'block';
+        }
+        return;
+    }
+
+    try {
+        if (btnEnviar) {
+            btnEnviar.disabled = true;
+            btnEnviar.innerText = 'ENVIANDO...';
+        }
+
+        const origem = TNP_Login_pendenciaAtual.origem;
+        const tipoPendencia = TNP_Login_pendenciaAtual.tipoPendencia;
+        const config = TNP_Login_pendenciaAtual.config;
+
+        const nomeArquivo = `${tipoPendencia}_${Date.now()}.jpg`;
+
+        const caminhoStorage = origem === 'motorista'
+            ? `motoristas/${user.uid}/${config.pastaStorage}/${nomeArquivo}`
+            : `usuarios/${user.uid}/${config.pastaStorage}/${nomeArquivo}`;
+
+        const storageRef = PRIMEIRAPAG_Login_storage
+            .ref()
+            .child(caminhoStorage);
+
+        const arquivoCompactado = TNP_Login_arquivoCorrecaoPendente.arquivoCompactado;
+
+        await storageRef.put(arquivoCompactado, {
+            contentType: 'image/jpeg'
+        });
+
+        const url = await storageRef.getDownloadURL();
+
+        const dadosAtualizados = {
+            enviado: true,
+            url: url,
+            caminho: caminhoStorage,
+            status: 'pendente_analise',
+            motivoReprovacao: '',
+            tamanhoOriginal: TNP_Login_arquivoCorrecaoPendente.tamanhoOriginal,
+            tamanhoFinal: TNP_Login_arquivoCorrecaoPendente.tamanhoFinal,
+            economiaBytes: TNP_Login_arquivoCorrecaoPendente.economia,
+            reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        const update = TNP_Login_func_montarAtualizacaoCampo(
+            config.campoFirestore,
+            dadosAtualizados
+        );
+
+        update.requerAnaliseAdmin = true;
+        update.atualizadoEm = firebase.firestore.FieldValue.serverTimestamp();
+
+        if (origem === 'motorista') {
+            if (
+                tipoPendencia === 'fotoCnh' ||
+                tipoPendencia === 'selfieComCnh'
+            ) {
+                update.fotosCnhStatus = 'pendente_analise';
+            }
+
+            if (
+                tipoPendencia === 'crlv' ||
+                tipoPendencia === 'fotoVeiculoPlaca'
+            ) {
+                update.documentosVeiculoStatus = 'pendente_analise';
+            }
+
+            update.etapaCadastroMotorista = 'analise_final_motorista';
+        }
+		if (origem === 'passageiro') {
+		if (tipoPendencia === 'selfieDocumento') {
+			update.selfieDocumentoExtraPendente = true;
+			update.selfieDocumentoExtraConcluida = false;
+			update.bloqueadoPorSelfieDocumentoExtra = false;
+			update.ultimaPendenciaCorrigida = 'selfieDocumento';
+			update['statusCadastroPassageiro.documentos'] = 'pendente_analise';
+		}
+
+		if (tipoPendencia === 'comprovanteEndereco') {
+			update.comprovanteEnderecoPendente = true;
+			update.fotoEnderecoPendente = true;
+			update.ultimaPendenciaCorrigida = 'comprovanteEndereco';
+			update['statusCadastroPassageiro.comprovanteEndereco'] = 'pendente_analise';
+		}
+	}
+
+        const docRef = origem === 'motorista'
+            ? PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid)
+            : PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid);
+
+        await docRef.update(update);
+
+        TNP_Login_func_fecharModalCorrigirPendencia();
+
+		if (origem === 'motorista') {
+			if (typeof MOTORISTAPAG_Login_func_abrirModalStatusCadastro === "function") {
+				MOTORISTAPAG_Login_func_abrirModalStatusCadastro();
+			} else {
+				TNP_Login_func_abrirMensagemProvisoria(
+					'Correção enviada',
+					'Sua correção foi enviada e ficará aguardando análise do administrador.'
+				);
+			}
+
+			return;
+		}
+
+		if (origem === 'passageiro') {
+		TNP_Login_func_abrirMensagemProvisoria(
+			'Correção enviada',
+			'Sua correção foi enviada e ficará aguardando análise do administrador.'
+		);
+
+		return;
+	}
+
+    } catch (e) {
+        console.error('Erro ao enviar correção de pendência:', e);
+
+        if (erro) {
+            erro.innerText =
+                'Erro ao enviar: ' +
+                (e.code || e.message || 'erro desconhecido');
+
+            erro.style.display = 'block';
+        }
+
+    } finally {
+        if (btnEnviar) {
+            btnEnviar.disabled = false;
+            btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+        }
+    }
+}
+// MODAL UNIVERSAL: CORRIGIR PENDÊNCIA FINAL
+
+
+
+
+
+// =====================================================
+//  MODAIS GERAIS / UNIVERSAIS DO APP
+// =====================================================
 
 </script>
 <!-- BOTÕES TEMPORÁRIOS DE TESTE - APAGAR ANTES DE PUBLICAR -->
