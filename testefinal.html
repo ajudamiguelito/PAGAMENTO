@@ -6395,162 +6395,169 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
     QUARTAPAG_Login_btn.disabled = true;
     QUARTAPAG_Login_btn.innerText = "SALVANDO...";
 
-    try {
-        const QUARTAPAG_Login_userRef = PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .doc(QUARTAPAG_Login_user.uid);
+  try {
+	const QUARTAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+		.collection('usuarios')
+		.doc(QUARTAPAG_Login_user.uid);
 
-        const QUARTAPAG_Login_userSnapAntes = await QUARTAPAG_Login_userRef.get();
+	const QUARTAPAG_Login_userSnapAntes = await QUARTAPAG_Login_userRef.get();
 
-        const QUARTAPAG_Login_dadosAtuaisAntes = QUARTAPAG_Login_userSnapAntes.exists
-            ? QUARTAPAG_Login_userSnapAntes.data()
-            : {};
+	const QUARTAPAG_Login_dadosAtuaisAntes = QUARTAPAG_Login_userSnapAntes.exists
+		? QUARTAPAG_Login_userSnapAntes.data()
+		: {};
 
-        const QUARTAPAG_Login_usuarioJaCompleto =
-            QUARTAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
-            QUARTAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
-            QUARTAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+	const QUARTAPAG_Login_usuarioJaCompleto =
+		QUARTAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+		QUARTAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+		QUARTAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
 
-        // PASSAGEIRO
-        if (QUARTAPAG_Login_tipo === "passageiro") {
-            const QUARTAPAG_Login_payloadPassageiro = {
-                tipo: "passageiro",
-                tipoContaEscolhido: true,
-                origemCadastro: "tipo_conta_passageiro",
+	// PASSAGEIRO
+	if (QUARTAPAG_Login_tipo === "passageiro") {
+		const QUARTAPAG_Login_payloadPassageiro = {
+			tipo: "passageiro",
+			tipoContaEscolhido: true,
+			origemCadastro: "tipo_conta_passageiro",
 
-                "perfis.passageiro": true,
+			perfis: {
+				passageiro: true,
+				motorista: false
+			},
 
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            };
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
 
-            if (!QUARTAPAG_Login_usuarioJaCompleto) {
-                QUARTAPAG_Login_payloadPassageiro.etapaCadastro = "selfie";
-                QUARTAPAG_Login_payloadPassageiro.cadastroCompleto = false;
+		if (!QUARTAPAG_Login_usuarioJaCompleto) {
+			QUARTAPAG_Login_payloadPassageiro.etapaCadastro = "selfie";
+			QUARTAPAG_Login_payloadPassageiro.cadastroCompleto = false;
 
-                QUARTAPAG_Login_payloadPassageiro.status = {
-                    geral: "cadastro_rapido",
-                    etapa: "selfie",
-                    mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
-                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-                };
-            }
-
-            await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadPassageiro, { merge: true });
-
-            QUARTAPAG_Login_btn.disabled = false;
-            QUARTAPAG_Login_btn.innerText = "CONTINUAR";
-
-            PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
-            return;
-        }
-
-        // MOTORISTA
-        if (QUARTAPAG_Login_tipo === "motorista") {
-				const QUARTAPAG_Login_payloadUsuarioMotorista = {
-				tipo: "motorista",
-				tipoContaEscolhido: true,
-				origemCadastro: "tipo_conta_motorista",
-
-				"perfis.passageiro": true,
-				"perfis.motorista": true,
-
+			QUARTAPAG_Login_payloadPassageiro.status = {
+				geral: "cadastro_rapido",
+				etapa: "selfie",
+				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
+		}
 
-			if (!QUARTAPAG_Login_usuarioJaCompleto) {
-				QUARTAPAG_Login_payloadUsuarioMotorista.passageiroTermosAceitos = false;
-				QUARTAPAG_Login_payloadUsuarioMotorista.passageiroLiberado = false;
+		await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadPassageiro, { merge: true });
 
-				QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastro = "selfie";
-				QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastroMotorista = "categoria";
+		QUARTAPAG_Login_btn.disabled = false;
+		QUARTAPAG_Login_btn.innerText = "CONTINUAR";
 
-				QUARTAPAG_Login_payloadUsuarioMotorista.cadastroCompleto = false;
-				QUARTAPAG_Login_payloadUsuarioMotorista.motoristaStatus = "cadastro_iniciado";
+		PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+		return;
+	}
 
-				QUARTAPAG_Login_payloadUsuarioMotorista.status = {
-					geral: "cadastro_rapido",
-					etapa: "selfie",
-					mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
-					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				};
-			}
+	// MOTORISTA
+	if (QUARTAPAG_Login_tipo === "motorista") {
+		const QUARTAPAG_Login_payloadUsuarioMotorista = {
+			tipo: "motorista",
+			tipoContaEscolhido: true,
+			origemCadastro: "tipo_conta_motorista",
 
-            await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadUsuarioMotorista, { merge: true });
+			perfis: {
+				passageiro: true,
+				motorista: true
+			},
 
-            const QUARTAPAG_Login_motoristaRef = PRIMEIRAPAG_Login_db
-					.collection('motoristas')
-					.doc(QUARTAPAG_Login_user.uid);
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
 
-				const QUARTAPAG_Login_motoristaSnapAntes = await QUARTAPAG_Login_motoristaRef.get();
+		if (!QUARTAPAG_Login_usuarioJaCompleto) {
+			QUARTAPAG_Login_payloadUsuarioMotorista.passageiroTermosAceitos = false;
+			QUARTAPAG_Login_payloadUsuarioMotorista.passageiroLiberado = false;
 
-				const QUARTAPAG_Login_dadosMotoristaAntes = QUARTAPAG_Login_motoristaSnapAntes.exists
-					? QUARTAPAG_Login_motoristaSnapAntes.data()
-					: {};
+			QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastro = "selfie";
+			QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastroMotorista = "categoria";
 
-				const QUARTAPAG_Login_motoristaJaCompleto =
-					QUARTAPAG_Login_dadosMotoristaAntes.cadastroCompleto === true ||
-					QUARTAPAG_Login_dadosMotoristaAntes.status?.geral === "aprovado" ||
-					QUARTAPAG_Login_dadosMotoristaAntes.podeAceitarCorrida === true;
+			QUARTAPAG_Login_payloadUsuarioMotorista.cadastroCompleto = false;
+			QUARTAPAG_Login_payloadUsuarioMotorista.motoristaStatus = "cadastro_iniciado";
 
-				const QUARTAPAG_Login_payloadMotoristas = {
-					uid: QUARTAPAG_Login_user.uid,
-					email: QUARTAPAG_Login_user.email,
-					nome:
-						QUARTAPAG_Login_dadosAtuaisAntes.nomeDocumento ||
-						QUARTAPAG_Login_dadosAtuaisAntes.nome ||
-						QUARTAPAG_Login_user.displayName ||
-						"",
+			QUARTAPAG_Login_payloadUsuarioMotorista.status = {
+				geral: "cadastro_rapido",
+				etapa: "selfie",
+				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			};
+		}
 
-					tipo: "motorista",
-					origemCadastro: "tipo_conta_motorista",
+		await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadUsuarioMotorista, { merge: true });
 
-					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				};
+		const QUARTAPAG_Login_motoristaRef = PRIMEIRAPAG_Login_db
+			.collection('motoristas')
+			.doc(QUARTAPAG_Login_user.uid);
 
-				if (!QUARTAPAG_Login_motoristaSnapAntes.exists) {
-					QUARTAPAG_Login_payloadMotoristas.criadoEm =
-						firebase.firestore.FieldValue.serverTimestamp();
-				}
+		const QUARTAPAG_Login_motoristaSnapAntes = await QUARTAPAG_Login_motoristaRef.get();
 
-				if (!QUARTAPAG_Login_motoristaJaCompleto) {
-					QUARTAPAG_Login_payloadMotoristas.cadastroCompleto = false;
-					QUARTAPAG_Login_payloadMotoristas.etapaCadastroMotorista = "categoria";
-					QUARTAPAG_Login_payloadMotoristas.podeAceitarCorrida = false;
+		const QUARTAPAG_Login_dadosMotoristaAntes = QUARTAPAG_Login_motoristaSnapAntes.exists
+			? QUARTAPAG_Login_motoristaSnapAntes.data()
+			: {};
 
-					QUARTAPAG_Login_payloadMotoristas.status = {
-						geral: "cadastro_iniciado",
-						atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-					};
-				}
+		const QUARTAPAG_Login_motoristaJaCompleto =
+			QUARTAPAG_Login_dadosMotoristaAntes.cadastroCompleto === true ||
+			QUARTAPAG_Login_dadosMotoristaAntes.status?.geral === "aprovado" ||
+			QUARTAPAG_Login_dadosMotoristaAntes.podeAceitarCorrida === true;
 
-				await QUARTAPAG_Login_motoristaRef.set(QUARTAPAG_Login_payloadMotoristas, { merge: true });
+		const QUARTAPAG_Login_payloadMotoristas = {
+			uid: QUARTAPAG_Login_user.uid,
+			email: QUARTAPAG_Login_user.email,
+			nome:
+				QUARTAPAG_Login_dadosAtuaisAntes.nomeDocumento ||
+				QUARTAPAG_Login_dadosAtuaisAntes.nome ||
+				QUARTAPAG_Login_user.displayName ||
+				"",
 
-            QUARTAPAG_Login_btn.disabled = false;
-            QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+			tipo: "motorista",
+			origemCadastro: "tipo_conta_motorista",
 
-            PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
-            return;
-        }
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
 
-        QUARTAPAG_Login_btn.disabled = false;
-        QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+		if (!QUARTAPAG_Login_motoristaSnapAntes.exists) {
+			QUARTAPAG_Login_payloadMotoristas.criadoEm =
+				firebase.firestore.FieldValue.serverTimestamp();
+		}
 
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'QUARTAPAG_Login_error_tipo_conta',
-            'Escolha uma opção válida para continuar.'
-        );
+		if (!QUARTAPAG_Login_motoristaJaCompleto) {
+			QUARTAPAG_Login_payloadMotoristas.cadastroCompleto = false;
+			QUARTAPAG_Login_payloadMotoristas.etapaCadastroMotorista = "categoria";
+			QUARTAPAG_Login_payloadMotoristas.podeAceitarCorrida = false;
 
-    } catch (QUARTAPAG_Login_erro) {
-        QUARTAPAG_Login_btn.disabled = false;
-        QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+			QUARTAPAG_Login_payloadMotoristas.status = {
+				geral: "cadastro_iniciado",
+				etapa: "categoria",
+				mensagem: "Cadastro de motorista iniciado. Próxima etapa: escolher categoria.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			};
+		}
 
-        console.error("ERRO AO SALVAR TIPO DE CONTA:", QUARTAPAG_Login_erro);
+		await QUARTAPAG_Login_motoristaRef.set(QUARTAPAG_Login_payloadMotoristas, { merge: true });
 
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'QUARTAPAG_Login_error_tipo_conta',
-            'Erro ao salvar tipo de conta. Verifique sua conexão e tente novamente.'
-        );
-    }
+		QUARTAPAG_Login_btn.disabled = false;
+		QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+
+		PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+		return;
+	}
+
+	QUARTAPAG_Login_btn.disabled = false;
+	QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+
+	return PRIMEIRAPAG_Login_func_mostrarErro(
+		'QUARTAPAG_Login_error_tipo_conta',
+		'Escolha uma opção válida para continuar.'
+	);
+
+} catch (QUARTAPAG_Login_erro) {
+	QUARTAPAG_Login_btn.disabled = false;
+	QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+
+	console.error("ERRO AO SALVAR TIPO DE CONTA:", QUARTAPAG_Login_erro);
+
+	PRIMEIRAPAG_Login_func_mostrarErro(
+		'QUARTAPAG_Login_error_tipo_conta',
+		'Erro ao salvar tipo de conta. Verifique sua conexão e tente novamente.'
+	);
+}
 }
 	// ========== TELA 5: fim TIPO DE CONTA COM PREFIXO QUARTAPAG ==========		
 		
