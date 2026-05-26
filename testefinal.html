@@ -9369,17 +9369,56 @@ function PASSAGEIROPAG_Login_func_esconderCardPendenciaAdminPassageiro() {
 	}
 }
 
-function PASSAGEIROPAG_Login_func_abrirPendenciaAdminPassageiro() {
-	if (!PASSAGEIROPAG_Login_pendenciaAdminAtual) {
+async function PASSAGEIROPAG_Login_func_abrirPendenciaAdminPassageiro() {
+	const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+	if (!user) {
 		return TNP_Login_func_abrirMensagemProvisoria(
-			'Nenhuma pendência encontrada',
-			'Não encontramos nenhuma correção solicitada pelo administrador neste momento.'
+			'Login necessário',
+			'Faça login novamente para corrigir essa pendência.'
+		);
+	}
+
+	const doc = await PRIMEIRAPAG_Login_db
+		.collection('usuarios')
+		.doc(user.uid)
+		.get();
+
+	const dadosUsuario = doc.exists ? doc.data() : {};
+
+	const pendencias = [
+		{
+			tipo: 'selfieDocumento',
+			status: dadosUsuario.selfieDocumentoExtra?.status
+		},
+		{
+			tipo: 'documentoIdentidade',
+			status: dadosUsuario.documentoIdentidade?.status
+		},
+		{
+			tipo: 'comprovanteEndereco',
+			status: dadosUsuario.comprovanteEndereco?.status
+		}
+	];
+
+	const pendenciaAtual = pendencias.find(item =>
+		item.status === 'pendente_correcao' ||
+		item.status === 'reprovado' ||
+		item.status === 'corrigir'
+	);
+
+	if (!pendenciaAtual) {
+		PASSAGEIROPAG_Login_func_esconderCardPendenciaAdminPassageiro();
+
+		return TNP_Login_func_abrirMensagemProvisoria(
+			'Nenhuma correção pendente',
+			'Suas correções foram enviadas e agora estão aguardando análise do administrador.'
 		);
 	}
 
 	TNP_Login_func_abrirModalCorrigirPendencia(
 		'passageiro',
-		PASSAGEIROPAG_Login_pendenciaAdminAtual.tipo
+		pendenciaAtual.tipo
 	);
 }
 
