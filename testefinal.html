@@ -10497,24 +10497,33 @@ function TNP_Login_func_configPendencia(origem, tipoPendencia) {
         },
 
         passageiro: {
-				selfieDocumento: {
-					titulo: 'Reenviar selfie com documento',
-					texto: 'Envie uma nova selfie com documento conforme a orientação do administrador.',
-					pastaStorage: 'documentos',
-					campoFirestore: 'selfieDocumentoExtra',
-					campoStatus: 'selfieDocumentoExtra.status',
-					campoMotivo: 'selfieDocumentoExtra.motivoReprovacao'
-				},
+            selfieDocumento: {
+                titulo: 'Reenviar selfie com documento',
+                texto: 'Envie uma nova selfie segurando o documento conforme a orientação do administrador.',
+                pastaStorage: 'documentos',
+                campoFirestore: 'selfieDocumentoExtra',
+                campoStatus: 'selfieDocumentoExtra.status',
+                campoMotivo: 'selfieDocumentoExtra.motivoReprovacao'
+            },
 
-				comprovanteEndereco: {
-					titulo: 'Reenviar comprovante de endereço',
-					texto: 'Envie um novo comprovante de endereço legível.',
-					pastaStorage: 'documentos',
-					campoFirestore: 'comprovanteEndereco',
-					campoStatus: 'comprovanteEndereco.status',
-					campoMotivo: 'comprovanteEndereco.motivoReprovacao'
-				}
-			}
+            comprovanteEndereco: {
+                titulo: 'Reenviar comprovante de endereço',
+                texto: 'Envie uma nova foto legível do comprovante de endereço.',
+                pastaStorage: 'documentos',
+                campoFirestore: 'comprovanteEndereco',
+                campoStatus: 'comprovanteEndereco.status',
+                campoMotivo: 'comprovanteEndereco.motivoReprovacao'
+            },
+
+            documentoIdentidade: {
+                titulo: 'Reenviar documento de identidade',
+                texto: 'Envie uma nova foto legível do seu documento de identidade.',
+                pastaStorage: 'documentos',
+                campoFirestore: 'documentoIdentidade',
+                campoStatus: 'documentoIdentidade.status',
+                campoMotivo: 'documentoIdentidade.motivoReprovacao'
+            }
+        }
     };
 
     return configs?.[origem]?.[tipoPendencia] || null;
