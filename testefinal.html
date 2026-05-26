@@ -4603,18 +4603,195 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 </div>
 
-<!-- TELA 11: final ID TNP E CADASTRO NA TNP - PREFIXO DECIMASEGUNDAPAG -->
+<!-- ========== TELA 11: fil ID TNP E CADASTRO NA TNP - PREFIXO DECIMASEGUNDAPAG ========== -->
+<!-- ========== TELA 12: HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG =========== --> 
+<!-- ========== TELA 12: HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG =========== --> 
+<div id="PASSAGEIROPAG_Login_screen_home" class="PRIMEIRAPAG_Login_screen">
+
+    <!-- FUNDO DO MAPA -->
+    <div id="PASSAGEIROPAG_Login_mapa_fundo">
+        <div class="PASSAGEIROPAG_Login_mapa_fake">
+            <div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_1"></div>
+            <div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_2"></div>
+            <div class="PASSAGEIROPAG_Login_pin_origem">📍</div>
+            <div class="PASSAGEIROPAG_Login_pin_motorista">🚗</div>
+        </div>
+    </div>
+
+
+<!-- TOPO -->
+    <div class="PASSAGEIROPAG_Login_topo_home">
+        <button class="PASSAGEIROPAG_Login_btn_foto_menu" onclick="PASSAGEIROPAG_Login_func_abrirMenuLateral()">
+    <div class="menu_icon_hamburguer">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+		</button>
+
+
+        <div class="PASSAGEIROPAG_Login_topo_texto">
+            <strong id="PASSAGEIROPAG_Login_nome_topo">Olá!</strong>
+            <span>Para onde vamos hoje?</span>
+        </div>
+
+        <button
+            type="button"
+            class="PASSAGEIROPAG_Login_btn_sininho"
+            onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_mensagens')"
+        >
+            🔔
+        </button>
+    </div>
+  <!-- MENU LATERAL -->
+    <div id="PASSAGEIROPAG_Login_menu_overlay" class="PASSAGEIROPAG_Login_menu_overlay" onclick="PASSAGEIROPAG_Login_func_fecharMenuLateral()"></div>
+
+    <div id="PASSAGEIROPAG_Login_menu_lateral" class="PASSAGEIROPAG_Login_menu_lateral">
+        <div class="PASSAGEIROPAG_Login_menu_header">
+            <img
+                id="PASSAGEIROPAG_Login_foto_menu"
+                src=""
+                alt="Perfil"
+            >
+            <strong id="PASSAGEIROPAG_Login_nome_menu">Passageiro</strong>
+            <span id="PASSAGEIROPAG_Login_email_menu">-</span>
+        </div>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Meu perfil', 'Aqui você poderá revisar seus dados, foto, contatos, endereço e informações da sua conta.', 'DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal')">
+    👤 Meu perfil
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Histórico de corridas', 'Aqui você poderá acompanhar suas corridas concluídas, canceladas, valores, motoristas e detalhes das viagens.')">
+    🕘 Histórico
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Solicitar ajuda', 'Aqui você poderá falar com o suporte, relatar problemas em corridas e tirar dúvidas sobre sua conta.')">
+    ❓ Solicitar ajuda
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Mensagens', 'Aqui ficarão suas mensagens, avisos importantes, respostas do suporte e comunicações da plataforma.')">
+    💬 Mensagens
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui você encontrará recursos de proteção, contatos de emergência, verificação de conta e orientações de segurança.')">
+    🛡️ Central de segurança
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Métodos de pagamento', 'Aqui você poderá cadastrar Pix, cartões, acompanhar pagamentos e formas de cobrança.')">
+    💳 Métodos de pagamento
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Configurações', 'Aqui você poderá ajustar tema do app, notificações, permissões e preferências da conta.')">
+    ⚙️ Configurações
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Convidar pessoas', 'Aqui você poderá convidar amigos, passageiros e acompanhar benefícios por indicação.')">
+    🎁 Convidar pessoas
+</button>
+
+<button onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Seja motorista', 'Aqui você poderá iniciar seu cadastro de motorista, enviar documentos e acompanhar sua aprovação.')">
+    🚗 Seja motorista
+</button>
+
+<button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
+    🚪 Sair
+</button>
+    </div>	
+  <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
+    <div id="PASSAGEIROPAG_Login_painel_chamada" class="PASSAGEIROPAG_Login_painel_chamada">
+
+<div
+    class="PASSAGEIROPAG_Login_puxador"
+    onclick="PASSAGEIROPAG_Login_func_alternarPainel()"
+    ontouchstart="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
+    ontouchmove="PASSAGEIROPAG_Login_func_movendoPainel(event)"
+    ontouchend="PASSAGEIROPAG_Login_func_fimArrastePainel()"
+    onmousedown="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
+></div>
+
+        <div class="PASSAGEIROPAG_Login_card_corrida">
+            <h3>Para onde vamos?</h3>
+
+            <div class="PASSAGEIROPAG_Login_input_fake">
+                📍 Local de partida
+            </div>
+
+            <div class="PASSAGEIROPAG_Login_input_fake">
+                🎯 Para onde você vai?
+            </div>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pedir_corrida')"
+            >
+                PEDIR CORRIDA
+            </button>
+        </div>
+
+        <div
+            id="PASSAGEIROPAG_Login_card_verificacao"
+            class="PASSAGEIROPAG_Login_card_extra"
+        >
+            <strong>🛡️ Verificação de segurança</strong>
+            <p>
+                Envie uma selfie segurando seu documento para aumentar a proteção da sua conta.
+            </p>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_selfie_documento')"
+            >
+                ENVIAR AGORA
+            </button>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+                onclick="PASSAGEIROPAG_Login_func_fecharCardVerificacao()"
+            >
+                FAZER DEPOIS
+            </button>
+        </div>
+
+        <div class="PASSAGEIROPAG_Login_card_extra">
+            <strong>📢 Segurança na viagem</strong>
+            <p>
+                Respeite o motorista, confirme os dados da corrida e compartilhe sua rota quando necessário.
+            </p>
+        </div>
+
+        <div class="PASSAGEIROPAG_Login_card_extra" style="padding-bottom:10px;">
+    <strong>💰 Promoções e benefícios</strong>
+    <p>
+        Ative seu ID TNP para acompanhar cashback, benefícios e oportunidades.
+    </p>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PASSAGEIROPAG_Login_func_abrirBeneficiosTnp()"
+    >
+        VER BENEFÍCIOS
+    </button>
+	
+	</div>
+
+    </div>	
 
 
 
 
 
+</div>
 
 
 
 
+	
+	
+	
+	
+	
 
-
+<!-- ========== TELA 12: final INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== -->
 
 
 
@@ -9091,7 +9268,564 @@ async function DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois() {
     }
 }
  
-// ========== TELA 11: finl ID TNP E CADASTRO NA TNP COM PREFIXO DECIMASEGUNDAPAG ==========   
+// ========== TELA 11: final ID TNP E CADASTRO NA TNP COM PREFIXO DECIMASEGUNDAPAG ==========   
+
+// -- ========== TELA 12: HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== 
+
+
+// ========== TELA 13 INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ==========
+
+async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    PRIMEIRAPAG_Login_func_limparErros();
+
+    if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
+        PASSAGEIROPAG_Login_func_fecharMenuLateral();
+    }
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    try {
+        const doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        const d = doc.exists ? doc.data() : {};
+
+        const nome =
+            d.nomeDocumento ||
+            d.nome ||
+            user.displayName ||
+            "Passageiro";
+
+        const email =
+            d.email ||
+            user.email ||
+            "-";
+
+        const foto =
+            d.fotoPerfilUrl ||
+            d.selfieUrl ||
+            "";
+
+        const primeiroNome = nome.split(" ")[0];
+
+        const nomeTopo = document.getElementById('PASSAGEIROPAG_Login_nome_topo');
+        const nomeMenu = document.getElementById('PASSAGEIROPAG_Login_nome_menu');
+        const emailMenu = document.getElementById('PASSAGEIROPAG_Login_email_menu');
+
+        if (nomeTopo) nomeTopo.innerText = `Olá, ${primeiroNome} 👋`;
+        if (nomeMenu) nomeMenu.innerText = nome;
+        if (emailMenu) emailMenu.innerText = email;
+
+        const fotoMenu = document.getElementById('PASSAGEIROPAG_Login_foto_menu');
+
+        if (foto) {
+            if (fotoMenu) {
+                fotoMenu.onerror = function() {
+                    fotoMenu.removeAttribute('src');
+                };
+
+                fotoMenu.src = foto;
+            }
+        } else {
+			if (fotoMenu) {
+				fotoMenu.onerror = null;
+				fotoMenu.removeAttribute('src');
+			}
+		}
+
+        const cardVerificacao = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
+		const selfieDocumentoConcluida = d.selfieDocumentoExtraConcluida === true;
+		const selfieDocumentoPendente = d.selfieDocumentoExtraPendente !== false;
+		
+		if (cardVerificacao) {
+			if (selfieDocumentoConcluida || !selfieDocumentoPendente) {
+				cardVerificacao.style.display = 'none';
+			} else {
+				cardVerificacao.style.display = 'block';
+			}
+		}
+		
+		// MODAL GRANDE DE SELFIE COM DOCUMENTO
+const modalDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_overlay');
+const tituloModalDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_titulo');
+const textoModalDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_texto');
+const btnDepoisDocumento = document.getElementById('PASSAGEIROPAG_Login_modal_documento_btn_depois');
+
+const corridasUsadasSemDocumento = Number(d.corridasUsadasSemDocumento || 0);
+const limiteAvisoDocumento = Number(d.limiteAvisoDocumento || 10);
+const limiteBloqueioDocumento = Number(d.limiteBloqueioDocumento || 20);
+
+
+			if (modalDocumento) {
+				if (
+					selfieDocumentoConcluida !== true &&
+					corridasUsadasSemDocumento >= limiteBloqueioDocumento
+				) {
+					modalDocumento.style.display = 'flex';
+
+					if (tituloModalDocumento) {
+						tituloModalDocumento.innerText = '⚠️ Verificação obrigatória';
+					}
+
+					if (textoModalDocumento) {
+						textoModalDocumento.innerText =
+							'Você atingiu o limite de corridas sem enviar a selfie segurando seu documento. Para continuar solicitando corridas, conclua essa verificação.';
+					}
+
+					if (btnDepoisDocumento) {
+						btnDepoisDocumento.style.display = 'none';
+					}
+
+				} else if (
+					selfieDocumentoConcluida !== true &&
+					corridasUsadasSemDocumento >= limiteAvisoDocumento
+				) {
+					modalDocumento.style.display = 'flex';
+
+					if (tituloModalDocumento) {
+						tituloModalDocumento.innerText = '🛡️ Verificação de segurança';
+					}
+
+					if (textoModalDocumento) {
+						textoModalDocumento.innerText =
+							'Você já pode enviar uma selfie segurando seu documento. Essa verificação será obrigatória após 20 corridas.';
+					}
+
+					if (btnDepoisDocumento) {
+						btnDepoisDocumento.style.display = 'block';
+					}
+
+				} else {
+					modalDocumento.style.display = 'none';
+				}
+			}
+
+        const painelChamada = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+        if (painelChamada) {
+            painelChamada.classList.remove('recolhido');
+            painelChamada.style.transform = '';
+            painelChamada.style.transition = '';
+        }
+
+        PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
+
+    } catch (erro) {
+        console.error("Erro ao carregar home do passageiro:", erro);
+        PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
+    }
+}		
+
+function PASSAGEIROPAG_Login_func_abrirMenuLateral() {
+    const overlay = document.getElementById('PASSAGEIROPAG_Login_menu_overlay');
+    const menu = document.getElementById('PASSAGEIROPAG_Login_menu_lateral');
+
+    if (overlay) overlay.classList.add('active');
+    if (menu) menu.classList.add('active');
+}
+
+function PASSAGEIROPAG_Login_func_fecharMenuLateral() {
+    const overlay = document.getElementById('PASSAGEIROPAG_Login_menu_overlay');
+    const menu = document.getElementById('PASSAGEIROPAG_Login_menu_lateral');
+
+    if (overlay) overlay.classList.remove('active');
+    if (menu) menu.classList.remove('active');
+}
+
+let PASSAGEIROPAG_Login_arrastandoPainel = false;
+let PASSAGEIROPAG_Login_inicioYPainel = 0;
+let PASSAGEIROPAG_Login_offsetPainel = 0;
+
+async function PASSAGEIROPAG_Login_func_abrirBeneficiosTnp() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    PRIMEIRAPAG_Login_func_limparErros();
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    try {
+        const doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        const d = doc.exists ? doc.data() : {};
+
+        if (d.idTnpInformado === true && d.idTnp) {
+            alert("Seu ID TNP já está cadastrado. Benefícios e cashback estão vinculados à sua conta.");
+            return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+        }
+
+        PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
+
+    } catch (erro) {
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMASEGUNDAPAG_Login_error_tnp',
+            'Erro ao verificar ID TNP: ' + erro.message
+        );
+    }
+}
+
+function PASSAGEIROPAG_Login_func_alternarPainel() {
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    painel.style.transition = "transform 0.28s ease";
+    painel.style.transform = "";
+
+    painel.classList.toggle('recolhido');
+}
+
+function PASSAGEIROPAG_Login_func_inicioArrastePainel(event) {
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    if (event.cancelable) {
+        event.preventDefault();
+    }
+
+    PASSAGEIROPAG_Login_arrastandoPainel = true;
+    PASSAGEIROPAG_Login_inicioYPainel =
+        event.touches ? event.touches[0].clientY : event.clientY;
+
+    PASSAGEIROPAG_Login_offsetPainel = painel.classList.contains('recolhido')
+        ? painel.offsetHeight * 0.42
+        : 0;
+
+    painel.style.transition = "none";
+
+    document.onmousemove = PASSAGEIROPAG_Login_func_movendoPainel;
+    document.onmouseup = PASSAGEIROPAG_Login_func_fimArrastePainel;
+}
+
+function PASSAGEIROPAG_Login_func_movendoPainel(event) {
+    if (!PASSAGEIROPAG_Login_arrastandoPainel) return;
+
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    const yAtual = event.touches ? event.touches[0].clientY : event.clientY;
+    const diferenca = yAtual - PASSAGEIROPAG_Login_inicioYPainel;
+
+    let novoOffset = PASSAGEIROPAG_Login_offsetPainel + diferenca;
+
+    const limiteMin = 0;
+    const limiteMax = painel.offsetHeight * 0.50;
+
+    if (novoOffset < limiteMin) novoOffset = limiteMin;
+    if (novoOffset > limiteMax) novoOffset = limiteMax;
+
+    painel.style.transform = `translateY(${novoOffset}px)`;
+}
+
+function PASSAGEIROPAG_Login_func_fimArrastePainel() {
+    const painel = document.getElementById('PASSAGEIROPAG_Login_painel_chamada');
+
+    if (!painel) return;
+
+    PASSAGEIROPAG_Login_arrastandoPainel = false;
+
+    document.onmousemove = null;
+    document.onmouseup = null;
+
+    painel.style.transition = "transform 0.28s ease";
+
+    const transformAtual = painel.style.transform || "";
+    const valor = transformAtual.match(/translateY\(([-0-9.]+)px\)/);
+    const offsetAtual = valor ? parseFloat(valor[1]) : 0;
+
+    const limite = painel.offsetHeight * 0.21;
+
+    painel.style.transform = "";
+
+    if (offsetAtual > limite) {
+        painel.classList.add('recolhido');
+    } else {
+        painel.classList.remove('recolhido');
+    }
+}
+
+
+
+function PASSAGEIROPAG_Login_func_irParaTela(telaId) {
+    if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
+        PASSAGEIROPAG_Login_func_fecharMenuLateral();
+    }
+
+    PRIMEIRAPAG_Login_func_irPara(telaId);
+}
+
+function PASSAGEIROPAG_Login_func_fecharCardVerificacao() {
+    const card = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
+
+    if (card) {
+        card.style.display = 'none';
+    }
+}
+
+function PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora() {
+    const modal = document.getElementById('PASSAGEIROPAG_Login_modal_documento_overlay');
+
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+function PASSAGEIROPAG_Login_func_iniciarSelfieDocumento() {
+    if (typeof PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora === "function") {
+        PASSAGEIROPAG_Login_func_fecharModalDocumentoAgora();
+    }
+
+    if (document.getElementById('PASSAGEIROPAG_Login_screen_selfie_documento')) {
+        PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_selfie_documento');
+        return;
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'PASSAGEIROPAG_Login_error_selfie_documento',
+        'A tela de selfie com documento ainda não foi carregada.'
+    );
+}
+
+let PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+async function PASSAGEIROPAG_Login_func_processarSelfieDocumento(input) {
+    const status = document.getElementById('PASSAGEIROPAG_Login_status_selfie_documento');
+	    PRIMEIRAPAG_Login_func_limparErros();
+    const previewArea = document.getElementById('PASSAGEIROPAG_Login_preview_documento_area');
+    const previewImg = document.getElementById('PASSAGEIROPAG_Login_preview_documento_img');
+    const info = document.getElementById('PASSAGEIROPAG_Login_info_selfie_documento');
+    const btnConfirmar = document.getElementById('PASSAGEIROPAG_Login_btn_confirmar_selfie_documento');
+
+	if (!previewArea || !previewImg || !info || !btnConfirmar) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'PASSAGEIROPAG_Login_error_selfie_documento',
+			'Erro ao carregar os campos da selfie. Atualize e tente novamente.'
+		);
+	}
+
+    PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+    btnConfirmar.style.display = 'none';
+    btnConfirmar.disabled = true;
+    btnConfirmar.innerText = 'ENVIAR SELFIE COM DOCUMENTO';
+
+    if (status) {
+        status.style.display = 'block';
+        status.innerText = 'Processando foto, aguarde.';
+    }
+
+    if (!input.files || !input.files[0]) {
+        if (status) status.style.display = 'none';
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Nenhuma imagem selecionada.'
+        );
+    }
+
+    const arquivoOriginal = input.files[0];
+
+    if (!arquivoOriginal.type.startsWith('image/')) {
+        if (status) status.style.display = 'none';
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Selecione uma imagem válida.'
+        );
+    }
+
+    try {
+        const tamanhoOriginalKB = (arquivoOriginal.size / 1024).toFixed(2);
+
+        const arquivoComprimido = await QUINTAPAG_Login_func_comprimirImagem(
+            arquivoOriginal,
+            0.75,
+            1000,
+            1000
+        );
+
+        PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = arquivoComprimido;
+
+        const tamanhoFinalKB = (arquivoComprimido.size / 1024).toFixed(2);
+		if (typeof QUINTAPAG_Login_func_comprimirImagem !== "function") {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'PASSAGEIROPAG_Login_error_selfie_documento',
+			'A função de processar imagem ainda não foi carregada.'
+		);
+	}
+        previewImg.src = URL.createObjectURL(arquivoComprimido);
+        previewArea.style.display = 'block';
+
+        info.innerHTML =
+            `Original: ${tamanhoOriginalKB} KB<br>` +
+            `Comprimida: ${tamanhoFinalKB} KB`;
+
+        if (status) {
+            status.style.display = 'block';
+            status.innerText = 'Foto pronta. Agora toque em ENVIAR SELFIE COM DOCUMENTO.';
+        }
+
+        btnConfirmar.style.display = 'block';
+        btnConfirmar.disabled = false;
+
+    } catch (erro) {
+        PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+        if (status) {
+            status.style.display = 'block';
+            status.innerText = 'Não foi possível processar a foto. Tente tirar outra.';
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Erro ao processar foto: ' + erro.message
+        );
+    }
+}
+
+async function PASSAGEIROPAG_Login_func_confirmarSelfieDocumento() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('PASSAGEIROPAG_Login_btn_confirmar_selfie_documento');
+    const status = document.getElementById('PASSAGEIROPAG_Login_status_selfie_documento');
+
+        PRIMEIRAPAG_Login_func_limparErros();
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+    if (!PASSAGEIROPAG_Login_var_selfieDocumentoProcessada) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'PASSAGEIROPAG_Login_error_selfie_documento',
+            'Tire ou selecione a selfie com documento antes de continuar.'
+        );
+    }
+
+    if (btn) {
+		btn.disabled = true;
+		btn.innerText = 'ENVIANDO FOTO...';
+	}
+
+    if (status) {
+        status.style.display = 'block';
+        status.innerText = 'Enviando selfie com documento para verificação. Aguarde.';
+    }
+
+    try {
+        const caminho = `usuarios/${user.uid}/verificacoes/selfie-documento-extra.jpg`;
+
+        const storageRef = PRIMEIRAPAG_Login_storage
+            .ref()
+            .child(caminho);
+
+        await storageRef.put(PASSAGEIROPAG_Login_var_selfieDocumentoProcessada);
+
+        const urlFotoDocumento = await storageRef.getDownloadURL();
+
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                selfieDocumentoExtraUrl: urlFotoDocumento,
+                selfieDocumentoExtraConcluida: true,
+                selfieDocumentoExtraPendente: false,
+                bloqueadoPorSelfieDocumentoExtra: false,
+                selfieDocumentoExtraAtualizadaEm: firebase.firestore.FieldValue.serverTimestamp(),
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+        const inputSelfieDocumento = document.getElementById('PASSAGEIROPAG_Login_input_selfie_documento');
+
+			if (inputSelfieDocumento) {
+				inputSelfieDocumento.value = "";
+			}
+		const previewAreaDocumento = document.getElementById('PASSAGEIROPAG_Login_preview_documento_area');
+
+			if (previewAreaDocumento) {
+				previewAreaDocumento.style.display = "none";
+			}
+
+			PASSAGEIROPAG_Login_var_selfieDocumentoProcessada = null;
+
+        const card = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
+        if (card) {
+            card.style.display = 'none';
+        }
+
+        if (btn) {
+					btn.disabled = false;
+					btn.innerText = 'ENVIAR SELFIE COM DOCUMENTO';
+				}
+
+				alert('Selfie com documento enviada com sucesso.');
+
+				PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+
+    } catch (erro) {
+    console.error("ERRO REAL AO SALVAR SELFIE COM DOCUMENTO:", erro.code, erro.message);
+
+    if (btn) {
+		btn.disabled = false;
+		btn.innerText = 'ENVIAR SELFIE COM DOCUMENTO';
+	}
+
+    if (status) {
+        status.style.display = 'block';
+        status.innerText = 'Erro ao enviar foto. Tente novamente.';
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'PASSAGEIROPAG_Login_error_selfie_documento',
+        'Não foi possível enviar sua foto agora. Verifique sua conexão e tente novamente.'
+    );
+  }
+}
+
+function PASSAGEIROPAG_Login_func_abrirPaginaProvisoria(titulo, texto, funcaoEspecial) {
+    if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
+        PASSAGEIROPAG_Login_func_fecharMenuLateral();
+    }
+
+    PRIMEIRAPAG_Login_func_limparErros();
+
+    if (funcaoEspecial === "DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal") {
+        return DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+    }
+
+    const tituloEl = document.getElementById('PASSAGEIROPAG_Login_pagina_titulo');
+    const subtituloEl = document.getElementById('PASSAGEIROPAG_Login_pagina_subtitulo');
+    const textoEl = document.getElementById('PASSAGEIROPAG_Login_pagina_texto');
+
+    if (tituloEl) tituloEl.innerText = titulo;
+    if (subtituloEl) subtituloEl.innerText = titulo;
+    if (textoEl) textoEl.innerText = texto;
+	const boxConfig = document.getElementById('PASSAGEIROPAG_Login_pagina_box_config');
+
+if (boxConfig) {
+    if (titulo === "Configurações") {
+        boxConfig.style.display = "block";
+    } else {
+        boxConfig.style.display = "none";
+    }
+}
+
+    PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_pagina_provisoria');
+}	
+	
 
 
 
@@ -9107,12 +9841,7 @@ async function DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois() {
 
 
 
-
-
-
-
-
-
+// -- ========== TELA 12: final HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== 
 
 
 
