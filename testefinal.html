@@ -5919,21 +5919,39 @@ async function SEGUNDAPAG_Login_func_verificarEmailConfirmado() {
             );
         }
 
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(SEGUNDAPAG_Login_userAtualizado.uid).set({
+        const SEGUNDAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(SEGUNDAPAG_Login_userAtualizado.uid);
+
+        const SEGUNDAPAG_Login_userSnapAntes = await SEGUNDAPAG_Login_userRef.get();
+
+        const SEGUNDAPAG_Login_dadosAtuaisAntes = SEGUNDAPAG_Login_userSnapAntes.exists
+            ? SEGUNDAPAG_Login_userSnapAntes.data()
+            : {};
+
+        const SEGUNDAPAG_Login_usuarioJaCompleto =
+            SEGUNDAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+            SEGUNDAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+            SEGUNDAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+        const SEGUNDAPAG_Login_payloadEmail = {
             emailVerificado: true,
             cadastroRapidoConcluido: true,
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
 
-            etapaCadastro: "whatsapp",
+        if (!SEGUNDAPAG_Login_usuarioJaCompleto) {
+            SEGUNDAPAG_Login_payloadEmail.etapaCadastro = "whatsapp";
 
-            status: {
+            SEGUNDAPAG_Login_payloadEmail.status = {
                 geral: "cadastro_rapido",
                 etapa: "whatsapp",
                 mensagem: "E-mail confirmado. Próxima etapa: validar WhatsApp.",
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            },
+            };
+        }
 
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
+        await SEGUNDAPAG_Login_userRef.set(SEGUNDAPAG_Login_payloadEmail, { merge: true });
 
         PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
 
@@ -5975,49 +5993,68 @@ async function SEGUNDAPAG_Login_func_reenviarEmailConfirmacao() {
         const SEGUNDAPAG_Login_userAtualizado = PRIMEIRAPAG_Login_auth.currentUser;
 
         if (SEGUNDAPAG_Login_userAtualizado && SEGUNDAPAG_Login_userAtualizado.emailVerified) {
-            await PRIMEIRAPAG_Login_db.collection('usuarios').doc(SEGUNDAPAG_Login_userAtualizado.uid).set({
+            const SEGUNDAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+                .collection('usuarios')
+                .doc(SEGUNDAPAG_Login_userAtualizado.uid);
+
+            const SEGUNDAPAG_Login_userSnapAntes = await SEGUNDAPAG_Login_userRef.get();
+
+            const SEGUNDAPAG_Login_dadosAtuaisAntes = SEGUNDAPAG_Login_userSnapAntes.exists
+                ? SEGUNDAPAG_Login_userSnapAntes.data()
+                : {};
+
+            const SEGUNDAPAG_Login_usuarioJaCompleto =
+                SEGUNDAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+                SEGUNDAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+                SEGUNDAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+            const SEGUNDAPAG_Login_payloadEmail = {
                 emailVerificado: true,
                 cadastroRapidoConcluido: true,
-                etapaCadastro: "whatsapp",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            };
 
-                status: {
+            if (!SEGUNDAPAG_Login_usuarioJaCompleto) {
+                SEGUNDAPAG_Login_payloadEmail.etapaCadastro = "whatsapp";
+
+                SEGUNDAPAG_Login_payloadEmail.status = {
                     geral: "cadastro_rapido",
                     etapa: "whatsapp",
                     mensagem: "E-mail já confirmado. Próxima etapa: validar WhatsApp.",
                     atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-                },
+                };
+            }
 
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
+            await SEGUNDAPAG_Login_userRef.set(SEGUNDAPAG_Login_payloadEmail, { merge: true });
 
             PRIMEIRAPAG_Login_func_irPara('TERCEIRAPAG_Login_screen_whatsapp');
             return;
         }
 
-       await SEGUNDAPAG_Login_user.sendEmailVerification();
+        await SEGUNDAPAG_Login_user.sendEmailVerification();
 
-alert("Link de confirmação reenviado para seu e-mail.");
+        alert("Link de confirmação reenviado para seu e-mail.");
 
-} catch (SEGUNDAPAG_Login_erro) {
-    console.error('Erro ao reenviar confirmação:', SEGUNDAPAG_Login_erro);
+    } catch (SEGUNDAPAG_Login_erro) {
+        console.error('Erro ao reenviar confirmação:', SEGUNDAPAG_Login_erro);
 
-    let SEGUNDAPAG_Login_mensagemErro = 'Erro ao reenviar confirmação. Tente novamente.';
+        let SEGUNDAPAG_Login_mensagemErro = 'Erro ao reenviar confirmação. Tente novamente.';
 
-    if (SEGUNDAPAG_Login_erro.code === 'auth/too-many-requests') {
-        SEGUNDAPAG_Login_mensagemErro = 'Muitas tentativas em pouco tempo. Aguarde alguns minutos antes de reenviar o e-mail novamente.';
+        if (SEGUNDAPAG_Login_erro.code === 'auth/too-many-requests') {
+            SEGUNDAPAG_Login_mensagemErro = 'Muitas tentativas em pouco tempo. Aguarde alguns minutos antes de reenviar o e-mail novamente.';
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'SEGUNDAPAG_Login_error_confirmar_email',
+            SEGUNDAPAG_Login_mensagemErro
+        );
+
+    } finally {
+        if (SEGUNDAPAG_Login_btn) {
+            SEGUNDAPAG_Login_btn.disabled = false;
+            SEGUNDAPAG_Login_btn.innerText = 'REENVIAR E-MAIL';
+        }
     }
-
-    PRIMEIRAPAG_Login_func_mostrarErro(
-        'SEGUNDAPAG_Login_error_confirmar_email',
-        SEGUNDAPAG_Login_mensagemErro
-    );
-
-} finally {
-    if (SEGUNDAPAG_Login_btn) {
-        SEGUNDAPAG_Login_btn.disabled = false;
-        SEGUNDAPAG_Login_btn.innerText = 'REENVIAR E-MAIL';
-    }
-}
 }
 		//-- TELA 3: final CONFIRMANDO EMAIL - FUNCIONANDO -->
 // ========== TELA 4: WHATSAPP COM PREFIXO TERCEIRAPAG ==========
@@ -6232,60 +6269,72 @@ try {
         TERCEIRAPAG_Login_btnValidar.disabled = true;
         TERCEIRAPAG_Login_btnValidar.innerText = "VALIDANDO...";
     }
-        const TERCEIRAPAG_Login_editandoContatos =
-            sessionStorage.getItem("TNP_MOB_EDITANDO_CONTATOS") === "true";
 
-        const TERCEIRAPAG_Login_payloadContatos = {
-            whatsapp: TERCEIRAPAG_Login_whatsapp,
-            whatsappFormatado: TERCEIRAPAG_Login_whatsappFormatado,
-            whatsappValidado: true,
-			whatsappValidadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    const TERCEIRAPAG_Login_editandoContatos =
+        sessionStorage.getItem("TNP_MOB_EDITANDO_CONTATOS") === "true";
 
-            telefonePrincipal: TERCEIRAPAG_Login_telefonePrincipal,
-            telefonePrincipalFormatado: TERCEIRAPAG_Login_telefonePrincipalFormatado,
-            telefonePrincipalMesmoWhatsapp: TERCEIRAPAG_Login_mesmoTelefone,
+    const TERCEIRAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(TERCEIRAPAG_Login_user.uid);
 
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        };
+    const TERCEIRAPAG_Login_userSnapAntes = await TERCEIRAPAG_Login_userRef.get();
 
-        if (!TERCEIRAPAG_Login_editandoContatos) {
-    Object.assign(TERCEIRAPAG_Login_payloadContatos, {
-        etapaCadastro: "tipo_conta",
-        status: {
-            geral: "cadastro_rapido",
-            etapa: "tipo_conta",
-            mensagem: "WhatsApp validado. Próxima etapa: escolher tipo de conta.",
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }
-    });
-}
+    const TERCEIRAPAG_Login_dadosAtuaisAntes = TERCEIRAPAG_Login_userSnapAntes.exists
+        ? TERCEIRAPAG_Login_userSnapAntes.data()
+        : {};
 
-        await PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .doc(TERCEIRAPAG_Login_user.uid)
-            .set(TERCEIRAPAG_Login_payloadContatos, { merge: true });
+    const TERCEIRAPAG_Login_usuarioJaCompleto =
+        TERCEIRAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+        TERCEIRAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+        TERCEIRAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
 
-        if (TERCEIRAPAG_Login_editandoContatos) {
-            sessionStorage.removeItem("TNP_MOB_EDITANDO_CONTATOS");
-            DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-        } else {
-            PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
-        }
+    const TERCEIRAPAG_Login_payloadContatos = {
+        whatsapp: TERCEIRAPAG_Login_whatsapp,
+        whatsappFormatado: TERCEIRAPAG_Login_whatsappFormatado,
+        whatsappValidado: true,
+        whatsappValidadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-        } catch (TERCEIRAPAG_Login_erro) {
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'TERCEIRAPAG_Login_error_whatsapp',
-            'Erro ao salvar WhatsApp: ' + TERCEIRAPAG_Login_erro.message
-        );
+        telefonePrincipal: TERCEIRAPAG_Login_telefonePrincipal,
+        telefonePrincipalFormatado: TERCEIRAPAG_Login_telefonePrincipalFormatado,
+        telefonePrincipalMesmoWhatsapp: TERCEIRAPAG_Login_mesmoTelefone,
 
-    } finally {
-        if (TERCEIRAPAG_Login_btnValidar) {
-            TERCEIRAPAG_Login_btnValidar.disabled = false;
-            TERCEIRAPAG_Login_btnValidar.innerText = "VALIDAR WHATSAPP";
-        }
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    if (!TERCEIRAPAG_Login_editandoContatos && !TERCEIRAPAG_Login_usuarioJaCompleto) {
+        Object.assign(TERCEIRAPAG_Login_payloadContatos, {
+            etapaCadastro: "tipo_conta",
+            status: {
+                geral: "cadastro_rapido",
+                etapa: "tipo_conta",
+                mensagem: "WhatsApp validado. Próxima etapa: escolher tipo de conta.",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        });
+    }
+
+    await TERCEIRAPAG_Login_userRef.set(TERCEIRAPAG_Login_payloadContatos, { merge: true });
+
+    if (TERCEIRAPAG_Login_editandoContatos) {
+        sessionStorage.removeItem("TNP_MOB_EDITANDO_CONTATOS");
+        DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+    } else {
+        PRIMEIRAPAG_Login_func_irPara('QUARTAPAG_Login_screen_tipo_conta');
+    }
+
+} catch (TERCEIRAPAG_Login_erro) {
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'TERCEIRAPAG_Login_error_whatsapp',
+        'Erro ao salvar WhatsApp: ' + TERCEIRAPAG_Login_erro.message
+    );
+
+} finally {
+    if (TERCEIRAPAG_Login_btnValidar) {
+        TERCEIRAPAG_Login_btnValidar.disabled = false;
+        TERCEIRAPAG_Login_btnValidar.innerText = "VALIDAR WHATSAPP";
     }
 }
-		
+}		
 	// ========== TELA 4:fim WHATSAPP COM PREFIXO TERCEIRAPAG ==========		
 	// ========== TELA 5: TIPO DE CONTA COM PREFIXO QUARTAPAG ==========
 
@@ -6329,125 +6378,179 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
     }
 
     const QUARTAPAG_Login_inputTipo = document.getElementById('QUARTAPAG_Login_tipo_conta_escolhido');
-	const QUARTAPAG_Login_btn = document.getElementById('QUARTAPAG_Login_btn_continuar_tipo');
+    const QUARTAPAG_Login_btn = document.getElementById('QUARTAPAG_Login_btn_continuar_tipo');
 
-	if (!QUARTAPAG_Login_inputTipo || !QUARTAPAG_Login_btn) {
-		return PRIMEIRAPAG_Login_func_mostrarErro(
-			'QUARTAPAG_Login_error_tipo_conta',
-			'Erro ao carregar a tela. Atualize e tente novamente.'
-		);
-}
+    if (!QUARTAPAG_Login_inputTipo || !QUARTAPAG_Login_btn) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'QUARTAPAG_Login_error_tipo_conta',
+            'Erro ao carregar a tela. Atualize e tente novamente.'
+        );
+    }
 
-const QUARTAPAG_Login_tipo = QUARTAPAG_Login_inputTipo.value || QUARTAPAG_Login_var_tipoConta || "passageiro";
+    const QUARTAPAG_Login_tipo =
+        QUARTAPAG_Login_inputTipo.value ||
+        QUARTAPAG_Login_var_tipoConta ||
+        "passageiro";
 
-QUARTAPAG_Login_btn.disabled = true;
-QUARTAPAG_Login_btn.innerText = "SALVANDO...";
+    QUARTAPAG_Login_btn.disabled = true;
+    QUARTAPAG_Login_btn.innerText = "SALVANDO...";
 
     try {
-    // PASSAGEIRO
-    if (QUARTAPAG_Login_tipo === "passageiro") {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(QUARTAPAG_Login_user.uid).set({
-            tipo: "passageiro",
-            tipoContaEscolhido: true,
-            origemCadastro: "tipo_conta_passageiro",
+        const QUARTAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(QUARTAPAG_Login_user.uid);
 
-            perfis: {
-                passageiro: true
-            },
+        const QUARTAPAG_Login_userSnapAntes = await QUARTAPAG_Login_userRef.get();
 
-            etapaCadastro: "selfie",
-            cadastroCompleto: false,
+        const QUARTAPAG_Login_dadosAtuaisAntes = QUARTAPAG_Login_userSnapAntes.exists
+            ? QUARTAPAG_Login_userSnapAntes.data()
+            : {};
 
-            status: {
-                geral: "cadastro_rapido",
+        const QUARTAPAG_Login_usuarioJaCompleto =
+            QUARTAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+            QUARTAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+            QUARTAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+        // PASSAGEIRO
+        if (QUARTAPAG_Login_tipo === "passageiro") {
+            const QUARTAPAG_Login_payloadPassageiro = {
+                tipo: "passageiro",
+                tipoContaEscolhido: true,
+                origemCadastro: "tipo_conta_passageiro",
+
+                "perfis.passageiro": true,
+
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            if (!QUARTAPAG_Login_usuarioJaCompleto) {
+                QUARTAPAG_Login_payloadPassageiro.etapaCadastro = "selfie";
+                QUARTAPAG_Login_payloadPassageiro.cadastroCompleto = false;
+
+                QUARTAPAG_Login_payloadPassageiro.status = {
+                    geral: "cadastro_rapido",
+                    etapa: "selfie",
+                    mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                };
             }
-        }, { merge: true });
+
+            await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadPassageiro, { merge: true });
+
+            QUARTAPAG_Login_btn.disabled = false;
+            QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+
+            PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+            return;
+        }
+
+        // MOTORISTA
+        if (QUARTAPAG_Login_tipo === "motorista") {
+				const QUARTAPAG_Login_payloadUsuarioMotorista = {
+				tipo: "motorista",
+				tipoContaEscolhido: true,
+				origemCadastro: "tipo_conta_motorista",
+
+				"perfis.passageiro": true,
+				"perfis.motorista": true,
+
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			};
+
+			if (!QUARTAPAG_Login_usuarioJaCompleto) {
+				QUARTAPAG_Login_payloadUsuarioMotorista.passageiroTermosAceitos = false;
+				QUARTAPAG_Login_payloadUsuarioMotorista.passageiroLiberado = false;
+
+				QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastro = "selfie";
+				QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastroMotorista = "categoria";
+
+				QUARTAPAG_Login_payloadUsuarioMotorista.cadastroCompleto = false;
+				QUARTAPAG_Login_payloadUsuarioMotorista.motoristaStatus = "cadastro_iniciado";
+
+				QUARTAPAG_Login_payloadUsuarioMotorista.status = {
+					geral: "cadastro_rapido",
+					etapa: "selfie",
+					mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				};
+			}
+
+            await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadUsuarioMotorista, { merge: true });
+
+            const QUARTAPAG_Login_motoristaRef = PRIMEIRAPAG_Login_db
+					.collection('motoristas')
+					.doc(QUARTAPAG_Login_user.uid);
+
+				const QUARTAPAG_Login_motoristaSnapAntes = await QUARTAPAG_Login_motoristaRef.get();
+
+				const QUARTAPAG_Login_dadosMotoristaAntes = QUARTAPAG_Login_motoristaSnapAntes.exists
+					? QUARTAPAG_Login_motoristaSnapAntes.data()
+					: {};
+
+				const QUARTAPAG_Login_motoristaJaCompleto =
+					QUARTAPAG_Login_dadosMotoristaAntes.cadastroCompleto === true ||
+					QUARTAPAG_Login_dadosMotoristaAntes.status?.geral === "aprovado" ||
+					QUARTAPAG_Login_dadosMotoristaAntes.podeAceitarCorrida === true;
+
+				const QUARTAPAG_Login_payloadMotoristas = {
+					uid: QUARTAPAG_Login_user.uid,
+					email: QUARTAPAG_Login_user.email,
+					nome:
+						QUARTAPAG_Login_dadosAtuaisAntes.nomeDocumento ||
+						QUARTAPAG_Login_dadosAtuaisAntes.nome ||
+						QUARTAPAG_Login_user.displayName ||
+						"",
+
+					tipo: "motorista",
+					origemCadastro: "tipo_conta_motorista",
+
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				};
+
+				if (!QUARTAPAG_Login_motoristaSnapAntes.exists) {
+					QUARTAPAG_Login_payloadMotoristas.criadoEm =
+						firebase.firestore.FieldValue.serverTimestamp();
+				}
+
+				if (!QUARTAPAG_Login_motoristaJaCompleto) {
+					QUARTAPAG_Login_payloadMotoristas.cadastroCompleto = false;
+					QUARTAPAG_Login_payloadMotoristas.etapaCadastroMotorista = "categoria";
+					QUARTAPAG_Login_payloadMotoristas.podeAceitarCorrida = false;
+
+					QUARTAPAG_Login_payloadMotoristas.status = {
+						geral: "cadastro_iniciado",
+						atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+					};
+				}
+
+				await QUARTAPAG_Login_motoristaRef.set(QUARTAPAG_Login_payloadMotoristas, { merge: true });
+
+            QUARTAPAG_Login_btn.disabled = false;
+            QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+
+            PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+            return;
+        }
 
         QUARTAPAG_Login_btn.disabled = false;
         QUARTAPAG_Login_btn.innerText = "CONTINUAR";
 
-        PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
-        return;
-    }
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'QUARTAPAG_Login_error_tipo_conta',
+            'Escolha uma opção válida para continuar.'
+        );
 
-    // MOTORISTA
-    if (QUARTAPAG_Login_tipo === "motorista") {
-        await PRIMEIRAPAG_Login_db.collection('usuarios').doc(QUARTAPAG_Login_user.uid).set({
-            tipo: "motorista",
-            tipoContaEscolhido: true,
-            origemCadastro: "tipo_conta_motorista",
-
-            perfis: {
-                passageiro: true,
-                motorista: true
-            },
-
-            passageiroTermosAceitos: false,
-            passageiroLiberado: false,
-
-            // Antes do cadastro específico do motorista,
-            // ele precisa concluir a selfie de perfil
-            etapaCadastro: "selfie",
-            etapaCadastroMotorista: "categoria",
-
-            cadastroCompleto: false,
-            motoristaStatus: "cadastro_iniciado",
-
-            status: {
-                geral: "cadastro_rapido",
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            }
-        }, { merge: true });
-
-        await PRIMEIRAPAG_Login_db.collection('motoristas').doc(QUARTAPAG_Login_user.uid).set({
-            uid: QUARTAPAG_Login_user.uid,
-            email: QUARTAPAG_Login_user.email,
-            nome: QUARTAPAG_Login_user.displayName || "",
-
-            tipo: "motorista",
-            origemCadastro: "tipo_conta_motorista",
-
-            cadastroCompleto: false,
-            etapaCadastroMotorista: "categoria",
-
-            podeAceitarCorrida: false,
-
-            status: {
-                geral: "cadastro_iniciado",
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            },
-
-            criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
-
+    } catch (QUARTAPAG_Login_erro) {
         QUARTAPAG_Login_btn.disabled = false;
         QUARTAPAG_Login_btn.innerText = "CONTINUAR";
 
-        PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
-        return;
+        console.error("ERRO AO SALVAR TIPO DE CONTA:", QUARTAPAG_Login_erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'QUARTAPAG_Login_error_tipo_conta',
+            'Erro ao salvar tipo de conta. Verifique sua conexão e tente novamente.'
+        );
     }
-
-    QUARTAPAG_Login_btn.disabled = false;
-    QUARTAPAG_Login_btn.innerText = "CONTINUAR";
-
-    return PRIMEIRAPAG_Login_func_mostrarErro(
-        'QUARTAPAG_Login_error_tipo_conta',
-        'Escolha uma opção válida para continuar.'
-    );
-
-} catch (QUARTAPAG_Login_erro) {
-    QUARTAPAG_Login_btn.disabled = false;
-    QUARTAPAG_Login_btn.innerText = "CONTINUAR";
-
-    console.error("ERRO AO SALVAR TIPO DE CONTA:", QUARTAPAG_Login_erro);
-
-    PRIMEIRAPAG_Login_func_mostrarErro(
-        'QUARTAPAG_Login_error_tipo_conta',
-        'Erro ao salvar tipo de conta. Verifique sua conexão e tente novamente.'
-    );
-}
 }
 	// ========== TELA 5: fim TIPO DE CONTA COM PREFIXO QUARTAPAG ==========		
 		
@@ -6670,155 +6773,194 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
         QUINTAPAG_Login_status.innerText = 'Enviando foto para sua conta. Aguarde...';
     }
 
-    try {
-        const QUINTAPAG_Login_caminho = `usuarios/${QUINTAPAG_Login_user.uid}/foto-perfil.jpg`;
+try {
+	const QUINTAPAG_Login_caminho = `usuarios/${QUINTAPAG_Login_user.uid}/foto-perfil.jpg`;
 
-        const QUINTAPAG_Login_storageRef = PRIMEIRAPAG_Login_storage
-            .ref()
-            .child(QUINTAPAG_Login_caminho);
+	const QUINTAPAG_Login_storageRef = PRIMEIRAPAG_Login_storage
+		.ref()
+		.child(QUINTAPAG_Login_caminho);
 
-        await QUINTAPAG_Login_storageRef.put(QUINTAPAG_Login_var_selfieProcessada);
+	await QUINTAPAG_Login_storageRef.put(QUINTAPAG_Login_var_selfieProcessada);
 
-        const QUINTAPAG_Login_selfieUrl = await QUINTAPAG_Login_storageRef.getDownloadURL();
+	const QUINTAPAG_Login_selfieUrl = await QUINTAPAG_Login_storageRef.getDownloadURL();
 
-        const QUINTAPAG_Login_payloadFoto = {
-            selfieUrl: QUINTAPAG_Login_selfieUrl,
-            selfieEnviada: true,
+	const QUINTAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+		.collection('usuarios')
+		.doc(QUINTAPAG_Login_user.uid);
 
-            fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
-            fotoPerfilEnviada: true,
-            fotoPerfilObrigatoria: true,
+	const QUINTAPAG_Login_userSnapAntes = await QUINTAPAG_Login_userRef.get();
 
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        };
+	const QUINTAPAG_Login_dadosUsuarioAntes = QUINTAPAG_Login_userSnapAntes.exists
+		? QUINTAPAG_Login_userSnapAntes.data()
+		: {};
 
-        if (!QUINTAPAG_Login_editandoFotoPerfil) {
-            Object.assign(QUINTAPAG_Login_payloadFoto, {
-                cadastroRapidoConcluido: true,
-                cadastroCompleto: false,
-                etapaCadastro: "entrada_app",
+	const QUINTAPAG_Login_tipoUsuario = QUINTAPAG_Login_dadosUsuarioAntes.tipo || "";
 
-                corridasIniciaisLiberadas: 3,
-                corridasUsadasSemCadastro: 0,
+	const QUINTAPAG_Login_usuarioJaCompleto =
+		QUINTAPAG_Login_dadosUsuarioAntes.perfil100 === true ||
+		QUINTAPAG_Login_dadosUsuarioAntes.cadastroCompleto === true ||
+		QUINTAPAG_Login_dadosUsuarioAntes.cadastroPrincipalConcluido === true;
 
-                corridasSemTnpLimite: 10,
-                corridasUsadasSemTnp: 0,
+	const QUINTAPAG_Login_payloadFoto = {
+		selfieUrl: QUINTAPAG_Login_selfieUrl,
+		selfieEnviada: true,
 
-                bloqueadoPorCadastro: false,
+		fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
+		fotoPerfilEnviada: true,
+		fotoPerfilObrigatoria: true,
 
-                status: {
-						geral: "liberado_com_limite",
-						etapa: "entrada_app",
-						mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
-						atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-					}
-            });
-        }
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	};
 
-await PRIMEIRAPAG_Login_db
-    .collection('usuarios')
-    .doc(QUINTAPAG_Login_user.uid)
-    .set(QUINTAPAG_Login_payloadFoto, { merge: true });
+	if (!QUINTAPAG_Login_editandoFotoPerfil && !QUINTAPAG_Login_usuarioJaCompleto) {
+		Object.assign(QUINTAPAG_Login_payloadFoto, {
+			cadastroRapidoConcluido: true,
+			cadastroCompleto: false,
+			bloqueadoPorCadastro: false,
 
-if (QUINTAPAG_Login_btn) {
-    QUINTAPAG_Login_btn.disabled = false;
-    QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
-}
+			corridasIniciaisLiberadas: 3,
+			corridasUsadasSemCadastro: 0,
 
-if (QUINTAPAG_Login_status) {
-    QUINTAPAG_Login_status.style.display = 'block';
-    QUINTAPAG_Login_status.innerText = 'Foto salva com sucesso.';
-}
-QUINTAPAG_Login_var_selfieProcessada = null;
+			corridasSemTnpLimite: 10,
+			corridasUsadasSemTnp: 0
+		});
 
-if (QUINTAPAG_Login_editandoFotoPerfil) {
-    sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+		if (QUINTAPAG_Login_tipoUsuario === "motorista") {
+			Object.assign(QUINTAPAG_Login_payloadFoto, {
+				etapaCadastro: "motorista_categoria",
+				etapaCadastroMotorista: "categoria",
 
-    if (QUINTAPAG_Login_status) {
-    QUINTAPAG_Login_status.style.display = 'block';
-    QUINTAPAG_Login_status.innerText = 'Foto de perfil atualizada com sucesso.';
+				status: {
+					geral: "cadastro_iniciado",
+					etapa: "categoria",
+					mensagem: "Foto de perfil enviada. Próxima etapa: escolher categoria do motorista.",
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				}
+			});
+		} else {
+			Object.assign(QUINTAPAG_Login_payloadFoto, {
+				etapaCadastro: "entrada_app",
+
+				status: {
+					geral: "liberado_com_limite",
+					etapa: "entrada_app",
+					mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				}
+			});
+		}
 	}
+
+	await QUINTAPAG_Login_userRef.set(QUINTAPAG_Login_payloadFoto, { merge: true });
+
+	if (QUINTAPAG_Login_tipoUsuario === "motorista") {
+		const QUINTAPAG_Login_motoristaRef = PRIMEIRAPAG_Login_db
+			.collection('motoristas')
+			.doc(QUINTAPAG_Login_user.uid);
+
+		const QUINTAPAG_Login_motoristaSnapAntes = await QUINTAPAG_Login_motoristaRef.get();
+
+		const QUINTAPAG_Login_dadosMotoristaAntes = QUINTAPAG_Login_motoristaSnapAntes.exists
+			? QUINTAPAG_Login_motoristaSnapAntes.data()
+			: {};
+
+		const QUINTAPAG_Login_motoristaJaCompleto =
+			QUINTAPAG_Login_dadosMotoristaAntes.cadastroCompleto === true ||
+			QUINTAPAG_Login_dadosMotoristaAntes.status?.geral === "aprovado" ||
+			QUINTAPAG_Login_dadosMotoristaAntes.podeAceitarCorrida === true;
+
+		const QUINTAPAG_Login_payloadMotorista = {
+			fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
+			fotoPerfilEnviada: true,
+			selfieUrl: QUINTAPAG_Login_selfieUrl,
+			selfieEnviada: true,
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
+
+		if (!QUINTAPAG_Login_editandoFotoPerfil && !QUINTAPAG_Login_motoristaJaCompleto) {
+			Object.assign(QUINTAPAG_Login_payloadMotorista, {
+				etapaCadastroMotorista: "categoria",
+
+				status: {
+					geral: "cadastro_iniciado",
+					etapa: "categoria",
+					mensagem: "Foto de perfil enviada. Próxima etapa: escolher categoria do motorista.",
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				}
+			});
+		}
+
+		await QUINTAPAG_Login_motoristaRef.set(QUINTAPAG_Login_payloadMotorista, { merge: true });
+
+		if (QUINTAPAG_Login_btn) {
+			QUINTAPAG_Login_btn.disabled = false;
+			QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+		}
+
+		if (QUINTAPAG_Login_status) {
+			QUINTAPAG_Login_status.style.display = 'block';
+			QUINTAPAG_Login_status.innerText = QUINTAPAG_Login_editandoFotoPerfil
+				? 'Foto de perfil atualizada com sucesso.'
+				: 'Foto salva com sucesso.';
+		}
+
+		QUINTAPAG_Login_var_selfieProcessada = null;
+		sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+
+		if (QUINTAPAG_Login_editandoFotoPerfil || QUINTAPAG_Login_motoristaJaCompleto) {
+			DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+			return;
+		}
+
+		if (document.getElementById('MOTORISTAPAG_Login_screen_categoria')) {
+			PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_categoria');
+		} else {
+			alert("Selfie salva. Agora vamos para a categoria do motorista.");
+		}
+
+		return;
+	}
+
+	if (QUINTAPAG_Login_btn) {
+		QUINTAPAG_Login_btn.disabled = false;
+		QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+	}
+
+	if (QUINTAPAG_Login_status) {
+		QUINTAPAG_Login_status.style.display = 'block';
+		QUINTAPAG_Login_status.innerText = QUINTAPAG_Login_editandoFotoPerfil
+			? 'Foto de perfil atualizada com sucesso.'
+			: 'Foto salva com sucesso.';
+	}
+
+	QUINTAPAG_Login_var_selfieProcessada = null;
+	sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
 
 	DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 	return;
-}
-
-sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
-
-const QUINTAPAG_Login_doc_usuario_atualizado = await PRIMEIRAPAG_Login_db
-    .collection('usuarios')
-    .doc(QUINTAPAG_Login_user.uid)
-    .get();
-
-const QUINTAPAG_Login_dados_usuario_atualizado =
-    QUINTAPAG_Login_doc_usuario_atualizado.data() || {};
-
-if (QUINTAPAG_Login_dados_usuario_atualizado.tipo === "motorista") {
-    await PRIMEIRAPAG_Login_db
-        .collection('usuarios')
-        .doc(QUINTAPAG_Login_user.uid)
-        .set({
-    etapaCadastro: "motorista_categoria",
-    etapaCadastroMotorista: "categoria",
-    fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
-    fotoPerfilEnviada: true,
-
-    status: {
-        geral: "cadastro_iniciado",
-				etapa: "categoria",
-				mensagem: "Foto de perfil enviada. Próxima etapa: escolher categoria do motorista.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
-
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		}, { merge: true });
-
-    await PRIMEIRAPAG_Login_db
-        .collection('motoristas')
-        .doc(QUINTAPAG_Login_user.uid)
-        .set({
-    etapaCadastroMotorista: "categoria",
-    fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
-    fotoPerfilEnviada: true,
-
-    status: {
-        geral: "cadastro_iniciado",
-        etapa: "categoria",
-        mensagem: "Foto de perfil enviada. Próxima etapa: escolher categoria do motorista.",
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    },
-
-    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-}, { merge: true });
-
-    if (document.getElementById('MOTORISTAPAG_Login_screen_categoria')) {
-        PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_categoria');
-    } else {
-        alert("Selfie salva. Agora vamos criar a tela de categoria do motorista.");
-    }
-
-    return;
-}
-
-	DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 
 } catch (QUINTAPAG_Login_erro) {
-    if (QUINTAPAG_Login_btn) {
-        QUINTAPAG_Login_btn.disabled = false;
-        QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
-    }
+	if (QUINTAPAG_Login_btn) {
+		QUINTAPAG_Login_btn.disabled = false;
+		QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+	}
 
-    console.error("ERRO REAL AO SALVAR SELFIE:", QUINTAPAG_Login_erro.code, QUINTAPAG_Login_erro.message);
+	console.error(
+		"ERRO REAL AO SALVAR SELFIE:",
+		QUINTAPAG_Login_erro.code,
+		QUINTAPAG_Login_erro.message
+	);
 
-PRIMEIRAPAG_Login_func_mostrarErro(
-    'QUINTAPAG_Login_error_selfie',
-    'Não foi possível salvar sua foto agora. Verifique sua conexão e tente novamente.'
-);
+	PRIMEIRAPAG_Login_func_mostrarErro(
+		'QUINTAPAG_Login_error_selfie',
+		'Não foi possível salvar sua foto agora. Verifique sua conexão e tente novamente.'
+	);
 }
 }		
 // ========== TELA 6: fim SELFIE RÁPIDA COM PREFIXO QUINTAPAG ==========
 // ========== TELA 7: DADOS PESSOAIS DO PASSAGEIRO - PREFIXO SETIMAPAG  ==========
-function SETIMAPAG_Login_func_selecionarTipoDocumento(SETIMAPAG_Login_tipo) {
+
+ function SETIMAPAG_Login_func_selecionarTipoDocumento(SETIMAPAG_Login_tipo) {
     const SETIMAPAG_Login_inputTipoDocumento = document.getElementById('SETIMAPAG_Login_tipo_documento');
     
 	if (SETIMAPAG_Login_tipo !== "cpf" && SETIMAPAG_Login_tipo !== "cnpj") {
@@ -7516,25 +7658,31 @@ documentoFormatado: SETIMAPAG_Login_documentoJaSalvo
 
         dadosPessoaisConcluidos: true,
 
-        documentoIdentidadePendente: true,
-        selfieComDocumentoPendente: true,
-        limiteDocumentoAteCorrida: 10,
+		documentoIdentidadePendente: true,
+		selfieComDocumentoPendente: true,
+		limiteDocumentoAteCorrida: 10,
 
-		etapaCadastro: "endereco",
-        etapaCadastroCompleto: "endereco",
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-
-        status: {
-				geral: "cadastro_completo_pendente",
-				etapa: "endereco",
-				mensagem: "Dados pessoais salvos. Próxima etapa: informar endereço.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
-
-			"statusCadastroPassageiro.dadosPessoais": "concluido",
-			"statusCadastroPassageiro.documentos": "pendente_ate_10_corridas"
+		"statusCadastroPassageiro.dadosPessoais": "concluido",
+		"statusCadastroPassageiro.documentos": "pendente_ate_10_corridas"
     };
+	const SETIMAPAG_Login_usuarioJaCompleto =
+    SETIMAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+    SETIMAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+    SETIMAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+if (!SETIMAPAG_Login_usuarioJaCompleto) {
+    SETIMAPAG_Login_payload.etapaCadastro = "endereco";
+    SETIMAPAG_Login_payload.etapaCadastroCompleto = "endereco";
+
+    SETIMAPAG_Login_payload.status = {
+        geral: "cadastro_completo_pendente",
+        etapa: "endereco",
+        mensagem: "Dados pessoais salvos. Próxima etapa: informar endereço.",
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    };
+}
 
     await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
         const SETIMAPAG_Login_userSnap = await transaction.get(SETIMAPAG_Login_userRef);
@@ -7995,26 +8143,41 @@ const OITAVAPAG_Login_payload = {
         ` - ${OITAVAPAG_Login_bairro}, ${OITAVAPAG_Login_cidade}/${OITAVAPAG_Login_estado}` +
         ` - CEP ${OITAVAPAG_Login_cep}`,
 
-    enderecoConcluido: true,
+			enderecoConcluido: true,
 
-				comprovanteEnderecoPendente: true,
-				fotoEnderecoPendente: true,
-				limiteEnderecoFotoAteCorrida: 10,
+		comprovanteEnderecoPendente: true,
+		fotoEnderecoPendente: true,
+		limiteEnderecoFotoAteCorrida: 10,
 
-				etapaCadastro: "contato_emergencia",
-				etapaCadastroCompleto: "contato_emergencia",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-				status: {
-					geral: "cadastro_completo_pendente",
-					etapa: "contato_emergencia",
-					mensagem: "Endereço salvo. Próxima etapa: contato de emergência.",
-					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				},
+		"statusCadastroPassageiro.endereco": "concluido",
+		"statusCadastroPassageiro.comprovanteEndereco": "pendente_ate_10_corridas"
+		};
+		const OITAVAPAG_Login_userSnapAntes = await OITAVAPAG_Login_userRef.get();
 
-				"statusCadastroPassageiro.endereco": "concluido",
-				"statusCadastroPassageiro.comprovanteEndereco": "pendente_ate_10_corridas"
-				};
+		const OITAVAPAG_Login_dadosAtuaisAntes = OITAVAPAG_Login_userSnapAntes.exists
+			? OITAVAPAG_Login_userSnapAntes.data()
+			: {};
+
+		const OITAVAPAG_Login_usuarioJaCompleto =
+			OITAVAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+			OITAVAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+			OITAVAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+		if (!OITAVAPAG_Login_usuarioJaCompleto) {
+			OITAVAPAG_Login_payload.etapaCadastro = "contato_emergencia";
+			OITAVAPAG_Login_payload.etapaCadastroCompleto = "contato_emergencia";
+
+			OITAVAPAG_Login_payload.status = {
+				geral: "cadastro_completo_pendente",
+				etapa: "contato_emergencia",
+				mensagem: "Endereço salvo. Próxima etapa: contato de emergência.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			};
+		}
+		
+		
 
     await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
         const OITAVAPAG_Login_userSnap = await transaction.get(OITAVAPAG_Login_userRef);
@@ -8230,21 +8393,34 @@ try {
             relacao: NONAPAG_Login_relacao
         },
 
-        contatoEmergenciaConcluido: true,
+		contatoEmergenciaConcluido: true,
 
-		etapaCadastro: "revisao_final",
-		etapaCadastroCompleto: "revisao_final",
 		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-		status: {
-			geral: "cadastro_completo_pendente",
-			etapa: "revisao_final",
-			mensagem: "Contato de emergência salvo. Próxima etapa: revisão final.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		},
-
 		"statusCadastroPassageiro.contatoEmergencia": "concluido"
-    };
+		};
+		const NONAPAG_Login_userSnapAntes = await NONAPAG_Login_userRef.get();
+
+		const NONAPAG_Login_dadosAtuaisAntes = NONAPAG_Login_userSnapAntes.exists
+			? NONAPAG_Login_userSnapAntes.data()
+			: {};
+
+		const NONAPAG_Login_usuarioJaCompleto =
+			NONAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+			NONAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+			NONAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+		if (!NONAPAG_Login_usuarioJaCompleto) {
+			NONAPAG_Login_payload.etapaCadastro = "revisao_final";
+			NONAPAG_Login_payload.etapaCadastroCompleto = "revisao_final";
+
+			NONAPAG_Login_payload.status = {
+				geral: "cadastro_completo_pendente",
+				etapa: "revisao_final",
+				mensagem: "Contato de emergência salvo. Próxima etapa: revisão final.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			};
+		}
 
     await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
         const NONAPAG_Login_userSnap = await transaction.get(NONAPAG_Login_userRef);
