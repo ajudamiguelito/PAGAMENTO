@@ -8926,8 +8926,10 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
 
         const d = DECIMAPRIMEIRAPAG_Login_doc.data();
 
-		DECIMAPRIMEIRAPAG_Login_func_atualizarMensagemRevisao(d);
+		DECIMAPRIMEIRAPAG_Login_func_atualizarMensagemRevisao(d);     
 		DECIMAPRIMEIRAPAG_Login_func_atualizarCardsPerfil(d);
+		
+		await PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(d);
 
         const endereco = d.endereco || {};
         const contato = d.contatoEmergencia || {};
@@ -9401,6 +9403,13 @@ async function PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(dados
 			motivo: dadosUsuario.comprovanteEndereco?.motivoReprovacao,
 			avisosMostrados: dadosUsuario.comprovanteEndereco?.avisosMostrados || 0,
 			limiteAvisos: dadosUsuario.comprovanteEndereco?.limiteAvisos || 3
+		},
+		{
+			tipo: 'documentoIdentidade',
+			status: dadosUsuario.documentoIdentidade?.status,
+			motivo: dadosUsuario.documentoIdentidade?.motivoReprovacao,
+			avisosMostrados: dadosUsuario.documentoIdentidade?.avisosMostrados || 0,
+			limiteAvisos: dadosUsuario.documentoIdentidade?.limiteAvisos || 3
 		}
 	];
 
