@@ -9332,28 +9332,47 @@ function PASSAGEIROPAG_Login_func_mostrarCardPendenciaAdminPassageiro(pendencia)
 	const card = document.getElementById('PASSAGEIROPAG_Login_card_pendencia_admin');
 	const texto = document.getElementById('PASSAGEIROPAG_Login_pendencia_admin_texto');
 	const motivoEl = document.getElementById('PASSAGEIROPAG_Login_pendencia_admin_motivo');
+	const tituloEl = document.getElementById('PASSAGEIROPAG_Login_pendencia_admin_titulo');
 
 	if (!card || !texto) return;
 
-	const avisos = pendencia.avisosMostrados || 0;
-	const limite = pendencia.limiteAvisos || 3;
-
+	const avisos = Number(pendencia.avisosMostrados || 0);
+	const limite = Number(pendencia.limiteAvisos || 3);
 	const avisosRestantes = Math.max(limite - avisos, 0);
+
+	const nomesPendencia = {
+		selfieDocumento: 'Selfie com documento',
+		comprovanteEndereco: 'Comprovante de endereço',
+		documentoIdentidade: 'Documento de identidade'
+	};
+
+	const nomePendencia = nomesPendencia[pendencia.tipo] || 'Documento solicitado';
+
+	if (tituloEl) {
+		tituloEl.innerText = '⚠️ Correção solicitada: ' + nomePendencia;
+	}
 
 	if (avisos >= limite) {
 		texto.innerText =
-			`Correção obrigatória. ` +
+			`Correção obrigatória: ${nomePendencia}. ` +
 			`Você atingiu o limite de ${limite} avisos. ` +
 			`Para continuar solicitando corridas, envie a correção agora.`;
-	} else {
+	} else if (pendencia.ultimoAviso === true) {
 		texto.innerText =
-			`O administrador solicitou uma correção. ` +
+			`Último aviso para corrigir: ${nomePendencia}. ` +
+			`Se você não enviar a correção agora, na próxima vez sua conta ficará bloqueada até corrigir.`;
+	} else {
+		const palavraAviso = avisosRestantes === 1 ? 'aviso' : 'avisos';
+
+		texto.innerText =
+			`O administrador solicitou uma correção em: ${nomePendencia}. ` +
 			`Você já recebeu ${avisos} de ${limite} avisos. ` +
-			`Restam ${avisosRestantes} aviso(s) antes do bloqueio para solicitar corridas.`;
+			`Restam ${avisosRestantes} ${palavraAviso} antes do bloqueio para solicitar corridas.`;
 	}
 
 	if (motivoEl) {
-		motivoEl.innerText = 'Motivo: ' + (pendencia.motivo || 'Correção solicitada pelo administrador.');
+		motivoEl.innerText =
+			'Motivo: ' + (pendencia.motivo || 'Correção solicitada pelo administrador.');
 	}
 
 	card.style.display = 'block';
@@ -9459,11 +9478,29 @@ async function PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(dados
 	);
 
 	if (!pendencia) {
+		TNP_Login_pendenciaObrigatoria = false;
 		PASSAGEIROPAG_Login_func_esconderCardPendenciaAdminPassageiro();
 		return false;
 	}
 
+	const avisosAtuais = Number(pendencia.avisosMostrados || 0);
+	const limiteAvisos = Number(pendencia.limiteAvisos || 3);
+
+	const jaAtingiuLimite = avisosAtuais >= limiteAvisos;
+	const proximoAvisoEhUltimo = (avisosAtuais + 1) === limiteAvisos;
+
+	pendencia.ultimoAviso = proximoAvisoEhUltimo;
+	pendencia.obrigatoria = jaAtingiuLimite;
+
 	PASSAGEIROPAG_Login_func_mostrarCardPendenciaAdminPassageiro(pendencia);
+
+	if (jaAtingiuLimite) {
+		await TNP_Login_func_abrirModalCorrigirPendencia('passageiro', pendencia.tipo);
+
+		TNP_Login_pendenciaObrigatoria = true;
+
+		return true;
+	}
 
 	const chaveSessao = `TNP_PASSAGEIRO_PENDENCIA_${pendencia.tipo}_ABRIU`;
 	const jaAbriuNestaSessao = sessionStorage.getItem(chaveSessao) === 'true';
@@ -9473,7 +9510,7 @@ async function PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(dados
 
 		await PASSAGEIROPAG_Login_func_registrarAvisoPendenciaAdminPassageiro(pendencia);
 
-		TNP_Login_func_abrirModalCorrigirPendencia('passageiro', pendencia.tipo);
+		await TNP_Login_func_abrirModalCorrigirPendencia('passageiro', pendencia.tipo);
 	}
 
 	return true;
@@ -9488,28 +9525,38 @@ async function PASSAGEIROPAG_Login_func_registrarAvisoPendenciaAdminPassageiro(p
 		.collection('usuarios')
 		.doc(user.uid);
 
+	const agora = firebase.firestore.FieldValue.serverTimestamp();
+
 	const update = {
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		atualizadoEm: agora
 	};
 
 	if (pendencia.tipo === 'selfieDocumento') {
 		update['selfieDocumentoExtra.avisosMostrados'] = firebase.firestore.FieldValue.increment(1);
-		update['selfieDocumentoExtra.ultimoAvisoEm'] = firebase.firestore.FieldValue.serverTimestamp();
+		update['selfieDocumentoExtra.ultimoAvisoEm'] = agora;
 	}
 
 	if (pendencia.tipo === 'comprovanteEndereco') {
 		update['comprovanteEndereco.avisosMostrados'] = firebase.firestore.FieldValue.increment(1);
-		update['comprovanteEndereco.ultimoAvisoEm'] = firebase.firestore.FieldValue.serverTimestamp();
+		update['comprovanteEndereco.ultimoAvisoEm'] = agora;
 	}
 
-	if ((pendencia.avisosMostrados + 1) > pendencia.limiteAvisos) {
+	if (pendencia.tipo === 'documentoIdentidade') {
+		update['documentoIdentidade.avisosMostrados'] = firebase.firestore.FieldValue.increment(1);
+		update['documentoIdentidade.ultimoAvisoEm'] = agora;
+	}
+
+	const avisosAtuais = Number(pendencia.avisosMostrados || 0);
+	const limiteAvisos = Number(pendencia.limiteAvisos || 3);
+
+	if ((avisosAtuais + 1) > limiteAvisos) {
 		update.bloqueadoPorPendenciaAdmin = true;
 		update.bloqueadoPorCadastro = true;
 		update.motivoBloqueioPendenciaAdmin =
 			'Correção solicitada pelo administrador não foi enviada após os avisos.';
 	}
 
-	await userRef.set(update, { merge: true });
+	await userRef.update(update);
 }
  
  
@@ -9768,6 +9815,8 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
             .get();
 
         const d = doc.exists ? doc.data() : {};
+		
+		await PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(d);
 
         const nome =
             d.nomeDocumento ||
@@ -10317,9 +10366,17 @@ if (boxConfig) {
 
 let TNP_Login_pendenciaAtual = null;
 let TNP_Login_arquivoCorrecaoPendente = null;
+let TNP_Login_pendenciaObrigatoria = false;
 
 function TNP_Login_func_fecharModalCorrigirPendencia() {
-    const modal = document.getElementById('TNP_Login_modal_corrigir_pendencia');
+	if (TNP_Login_pendenciaObrigatoria === true) {
+		return TNP_Login_func_abrirMensagemProvisoria(
+			'Correção obrigatória',
+			'Você atingiu o limite de avisos. Para continuar, envie a correção solicitada.'
+		);
+	}
+
+	const modal = document.getElementById('TNP_Login_modal_corrigir_pendencia');
     const input = document.getElementById('TNP_Login_corrigir_pendencia_input');
     const previewArea = document.getElementById('TNP_Login_corrigir_pendencia_preview_area');
     const preview = document.getElementById('TNP_Login_corrigir_pendencia_preview');
@@ -10331,6 +10388,7 @@ function TNP_Login_func_fecharModalCorrigirPendencia() {
 
     TNP_Login_pendenciaAtual = null;
     TNP_Login_arquivoCorrecaoPendente = null;
+	TNP_Login_pendenciaObrigatoria = false;
 
     if (input) input.value = '';
 
@@ -10890,7 +10948,8 @@ async function TNP_Login_func_enviarCorrecaoPendencia() {
 
         await docRef.update(update);
 
-        TNP_Login_func_fecharModalCorrigirPendencia();
+		TNP_Login_pendenciaObrigatoria = false;
+		TNP_Login_func_fecharModalCorrigirPendencia();
 
 		if (origem === 'motorista') {
 			if (typeof MOTORISTAPAG_Login_func_abrirModalStatusCadastro === "function") {
