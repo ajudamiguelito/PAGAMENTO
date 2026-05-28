@@ -11702,7 +11702,7 @@ if (!enviado) {
         ? 'TROCAR FOTO DA CNH'
         : 'TROCAR SELFIE COM A CNH';
 }
-ffunction MOTORISTAPAG_Login_func_abrirCameraDocumento(tipoDocumento) {
+function MOTORISTAPAG_Login_func_abrirCameraDocumento(tipoDocumento) {
     let input = null;
 
     if (tipoDocumento === 'fotoCnh') {
@@ -12011,7 +12011,7 @@ async function MOTORISTAPAG_Login_func_continuarDepoisFotosCnh() {
         );
     }
 
-    onst btn = document.getElementById('MOTORISTAPAG_Login_btn_continuar_fotos_cnh');
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_continuar_fotos_cnh');
 
 	if (btn && btn.disabled) {
 		return;
