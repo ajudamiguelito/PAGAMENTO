@@ -5281,7 +5281,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 </div>
  <!-- //--========== TELA MOTORISTA 03: FOTOS DA CNH FINAL ========== // -->
  
- <!-- //--========== TELA MOTORISTA 4: DADOS DO VEÍCULO ========== // -->
+ <!-- //--========== TELA MOTORISTA 04: DADOS DO VEÍCULO ========== // -->
 <div id="MOTORISTAPAG_Login_screen_dados_veiculo" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_dados_veiculo">
 
     <div class="MOTORISTAPAG_Login_fotos_cnh_topo">
@@ -6400,7 +6400,7 @@ async function SEGUNDAPAG_Login_func_verificarEmailConfirmado() {
 
         const SEGUNDAPAG_Login_payloadEmail = {
             emailVerificado: true,
-            cadastroRapidoConcluido: true,
+            cadastroRapidoConcluido: false,
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         };
 
@@ -6474,7 +6474,7 @@ async function SEGUNDAPAG_Login_func_reenviarEmailConfirmacao() {
 
             const SEGUNDAPAG_Login_payloadEmail = {
                 emailVerificado: true,
-                cadastroRapidoConcluido: true,
+                cadastroRapidoConcluido: false,
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
             };
 
@@ -6897,6 +6897,7 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_payloadPassageiro.status = {
 				geral: "cadastro_rapido",
 				etapa: "selfie",
+				tipo: "passageiro",
 				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
@@ -6937,8 +6938,10 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_payloadUsuarioMotorista.motoristaStatus = "cadastro_iniciado";
 
 			QUARTAPAG_Login_payloadUsuarioMotorista.status = {
-				geral: "cadastro_rapido",
+				geral: "cadastro_iniciado",
 				etapa: "selfie",
+				tipo: "motorista",
+				uid: QUARTAPAG_Login_user.uid,
 				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
@@ -10770,9 +10773,9 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
     const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_categoria');
     const categoria = document.getElementById('MOTORISTAPAG_Login_categoria_principal')?.value;
 
-	  if (btn && btn.disabled) {
-			return;
-		}
+    if (btn && btn.disabled) {
+        return;
+    }
 
     if (!user) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -10781,7 +10784,7 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
         );
     }
 
-        const categoriasPermitidas = ['carro', 'moto', 'utilitario'];
+    const categoriasPermitidas = ['carro', 'moto', 'utilitario'];
 
     if (!categoria || !categoriasPermitidas.includes(categoria)) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -10796,18 +10799,25 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
             btn.innerText = 'SALVANDO...';
         }
 
+        const statusCnh = {
+            geral: 'cadastro_iniciado',
+            etapa: 'cnh',
+            tipo: 'motorista',
+            uid: user.uid,
+            categoriaPrincipal: categoria,
+			mensagem: 'Categoria escolhida. Próxima etapa: informar os dados da CNH.',
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
         await PRIMEIRAPAG_Login_db
             .collection('motoristas')
             .doc(user.uid)
             .set({
                 categoriaPrincipal: categoria,
                 etapaCadastroMotorista: 'cnh',
+                podeAceitarCorrida: false,
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-
-                status: {
-                    geral: 'cadastro_iniciado',
-                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-                }
+                status: statusCnh
             }, { merge: true });
 
         await PRIMEIRAPAG_Login_db
@@ -10815,35 +10825,35 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
             .doc(user.uid)
             .set({
                 tipo: 'motorista',
+
                 perfis: {
                     passageiro: true,
                     motorista: true
                 },
+
                 etapaCadastro: 'motorista_cnh',
                 etapaCadastroMotorista: 'cnh',
                 motoristaStatus: 'cadastro_iniciado',
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                status: statusCnh
             }, { merge: true });
 
         PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
 
-		if (btn) {
-			btn.disabled = false;
-			btn.innerText = 'CONTINUAR';
-		}
-
     } catch (erro) {
         console.error("ERRO REAL AO SALVAR CATEGORIA:", erro);
-
-        if (btn) {
-            btn.disabled = false;
-            btn.innerText = 'CONTINUAR';
-        }
 
         PRIMEIRAPAG_Login_func_mostrarErro(
             'MOTORISTAPAG_Login_error_categoria',
             'Não foi possível salvar a categoria agora. Verifique sua conexão e tente novamente.'
         );
+
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'CONTINUAR';
+        }
     }
 }
 
@@ -10967,167 +10977,184 @@ const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(vali
         );
     }
 
-    try {
+   try {
+    if (btn) {
+        btn.dataset.processando = 'sim';
+        btn.disabled = true;
+        btn.innerText = 'VERIFICANDO CPF...';
+    }
+
+    const MOTORISTAPAG_Login_verificarDocumento = firebase
+        .app()
+        .functions("us-central1")
+        .httpsCallable("verificarDocumento");
+
+    const respostaVerificacaoCpf = await MOTORISTAPAG_Login_verificarDocumento({
+        tipoDocumento: 'cpf',
+        documentoNumero: cpfCnh
+    });
+
+    const dadosVerificacaoCpf = respostaVerificacaoCpf.data || {};
+
+    if (!dadosVerificacaoCpf || dadosVerificacaoCpf.liberado !== true) {
         if (btn) {
-		btn.dataset.processando = 'sim';
-		btn.disabled = true;
-		btn.innerText = 'VERIFICANDO CPF...';
-	}
-
-        const MOTORISTAPAG_Login_verificarDocumento = firebase
-            .app()
-            .functions("us-central1")
-            .httpsCallable("verificarDocumento");
-
-        const respostaVerificacaoCpf = await MOTORISTAPAG_Login_verificarDocumento({
-            tipoDocumento: 'cpf',
-            documentoNumero: cpfCnh
-        });
-
-const dadosVerificacaoCpf = respostaVerificacaoCpf.data || {};
-
-if (!dadosVerificacaoCpf || dadosVerificacaoCpf.liberado !== true) {
-		if (btn) {
-		btn.dataset.processando = 'nao';
-		btn.disabled = false;
-		btn.innerText = textoOriginal;
-	}
-
-    MOTORISTAPAG_Login_func_mostrarCardCpfConflito();
-    return;
-}
-
-        if (btn) {
-            btn.innerText = 'SALVANDO...';
+            btn.dataset.processando = 'nao';
+            btn.disabled = false;
+            btn.innerText = textoOriginal;
         }
 
-        const documentoId = 'cpf_' + cpfCnh;
+        MOTORISTAPAG_Login_func_mostrarCardCpfConflito();
+        return;
+    }
 
-        await PRIMEIRAPAG_Login_db
-            .collection('documentosUsuarios')
-            .doc(documentoId)
-            .set({
-                uid: user.uid,
-                tipoDocumento: 'cpf',
-                documentoNumero: cpfCnh,
-                criadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            });
-			
+    if (btn) {
+        btn.innerText = 'SALVANDO...';
+    }
+
+    const documentoId = 'cpf_' + cpfCnh;
+
     await PRIMEIRAPAG_Login_db
-    .collection('motoristas')
-    .doc(user.uid)
-    .set({
-        cnhNumero: numeroCnh,
-		cnhCpfTitular: cpfCnh,
-		cnhCpfTitularFormatado: cpfCnhFormatado,
+        .collection('documentosUsuarios')
+        .doc(documentoId)
+        .set({
+            uid: user.uid,
+            tipoDocumento: 'cpf',
+            documentoNumero: cpfCnh,
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
 
-		dataNascimento: dataNascimento,
-		dataNascimentoFormatada: dataNascimentoFormatada,
-		dataNascimentoConcluida: true,
+    await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .set({
+            cnhNumero: numeroCnh,
+            cnhCpfTitular: cpfCnh,
+            cnhCpfTitularFormatado: cpfCnhFormatado,
 
-		cnhCategoria: categoriaCnh,
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
 
-		cnhValidade: validadeCnh,
-		cnhValidadeFormatada: validadeCnhFormatada,
+            cnhCategoria: categoriaCnh,
 
-        cnhValidadeStatus: statusCnhValidade.status,
-        cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
-        cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
-        cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
-        cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-        cnhMensagemValidade: statusCnhValidade.mensagem,
+            cnhValidade: validadeCnh,
+            cnhValidadeFormatada: validadeCnhFormatada,
 
-        cnhAviso30DiasEnviado: false,
-        cnhAviso15DiasEnviado: false,
-        cnhAviso7DiasEnviado: false,
+            cnhValidadeStatus: statusCnhValidade.status,
+            cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
+            cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
+            cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
+            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+            cnhMensagemValidade: statusCnhValidade.mensagem,
 
-        cnhAvisoTolerancia15DiasEnviado: false,
-        cnhAvisoTolerancia7DiasEnviado: false,
-        cnhAvisoTolerancia5DiasEnviado: false,
-        cnhAvisoTolerancia4DiasEnviado: false,
-        cnhAvisoTolerancia3DiasEnviado: false,
-        cnhAvisoTolerancia2DiasEnviado: false,
-        cnhAvisoTolerancia1DiaEnviado: false,
+            cnhAviso30DiasEnviado: false,
+            cnhAviso15DiasEnviado: false,
+            cnhAviso7DiasEnviado: false,
 
-		cadastroCompleto: false,
-		podeAceitarCorrida: false,
+            cnhAvisoTolerancia15DiasEnviado: false,
+            cnhAvisoTolerancia7DiasEnviado: false,
+            cnhAvisoTolerancia5DiasEnviado: false,
+            cnhAvisoTolerancia4DiasEnviado: false,
+            cnhAvisoTolerancia3DiasEnviado: false,
+            cnhAvisoTolerancia2DiasEnviado: false,
+            cnhAvisoTolerancia1DiaEnviado: false,
 
-		cpfConflito: false,
-		cpfConflitoStatus: '',
-		cpfConflitoMensagem: '',
+            cadastroCompleto: false,
+            podeAceitarCorrida: false,
 
-		requerAnaliseAdmin: statusCnhValidade.bloqueado,
-		motivoAnaliseAdmin: statusCnhValidade.bloqueado
-			? 'cnh_vencida_fora_da_tolerancia'
-			: '',
+            cpfConflito: false,
+            cpfConflitoStatus: '',
+            cpfConflitoMensagem: '',
 
-		etapaCadastroMotorista: 'fotos_cnh',
+            requerAnaliseAdmin: statusCnhValidade.bloqueado,
+            motivoAnaliseAdmin: statusCnhValidade.bloqueado
+                ? 'cnh_vencida_fora_da_tolerancia'
+                : '',
 
-		motoristaStatus: statusCnhValidade.bloqueado
-			? 'bloqueado_cnh_vencida'
-			: 'cadastro_iniciado',
+            etapaCadastroMotorista: 'fotos_cnh',
 
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            motoristaStatus: statusCnhValidade.bloqueado
+                ? 'bloqueado_cnh_vencida'
+                : 'cadastro_iniciado',
 
-	status: {
-		geral: statusCnhValidade.bloqueado
-			? 'bloqueado_cnh_vencida'
-			: 'cadastro_iniciado',
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-		motivo: statusCnhValidade.bloqueado
-			? 'cnh_vencida_fora_da_tolerancia'
-			: '',
+            status: {
+                geral: statusCnhValidade.bloqueado
+                    ? 'bloqueado_cnh_vencida'
+                    : 'cadastro_iniciado',
 
-		cnhValidadeStatus: statusCnhValidade.status,
-		cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-	}
-		}, { merge: true });
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
 
-	await PRIMEIRAPAG_Login_db
-		.collection('usuarios')
-		.doc(user.uid)
-		.set({
-			cpf: cpfCnh,
-			cpfFormatado: cpfCnhFormatado,
+                motivo: statusCnhValidade.bloqueado
+                    ? 'cnh_vencida_fora_da_tolerancia'
+                    : '',
 
-			dataNascimento: dataNascimento,
-			dataNascimentoFormatada: dataNascimentoFormatada,
-			dataNascimentoConcluida: true,
+                mensagem: statusCnhValidade.bloqueado
+                    ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
+                    : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.',
 
-			cpfConflito: false,
-	cpfConflitoStatus: '',
-	cpfConflitoMensagem: '',
+                cnhValidadeStatus: statusCnhValidade.status,
+                cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
 
-	etapaCnhConcluida: true,
-	etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        }, { merge: true });
 
-	requerAnaliseAdmin: statusCnhValidade.bloqueado,
-	motivoAnaliseAdmin: statusCnhValidade.bloqueado
-		? 'cnh_vencida_fora_da_tolerancia'
-		: '',
+    await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(user.uid)
+        .set({
+            cpf: cpfCnh,
+            cpfFormatado: cpfCnhFormatado,
 
-	etapaCadastro: 'motorista_fotos_cnh',
-	etapaCadastroMotorista: 'fotos_cnh',
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
 
-	motoristaStatus: statusCnhValidade.bloqueado
-		? 'bloqueado_cnh_vencida'
-		: 'cadastro_iniciado',
+            cpfConflito: false,
+            cpfConflitoStatus: '',
+            cpfConflitoMensagem: '',
 
-	status: {
-		geral: statusCnhValidade.bloqueado
-			? 'bloqueado_cnh_vencida'
-			: 'cadastro_iniciado',
+            etapaCnhConcluida: true,
+            etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-		motivo: statusCnhValidade.bloqueado
-			? 'cnh_vencida_fora_da_tolerancia'
-			: '',
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
+            requerAnaliseAdmin: statusCnhValidade.bloqueado,
+            motivoAnaliseAdmin: statusCnhValidade.bloqueado
+                ? 'cnh_vencida_fora_da_tolerancia'
+                : '',
 
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		}, { merge: true });
+            etapaCadastro: 'motorista_fotos_cnh',
+            etapaCadastroMotorista: 'fotos_cnh',
 
+            motoristaStatus: statusCnhValidade.bloqueado
+                ? 'bloqueado_cnh_vencida'
+                : 'cadastro_iniciado',
+
+            status: {
+                geral: statusCnhValidade.bloqueado
+                    ? 'bloqueado_cnh_vencida'
+                    : 'cadastro_iniciado',
+
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: statusCnhValidade.bloqueado
+                    ? 'cnh_vencida_fora_da_tolerancia'
+                    : '',
+
+                mensagem: statusCnhValidade.bloqueado
+                    ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
+                    : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.',
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
 	if (btn) {
 		btn.disabled = false;
 		btn.innerText = 'CONTINUAR';
@@ -11479,145 +11506,158 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
 	const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(validadeCnh);
 
     try {
-        if (btn) {
-            btn.disabled = true;
-            btn.innerText = 'SALVANDO COM ALERTA...';
-        }
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'SALVANDO COM ALERTA...';
+    }
 
-        await PRIMEIRAPAG_Login_db
-            .collection('motoristas')
-            .doc(user.uid)
-            .set({
-                cnhNumero: numeroCnh,
-				cnhCpfTitular: cpfCnh,
-				cnhCpfTitularFormatado: cpfCnhFormatado,
+    await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .set({
+            cnhNumero: numeroCnh,
+            cnhCpfTitular: cpfCnh,
+            cnhCpfTitularFormatado: cpfCnhFormatado,
 
-				dataNascimento: dataNascimento,
-				dataNascimentoFormatada: dataNascimentoFormatada,
-				dataNascimentoConcluida: true,
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
 
-				cnhCategoria: categoriaCnh,
+            cnhCategoria: categoriaCnh,
 
-				cnhValidade: validadeCnh,
-				cnhValidadeFormatada: validadeCnhFormatada,
+            cnhValidade: validadeCnh,
+            cnhValidadeFormatada: validadeCnhFormatada,
+
+            cnhValidadeStatus: statusCnhValidade.status,
+            cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
+            cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
+            cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
+            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+            cnhMensagemValidade: statusCnhValidade.mensagem,
+
+            cnhAviso30DiasEnviado: false,
+            cnhAviso15DiasEnviado: false,
+            cnhAviso7DiasEnviado: false,
+
+            cnhAvisoTolerancia15DiasEnviado: false,
+            cnhAvisoTolerancia7DiasEnviado: false,
+            cnhAvisoTolerancia5DiasEnviado: false,
+            cnhAvisoTolerancia4DiasEnviado: false,
+            cnhAvisoTolerancia3DiasEnviado: false,
+            cnhAvisoTolerancia2DiasEnviado: false,
+            cnhAvisoTolerancia1DiaEnviado: false,
+
+            etapaCnhConcluida: true,
+            etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            cadastroCompleto: false,
+            podeAceitarCorrida: false,
+
+            cpfConflito: true,
+            cpfConflitoStatus: 'pendente_analise_suporte',
+            cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+            cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            cpfConflitoOrigem: 'cadastro_motorista_cnh',
+
+            requerAnaliseAdmin: true,
+            motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+            etapaCadastroMotorista: 'fotos_cnh',
+            motoristaStatus: 'pendente_analise_suporte',
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            status: {
+                geral: 'pendente_analise_suporte',
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: 'cpf_ja_usado_em_outra_conta',
+                mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
 
                 cnhValidadeStatus: statusCnhValidade.status,
-                cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
-                cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
-                cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
                 cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-                cnhMensagemValidade: statusCnhValidade.mensagem,
-
-                cnhAviso30DiasEnviado: false,
-                cnhAviso15DiasEnviado: false,
-                cnhAviso7DiasEnviado: false,
-
-                cnhAvisoTolerancia15DiasEnviado: false,
-                cnhAvisoTolerancia7DiasEnviado: false,
-                cnhAvisoTolerancia5DiasEnviado: false,
-                cnhAvisoTolerancia4DiasEnviado: false,
-                cnhAvisoTolerancia3DiasEnviado: false,
-                cnhAvisoTolerancia2DiasEnviado: false,
-                cnhAvisoTolerancia1DiaEnviado: false,
-
-                etapaCnhConcluida: true,
-                etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
-
-                cadastroCompleto: false,
-                podeAceitarCorrida: false,
-
-                cpfConflito: true,
-                cpfConflitoStatus: 'pendente_analise_suporte',
-                cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
-                cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
-                cpfConflitoOrigem: 'cadastro_motorista_cnh',
-
-                requerAnaliseAdmin: true,
-                motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
-
-                etapaCadastroMotorista: 'fotos_cnh',
-				motoristaStatus: 'pendente_analise_suporte',
-
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-
-                status: {
-				geral: 'pendente_analise_suporte',
-				motivo: 'cpf_ja_usado_em_outra_conta',
-				tipo: 'motorista',
-				uid: user.uid,
-				cnhValidadeStatus: statusCnhValidade.status,
-				cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				}
-            }, { merge: true });
-
-        await PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .doc(user.uid)
-            .set({
-                cpf: cpfCnh,
-				cpfFormatado: cpfCnhFormatado,
-
-				dataNascimento: dataNascimento,
-				dataNascimentoFormatada: dataNascimentoFormatada,
-				dataNascimentoConcluida: true,
-
-				cpfConflito: true,
-                cpfConflitoStatus: 'pendente_analise_suporte',
-                cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
-                cpfConflitoOrigem: 'cadastro_motorista_cnh',
-
-                cadastroCompleto: false,
-                cadastroPrincipalConcluido: false,
-
-                podeSolicitarCorrida: false,
-                podeAceitarCorrida: false,
-
-                etapaCnhConcluida: true,
-                etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
-
-                requerAnaliseAdmin: true,
-                motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
-
-                etapaCadastro: 'motorista_fotos_cnh',
-				etapaCadastroMotorista: 'fotos_cnh',
-				motoristaStatus: 'pendente_analise_suporte',
-
-                status: {
-				geral: 'pendente_analise_suporte',
-				motivo: 'cpf_ja_usado_em_outra_conta',
-				tipo: 'motorista',
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				},
 
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
+            }
+        }, { merge: true });
 
-        if (btn) {
-            btn.disabled = false;
-            btn.innerText = 'CONTINUAR';
-        }
+    await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(user.uid)
+        .set({
+            cpf: cpfCnh,
+            cpfFormatado: cpfCnhFormatado,
 
-        PRIMEIRAPAG_Login_func_mostrarErro(
-    'MOTORISTAPAG_Login_error_cnh',
-    ''
-);
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
 
-MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+            cpfConflito: true,
+            cpfConflitoStatus: 'pendente_analise_suporte',
+            cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+            cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            cpfConflitoOrigem: 'cadastro_motorista_cnh',
 
-    } catch (erro) {
-        console.error('ERRO AO CONTINUAR COM ALERTA DE CPF:', erro);
+            cadastroCompleto: false,
+            cadastroPrincipalConcluido: false,
 
-        if (btn) {
-            btn.disabled = false;
-            btn.innerText = 'CONTINUAR';
-        }
+            podeSolicitarCorrida: false,
+            podeAceitarCorrida: false,
 
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'MOTORISTAPAG_Login_error_cnh',
-            'Não foi possível continuar com alerta agora. Tente novamente.'
-        );
+            etapaCnhConcluida: true,
+            etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            requerAnaliseAdmin: true,
+            motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+            etapaCadastro: 'motorista_fotos_cnh',
+            etapaCadastroMotorista: 'fotos_cnh',
+            motoristaStatus: 'pendente_analise_suporte',
+
+            status: {
+                geral: 'pendente_analise_suporte',
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: 'cpf_ja_usado_em_outra_conta',
+                mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+    if (btn) {
+        btn.dataset.processando = 'nao';
+        btn.disabled = false;
+        btn.innerText = 'CONTINUAR';
     }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        ''
+    );
+
+    MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+
+} catch (erro) {
+    console.error('ERRO AO CONTINUAR COM ALERTA DE CPF:', erro);
+
+    if (btn) {
+        btn.dataset.processando = 'nao';
+        btn.disabled = false;
+        btn.innerText = 'CONTINUAR';
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        'Não foi possível continuar com alerta agora. Tente novamente.'
+    );
+}
 }
 function MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(cnhValidadeIso) {
     if (!cnhValidadeIso) {
@@ -12346,16 +12386,23 @@ await PRIMEIRAPAG_Login_db
 
         status: {
             geral: statusGeralMotorista,
+            etapa: 'dados_veiculo',
             motivo: motivoStatusMotorista,
             tipo: 'motorista',
             uid: user.uid,
+
+            mensagem: motoristaTemAlertaSuporte
+                ? 'Fotos da CNH enviadas. Cadastro segue com alerta para análise do suporte.'
+                : 'Fotos da CNH enviadas. Próxima etapa: informar os dados do veículo.',
+
             cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
             cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         }
     }, { merge: true });
 
-        await PRIMEIRAPAG_Login_db
+await PRIMEIRAPAG_Login_db
     .collection('usuarios')
     .doc(user.uid)
     .set({
@@ -12367,8 +12414,15 @@ await PRIMEIRAPAG_Login_db
 
         status: {
             geral: statusGeralMotorista,
+            etapa: 'dados_veiculo',
             motivo: motivoStatusMotorista,
             tipo: 'motorista',
+            uid: user.uid,
+
+            mensagem: motoristaTemAlertaSuporte
+                ? 'Fotos da CNH enviadas. Cadastro segue com alerta para análise do suporte.'
+                : 'Fotos da CNH enviadas. Próxima etapa: informar os dados do veículo.',
+
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         },
 
@@ -12424,10 +12478,12 @@ async function MOTORISTAPAG_Login_func_carregarTelaDadosVeiculo() {
 
     PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_dados_veiculo');
 
-PRIMEIRAPAG_Login_func_mostrarErro(
-    'MOTORISTAPAG_Login_error_dados_veiculo',
-    ''
-);
+const erroDadosVeiculo = document.getElementById('MOTORISTAPAG_Login_error_dados_veiculo');
+
+	if (erroDadosVeiculo) {
+		erroDadosVeiculo.innerText = '';
+		erroDadosVeiculo.style.display = 'none';
+	}
 
     try {
         const docMotorista = await PRIMEIRAPAG_Login_db
@@ -12755,6 +12811,52 @@ async function MOTORISTAPAG_Login_func_salvarDadosVeiculo() {
 }
 
  //--========== TELA MOTORISTA 04: DADOS DO VEÍCULO FINAL ========== 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 // =====================================================
 //  MODAIS GERAIS / UNIVERSAIS DO APP
 // =====================================================
