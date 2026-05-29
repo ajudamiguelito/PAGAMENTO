@@ -260,6 +260,7 @@
             margin-bottom: 1rem;
             display: none;
         }
+		
 		.PRIMEIRAPAG_Login_aviso_analise {
             margin-top: 14px;
             padding: 10px;
@@ -3355,6 +3356,155 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_gerenciar_veiculos_doc_linha {
     margin-top: 26px;
     margin-bottom: 6px;
 }
+
+/* =========================================================
+   TELA MOTORISTA 03 - FOTOS DA CNH
+   Visual elegante igual ao card motorista em andamento
+   ========================================================= */
+
+.MOTORISTAPAG_Login_screen_fotos_cnh {
+    padding: 22px;
+    color: #f7f2ee;
+    background: transparent;
+}
+
+/* TOPO */
+.MOTORISTAPAG_Login_fotos_cnh_topo {
+    background: rgba(38, 30, 25, 0.92);
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    border-radius: 22px;
+    padding: 22px 18px;
+    margin-bottom: 18px;
+    text-align: center;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+}
+
+.MOTORISTAPAG_Login_fotos_cnh_icone {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: rgba(197, 169, 141, 0.13);
+    border: 1px solid rgba(197, 169, 141, 0.26);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.65rem;
+}
+
+.MOTORISTAPAG_Login_fotos_cnh_titulo {
+    color: #e8cda8;
+    font-size: 1.15rem;
+    font-weight: 900;
+    margin: 0 0 12px;
+    letter-spacing: 0.2px;
+}
+
+.MOTORISTAPAG_Login_fotos_cnh_texto {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 320px;
+}
+
+/* CARDS */
+.MOTORISTAPAG_Login_doc_card {
+    background: rgba(31, 25, 21, 0.92);
+    border: 1px solid rgba(197, 169, 141, 0.23);
+    border-radius: 18px;
+    padding: 15px;
+    margin-bottom: 16px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.MOTORISTAPAG_Login_doc_card_info {
+    margin-bottom: 13px;
+}
+
+.MOTORISTAPAG_Login_doc_card_info strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.98rem;
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.MOTORISTAPAG_Login_doc_card_info span {
+    display: block;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+/* BOTÕES */
+.MOTORISTAPAG_Login_screen_fotos_cnh .PRIMEIRAPAG_Login_btn_secondary {
+    background: transparent;
+    color: #e8cda8;
+    border: 1px solid rgba(197, 169, 141, 0.34);
+    border-radius: 13px;
+    font-weight: 900;
+    box-shadow: none;
+}
+
+.MOTORISTAPAG_Login_screen_fotos_cnh .PRIMEIRAPAG_Login_btn_secondary:hover {
+    background: rgba(197, 169, 141, 0.10);
+}
+
+.MOTORISTAPAG_Login_screen_fotos_cnh .PRIMEIRAPAG_Login_btn_primary {
+    background: #cdb294;
+    color: #251912;
+    border: none;
+    border-radius: 11px;
+    font-weight: 900;
+    box-shadow: none;
+}
+
+.MOTORISTAPAG_Login_screen_fotos_cnh .PRIMEIRAPAG_Login_btn_primary:disabled {
+    background: rgba(197, 169, 141, 0.42);
+    color: rgba(255, 255, 255, 0.38);
+}
+
+/* PREVIEW */
+.MOTORISTAPAG_Login_preview_doc {
+    display: none;
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin: 10px 0 12px;
+    border: 1px solid rgba(197, 169, 141, 0.25);
+}
+
+/* COMPRESSÃO */
+.MOTORISTAPAG_Login_info_compressao {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.76rem;
+    margin: 8px 0 12px;
+}
+
+/* STATUS */
+.MOTORISTAPAG_Login_doc_card_ok {
+    border-color: rgba(40, 167, 69, 0.55);
+}
+
+.MOTORISTAPAG_Login_doc_card_ok .MOTORISTAPAG_Login_doc_card_info span {
+    color: #4ade80;
+}
+
+.MOTORISTAPAG_Login_doc_card_reprovado {
+    border-color: rgba(220, 53, 69, 0.65);
+}
+
+.MOTORISTAPAG_Login_doc_card_reprovado .MOTORISTAPAG_Login_doc_card_info span {
+    color: #ff6b7a;
+}
+
+/* MOTORISTA - ENDEREÇO DO MOTORISTA */
+.MOTORISTAPAG_Login_screen_endereco_motorista {
+    padding: 22px 18px 120px;
+}
+
         
 </style>
 </head>
@@ -4805,22 +4955,826 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
     </div>	
 
+</div>
 
+<!-- ========== TELA 12: final INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== -->
+<!--========== TELA MOTORISTA 01: CATEGORIA PRINCIPAL - PREFIXO MOTORISTAPAG  ========== -->
 
+<div id="MOTORISTAPAG_Login_screen_categoria" class="PRIMEIRAPAG_Login_screen">
 
+    <div class="PRIMEIRAPAG_Login_error" id="MOTORISTAPAG_Login_error_categoria"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Categoria do motorista</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Como você pretende trabalhar?</h4>
+        <p>
+            Escolha sua categoria principal. A categoria final será definida durante
+            a análise dos seus documentos pela equipe TNP MoB.
+        </p>
+    </div>
+
+    <input type="hidden" id="MOTORISTAPAG_Login_categoria_principal" value="carro">
+
+    <div class="PRIMEIRAPAG_Login_tipo_cards">
+
+        <div
+            id="MOTORISTAPAG_Login_card_categoria_carro"
+            class="PRIMEIRAPAG_Login_tipo_card active"
+            onclick="MOTORISTAPAG_Login_func_selecionarCategoriaPrincipal('carro')"
+        >
+            <span>🚗</span>
+            Carro
+            <small class="QUARTAPAG_Login_tipo_card_desc">
+                Corridas com passageiros
+            </small>
+        </div>
+
+        <div
+            id="MOTORISTAPAG_Login_card_categoria_moto"
+            class="PRIMEIRAPAG_Login_tipo_card"
+            onclick="MOTORISTAPAG_Login_func_selecionarCategoriaPrincipal('moto')"
+        >
+            <span>🏍️</span>
+            Moto
+            <small class="QUARTAPAG_Login_tipo_card_desc">
+                Mototáxi ou entregas
+            </small>
+        </div>
+
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_tipo_cards PRIMEIRAPAG_Login_mt_14">
+
+        <div
+            id="MOTORISTAPAG_Login_card_categoria_utilitario"
+            class="PRIMEIRAPAG_Login_tipo_card"
+            onclick="MOTORISTAPAG_Login_func_selecionarCategoriaPrincipal('utilitario')"
+        >
+            <span>🚚</span>
+            Entrega / Utilitário
+            <small class="QUARTAPAG_Login_tipo_card_desc">
+                Cargas e futuras parcerias
+            </small>
+        </div>
+
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_aviso_analise PRIMEIRAPAG_Login_mt_18">
+        Você não precisa escolher agora entre Tradicional, Comfort, Black, Lady,
+        Mototáxi ou Entregador. Essa definição será feita na análise.
+    </div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_salvar_categoria"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="MOTORISTAPAG_Login_func_salvarCategoriaPrincipal()"
+        >
+            CONTINUAR
+        </button>
+
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie')"
+        >
+            VOLTAR
+        </button>
+    </div>
 
 </div>
 
+<!--========== TELA MOTORISTA 01: CATEGORIA PRINCIPAL - PREFIXO MOTORISTAPAG FINAL ========== -->
+
+
+<!--========== TELA MOTORISTA 02: DADOS DA CNH - PREFIXO MOTORISTAPAG ========== -->
+
+<div id="MOTORISTAPAG_Login_screen_cnh" class="PRIMEIRAPAG_Login_screen">
+
+    <div class="PRIMEIRAPAG_Login_error" id="MOTORISTAPAG_Login_error_cnh"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Dados da CNH</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Carteira de motorista</h4>
+        <p>
+            Informe os dados da sua CNH. O CPF informado precisa ser do titular da carteira
+            e será usado para proteger sua conta e evitar cadastros duplicados.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cnh_numero">Número da CNH</label>
+        <input
+    type="tel"
+    id="MOTORISTAPAG_Login_input_cnh_numero"
+    placeholder="Digite os 11 números da CNH"
+    maxlength="11"
+    oninput="MOTORISTAPAG_Login_func_maskNumeroCnh(this)"
+>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cnh_cpf">CPF do titular da CNH</label>
+        <input
+            type="tel"
+            id="MOTORISTAPAG_Login_input_cnh_cpf"
+            placeholder="Digite o CPF do titular"
+            maxlength="14"
+            oninput="MOTORISTAPAG_Login_func_maskCpfCnh(this)"
+        >
+    </div>
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_data_nascimento">Data de nascimento</label>
+        <input
+            type="tel"
+            id="MOTORISTAPAG_Login_input_data_nascimento"
+            placeholder="DD/MM/AAAA"
+            maxlength="10"
+            inputmode="numeric"
+            autocomplete="off"
+            oninput="MOTORISTAPAG_Login_func_maskDataNascimento(this)"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_select_cnh_categoria">Categoria da CNH</label>
+        <select id="MOTORISTAPAG_Login_select_cnh_categoria">
+            <option value="">Selecione</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="AB">AB</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+        </select>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cnh_validade">Validade da CNH</label>
+        <input
+    type="tel"
+    id="MOTORISTAPAG_Login_input_cnh_validade"
+    placeholder="DD/MM/AAAA"
+    maxlength="10"
+    inputmode="numeric"
+    autocomplete="off"
+    oninput="MOTORISTAPAG_Login_func_maskDataCnh(this)"
+>
+    </div>
+
+<div
+    id="MOTORISTAPAG_Login_card_cpf_conflito"
+    class="PRIMEIRAPAG_Login_status_box"
+    style="display:none;"
+>
+    <strong>CPF já usado em outra conta</strong><br><br>
+
+    Este CPF já está vinculado a outro cadastro no TNP MoB.
+    Por segurança, não exibimos os dados dessa conta.
+
+    <br><br>
+
+    Se você reconhece esse CPF, volte ao início e entre com a conta correta.
+    Se você não reconhece ou precisa continuar, o cadastro poderá seguir,
+    mas ficará marcado com alerta para análise do suporte antes da aprovação.
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+        onclick="MOTORISTAPAG_Login_func_voltarInicioCpfConflito()"
+    >
+        VOLTAR AO INÍCIO E FAZER LOGIN
+    </button>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="MOTORISTAPAG_Login_func_continuarComAlertaCpf()"
+    >
+        CONTINUAR COM ALERTA PARA SUPORTE
+    </button>
+</div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_salvar_cnh"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="MOTORISTAPAG_Login_func_salvarDadosCnh()"
+        >
+            CONTINUAR
+        </button>
+
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_categoria')"
+        >
+            VOLTAR
+        </button>
+    </div>
+
+</div>
+<!--========== TELA MOTORISTA 02: DADOS DA CNH - PREFIXO MOTORISTAPAG FINAL ========== -->
+
+<!-- //--========== TELA MOTORISTA 03: FOTOS DA CNH ========== // -->
+<div id="MOTORISTAPAG_Login_screen_fotos_cnh" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_fotos_cnh">
+
+    <div class="MOTORISTAPAG_Login_fotos_cnh_topo">
+        <div class="MOTORISTAPAG_Login_fotos_cnh_icone">📄</div>
+
+        <h2 class="MOTORISTAPAG_Login_fotos_cnh_titulo">
+            Envio das fotos da CNH
+        </h2>
+
+        <p class="MOTORISTAPAG_Login_fotos_cnh_texto">
+            Envie uma foto nítida da sua CNH e uma selfie segurando a CNH ao lado do rosto.
+        </p>
+    </div>
+
+    <!-- CARD FOTO DA CNH -->
+    <div id="MOTORISTAPAG_Login_card_foto_cnh" class="MOTORISTAPAG_Login_doc_card">
+        <div class="MOTORISTAPAG_Login_doc_card_info">
+            <strong>Foto da CNH</strong>
+            <span id="MOTORISTAPAG_Login_status_foto_cnh">
+                Pendente de envio
+            </span>
+        </div>
+
+        <img
+            id="MOTORISTAPAG_Login_preview_foto_cnh"
+            class="MOTORISTAPAG_Login_preview_doc"
+            alt="Prévia da foto da CNH"
+        >
+
+        <div
+            id="MOTORISTAPAG_Login_info_compressao_foto_cnh"
+            class="MOTORISTAPAG_Login_info_compressao"
+        ></div>
+
+        <button
+            id="MOTORISTAPAG_Login_btn_foto_cnh"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_abrirCameraDocumento('fotoCnh')"
+        >
+            TIRAR FOTO DA CNH
+        </button>
+    </div>
+
+    <!-- CARD SELFIE COM CNH -->
+    <div id="MOTORISTAPAG_Login_card_selfie_cnh" class="MOTORISTAPAG_Login_doc_card">
+        <div class="MOTORISTAPAG_Login_doc_card_info">
+            <strong>Selfie com a CNH</strong>
+            <span id="MOTORISTAPAG_Login_status_selfie_cnh">
+                Pendente de envio
+            </span>
+        </div>
+
+        <img
+            id="MOTORISTAPAG_Login_preview_selfie_cnh"
+            class="MOTORISTAPAG_Login_preview_doc"
+            alt="Prévia da selfie com CNH"
+        >
+
+        <div
+            id="MOTORISTAPAG_Login_info_compressao_selfie_cnh"
+            class="MOTORISTAPAG_Login_info_compressao"
+        ></div>
+
+        <button
+            id="MOTORISTAPAG_Login_btn_selfie_cnh"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_abrirCameraDocumento('selfieComCnh')"
+        >
+            TIRAR SELFIE COM A CNH
+        </button>
+    </div>
+
+    <div id="MOTORISTAPAG_Login_error_fotos_cnh" class="PRIMEIRAPAG_Login_error"></div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_continuar_fotos_cnh"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_continuarDepoisFotosCnh()"
+            disabled
+        >
+            ENVIAR FOTOS E CONTINUAR
+        </button>
+    </div>
+
+    <!-- INPUT OCULTO PARA FOTO DA CNH -->
+    <input
+        type="file"
+        id="MOTORISTAPAG_Login_input_foto_cnh"
+        accept="image/*"
+        capture="environment"
+        style="display:none;"
+        onchange="MOTORISTAPAG_Login_func_prepararDocumentoMotorista(event, 'fotoCnh')"
+    >
+
+    <!-- INPUT OCULTO PARA SELFIE COM CNH -->
+    <input
+        type="file"
+        id="MOTORISTAPAG_Login_input_selfie_cnh"
+        accept="image/*"
+        capture="user"
+        style="display:none;"
+        onchange="MOTORISTAPAG_Login_func_prepararDocumentoMotorista(event, 'selfieComCnh')"
+    >
+
+</div>
+ <!-- //--========== TELA MOTORISTA 03: FOTOS DA CNH FINAL ========== // -->
+ 
+ <!-- //--========== TELA MOTORISTA 04: DADOS DO VEÍCULO ========== // -->
+<div id="MOTORISTAPAG_Login_screen_dados_veiculo" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_dados_veiculo">
+
+    <div class="MOTORISTAPAG_Login_fotos_cnh_topo">
+        <div class="MOTORISTAPAG_Login_fotos_cnh_icone">🚗</div>
+
+        <h2 class="MOTORISTAPAG_Login_fotos_cnh_titulo">
+            Dados do veículo
+        </h2>
+
+        <p class="MOTORISTAPAG_Login_fotos_cnh_texto">
+            Informe os dados principais do veículo que você usará no TNP MoB.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_veiculo_placa">
+            Placa do veículo
+        </label>
+        <input
+            id="MOTORISTAPAG_Login_input_veiculo_placa"
+			type="text"
+			maxlength="7"
+			placeholder="ABC1D23"
+			autocomplete="off"
+			oninput="MOTORISTAPAG_Login_func_mascararPlacaVeiculo(this)"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_veiculo_renavam">
+            Renavam
+        </label>
+        <input
+            id="MOTORISTAPAG_Login_input_veiculo_renavam"
+			type="text"
+			maxlength="11"
+			placeholder="Somente números"
+			inputmode="numeric"
+			autocomplete="off"
+			oninput="this.value = this.value.replace(/\D/g, '').slice(0, 11)"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_veiculo_marca">
+            Marca
+        </label>
+        <input
+            id="MOTORISTAPAG_Login_input_veiculo_marca"
+            type="text"
+            placeholder="Ex: Fiat, Honda, Chevrolet"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_veiculo_modelo">
+            Modelo
+        </label>
+        <input
+            id="MOTORISTAPAG_Login_input_veiculo_modelo"
+            type="text"
+            placeholder="Ex: Uno, Biz, Onix"
+        >
+    </div>
+	
+	<div class="PRIMEIRAPAG_Login_form_group">
+		<label for="MOTORISTAPAG_Login_input_veiculo_cor">
+			Cor
+		</label>
+		<input
+			id="MOTORISTAPAG_Login_input_veiculo_cor"
+			type="text"
+			placeholder="Ex: Branco, Preto, Prata"
+		>
+	</div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_veiculo_ano">
+            Ano
+        </label>
+        <input
+        id="MOTORISTAPAG_Login_input_veiculo_ano"
+		type="text"
+		maxlength="4"
+		placeholder="Ex: 2020"
+		inputmode="numeric"
+		autocomplete="off"
+		oninput="this.value = this.value.replace(/\D/g, '').slice(0, 4)"
+        >
+    </div>
+
+    <div id="MOTORISTAPAG_Login_error_dados_veiculo" class="PRIMEIRAPAG_Login_error"></div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_salvar_dados_veiculo"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_salvarDadosVeiculo()"
+        >
+            CONTINUAR
+        </button>
+    </div>
+
+</div>
+ <!-- //--========== TELA MOTORISTA 04: DADOS DO VEÍCULO FINAL ========== // -->
+<!-- //--========== TELA MOTORISTA 05: FOTO DOS DADOS DO VEÍCULO ========== // -->
+
+<div id="MOTORISTAPAG_Login_screen_documentos_veiculo" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_documentos_veiculo">
+
+    <div class="MOTORISTAPAG_Login_fotos_cnh_topo">
+        <div class="MOTORISTAPAG_Login_fotos_cnh_icone">📋</div>
+
+        <h2 class="MOTORISTAPAG_Login_fotos_cnh_titulo">
+            Documentos do veículo
+        </h2>
+
+        <p class="MOTORISTAPAG_Login_fotos_cnh_texto">
+            Envie a foto do CRLV e uma foto do veículo mostrando a placa com clareza.
+        </p>
+    </div>
+
+    <!-- CARD CRLV -->
+    <div id="MOTORISTAPAG_Login_card_crlv" class="MOTORISTAPAG_Login_doc_card">
+        <div class="MOTORISTAPAG_Login_doc_card_info">
+            <strong>Foto do CRLV</strong>
+            <span id="MOTORISTAPAG_Login_status_crlv">
+                Pendente de envio
+            </span>
+        </div>
+
+        <img
+            id="MOTORISTAPAG_Login_preview_crlv"
+            class="MOTORISTAPAG_Login_preview_doc"
+            alt="Prévia do CRLV"
+        >
+
+        <div
+            id="MOTORISTAPAG_Login_info_compressao_crlv"
+            class="MOTORISTAPAG_Login_info_compressao"
+        ></div>
+
+        <button
+            id="MOTORISTAPAG_Login_btn_crlv"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_abrirCameraDocumentoVeiculo('crlv')"
+        >
+            TIRAR FOTO DO CRLV
+        </button>
+    </div>
+
+    <!-- CARD FOTO DO VEÍCULO COM PLACA -->
+    <div id="MOTORISTAPAG_Login_card_veiculo_placa" class="MOTORISTAPAG_Login_doc_card">
+        <div class="MOTORISTAPAG_Login_doc_card_info">
+            <strong>Foto do veículo com a placa</strong>
+            <span id="MOTORISTAPAG_Login_status_veiculo_placa">
+                Pendente de envio
+            </span>
+        </div>
+
+        <img
+            id="MOTORISTAPAG_Login_preview_veiculo_placa"
+            class="MOTORISTAPAG_Login_preview_doc"
+            alt="Prévia do veículo mostrando a placa"
+        >
+
+        <div
+            id="MOTORISTAPAG_Login_info_compressao_veiculo_placa"
+            class="MOTORISTAPAG_Login_info_compressao"
+        ></div>
+
+        <button
+            id="MOTORISTAPAG_Login_btn_veiculo_placa"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_abrirCameraDocumentoVeiculo('fotoVeiculoPlaca')"
+        >
+            TIRAR FOTO DO VEÍCULO
+        </button>
+    </div>
+
+    <div id="MOTORISTAPAG_Login_error_documentos_veiculo" class="PRIMEIRAPAG_Login_error"></div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_continuar_documentos_veiculo"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_continuarDepoisDocumentosVeiculo()"
+            disabled
+        >
+            ENVIAR DOCUMENTOS E CONTINUAR
+        </button>
+    </div>
+
+    <!-- INPUT OCULTO CRLV -->
+    <input
+        type="file"
+        id="MOTORISTAPAG_Login_input_crlv"
+        accept="image/*"
+        capture="environment"
+        style="display:none;"
+        onchange="MOTORISTAPAG_Login_func_prepararDocumentoVeiculo(event, 'crlv')"
+    >
+
+    <!-- INPUT OCULTO VEÍCULO COM PLACA -->
+    <input
+    type="file"
+    id="MOTORISTAPAG_Login_input_foto_veiculo_placa"
+    accept="image/*"
+    capture="environment"
+    style="display:none;"
+    onchange="MOTORISTAPAG_Login_func_prepararDocumentoVeiculo(event, 'fotoVeiculoPlaca')"
+	>
+
+</div>
+ <!-- //--========== TELA MOTORISTA 05: FOTO DOS DADOS DO VEÍCULO FINAL ========== // -->
+
+
+<!-- //--========== TELA MOTORISTA 06: ENDEREÇO DO MOTORISTA ========== // -->
+<div id="MOTORISTAPAG_Login_screen_endereco_motorista" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_endereco_motorista">
+
+    <div class="MOTORISTAPAG_Login_fotos_cnh_topo">
+        <div class="MOTORISTAPAG_Login_fotos_cnh_icone">📍</div>
+
+        <h2 class="MOTORISTAPAG_Login_fotos_cnh_titulo">
+            Endereço do motorista
+        </h2>
+
+        <p class="MOTORISTAPAG_Login_fotos_cnh_texto">
+            Informe seu endereço residencial para completar seu cadastro de motorista.
+        </p>
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_cep">CEP</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_cep"
+            type="text"
+            maxlength="9"
+            placeholder="00000-000"
+            inputmode="numeric"
+            autocomplete="postal-code"
+            oninput="MOTORISTAPAG_Login_func_mascararCepMotorista(this)"
+            onblur="MOTORISTAPAG_Login_func_buscarCepEnderecoMotorista()"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_rua">Rua</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_rua"
+            type="text"
+            placeholder="Nome da rua"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_numero">Número</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_numero"
+            type="text"
+            placeholder="Número da residência"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_bairro">Bairro</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_bairro"
+            type="text"
+            placeholder="Bairro"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_cidade">Cidade</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_cidade"
+            type="text"
+            placeholder="Cidade"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_estado">UF</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_estado"
+            type="text"
+            maxlength="2"
+            placeholder="MG"
+            oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2)"
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_complemento">Complemento</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_complemento"
+            type="text"
+            placeholder="Apartamento, bloco, casa, etc."
+        >
+    </div>
+
+    <div class="PRIMEIRAPAG_Login_form_group">
+        <label for="MOTORISTAPAG_Login_input_cadastro_endereco_referencia">Ponto de referência</label>
+        <input
+            id="MOTORISTAPAG_Login_input_cadastro_endereco_referencia"
+            type="text"
+            placeholder="Ex: próximo ao mercado"
+        >
+    </div>
+
+    <div id="MOTORISTAPAG_Login_error_cadastro_endereco" class="PRIMEIRAPAG_Login_error"></div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_salvar_endereco_cadastro"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista()"
+        >
+            CONTINUAR
+        </button>
+    </div>
+
+</div>
+<!-- //--========== TELA MOTORISTA 06: ENDEREÇO DO MOTORISTA FINAL ========== // -->
 
 
 
-	
-	
-	
-	
-	
 
-<!-- ========== TELA 12: final INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== -->
+<!-- //--========== TELA MOTORISTA 07:  CONFIRMAÇÃO PIX PARA RECEBIMENTO  ========== // -->
+
+<div id="MOTORISTAPAG_Login_screen_pix_confirmacao" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_pix_confirmacao">
+
+    <div class="PRIMEIRAPAG_Login_error" id="MOTORISTAPAG_Login_error_pix_confirmacao"></div>
+
+    <div class="MOTORISTAPAG_Login_pix_topo">
+        <div class="MOTORISTAPAG_Login_pix_icone">💠</div>
+
+        <h2 class="MOTORISTAPAG_Login_pix_titulo">
+            Confirmação Pix para recebimento
+        </h2>
+
+        <p class="MOTORISTAPAG_Login_pix_texto">
+            Para garantir que seus futuros recebimentos sejam enviados corretamente,
+            precisamos confirmar sua conta Pix.
+        </p>
+    </div>
+
+    <div id="MOTORISTAPAG_Login_pix_box_inicial" class="MOTORISTAPAG_Login_pix_box">
+
+        <p>
+            Gere um Pix simbólico de <strong>R$ 0,01</strong> e realize o pagamento
+            pelo aplicativo do seu banco.
+        </p>
+
+        <p>
+            Após a confirmação automática, você poderá continuar para os termos do motorista.
+        </p>
+
+        <div class="MOTORISTAPAG_Login_pix_aviso">
+            Use uma conta Pix vinculada ao CPF informado no cadastro.
+        </div>
+
+        <div class="MOTORISTAPAG_Login_pix_aviso_mei">
+            Caso você seja MEI e precise vincular os recebimentos a uma conta CNPJ,
+            entre em contato com o suporte após o cadastro. A alteração poderá ser feita
+            depois da comprovação de que a empresa pertence a você.
+        </div>
+
+        <button
+            id="MOTORISTAPAG_Login_btn_gerar_pix_confirmacao"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_gerarPixConfirmacao()"
+        >
+            GERAR PIX DE R$ 0,01
+        </button>
+
+    </div>
+
+    <div id="MOTORISTAPAG_Login_pix_box_aguardando" class="MOTORISTAPAG_Login_pix_box PRIMEIRAPAG_Login_hidden">
+
+        <h3 class="MOTORISTAPAG_Login_pix_status_titulo">
+            Aguardando pagamento
+        </h3>
+
+        <p>
+            Abra o aplicativo do seu banco, pague o Pix de R$ 0,01 e aguarde a confirmação automática.
+        </p>
+
+		<div id="MOTORISTAPAG_Login_pix_cronometro" class="MOTORISTAPAG_Login_pix_aviso">
+			Aguardando confirmação automática por até 02:00.
+		</div>
+
+
+        <img
+            id="MOTORISTAPAG_Login_pix_qrcode_img"
+            class="MOTORISTAPAG_Login_pix_qrcode"
+            alt="QR Code Pix"
+        >
+
+        <div
+            id="MOTORISTAPAG_Login_pix_codigo"
+            class="MOTORISTAPAG_Login_pix_codigo"
+        ></div>
+
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_copiarPixConfirmacao()"
+        >
+            COPIAR CÓDIGO PIX
+        </button>
+
+        <div class="MOTORISTAPAG_Login_pix_aviso">
+            Após pagar, aguarde alguns instantes. A confirmação será feita automaticamente pelo sistema.
+        </div>
+
+
+	<div id="MOTORISTAPAG_Login_pix_acoes_demora" class="PRIMEIRAPAG_Login_hidden">
+
+		<button
+			class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+			type="button"
+			onclick="MOTORISTAPAG_Login_func_verificarPagamentoPixMotorista()"
+		>
+			JÁ PAGUEI / VERIFICAR PAGAMENTO
+		</button>
+
+		<button
+		class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+		type="button"
+		onclick="MOTORISTAPAG_Login_func_gerarPixConfirmacao(true)"
+	>
+		GERAR NOVO PIX
+	</button>
+
+	</div>
+
+    </div>
+
+    <div id="MOTORISTAPAG_Login_pix_box_confirmado" class="MOTORISTAPAG_Login_pix_box MOTORISTAPAG_Login_pix_sucesso PRIMEIRAPAG_Login_hidden">
+
+        <div class="MOTORISTAPAG_Login_pix_sucesso_icone">✅</div>
+
+        <h3>Pix confirmado com sucesso</h3>
+
+        <p>
+            Sua conta para recebimento foi confirmada.
+            Continue para os termos do motorista.
+        </p>
+
+        <button
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_continuarParaTermosMotorista()"
+        >
+            CONTINUAR PARA OS TERMOS
+        </button>
+
+    </div>
+
+</div>
+
+<!-- //--========== TELA MOTORISTA 07:  CONFIRMAÇÃO PIX PARA RECEBIMENTO  FINAL ========== // -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- ===================================================== -->
 <!-- MODAIS GERAIS / UNIVERSAIS DO APP -->
@@ -5467,6 +6421,14 @@ if (
 }
 
 if (
+    PRIMEIRAPAG_etapaUsuario === "motorista_endereco" ||
+    PRIMEIRAPAG_etapaMotorista === "endereco_motorista"
+) {
+    MOTORISTAPAG_Login_func_carregarTelaEnderecoMotorista();
+    return;
+}
+
+if (
     PRIMEIRAPAG_etapaUsuario === "pix_confirmacao_recebimento" ||
     PRIMEIRAPAG_etapaUsuario === "motorista_pix" ||
     PRIMEIRAPAG_etapaUsuario === "motorista_pix_confirmacao" ||
@@ -5809,7 +6771,7 @@ async function SEGUNDAPAG_Login_func_verificarEmailConfirmado() {
 
         const SEGUNDAPAG_Login_payloadEmail = {
             emailVerificado: true,
-            cadastroRapidoConcluido: true,
+            cadastroRapidoConcluido: false,
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         };
 
@@ -5883,7 +6845,7 @@ async function SEGUNDAPAG_Login_func_reenviarEmailConfirmacao() {
 
             const SEGUNDAPAG_Login_payloadEmail = {
                 emailVerificado: true,
-                cadastroRapidoConcluido: true,
+                cadastroRapidoConcluido: false,
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
             };
 
@@ -6306,6 +7268,7 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_payloadPassageiro.status = {
 				geral: "cadastro_rapido",
 				etapa: "selfie",
+				tipo: "passageiro",
 				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
@@ -6346,8 +7309,10 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_payloadUsuarioMotorista.motoristaStatus = "cadastro_iniciado";
 
 			QUARTAPAG_Login_payloadUsuarioMotorista.status = {
-				geral: "cadastro_rapido",
+				geral: "cadastro_iniciado",
 				etapa: "selfie",
+				tipo: "motorista",
+				uid: QUARTAPAG_Login_user.uid,
 				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
@@ -10127,14 +11092,3500 @@ if (boxConfig) {
 	
 
 // -- ========== TELA 12: final HOME INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== 
+// ========= MOTORISTA TELA 01: CATEGORIA PRINCIPAL ==========
+
+function MOTORISTAPAG_Login_func_selecionarCategoriaPrincipal(categoria) {
+    const categoriasPermitidas = ['carro', 'moto', 'utilitario'];
+
+    if (!categoriasPermitidas.includes(categoria)) {
+        console.error('Categoria inválida:', categoria);
+        return;
+    }
+
+    const inputCategoria = document.getElementById('MOTORISTAPAG_Login_categoria_principal');
+
+    const cardCarro = document.getElementById('MOTORISTAPAG_Login_card_categoria_carro');
+    const cardMoto = document.getElementById('MOTORISTAPAG_Login_card_categoria_moto');
+    const cardUtilitario = document.getElementById('MOTORISTAPAG_Login_card_categoria_utilitario');
+
+    if (!inputCategoria || !cardCarro || !cardMoto || !cardUtilitario) {
+        console.error("ERRO: Elementos da categoria do motorista não encontrados.");
+        return;
+    }
+
+        inputCategoria.value = categoria;
+
+		const erroCategoria = document.getElementById('MOTORISTAPAG_Login_error_categoria');
+
+		if (erroCategoria) {
+			erroCategoria.style.display = 'none';
+			erroCategoria.innerText = '';
+		}
+
+		cardCarro.classList.remove('active');
+		cardMoto.classList.remove('active');
+		cardUtilitario.classList.remove('active');
+
+    if (categoria === 'carro') {
+        cardCarro.classList.add('active');
+    }
+
+    if (categoria === 'moto') {
+        cardMoto.classList.add('active');
+    }
+
+    if (categoria === 'utilitario') {
+        cardUtilitario.classList.add('active');
+    }
+}
+
+async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_categoria');
+    const categoria = document.getElementById('MOTORISTAPAG_Login_categoria_principal')?.value;
+
+    if (btn && btn.disabled) {
+        return;
+    }
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_categoria',
+            'Sua sessão expirou. Faça login novamente.'
+        );
+    }
+
+    const categoriasPermitidas = ['carro', 'moto', 'utilitario'];
+
+    if (!categoria || !categoriasPermitidas.includes(categoria)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_categoria',
+            'Escolha uma categoria válida para continuar.'
+        );
+    }
+
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'SALVANDO...';
+        }
+
+        const statusCnh = {
+            geral: 'cadastro_iniciado',
+            etapa: 'cnh',
+            tipo: 'motorista',
+            uid: user.uid,
+            categoriaPrincipal: categoria,
+			mensagem: 'Categoria escolhida. Próxima etapa: informar os dados da CNH.',
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .set({
+                categoriaPrincipal: categoria,
+                etapaCadastroMotorista: 'cnh',
+                podeAceitarCorrida: false,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                status: statusCnh
+            }, { merge: true });
+
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                tipo: 'motorista',
+
+                perfis: {
+                    passageiro: true,
+                    motorista: true
+                },
+
+                etapaCadastro: 'motorista_cnh',
+                etapaCadastroMotorista: 'cnh',
+                motoristaStatus: 'cadastro_iniciado',
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                status: statusCnh
+            }, { merge: true });
+
+        PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
+
+    } catch (erro) {
+        console.error("ERRO REAL AO SALVAR CATEGORIA:", erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_categoria',
+            'Não foi possível salvar a categoria agora. Verifique sua conexão e tente novamente.'
+        );
+
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'CONTINUAR';
+        }
+    }
+}
+
+//--========== TELA MOTORISTA 01: CATEGORIA PRINCIPAL - PREFIXO MOTORISTAPAG FINAL ========== //
+// ========== TELA MOTORISTA 02: DADOS DA CNH - PREFIXO MOTORISTAPAG  ==========
+	async function MOTORISTAPAG_Login_func_salvarDadosCnh() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+
+    const textoOriginal = btn ? btn.innerText : 'CONTINUAR';
+
+    if (btn && btn.dataset.processando === 'sim') {
+        return;
+    }
+	const inputNumero = document.getElementById('MOTORISTAPAG_Login_input_cnh_numero');
+	const inputCpf = document.getElementById('MOTORISTAPAG_Login_input_cnh_cpf');
+	const inputNascimento = document.getElementById('MOTORISTAPAG_Login_input_data_nascimento');
+	const selectCategoria = document.getElementById('MOTORISTAPAG_Login_select_cnh_categoria');
+	const inputValidade = document.getElementById('MOTORISTAPAG_Login_input_cnh_validade');
+
+	[inputNumero, inputCpf, inputNascimento, selectCategoria, inputValidade].forEach(campo => {
+		if (campo) campo.classList.remove('error');
+	});
+
+	if (!inputNumero || !inputCpf || !inputNascimento || !selectCategoria || !inputValidade) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Erro interno: campos da CNH não encontrados.'
+		);
+	}
+
+	const numeroCnh = inputNumero.value.replace(/\D/g, '');
+	const cpfCnhFormatado = inputCpf.value.trim();
+	const cpfCnh = MOTORISTAPAG_Login_func_limparCpf(cpfCnhFormatado);
+
+	const dataNascimentoFormatada = inputNascimento.value.trim();
+	const dataNascimento = MOTORISTAPAG_Login_func_converterDataBrParaIso(dataNascimentoFormatada);
+
+	const categoriaCnh = selectCategoria.value;
+	const validadeCnhFormatada = inputValidade.value.trim();
+	const validadeCnh = MOTORISTAPAG_Login_func_converterDataBrParaIso(validadeCnhFormatada);
+	
+    if (!numeroCnh) {
+        inputNumero.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Digite o número da CNH.'
+        );
+    }
+
+    if (!MOTORISTAPAG_Login_func_validarNumeroCnh(numeroCnh)) {
+        inputNumero.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Digite um número de CNH válido com 11 números.'
+        );
+    }
+
+    if (!cpfCnh) {
+        inputCpf.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Digite o CPF do titular da CNH.'
+        );
+    }
+
+    if (!SETIMAPAG_Login_func_validarDocumentoBasico('cpf', cpfCnh)) {
+        inputCpf.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Digite um CPF válido para o titular da CNH.'
+        );
+    }
+	
+	if (!dataNascimentoFormatada) {
+		inputNascimento.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Informe sua data de nascimento.'
+		);
+	}
+
+	if (!MOTORISTAPAG_Login_func_dataBrValida(dataNascimentoFormatada)) {
+		inputNascimento.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Digite uma data de nascimento válida no formato DD/MM/AAAA.'
+		);
+	}
+
+    if (!categoriaCnh) {
+        selectCategoria.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Selecione a categoria da CNH.'
+        );
+    }
+
+    if (!validadeCnhFormatada) {
+    inputValidade.classList.add('error');
+    return PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        'Informe a validade da CNH.'
+    );
+}
+
+if (!MOTORISTAPAG_Login_func_dataBrValida(validadeCnhFormatada)) {
+    inputValidade.classList.add('error');
+    return PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        'Digite uma validade válida no formato DD/MM/AAAA.'
+    );
+}
+
+const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(validadeCnh);
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Sua sessão expirou. Volte e faça login novamente.'
+        );
+    }
+
+   try {
+    if (btn) {
+        btn.dataset.processando = 'sim';
+        btn.disabled = true;
+        btn.innerText = 'VERIFICANDO CPF...';
+    }
+
+    const MOTORISTAPAG_Login_verificarDocumento = firebase
+        .app()
+        .functions("us-central1")
+        .httpsCallable("verificarDocumento");
+
+    const respostaVerificacaoCpf = await MOTORISTAPAG_Login_verificarDocumento({
+        tipoDocumento: 'cpf',
+        documentoNumero: cpfCnh
+    });
+
+    const dadosVerificacaoCpf = respostaVerificacaoCpf.data || {};
+
+    if (!dadosVerificacaoCpf || dadosVerificacaoCpf.liberado !== true) {
+        if (btn) {
+            btn.dataset.processando = 'nao';
+            btn.disabled = false;
+            btn.innerText = textoOriginal;
+        }
+
+        MOTORISTAPAG_Login_func_mostrarCardCpfConflito();
+        return;
+    }
+
+    if (btn) {
+        btn.innerText = 'SALVANDO...';
+    }
+
+    const documentoId = 'cpf_' + cpfCnh;
+
+    await PRIMEIRAPAG_Login_db
+        .collection('documentosUsuarios')
+        .doc(documentoId)
+        .set({
+            uid: user.uid,
+            tipoDocumento: 'cpf',
+            documentoNumero: cpfCnh,
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+    await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .set({
+            cnhNumero: numeroCnh,
+            cnhCpfTitular: cpfCnh,
+            cnhCpfTitularFormatado: cpfCnhFormatado,
+
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
+
+            cnhCategoria: categoriaCnh,
+
+            cnhValidade: validadeCnh,
+            cnhValidadeFormatada: validadeCnhFormatada,
+
+            cnhValidadeStatus: statusCnhValidade.status,
+            cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
+            cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
+            cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
+            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+            cnhMensagemValidade: statusCnhValidade.mensagem,
+
+            cnhAviso30DiasEnviado: false,
+            cnhAviso15DiasEnviado: false,
+            cnhAviso7DiasEnviado: false,
+
+            cnhAvisoTolerancia15DiasEnviado: false,
+            cnhAvisoTolerancia7DiasEnviado: false,
+            cnhAvisoTolerancia5DiasEnviado: false,
+            cnhAvisoTolerancia4DiasEnviado: false,
+            cnhAvisoTolerancia3DiasEnviado: false,
+            cnhAvisoTolerancia2DiasEnviado: false,
+            cnhAvisoTolerancia1DiaEnviado: false,
+
+            cadastroCompleto: false,
+            podeAceitarCorrida: false,
+
+            cpfConflito: false,
+            cpfConflitoStatus: '',
+            cpfConflitoMensagem: '',
+
+            requerAnaliseAdmin: statusCnhValidade.bloqueado,
+            motivoAnaliseAdmin: statusCnhValidade.bloqueado
+                ? 'cnh_vencida_fora_da_tolerancia'
+                : '',
+
+            etapaCadastroMotorista: 'fotos_cnh',
+
+            motoristaStatus: statusCnhValidade.bloqueado
+                ? 'bloqueado_cnh_vencida'
+                : 'cadastro_iniciado',
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            status: {
+                geral: statusCnhValidade.bloqueado
+                    ? 'bloqueado_cnh_vencida'
+                    : 'cadastro_iniciado',
+
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: statusCnhValidade.bloqueado
+                    ? 'cnh_vencida_fora_da_tolerancia'
+                    : '',
+
+                mensagem: statusCnhValidade.bloqueado
+                    ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
+                    : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.',
+
+                cnhValidadeStatus: statusCnhValidade.status,
+                cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        }, { merge: true });
+
+    await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(user.uid)
+        .set({
+            cpf: cpfCnh,
+            cpfFormatado: cpfCnhFormatado,
+
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
+
+            cpfConflito: false,
+            cpfConflitoStatus: '',
+            cpfConflitoMensagem: '',
+
+            etapaCnhConcluida: true,
+            etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            requerAnaliseAdmin: statusCnhValidade.bloqueado,
+            motivoAnaliseAdmin: statusCnhValidade.bloqueado
+                ? 'cnh_vencida_fora_da_tolerancia'
+                : '',
+
+            etapaCadastro: 'motorista_fotos_cnh',
+            etapaCadastroMotorista: 'fotos_cnh',
+
+            motoristaStatus: statusCnhValidade.bloqueado
+                ? 'bloqueado_cnh_vencida'
+                : 'cadastro_iniciado',
+
+            status: {
+                geral: statusCnhValidade.bloqueado
+                    ? 'bloqueado_cnh_vencida'
+                    : 'cadastro_iniciado',
+
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: statusCnhValidade.bloqueado
+                    ? 'cnh_vencida_fora_da_tolerancia'
+                    : '',
+
+                mensagem: statusCnhValidade.bloqueado
+                    ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
+                    : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.',
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+	if (btn) {
+		btn.disabled = false;
+		btn.innerText = 'CONTINUAR';
+	}
+
+			PRIMEIRAPAG_Login_func_mostrarErro(
+		'MOTORISTAPAG_Login_error_cnh',
+		''
+	);
+
+	MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+
+        // Próxima tela: fotos_cnh
+       
+
+    } catch (erro) {
+    console.error('ERRO AO SALVAR DADOS DA CNH:', erro);
+
+    const msgErro = erro.message || "";
+    const codeErro = erro.code || "";
+
+    if (btn) {
+        btn.disabled = false;
+        btn.innerText = 'CONTINUAR';
+    }
+
+    if (codeErro === 'functions/not-found') {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'A função verificarDocumento não foi encontrada. Verifique se a Cloud Function foi publicada no Firebase.'
+        );
+    }
+
+    if (
+        codeErro === "functions/permission-denied" ||
+        codeErro === "permission-denied" ||
+        codeErro === "already-exists" ||
+        msgErro.includes("permission") ||
+        msgErro.includes("PERMISSION_DENIED") ||
+        msgErro.includes("Missing or insufficient permissions") ||
+        msgErro.includes("already exists") ||
+        msgErro.includes("ALREADY_EXISTS")
+    ) {
+        MOTORISTAPAG_Login_func_mostrarCardCpfConflito();
+        return;
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        'Não foi possível salvar os dados da CNH agora. Verifique sua conexão e tente novamente.'
+    );
+}
+}
 
 
 
 
 
 
+// 1. Função para limpar o CPF (remover pontos e traços)
+function MOTORISTAPAG_Login_func_limparCpf(valor) {
+    return valor ? valor.replace(/\D/g, "") : "";
+}
+
+// 2. Função para validar o formato da CNH (11 dígitos)
+function MOTORISTAPAG_Login_func_validarNumeroCnh(cnh) {
+    return cnh.length === 11;
+}
+
+// 3. Máscara para o campo de Número da CNH (apenas números, max 11)
+function MOTORISTAPAG_Login_func_maskNumeroCnh(input) {
+    let v = input.value.replace(/\D/g, "");
+    if (v.length > 11) v = v.substring(0, 11);
+    input.value = v;
+}
+function MOTORISTAPAG_Login_func_maskDataPadrao(input) {
+    let valor = input.value.replace(/\D/g, "");
+
+    if (valor.length > 8) {
+        valor = valor.substring(0, 8);
+    }
+
+    if (valor.length > 4) {
+        valor =
+            valor.substring(0, 2) + "/" +
+            valor.substring(2, 4) + "/" +
+            valor.substring(4, 8);
+    } else if (valor.length > 2) {
+        valor =
+            valor.substring(0, 2) + "/" +
+            valor.substring(2, 4);
+    }
+
+    input.value = valor;
+}
+
+function MOTORISTAPAG_Login_func_maskDataCnh(input) {
+    MOTORISTAPAG_Login_func_maskDataPadrao(input);
+}
+
+function MOTORISTAPAG_Login_func_maskDataNascimento(input) {
+    MOTORISTAPAG_Login_func_maskDataPadrao(input);
+
+    const cardConflito = document.getElementById('MOTORISTAPAG_Login_card_cpf_conflito');
+    const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cnh');
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+
+    if (cardConflito) {
+        cardConflito.style.display = 'none';
+    }
+
+    if (erroBox) {
+        erroBox.style.display = 'none';
+        erroBox.innerText = '';
+    }
+
+    if (btnContinuar) {
+        btnContinuar.style.display = 'block';
+        btnContinuar.disabled = false;
+        btnContinuar.innerText = 'CONTINUAR';
+    }
+}
+
+function MOTORISTAPAG_Login_func_converterDataBrParaIso(dataBr) {
+    const partes = dataBr.split("/");
+
+    if (partes.length !== 3) {
+        return "";
+    }
+
+    const dia = partes[0];
+    const mes = partes[1];
+    const ano = partes[2];
+
+    if (
+        dia.length !== 2 ||
+        mes.length !== 2 ||
+        ano.length !== 4
+    ) {
+        return "";
+    }
+
+    return `${ano}-${mes}-${dia}`;
+}
+
+function MOTORISTAPAG_Login_func_dataBrValida(dataBr) {
+    const iso = MOTORISTAPAG_Login_func_converterDataBrParaIso(dataBr);
+
+    if (!iso) {
+        return false;
+    }
+
+    const data = new Date(iso + "T00:00:00");
+
+    if (isNaN(data.getTime())) {
+        return false;
+    }
+
+    const [ano, mes, dia] = iso.split("-").map(Number);
+
+    return (
+        data.getFullYear() === ano &&
+        data.getMonth() + 1 === mes &&
+        data.getDate() === dia
+    );
+}
+
+// 4. Máscara para o campo de CPF na tela de motorista
+function MOTORISTAPAG_Login_func_maskCpfCnh(input) {
+    let v = input.value.replace(/\D/g, "");
+
+    if (v.length > 11) {
+        v = v.substring(0, 11);
+    }
+
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+    input.value = v;
+
+    // Se o usuário começou a corrigir o CPF, escondemos o card de conflito
+    const cardConflito = document.getElementById('MOTORISTAPAG_Login_card_cpf_conflito');
+    const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cnh');
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+
+    if (cardConflito) {
+        cardConflito.style.display = 'none';
+    }
+
+    if (erroBox) {
+        erroBox.style.display = 'none';
+        erroBox.innerText = '';
+    }
+
+    if (btnContinuar) {
+        btnContinuar.style.display = 'block';
+        btnContinuar.disabled = false;
+        btnContinuar.innerText = 'CONTINUAR';
+    }
+}
+
+// 1. Função para mostrar o card de conflito e mascarar o e-mail
+function MOTORISTAPAG_Login_func_mostrarCardCpfConflito() {
+    const card = document.getElementById('MOTORISTAPAG_Login_card_cpf_conflito');
+    const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cnh');
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+
+    if (erroBox) {
+        erroBox.innerText = 'Este CPF já está sendo usado em outra conta. Escolha uma das opções abaixo.';
+        erroBox.style.display = 'block';
+    }
+
+    if (btnContinuar) {
+        btnContinuar.style.display = 'none';
+    }
+
+    if (card) {
+        card.style.display = 'block';
+
+        card.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+}
+
+// 2. Funções dos botões que aparecem no card de conflito
+
+function MOTORISTAPAG_Login_func_voltarInicioCpfConflito() {
+    const card = document.getElementById('MOTORISTAPAG_Login_card_cpf_conflito');
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+
+    if (card) {
+        card.style.display = 'none';
+    }
+
+    if (btnContinuar) {
+        btnContinuar.style.display = 'block';
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        'Entre com a conta vinculada a este CPF para continuar com segurança.'
+    );
+
+    PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+}
+async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
+    const confirmarContinuar = confirm(
+        'Este CPF já está vinculado a outra conta.\n\n' +
+        'Se você continuar, seu cadastro ficará com alerta para análise do suporte antes da aprovação.\n\n' +
+        'Deseja continuar mesmo assim?'
+    );
+
+    if (!confirmarContinuar) {
+        return;
+    }
+
+	const user = PRIMEIRAPAG_Login_auth.currentUser;
+	const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+
+	if (btn && btn.disabled) {
+		return;
+	}
+	
+
+    const inputNumero = document.getElementById('MOTORISTAPAG_Login_input_cnh_numero');
+	const inputCpf = document.getElementById('MOTORISTAPAG_Login_input_cnh_cpf');
+	const inputNascimento = document.getElementById('MOTORISTAPAG_Login_input_data_nascimento');
+	const selectCategoria = document.getElementById('MOTORISTAPAG_Login_select_cnh_categoria');
+	const inputValidade = document.getElementById('MOTORISTAPAG_Login_input_cnh_validade');
+	
+	if (!inputNumero || !inputCpf || !inputNascimento || !selectCategoria || !inputValidade) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Erro interno: campos da CNH não encontrados.'
+		);
+	}
+    
+	if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Sua sessão expirou. Faça login novamente.'
+        );
+    }
+
+    const numeroCnh = inputNumero.value.replace(/\D/g, '');
+	const cpfCnhFormatado = inputCpf.value.trim();
+	const cpfCnh = MOTORISTAPAG_Login_func_limparCpf(cpfCnhFormatado);
+
+	const dataNascimentoFormatada = inputNascimento ? inputNascimento.value.trim() : '';
+	const dataNascimento = MOTORISTAPAG_Login_func_converterDataBrParaIso(dataNascimentoFormatada);
+
+	const categoriaCnh = selectCategoria.value;
+	
+	if (!dataNascimentoFormatada || !MOTORISTAPAG_Login_func_dataBrValida(dataNascimentoFormatada)) {
+		inputNascimento.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Informe uma data de nascimento válida no formato DD/MM/AAAA.'
+		);
+	}
+	
+		if (!numeroCnh || !MOTORISTAPAG_Login_func_validarNumeroCnh(numeroCnh)) {
+		inputNumero.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Digite um número de CNH válido com 11 números.'
+		);
+	}
+
+	if (!cpfCnh || !SETIMAPAG_Login_func_validarDocumentoBasico('cpf', cpfCnh)) {
+		inputCpf.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Digite um CPF válido para o titular da CNH.'
+		);
+	}
+
+	if (!categoriaCnh) {
+		selectCategoria.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Selecione a categoria da CNH.'
+		);
+	}
+	
+
+	const validadeCnhFormatada = inputValidade.value.trim();
+	const validadeCnh = MOTORISTAPAG_Login_func_converterDataBrParaIso(validadeCnhFormatada);
+
+	if (!validadeCnhFormatada) {
+		inputValidade.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Informe a validade da CNH.'
+		);
+	}
+
+	if (!MOTORISTAPAG_Login_func_dataBrValida(validadeCnhFormatada)) {
+		inputValidade.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Digite uma validade válida no formato DD/MM/AAAA.'
+		);
+	}
+
+	const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(validadeCnh);
+
+    try {
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'SALVANDO COM ALERTA...';
+    }
+
+    await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .set({
+            cnhNumero: numeroCnh,
+            cnhCpfTitular: cpfCnh,
+            cnhCpfTitularFormatado: cpfCnhFormatado,
+
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
+
+            cnhCategoria: categoriaCnh,
+
+            cnhValidade: validadeCnh,
+            cnhValidadeFormatada: validadeCnhFormatada,
+
+            cnhValidadeStatus: statusCnhValidade.status,
+            cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
+            cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
+            cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
+            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+            cnhMensagemValidade: statusCnhValidade.mensagem,
+
+            cnhAviso30DiasEnviado: false,
+            cnhAviso15DiasEnviado: false,
+            cnhAviso7DiasEnviado: false,
+
+            cnhAvisoTolerancia15DiasEnviado: false,
+            cnhAvisoTolerancia7DiasEnviado: false,
+            cnhAvisoTolerancia5DiasEnviado: false,
+            cnhAvisoTolerancia4DiasEnviado: false,
+            cnhAvisoTolerancia3DiasEnviado: false,
+            cnhAvisoTolerancia2DiasEnviado: false,
+            cnhAvisoTolerancia1DiaEnviado: false,
+
+            etapaCnhConcluida: true,
+            etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            cadastroCompleto: false,
+            podeAceitarCorrida: false,
+
+            cpfConflito: true,
+            cpfConflitoStatus: 'pendente_analise_suporte',
+            cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+            cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            cpfConflitoOrigem: 'cadastro_motorista_cnh',
+
+            requerAnaliseAdmin: true,
+            motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+            etapaCadastroMotorista: 'fotos_cnh',
+            motoristaStatus: 'pendente_analise_suporte',
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            status: {
+                geral: 'pendente_analise_suporte',
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: 'cpf_ja_usado_em_outra_conta',
+                mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
+
+                cnhValidadeStatus: statusCnhValidade.status,
+                cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        }, { merge: true });
+
+    await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(user.uid)
+        .set({
+            cpf: cpfCnh,
+            cpfFormatado: cpfCnhFormatado,
+
+            dataNascimento: dataNascimento,
+            dataNascimentoFormatada: dataNascimentoFormatada,
+            dataNascimentoConcluida: true,
+
+            cpfConflito: true,
+            cpfConflitoStatus: 'pendente_analise_suporte',
+            cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+            cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            cpfConflitoOrigem: 'cadastro_motorista_cnh',
+
+            cadastroCompleto: false,
+            cadastroPrincipalConcluido: false,
+
+            podeSolicitarCorrida: false,
+            podeAceitarCorrida: false,
+
+            etapaCnhConcluida: true,
+            etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            requerAnaliseAdmin: true,
+            motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+            etapaCadastro: 'motorista_fotos_cnh',
+            etapaCadastroMotorista: 'fotos_cnh',
+            motoristaStatus: 'pendente_analise_suporte',
+
+            status: {
+                geral: 'pendente_analise_suporte',
+                etapa: 'fotos_cnh',
+                tipo: 'motorista',
+                uid: user.uid,
+
+                motivo: 'cpf_ja_usado_em_outra_conta',
+                mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+    if (btn) {
+        btn.dataset.processando = 'nao';
+        btn.disabled = false;
+        btn.innerText = 'CONTINUAR';
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        ''
+    );
+
+    MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+
+} catch (erro) {
+    console.error('ERRO AO CONTINUAR COM ALERTA DE CPF:', erro);
+
+    if (btn) {
+        btn.dataset.processando = 'nao';
+        btn.disabled = false;
+        btn.innerText = 'CONTINUAR';
+    }
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_cnh',
+        'Não foi possível continuar com alerta agora. Tente novamente.'
+    );
+}
+}
+function MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(cnhValidadeIso) {
+    if (!cnhValidadeIso) {
+        return {
+            status: 'sem_data',
+            diasParaVencer: null,
+            diasAposVencimento: null,
+            diasRestantesTolerancia: null,
+            bloqueado: false,
+            mensagem: ''
+        };
+    }
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    const validade = new Date(cnhValidadeIso + "T00:00:00");
+    validade.setHours(0, 0, 0, 0);
+
+    const umDiaMs = 1000 * 60 * 60 * 24;
+
+    const diasParaVencer = Math.ceil((validade - hoje) / umDiaMs);
+    const diasAposVencimento = Math.ceil((hoje - validade) / umDiaMs);
+
+    // CNH ainda válida
+    if (diasParaVencer > 30) {
+        return {
+            status: 'valida',
+            diasParaVencer,
+            diasAposVencimento: 0,
+            diasRestantesTolerancia: 30,
+            bloqueado: false,
+            mensagem: ''
+        };
+    }
+
+    if (diasParaVencer === 30) {
+        return {
+            status: 'aviso_30_dias',
+            diasParaVencer,
+            diasAposVencimento: 0,
+            diasRestantesTolerancia: 30,
+            bloqueado: false,
+            mensagem: 'Sua CNH vence em 30 dias. Inicie a renovação para evitar bloqueio futuro.'
+        };
+    }
+
+    if (diasParaVencer === 15) {
+        return {
+            status: 'aviso_15_dias',
+            diasParaVencer,
+            diasAposVencimento: 0,
+            diasRestantesTolerancia: 30,
+            bloqueado: false,
+            mensagem: 'Sua CNH vence em 15 dias. Recomendamos renovar o quanto antes.'
+        };
+    }
+
+    if (diasParaVencer === 7) {
+        return {
+            status: 'aviso_7_dias',
+            diasParaVencer,
+            diasAposVencimento: 0,
+            diasRestantesTolerancia: 30,
+            bloqueado: false,
+            mensagem: 'Aviso urgente: sua CNH vence em 7 dias.'
+        };
+    }
+
+    if (diasParaVencer > 0 && diasParaVencer < 7) {
+        return {
+            status: 'perto_do_vencimento',
+            diasParaVencer,
+            diasAposVencimento: 0,
+            diasRestantesTolerancia: 30,
+            bloqueado: false,
+            mensagem: `Sua CNH vence em ${diasParaVencer} dia(s).`
+        };
+    }
+
+    // Vence hoje
+    if (diasParaVencer === 0) {
+        return {
+            status: 'vence_hoje',
+            diasParaVencer: 0,
+            diasAposVencimento: 0,
+            diasRestantesTolerancia: 30,
+            bloqueado: false,
+            mensagem: 'Sua CNH vence hoje. Após o vencimento, começa o período de tolerância de 30 dias.'
+        };
+    }
+
+    // CNH vencida, mas dentro da tolerância
+    if (diasAposVencimento > 0 && diasAposVencimento <= 30) {
+        const diasRestantesTolerancia = 30 - diasAposVencimento;
+
+        let status = 'tolerancia';
+        let mensagem = `Sua CNH está vencida, mas ainda está dentro do período de tolerância. Restam ${diasRestantesTolerancia} dia(s) para o bloqueio.`;
+
+        if (diasRestantesTolerancia === 15) {
+            status = 'tolerancia_15_dias';
+            mensagem = 'Sua CNH está vencida. Você está prestes a ser bloqueado: restam 15 dias de tolerância.';
+        }
+
+        if (diasRestantesTolerancia === 7) {
+            status = 'tolerancia_7_dias';
+            mensagem = 'Aviso urgente: sua CNH está vencida e restam 7 dias para o bloqueio.';
+        }
+
+        if ([5, 4, 3, 2].includes(diasRestantesTolerancia)) {
+            status = `tolerancia_${diasRestantesTolerancia}_dias`;
+            mensagem = `Sua CNH está vencida. Faltam ${diasRestantesTolerancia} dias para o bloqueio.`;
+        }
+
+        if (diasRestantesTolerancia === 1) {
+            status = 'tolerancia_1_dia';
+            mensagem = 'Desculpe, mas amanhã teremos que bloquear sua conta de motorista se a CNH não for atualizada. Que Deus abençoe!';
+        }
+
+        return {
+            status,
+            diasParaVencer: 0,
+            diasAposVencimento,
+            diasRestantesTolerancia,
+            bloqueado: false,
+            mensagem
+        };
+    }
+
+    // Passou da tolerância
+    return {
+        status: 'bloqueado_cnh_vencida',
+        diasParaVencer: 0,
+        diasAposVencimento,
+        diasRestantesTolerancia: 0,
+        bloqueado: true,
+        mensagem: 'Sua CNH ultrapassou o período de tolerância. Você está bloqueado para aceitar corridas até atualizar a CNH.'
+    };
+}
+
+// ========== TELA MOTORISTA 02: DADOS DA CNH - PREFIXO MOTORISTAPAG FINAL ==========
+//--========== TELA MOTORISTA 03: FOTOS DA CNH ========== //
+
+let MOTORISTAPAG_Login_fotoCnhEnviada = false;
+let MOTORISTAPAG_Login_selfieComCnhEnviada = false;
+
+let MOTORISTAPAG_Login_arquivoFotoCnhPendente = null;
+let MOTORISTAPAG_Login_arquivoSelfieComCnhPendente = null;
+
+let MOTORISTAPAG_Login_crlvEnviado = false;
+let MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada = false;
+
+let MOTORISTAPAG_Login_arquivoCrlvPendente = null;
+let MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente = null;
 
 
+async function MOTORISTAPAG_Login_func_carregarTelaFotosCnh() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Você precisa estar logado para continuar.'
+        );
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_fotos_cnh');
+
+const erroBox = document.getElementById('MOTORISTAPAG_Login_error_fotos_cnh');
+if (erroBox) {
+    erroBox.innerText = '';
+    erroBox.style.display = 'none';
+}
+
+MOTORISTAPAG_Login_arquivoFotoCnhPendente = null;
+MOTORISTAPAG_Login_arquivoSelfieComCnhPendente = null;
+
+try {
+        const docRef = PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid);
+        const docSnap = await docRef.get();
+
+        const dados = docSnap.exists ? docSnap.data() : {};
+        const documentos = dados.documentosMotorista || {};
+
+        const fotoCnh = documentos.fotoCnh || {};
+        const selfieComCnh = documentos.selfieComCnh || {};
+
+        MOTORISTAPAG_Login_fotoCnhEnviada = fotoCnh.enviado === true;
+        MOTORISTAPAG_Login_selfieComCnhEnviada = selfieComCnh.enviado === true;
+
+        MOTORISTAPAG_Login_func_atualizarCardDocumentoMotorista('fotoCnh', fotoCnh);
+        MOTORISTAPAG_Login_func_atualizarCardDocumentoMotorista('selfieComCnh', selfieComCnh);
+
+        MOTORISTAPAG_Login_func_verificarLiberarContinuarFotosCnh();
+
+    } catch (erro) {
+        console.error('Erro ao carregar fotos da CNH:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Não foi possível carregar os dados das fotos da CNH.'
+        );
+    }
+}
+
+function MOTORISTAPAG_Login_func_atualizarCardDocumentoMotorista(tipoDocumento, dadosDocumento) {
+    let card;
+    let status;
+    let botao;
+
+    if (tipoDocumento === 'fotoCnh') {
+        card = document.getElementById('MOTORISTAPAG_Login_card_foto_cnh');
+        status = document.getElementById('MOTORISTAPAG_Login_status_foto_cnh');
+        botao = document.getElementById('MOTORISTAPAG_Login_btn_foto_cnh');
+    }
+
+    if (tipoDocumento === 'selfieComCnh') {
+        card = document.getElementById('MOTORISTAPAG_Login_card_selfie_cnh');
+        status = document.getElementById('MOTORISTAPAG_Login_status_selfie_cnh');
+        botao = document.getElementById('MOTORISTAPAG_Login_btn_selfie_cnh');
+    }
+
+    if (!card || !status || !botao) return;
+
+    card.classList.remove(
+        'MOTORISTAPAG_Login_doc_card_ok',
+        'MOTORISTAPAG_Login_doc_card_reprovado'
+    );
+
+const statusDocumento = dadosDocumento && dadosDocumento.status
+    ? dadosDocumento.status
+    : 'pendente_envio';
+
+const enviado =
+    dadosDocumento &&
+    dadosDocumento.enviado === true &&
+    statusDocumento !== 'reprovado';
+
+const motivo = dadosDocumento && dadosDocumento.motivoReprovacao
+    ? dadosDocumento.motivoReprovacao
+    : '';
+
+let preview;
+let infoCompressao;
+
+if (tipoDocumento === 'fotoCnh') {
+    preview = document.getElementById('MOTORISTAPAG_Login_preview_foto_cnh');
+    infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_foto_cnh');
+}
+
+if (tipoDocumento === 'selfieComCnh') {
+    preview = document.getElementById('MOTORISTAPAG_Login_preview_selfie_cnh');
+    infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_selfie_cnh');
+}
+
+if (preview && dadosDocumento && dadosDocumento.url) {
+    preview.src = dadosDocumento.url;
+    preview.style.display = 'block';
+}
+
+if (
+    infoCompressao &&
+    dadosDocumento &&
+    dadosDocumento.tamanhoOriginal &&
+    dadosDocumento.tamanhoFinal &&
+    dadosDocumento.economiaBytes
+) {
+    infoCompressao.style.display = 'block';
+    infoCompressao.innerText =
+        'Compressão: ' +
+        MOTORISTAPAG_Login_func_formatarTamanhoArquivo(dadosDocumento.tamanhoOriginal) +
+        ' → ' +
+        MOTORISTAPAG_Login_func_formatarTamanhoArquivo(dadosDocumento.tamanhoFinal) +
+        ' | economizou ' +
+        MOTORISTAPAG_Login_func_formatarTamanhoArquivo(dadosDocumento.economiaBytes);
+}
+
+if (tipoDocumento === 'fotoCnh') {
+    MOTORISTAPAG_Login_fotoCnhEnviada = enviado;
+}
+
+if (tipoDocumento === 'selfieComCnh') {
+    MOTORISTAPAG_Login_selfieComCnhEnviada = enviado;
+}
+
+if (!enviado) {
+    status.innerText = 'Pendente de envio';
+
+    if (preview) {
+        preview.removeAttribute('src');
+        preview.style.display = 'none';
+    }
+
+    if (infoCompressao) {
+        infoCompressao.innerText = '';
+        infoCompressao.style.display = 'none';
+    }
+
+    if (tipoDocumento === 'fotoCnh') {
+        botao.innerText = 'TIRAR FOTO DA CNH';
+    }
+
+    if (tipoDocumento === 'selfieComCnh') {
+        botao.innerText = 'TIRAR SELFIE COM A CNH';
+    }
+
+    return;
+}
+
+    if (statusDocumento === 'reprovado') {
+        card.classList.add('MOTORISTAPAG_Login_doc_card_reprovado');
+
+        status.innerText = motivo
+            ? 'Reprovado: ' + motivo
+            : 'Reprovado. Envie novamente.';
+
+        botao.innerText = tipoDocumento === 'fotoCnh'
+            ? 'REFAZER FOTO DA CNH'
+            : 'REFAZER SELFIE COM A CNH';
+
+        return;
+    }
+
+    if (statusDocumento === 'aprovado') {
+        card.classList.add('MOTORISTAPAG_Login_doc_card_ok');
+        status.innerText = 'Aprovado';
+        botao.innerText = tipoDocumento === 'fotoCnh'
+            ? 'TROCAR FOTO DA CNH'
+            : 'TROCAR SELFIE COM A CNH';
+
+        return;
+    }
+
+    card.classList.add('MOTORISTAPAG_Login_doc_card_ok');
+    status.innerText = 'Enviado. Aguardando análise.';
+
+    botao.innerText = tipoDocumento === 'fotoCnh'
+        ? 'TROCAR FOTO DA CNH'
+        : 'TROCAR SELFIE COM A CNH';
+}
+function MOTORISTAPAG_Login_func_abrirCameraDocumento(tipoDocumento) {
+    let input = null;
+
+    if (tipoDocumento === 'fotoCnh') {
+        input = document.getElementById('MOTORISTAPAG_Login_input_foto_cnh');
+    }
+
+    if (tipoDocumento === 'selfieComCnh') {
+        input = document.getElementById('MOTORISTAPAG_Login_input_selfie_cnh');
+    }
+
+    if (!input) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Não foi possível abrir a câmera. Tente novamente.'
+        );
+    }
+
+    input.click();
+}
+
+function MOTORISTAPAG_Login_func_formatarTamanhoArquivo(bytes) {
+    if (!bytes || bytes <= 0) return '0 KB';
+
+    if (bytes < 1024 * 1024) {
+        return Math.round(bytes / 1024) + ' KB';
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(1).replace('.', ',') + ' MB';
+}
+
+function MOTORISTAPAG_Login_func_comprimirImagemMotorista(file, quality = 0.7, maxWidth = 900, maxHeight = 900) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            const img = new Image();
+
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = height * (maxWidth / width);
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = width * (maxHeight / height);
+                        height = maxHeight;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        resolve(file);
+                        return;
+                    }
+
+                    const arquivoFinal = new File(
+                        [blob],
+                        'documento-motorista-tnp-mob.jpg',
+                        {
+                            type: 'image/jpeg',
+                            lastModified: Date.now()
+                        }
+                    );
+
+                    resolve(arquivoFinal);
+                }, 'image/jpeg', quality);
+            };
+
+            img.src = event.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+async function MOTORISTAPAG_Login_func_prepararDocumentoMotorista(event, tipoDocumento) {
+    const arquivoOriginal = event.target.files[0];
+
+    if (!arquivoOriginal) return;
+	
+	if (arquivoOriginal.size > 10 * 1024 * 1024) {
+    event.target.value = '';
+
+    return PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_fotos_cnh',
+        'A imagem está muito pesada. Tire uma nova foto ou escolha uma imagem menor.'
+    );
+}
+
+    if (!arquivoOriginal.type.startsWith('image/')) {
+        event.target.value = '';
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Envie apenas arquivos de imagem.'
+        );
+    }
+
+    let preview;
+    let botaoEscolher;
+    let status;
+    let infoCompressao;
+
+    if (tipoDocumento === 'fotoCnh') {
+        preview = document.getElementById('MOTORISTAPAG_Login_preview_foto_cnh');
+        botaoEscolher = document.getElementById('MOTORISTAPAG_Login_btn_foto_cnh');
+        status = document.getElementById('MOTORISTAPAG_Login_status_foto_cnh');
+        infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_foto_cnh');
+    }
+
+    if (tipoDocumento === 'selfieComCnh') {
+        preview = document.getElementById('MOTORISTAPAG_Login_preview_selfie_cnh');
+        botaoEscolher = document.getElementById('MOTORISTAPAG_Login_btn_selfie_cnh');
+        status = document.getElementById('MOTORISTAPAG_Login_status_selfie_cnh');
+        infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_selfie_cnh');
+    }
+
+    try {
+        if (status) {
+            status.innerText = 'Imagem pronta para envio...';
+        }
+
+        const arquivoCompactado = await MOTORISTAPAG_Login_func_comprimirImagemMotorista(
+    arquivoOriginal,
+    0.7,
+    900,
+    900
+	);
+
+        const tamanhoOriginal = arquivoOriginal.size;
+        const tamanhoFinal = arquivoCompactado.size;
+        const economia = Math.max(0, tamanhoOriginal - tamanhoFinal);
+
+        const dadosPendente = {
+            arquivoOriginal: arquivoOriginal,
+            arquivoCompactado: arquivoCompactado,
+            tamanhoOriginal: tamanhoOriginal,
+            tamanhoFinal: tamanhoFinal,
+            economia: economia
+        };
+
+        if (tipoDocumento === 'fotoCnh') {
+            MOTORISTAPAG_Login_arquivoFotoCnhPendente = dadosPendente;
+            MOTORISTAPAG_Login_fotoCnhEnviada = false;
+        }
+
+        if (tipoDocumento === 'selfieComCnh') {
+            MOTORISTAPAG_Login_arquivoSelfieComCnhPendente = dadosPendente;
+            MOTORISTAPAG_Login_selfieComCnhEnviada = false;
+        }
+
+        const urlPreview = URL.createObjectURL(arquivoCompactado);
+
+        if (preview) {
+            preview.src = urlPreview;
+            preview.style.display = 'block';
+        }
+
+        if (botaoEscolher) {
+            botaoEscolher.innerText = tipoDocumento === 'fotoCnh'
+                ? 'TROCAR FOTO DA CNH'
+                : 'TROCAR SELFIE COM A CNH';
+        }
+
+        if (status) {
+            status.innerText = 'Imagem pronta para envio...';
+        }
+
+        if (infoCompressao) {
+            infoCompressao.style.display = 'block';
+            infoCompressao.innerText =
+                'Compressão: ' +
+                MOTORISTAPAG_Login_func_formatarTamanhoArquivo(tamanhoOriginal) +
+                ' → ' +
+                MOTORISTAPAG_Login_func_formatarTamanhoArquivo(tamanhoFinal) +
+                ' | economizou ' +
+                MOTORISTAPAG_Login_func_formatarTamanhoArquivo(economia);
+        }
+
+        const erroBox = document.getElementById('MOTORISTAPAG_Login_error_fotos_cnh');
+        if (erroBox) {
+            erroBox.innerText = '';
+            erroBox.style.display = 'none';
+        }
+
+        MOTORISTAPAG_Login_func_verificarLiberarContinuarFotosCnh();
+
+    } catch (erro) {
+        console.error('Erro ao preparar imagem:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Não foi possível preparar a imagem. Tente tirar a foto novamente.'
+        );
+    }
+
+    event.target.value = '';
+}
+
+function MOTORISTAPAG_Login_func_verificarLiberarContinuarFotosCnh() {
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_continuar_fotos_cnh');
+
+    if (!btnContinuar) return;
+
+    const fotoCnhPronta =
+        MOTORISTAPAG_Login_fotoCnhEnviada ||
+        MOTORISTAPAG_Login_arquivoFotoCnhPendente;
+
+    const selfieCnhPronta =
+        MOTORISTAPAG_Login_selfieComCnhEnviada ||
+        MOTORISTAPAG_Login_arquivoSelfieComCnhPendente;
+
+    btnContinuar.disabled = !(fotoCnhPronta && selfieCnhPronta);
+}
+
+async function MOTORISTAPAG_Login_func_uploadDocumentoMotoristaComprimido(tipoDocumento, dadosPendente) {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        throw new Error('Usuário não logado ao enviar documento.');
+    }
+
+    if (!dadosPendente || !dadosPendente.arquivoCompactado) {
+        throw new Error('Arquivo do documento não encontrado.');
+    }
+
+    const nomeArquivo = tipoDocumento + '_' + Date.now() + '.jpg';
+    const caminho = 'motoristas/' + user.uid + '/documentos/' + nomeArquivo;
+
+    const storageRef = PRIMEIRAPAG_Login_storage.ref().child(caminho);
+
+    await storageRef.put(dadosPendente.arquivoCompactado, {
+        contentType: 'image/jpeg'
+    });
+
+    const url = await storageRef.getDownloadURL();
+
+    const dadosAtualizadosDocumento = {
+        enviado: true,
+        url: url,
+        caminho: caminho,
+        status: 'pendente_analise',
+        motivoReprovacao: '',
+		atualizadoPor: user.uid,
+        tamanhoOriginal: dadosPendente.tamanhoOriginal,
+        tamanhoFinal: dadosPendente.tamanhoFinal,
+        economiaBytes: dadosPendente.economia,
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    const atualizacao = {
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+        etapaCadastroMotorista: 'fotos_cnh',
+        fotosCnhConcluidas: false,
+        fotosCnhStatus: 'pendente_analise'
+    };
+
+    atualizacao['documentosMotorista.' + tipoDocumento] = dadosAtualizadosDocumento;
+
+    await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .set(atualizacao, { merge: true });
+
+    MOTORISTAPAG_Login_func_atualizarCardDocumentoMotorista(
+        tipoDocumento,
+        dadosAtualizadosDocumento
+    );
+
+    return dadosAtualizadosDocumento;
+}
+
+async function MOTORISTAPAG_Login_func_continuarDepoisFotosCnh() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Você precisa estar logado para continuar.'
+        );
+    }
+
+    const fotoCnhPronta =
+        MOTORISTAPAG_Login_fotoCnhEnviada ||
+        MOTORISTAPAG_Login_arquivoFotoCnhPendente;
+
+    const selfieCnhPronta =
+        MOTORISTAPAG_Login_selfieComCnhEnviada ||
+        MOTORISTAPAG_Login_arquivoSelfieComCnhPendente;
+
+    if (!fotoCnhPronta || !selfieCnhPronta) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Tire a foto da CNH e a selfie com a CNH para continuar.'
+        );
+    }
+
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_continuar_fotos_cnh');
+
+	if (btn && btn.disabled) {
+		return;
+	}
+
+	const textoOriginal = btn ? btn.innerText : 'ENVIAR FOTOS E CONTINUAR';
+
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'ENVIANDO FOTOS...';
+        }
+
+        const erroBox = document.getElementById('MOTORISTAPAG_Login_error_fotos_cnh');
+        if (erroBox) {
+            erroBox.innerText = '';
+            erroBox.style.display = 'none';
+        }
+
+        if (!MOTORISTAPAG_Login_fotoCnhEnviada && MOTORISTAPAG_Login_arquivoFotoCnhPendente) {
+            await MOTORISTAPAG_Login_func_uploadDocumentoMotoristaComprimido(
+                'fotoCnh',
+                MOTORISTAPAG_Login_arquivoFotoCnhPendente
+            );
+
+            MOTORISTAPAG_Login_fotoCnhEnviada = true;
+            MOTORISTAPAG_Login_arquivoFotoCnhPendente = null;
+        }
+
+        if (!MOTORISTAPAG_Login_selfieComCnhEnviada && MOTORISTAPAG_Login_arquivoSelfieComCnhPendente) {
+            await MOTORISTAPAG_Login_func_uploadDocumentoMotoristaComprimido(
+                'selfieComCnh',
+                MOTORISTAPAG_Login_arquivoSelfieComCnhPendente
+            );
+
+            MOTORISTAPAG_Login_selfieComCnhEnviada = true;
+            MOTORISTAPAG_Login_arquivoSelfieComCnhPendente = null;
+        }
+
+        if (btn) {
+            btn.innerText = 'SALVANDO...';
+        }
+
+        const docMotoristaAtual = await PRIMEIRAPAG_Login_db
+		.collection('motoristas')
+		.doc(user.uid)
+		.get();
+
+const dadosMotoristaAtual = docMotoristaAtual.exists ? docMotoristaAtual.data() : {};
+
+const motoristaTemAlertaSuporte =
+    dadosMotoristaAtual.cpfConflito === true ||
+    dadosMotoristaAtual.requerAnaliseAdmin === true ||
+    dadosMotoristaAtual.motoristaStatus === 'pendente_analise_suporte';
+
+const statusGeralMotorista = motoristaTemAlertaSuporte
+    ? 'pendente_analise_suporte'
+    : 'cadastro_iniciado';
+
+const motivoStatusMotorista = motoristaTemAlertaSuporte
+    ? 'cpf_ja_usado_em_outra_conta'
+    : '';
+
+await PRIMEIRAPAG_Login_db
+    .collection('motoristas')
+    .doc(user.uid)
+    .set({
+        fotosCnhConcluidas: true,
+        fotosCnhStatus: 'pendente_analise',
+        etapaCadastroMotorista: 'dados_veiculo',
+
+        motoristaStatus: statusGeralMotorista,
+        motivoAnaliseAdmin: motivoStatusMotorista,
+
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+        status: {
+            geral: statusGeralMotorista,
+            etapa: 'dados_veiculo',
+            motivo: motivoStatusMotorista,
+            tipo: 'motorista',
+            uid: user.uid,
+
+            mensagem: motoristaTemAlertaSuporte
+                ? 'Fotos da CNH enviadas. Cadastro segue com alerta para análise do suporte.'
+                : 'Fotos da CNH enviadas. Próxima etapa: informar os dados do veículo.',
+
+            cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+            cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }
+    }, { merge: true });
+
+await PRIMEIRAPAG_Login_db
+    .collection('usuarios')
+    .doc(user.uid)
+    .set({
+        etapaCadastro: 'motorista_dados_veiculo',
+        etapaCadastroMotorista: 'dados_veiculo',
+
+        motoristaStatus: statusGeralMotorista,
+        motivoAnaliseAdmin: motivoStatusMotorista,
+
+        status: {
+            geral: statusGeralMotorista,
+            etapa: 'dados_veiculo',
+            motivo: motivoStatusMotorista,
+            tipo: 'motorista',
+            uid: user.uid,
+
+            mensagem: motoristaTemAlertaSuporte
+                ? 'Fotos da CNH enviadas. Cadastro segue com alerta para análise do suporte.'
+                : 'Fotos da CNH enviadas. Próxima etapa: informar os dados do veículo.',
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        },
+
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+
+        MOTORISTAPAG_Login_func_carregarTelaDadosVeiculo();
+
+    } catch (erro) {
+        console.error('Erro ao enviar fotos da CNH e continuar:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_fotos_cnh',
+            'Não foi possível enviar as fotos. Verifique sua conexão e tente novamente.'
+        );
+
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = textoOriginal;
+        }
+    }
+}
+//--========== TELA MOTORISTA 03: FOTOS DA CNH FINAL ========== //
+//--========== TELA MOTORISTA 04: DADOS DO VEÍCULO ========== 
+
+function MOTORISTAPAG_Login_func_mascararPlacaVeiculo(input) {
+    if (!input) return;
+
+    input.value = input.value
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, '')
+        .slice(0, 7);
+}
+function MOTORISTAPAG_Login_func_validarPlacaVeiculo(placa) {
+    const placaLimpa = String(placa || '')
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, '');
+
+    const padraoAntigo = /^[A-Z]{3}[0-9]{4}$/;
+    const padraoMercosul = /^[A-Z]{3}[0-9][A-Z][0-9]{2}$/;
+
+    return padraoAntigo.test(placaLimpa) || padraoMercosul.test(placaLimpa);
+}
+
+
+async function MOTORISTAPAG_Login_func_carregarTelaDadosVeiculo() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_dados_veiculo');
+
+const erroDadosVeiculo = document.getElementById('MOTORISTAPAG_Login_error_dados_veiculo');
+
+	if (erroDadosVeiculo) {
+		erroDadosVeiculo.innerText = '';
+		erroDadosVeiculo.style.display = 'none';
+	}
+
+    try {
+        const docMotorista = await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .get();
+
+        const dadosMotorista = docMotorista.exists ? docMotorista.data() : {};
+        const veiculoSalvoNoArray = Array.isArray(dadosMotorista.veiculos)
+			? dadosMotorista.veiculos.find(v => v && v.id === 'veiculo_1')
+			: null;
+
+		const veiculo = veiculoSalvoNoArray || dadosMotorista.veiculo || {};
+
+        const inputPlaca = document.getElementById('MOTORISTAPAG_Login_input_veiculo_placa');
+        const inputRenavam = document.getElementById('MOTORISTAPAG_Login_input_veiculo_renavam');
+        const inputMarca = document.getElementById('MOTORISTAPAG_Login_input_veiculo_marca');
+        const inputModelo = document.getElementById('MOTORISTAPAG_Login_input_veiculo_modelo');
+        const inputCor = document.getElementById('MOTORISTAPAG_Login_input_veiculo_cor');
+		const inputAno = document.getElementById('MOTORISTAPAG_Login_input_veiculo_ano');
+
+        if (inputPlaca) inputPlaca.value = veiculo.placa || '';
+        if (inputRenavam) inputRenavam.value = veiculo.renavam || '';
+        if (inputMarca) inputMarca.value = veiculo.marca || '';
+        if (inputModelo) inputModelo.value = veiculo.modelo || '';
+        if (inputCor) inputCor.value = veiculo.cor || '';
+		if (inputAno) inputAno.value = veiculo.ano || '';
+
+    } catch (erro) {
+        console.error('Erro ao carregar dados do veículo:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_dados_veiculo',
+            'Não foi possível carregar os dados do veículo.'
+        );
+    }
+}
+
+async function MOTORISTAPAG_Login_func_salvarDadosVeiculo() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_dados_veiculo');
+
+    if (btn && btn.disabled) {
+        return;
+    }
+
+    const inputPlaca = document.getElementById('MOTORISTAPAG_Login_input_veiculo_placa');
+    const inputRenavam = document.getElementById('MOTORISTAPAG_Login_input_veiculo_renavam');
+    const inputMarca = document.getElementById('MOTORISTAPAG_Login_input_veiculo_marca');
+    const inputModelo = document.getElementById('MOTORISTAPAG_Login_input_veiculo_modelo');
+    const inputCor = document.getElementById('MOTORISTAPAG_Login_input_veiculo_cor');
+    const inputAno = document.getElementById('MOTORISTAPAG_Login_input_veiculo_ano');
+
+    [inputPlaca, inputRenavam, inputMarca, inputModelo, inputCor, inputAno].forEach(campo => {
+		if (campo) campo.classList.remove('error');
+	});
+
+	const erroDadosVeiculo = document.getElementById('MOTORISTAPAG_Login_error_dados_veiculo');
+
+	if (erroDadosVeiculo) {
+		erroDadosVeiculo.innerText = '';
+		erroDadosVeiculo.style.display = 'none';
+	}
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_dados_veiculo',
+            'Sua sessão expirou. Faça login novamente.'
+        );
+    }
+
+   if (!inputPlaca || !inputRenavam || !inputMarca || !inputModelo || !inputCor || !inputAno) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_dados_veiculo',
+			'Erro ao carregar os campos do veículo. Atualize a página e tente novamente.'
+		);
+	}
+
+	const placa = inputPlaca.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+	const renavam = inputRenavam.value.trim().replace(/\D/g, '');
+	const marca = inputMarca.value.trim().replace(/\s+/g, ' ');
+	const modelo = inputModelo.value.trim().replace(/\s+/g, ' ');
+	const cor = inputCor.value.trim().replace(/\s+/g, ' ');
+	const ano = inputAno.value.trim().replace(/\D/g, '');
+
+    if (!MOTORISTAPAG_Login_func_validarPlacaVeiculo(placa)) {
+        inputPlaca.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_dados_veiculo',
+            'Digite uma placa válida. Exemplo: ABC1234 ou ABC1D23.'
+        );
+    }
+
+    if (!renavam || renavam.length < 9 || renavam.length > 11) {
+        inputRenavam.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_dados_veiculo',
+            'Digite um Renavam válido.'
+        );
+    }
+
+    if (marca.length < 2 || marca.length > 30) {
+		inputMarca.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_dados_veiculo',
+			'Digite uma marca válida.'
+		);
+	}
+
+	if (modelo.length < 2 || modelo.length > 40) {
+		inputModelo.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_dados_veiculo',
+			'Digite um modelo válido.'
+		);
+	}
+
+	if (cor.length < 3 || cor.length > 25) {
+		inputCor.classList.add('error');
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_dados_veiculo',
+			'Digite uma cor válida.'
+		);
+	}
+	
+	
+
+    const anoAtual = new Date().getFullYear();
+
+    if (!ano || ano.length !== 4 || Number(ano) < 1990 || Number(ano) > anoAtual + 1) {
+        inputAno.classList.add('error');
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_dados_veiculo',
+            'Digite um ano válido para o veículo.'
+        );
+    }
+
+    const textoOriginal = btn ? btn.innerText : 'CONTINUAR';
+
+    try {
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'SALVANDO...';
+    }
+
+    const docMotoristaAtual = await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .get();
+
+    const dadosMotoristaAtual = docMotoristaAtual.exists ? docMotoristaAtual.data() : {};
+
+    const motoristaTemCpfConflito =
+        dadosMotoristaAtual.cpfConflito === true ||
+        dadosMotoristaAtual.cpfConflitoStatus === 'pendente_analise_suporte';
+
+    const motoristaTemCnhBloqueada =
+        dadosMotoristaAtual.cnhBloqueioPorVencimento === true ||
+        dadosMotoristaAtual.cnhValidadeStatus === 'bloqueado_cnh_vencida';
+
+    let statusGeralMotorista = 'cadastro_iniciado';
+    let motivoStatusMotorista = '';
+
+    if (motoristaTemCnhBloqueada) {
+        statusGeralMotorista = 'bloqueado_cnh_vencida';
+        motivoStatusMotorista = 'cnh_vencida_fora_da_tolerancia';
+    }
+
+    if (motoristaTemCpfConflito) {
+        statusGeralMotorista = 'pendente_analise_suporte';
+        motivoStatusMotorista = 'cpf_ja_usado_em_outra_conta';
+    }
+
+    const veiculoInicialId = 'veiculo_1';
+
+    const veiculoInicialNovo = {
+        id: veiculoInicialId,
+        placa: placa,
+        renavam: renavam,
+        marca: marca,
+        modelo: modelo,
+        cor: cor,
+        ano: ano,
+        categoria: dadosMotoristaAtual.categoriaPrincipal || '',
+        categoriaPrincipal: dadosMotoristaAtual.categoriaPrincipal || '',
+        status: 'pendente_envio',
+        dadosConcluidos: true,
+        documentosEnviados: false,
+        emUso: false,
+
+        documentos: {
+            crlv: {
+                enviado: false,
+                status: 'pendente_envio',
+                url: '',
+                caminho: '',
+                motivoReprovacao: ''
+            },
+            fotoVeiculoPlaca: {
+                enviado: false,
+                status: 'pendente_envio',
+                url: '',
+                caminho: '',
+                motivoReprovacao: ''
+            }
+        },
+
+        criadoEm: new Date(),
+        atualizadoEm: new Date()
+    };
+
+    const veiculosExistentes = Array.isArray(dadosMotoristaAtual.veiculos)
+        ? dadosMotoristaAtual.veiculos
+        : [];
+
+    let veiculoInicialEncontrado = false;
+
+    const veiculosAtualizados = veiculosExistentes.map(function(veiculo) {
+        if (!veiculo || !veiculo.id) {
+            return veiculo;
+        }
+
+        if (veiculo.id === veiculoInicialId) {
+            veiculoInicialEncontrado = true;
+
+            return {
+                ...veiculo,
+                placa: placa,
+                renavam: renavam,
+                marca: marca,
+                modelo: modelo,
+                cor: cor,
+                ano: ano,
+                categoria: veiculo.categoria || dadosMotoristaAtual.categoriaPrincipal || '',
+                categoriaPrincipal: veiculo.categoriaPrincipal || dadosMotoristaAtual.categoriaPrincipal || '',
+                status: veiculo.status || 'pendente_envio',
+                dadosConcluidos: true,
+                documentosEnviados: veiculo.documentosEnviados === true,
+                emUso: veiculo.emUso === true,
+                atualizadoEm: new Date()
+            };
+        }
+
+        return veiculo;
+    });
+
+    if (!veiculoInicialEncontrado) {
+        veiculosAtualizados.unshift(veiculoInicialNovo);
+    }
+
+    await PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .set({
+            veiculo: {
+                placa: placa,
+                renavam: renavam,
+                marca: marca,
+                modelo: modelo,
+                cor: cor,
+                ano: ano,
+                categoria: dadosMotoristaAtual.categoriaPrincipal || '',
+                categoriaPrincipal: dadosMotoristaAtual.categoriaPrincipal || '',
+                dadosConcluidos: true,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            veiculos: veiculosAtualizados,
+            veiculosAtualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            veiculoCadastroAtualId: veiculoInicialId,
+            veiculoAtualId: dadosMotoristaAtual.veiculoAtualId || '',
+
+            dadosVeiculoConcluidos: true,
+            etapaCadastroMotorista: 'documentos_veiculo',
+
+            motoristaStatus: statusGeralMotorista,
+            motivoAnaliseAdmin: motivoStatusMotorista,
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            status: {
+                geral: statusGeralMotorista,
+                motivo: motivoStatusMotorista,
+                tipo: 'motorista',
+                uid: user.uid,
+                cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+                cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        }, { merge: true });
+
+    await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(user.uid)
+        .set({
+            etapaCadastro: 'motorista_documentos_veiculo',
+            etapaCadastroMotorista: 'documentos_veiculo',
+
+            motoristaStatus: statusGeralMotorista,
+            motivoAnaliseAdmin: motivoStatusMotorista,
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+            status: {
+                geral: statusGeralMotorista,
+                motivo: motivoStatusMotorista,
+                tipo: 'motorista',
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        }, { merge: true });
+
+    MOTORISTAPAG_Login_func_carregarTelaDocumentosVeiculo();
+
+    } catch (erro) {
+        console.error('Erro ao salvar dados do veículo:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_dados_veiculo',
+            'Não foi possível salvar os dados do veículo. Tente novamente.'
+        );
+
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = textoOriginal;
+        }
+    }
+}
+
+ //--========== TELA MOTORISTA 04: DADOS DO VEÍCULO FINAL ========== //
+ //--========== TELA MOTORISTA 05: FOTO DOS DADOS DO VEÍCULO ========== // 
+ 
+async function MOTORISTAPAG_Login_func_carregarTelaDocumentosVeiculo() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    if (!user) return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_documentos_veiculo');
+
+    try {
+        const docMotorista = await PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid).get();
+        const dadosMotorista = docMotorista.exists ? docMotorista.data() : {};
+
+        // 1. Pegamos o ID do veículo que está sendo editado agora
+        const veiculoIdAtual = dadosMotorista.veiculoCadastroAtualId || 'veiculo_1';
+        
+        // 2. Procuramos esse veículo dentro do array de veículos
+        const veiculos = dadosMotorista.veiculos || [];
+        const veiculoSendoEditado = veiculos.find(v => v.id === veiculoIdAtual) || {};
+
+        // 3. Pegamos os documentos desse veículo específico
+        const documentosDoVeiculo = veiculoSendoEditado.documentos || {};
+
+        // 4. Se não achou no veículo, tenta no campo raiz (fallback)
+        const crlv = documentosDoVeiculo.crlv || dadosMotorista.documentosVeiculo?.crlv || {};
+        const fotoVeiculoPlaca = documentosDoVeiculo.fotoVeiculoPlaca || dadosMotorista.documentosVeiculo?.fotoVeiculoPlaca || {};
+
+        // Atualiza o estado das variáveis globais
+        MOTORISTAPAG_Login_crlvEnviado = !!crlv.url;
+        MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada = !!fotoVeiculoPlaca.url;
+
+        // Manda para a tela (isso vai fazer a imagem aparecer!)
+        MOTORISTAPAG_Login_func_atualizarCardDocumentoVeiculo('crlv', crlv);
+        MOTORISTAPAG_Login_func_atualizarCardDocumentoVeiculo('fotoVeiculoPlaca', fotoVeiculoPlaca);
+
+        MOTORISTAPAG_Login_func_verificarLiberarContinuarDocumentosVeiculo();
+
+    } catch (erro) {
+        console.error('Erro ao carregar:', erro);
+        PRIMEIRAPAG_Login_func_mostrarErro('MOTORISTAPAG_Login_error_documentos_veiculo', 'Erro ao carregar fotos.');
+    }
+}
+
+function MOTORISTAPAG_Login_func_atualizarCardDocumentoVeiculo(tipoDocumento, dadosDocumento) {
+    let card;
+    let status;
+    let botao;
+    let preview;
+    let infoCompressao;
+
+    if (tipoDocumento === 'crlv') {
+        card = document.getElementById('MOTORISTAPAG_Login_card_crlv');
+        status = document.getElementById('MOTORISTAPAG_Login_status_crlv');
+        botao = document.getElementById('MOTORISTAPAG_Login_btn_crlv');
+        preview = document.getElementById('MOTORISTAPAG_Login_preview_crlv');
+        infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_crlv');
+    }
+
+    if (tipoDocumento === 'fotoVeiculoPlaca') {
+        card = document.getElementById('MOTORISTAPAG_Login_card_veiculo_placa');
+        status = document.getElementById('MOTORISTAPAG_Login_status_veiculo_placa');
+        botao = document.getElementById('MOTORISTAPAG_Login_btn_veiculo_placa');
+        preview = document.getElementById('MOTORISTAPAG_Login_preview_veiculo_placa');
+        infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_veiculo_placa');
+    }
+
+    if (!card || !status || !botao) return;
+
+    card.classList.remove(
+        'MOTORISTAPAG_Login_doc_card_ok',
+        'MOTORISTAPAG_Login_doc_card_reprovado'
+    );
+
+    const enviado = dadosDocumento && (
+    dadosDocumento.enviado === true ||
+    !!dadosDocumento.url
+	);
+
+    const statusDocumento = dadosDocumento && dadosDocumento.status
+        ? dadosDocumento.status
+        : 'pendente_envio';
+
+    const motivo = dadosDocumento && dadosDocumento.motivoReprovacao
+        ? dadosDocumento.motivoReprovacao
+        : '';
+
+    if (preview && dadosDocumento && dadosDocumento.url) {
+        preview.src = dadosDocumento.url;
+        preview.style.display = 'block';
+    }
+
+    if (
+        infoCompressao &&
+        dadosDocumento &&
+        dadosDocumento.tamanhoOriginal &&
+        dadosDocumento.tamanhoFinal &&
+        dadosDocumento.economiaBytes
+    ) {
+        infoCompressao.style.display = 'block';
+        infoCompressao.innerText =
+            'Compressão: ' +
+            MOTORISTAPAG_Login_func_formatarTamanhoArquivo(dadosDocumento.tamanhoOriginal) +
+            ' → ' +
+            MOTORISTAPAG_Login_func_formatarTamanhoArquivo(dadosDocumento.tamanhoFinal) +
+            ' | economizou ' +
+            MOTORISTAPAG_Login_func_formatarTamanhoArquivo(dadosDocumento.economiaBytes);
+    }
+
+    if (tipoDocumento === 'crlv') {
+        MOTORISTAPAG_Login_crlvEnviado = enviado;
+    }
+
+    if (tipoDocumento === 'fotoVeiculoPlaca') {
+        MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada = enviado;
+    }
+
+    if (!enviado) {
+        status.innerText = 'Pendente de envio';
+
+        if (preview) {
+            preview.removeAttribute('src');
+            preview.style.display = 'none';
+        }
+
+        if (infoCompressao) {
+            infoCompressao.innerText = '';
+            infoCompressao.style.display = 'none';
+        }
+
+        if (tipoDocumento === 'crlv') {
+            botao.innerText = 'TIRAR FOTO DO CRLV';
+        }
+
+        if (tipoDocumento === 'fotoVeiculoPlaca') {
+            botao.innerText = 'TIRAR FOTO DO VEÍCULO';
+        }
+
+        return;
+    }
+
+    if (statusDocumento === 'reprovado') {
+        card.classList.add('MOTORISTAPAG_Login_doc_card_reprovado');
+
+        status.innerText = motivo
+            ? 'Reprovado: ' + motivo
+            : 'Reprovado. Envie novamente.';
+
+        botao.innerText = tipoDocumento === 'crlv'
+            ? 'REFAZER FOTO DO CRLV'
+            : 'REFAZER FOTO DO VEÍCULO';
+
+        return;
+    }
+
+    if (statusDocumento === 'aprovado') {
+        card.classList.add('MOTORISTAPAG_Login_doc_card_ok');
+        status.innerText = 'Aprovado';
+
+        botao.innerText = tipoDocumento === 'crlv'
+            ? 'TROCAR FOTO DO CRLV'
+            : 'TROCAR FOTO DO VEÍCULO';
+
+        return;
+    }
+
+    card.classList.add('MOTORISTAPAG_Login_doc_card_ok');
+    status.innerText = 'Enviado. Aguardando análise.';
+
+    botao.innerText = tipoDocumento === 'crlv'
+        ? 'TROCAR FOTO DO CRLV'
+        : 'TROCAR FOTO DO VEÍCULO';
+}
+
+
+function MOTORISTAPAG_Login_func_abrirCameraDocumentoVeiculo(tipoDocumento) {
+    let input = null;
+
+    if (tipoDocumento === 'crlv') {
+        input = document.getElementById('MOTORISTAPAG_Login_input_crlv');
+    }
+
+    if (tipoDocumento === 'fotoVeiculoPlaca') {
+        input = document.getElementById('MOTORISTAPAG_Login_input_foto_veiculo_placa');
+    }
+
+    if (!input) {
+        console.error('Input da câmera não encontrado:', tipoDocumento);
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_documentos_veiculo',
+            'Erro interno: campo de foto não encontrado.'
+        );
+    }
+
+    input.click();
+}
+
+async function MOTORISTAPAG_Login_func_prepararDocumentoVeiculo(event, tipoDocumento) {
+    const arquivoOriginal = event.target.files[0];
+
+    if (!arquivoOriginal) return;
+
+    if (!arquivoOriginal.type.startsWith('image/')) {
+        event.target.value = '';
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_documentos_veiculo',
+            'Envie apenas arquivos de imagem.'
+        );
+    }
+
+    let preview;
+    let botaoEscolher;
+    let status;
+    let infoCompressao;
+
+    if (tipoDocumento === 'crlv') {
+        preview = document.getElementById('MOTORISTAPAG_Login_preview_crlv');
+        botaoEscolher = document.getElementById('MOTORISTAPAG_Login_btn_crlv');
+        status = document.getElementById('MOTORISTAPAG_Login_status_crlv');
+        infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_crlv');
+    }
+
+    if (tipoDocumento === 'fotoVeiculoPlaca') {
+        preview = document.getElementById('MOTORISTAPAG_Login_preview_veiculo_placa');
+        botaoEscolher = document.getElementById('MOTORISTAPAG_Login_btn_veiculo_placa');
+        status = document.getElementById('MOTORISTAPAG_Login_status_veiculo_placa');
+        infoCompressao = document.getElementById('MOTORISTAPAG_Login_info_compressao_veiculo_placa');
+    }
+
+    try {
+        if (status) {
+            status.innerText = 'Preparando imagem...';
+        }
+
+        const arquivoCompactado = await MOTORISTAPAG_Login_func_comprimirImagemMotorista(
+            arquivoOriginal,
+            0.7,
+            900,
+            900
+        );
+
+        const tamanhoOriginal = arquivoOriginal.size;
+        const tamanhoFinal = arquivoCompactado.size;
+        const economia = tamanhoOriginal - tamanhoFinal;
+
+        const dadosPendente = {
+            arquivoOriginal: arquivoOriginal,
+            arquivoCompactado: arquivoCompactado,
+            tamanhoOriginal: tamanhoOriginal,
+            tamanhoFinal: tamanhoFinal,
+            economia: economia
+        };
+
+        if (tipoDocumento === 'crlv') {
+            MOTORISTAPAG_Login_arquivoCrlvPendente = dadosPendente;
+            MOTORISTAPAG_Login_crlvEnviado = false;
+        }
+
+        if (tipoDocumento === 'fotoVeiculoPlaca') {
+            MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente = dadosPendente;
+            MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada = false;
+        }
+
+        const urlPreview = URL.createObjectURL(arquivoCompactado);
+
+        if (preview) {
+            preview.src = urlPreview;
+            preview.style.display = 'block';
+        }
+
+        if (botaoEscolher) {
+            botaoEscolher.innerText = tipoDocumento === 'crlv'
+                ? 'TROCAR FOTO DO CRLV'
+                : 'TROCAR FOTO DO VEÍCULO';
+        }
+
+        if (status) {
+            status.innerText = 'Imagem pronta para envio...';
+        }
+
+        if (infoCompressao) {
+            infoCompressao.style.display = 'block';
+            infoCompressao.innerText =
+                'Compressão: ' +
+                MOTORISTAPAG_Login_func_formatarTamanhoArquivo(tamanhoOriginal) +
+                ' → ' +
+                MOTORISTAPAG_Login_func_formatarTamanhoArquivo(tamanhoFinal) +
+                ' | economizou ' +
+                MOTORISTAPAG_Login_func_formatarTamanhoArquivo(economia);
+        }
+
+        const erroBox = document.getElementById('MOTORISTAPAG_Login_error_documentos_veiculo');
+
+        if (erroBox) {
+            erroBox.innerText = '';
+            erroBox.style.display = 'none';
+        }
+
+        MOTORISTAPAG_Login_func_verificarLiberarContinuarDocumentosVeiculo();
+
+    } catch (erro) {
+        console.error('Erro ao preparar documento do veículo:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_documentos_veiculo',
+            'Não foi possível preparar a imagem. Tente tirar a foto novamente.'
+        );
+    }
+
+    event.target.value = '';
+}
+
+function MOTORISTAPAG_Login_func_verificarLiberarContinuarDocumentosVeiculo() {
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_continuar_documentos_veiculo');
+
+    if (!btnContinuar) return;
+
+    const crlvPronto =
+        MOTORISTAPAG_Login_crlvEnviado ||
+        MOTORISTAPAG_Login_arquivoCrlvPendente;
+
+    const fotoVeiculoPronta =
+        MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada ||
+        MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente;
+
+    btnContinuar.disabled = !(crlvPronto && fotoVeiculoPronta);
+}
+
+// Envia documento do veículo comprimido para o Storage e salva a URL no Firestore
+
+async function MOTORISTAPAG_Login_func_uploadDocumentoVeiculoComprimido(tipoDocumento, dadosPendente) {
+		try {
+		const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+		if (!user) {
+			throw new Error('Usuário não autenticado para enviar documento do veículo.');
+		}
+
+		const nomeArquivo = tipoDocumento + '_' + Date.now() + '.jpg';
+		const caminho = 'motoristas/' + user.uid + '/documentos-veiculo/' + nomeArquivo;
+
+        const storageRef = PRIMEIRAPAG_Login_storage.ref().child(caminho);
+
+        // Realiza o upload
+        const snapshot = await storageRef.put(dadosPendente.arquivoCompactado, {
+            contentType: 'image/jpeg'
+        });
+
+        // Tenta obter a URL de download
+        const url = await snapshot.ref.getDownloadURL(); 
+        // Nota: Usar snapshot.ref.getDownloadURL() é mais seguro que storageRef.getDownloadURL()
+
+        const dadosAtualizadosDocumento = {
+		enviado: true,
+		url: url,
+		caminho: caminho,
+		status: 'pendente_analise',
+
+		tamanhoOriginal: dadosPendente.tamanhoOriginal,
+		tamanhoFinal: dadosPendente.tamanhoFinal,
+		economiaBytes: dadosPendente.economia,
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	};
+
+        // Salva no Firestore
+        const atualizacao = {};
+        atualizacao['documentosVeiculo.' + tipoDocumento] = dadosAtualizadosDocumento;
+        
+        await PRIMEIRAPAG_Login_db
+		.collection('motoristas')
+		.doc(user.uid)
+		.set(atualizacao, { merge: true });
+
+        return dadosAtualizadosDocumento;
+    } catch (error) {
+        console.error("Erro no upload do veículo:", error);
+        throw error;
+    }
+}
+
+
+async function MOTORISTAPAG_Login_func_continuarDepoisDocumentosVeiculo() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_documentos_veiculo',
+            'Você precisa estar logado para continuar.'
+        );
+    }
+
+    const crlvPronto =
+        MOTORISTAPAG_Login_crlvEnviado ||
+        MOTORISTAPAG_Login_arquivoCrlvPendente;
+
+    const fotoVeiculoPronta =
+        MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada ||
+        MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente;
+
+    if (!crlvPronto || !fotoVeiculoPronta) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_documentos_veiculo',
+            'Envie a foto do CRLV e a foto do veículo mostrando a placa.'
+        );
+    }
+
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_continuar_documentos_veiculo');
+    const textoOriginal = btn ? btn.innerText : 'ENVIAR DOCUMENTOS E CONTINUAR';
+	
+		if (btn && btn.disabled) {
+		return;
+	}
+	
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'ENVIANDO DOCUMENTOS...';
+        }
+
+        const erroBox = document.getElementById('MOTORISTAPAG_Login_error_documentos_veiculo');
+
+        if (erroBox) {
+            erroBox.innerText = '';
+            erroBox.style.display = 'none';
+        }
+
+        let dadosCrlvEnviado = null;
+		let dadosFotoPlacaEnviada = null;
+
+		if (!MOTORISTAPAG_Login_crlvEnviado && MOTORISTAPAG_Login_arquivoCrlvPendente) {
+			dadosCrlvEnviado = await MOTORISTAPAG_Login_func_uploadDocumentoVeiculoComprimido(
+				'crlv',
+				MOTORISTAPAG_Login_arquivoCrlvPendente
+			);
+
+			MOTORISTAPAG_Login_crlvEnviado = true;
+			MOTORISTAPAG_Login_arquivoCrlvPendente = null;
+
+			MOTORISTAPAG_Login_func_atualizarCardDocumentoVeiculo('crlv', dadosCrlvEnviado);
+		}
+
+		if (!MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada && MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente) {
+			dadosFotoPlacaEnviada = await MOTORISTAPAG_Login_func_uploadDocumentoVeiculoComprimido(
+				'fotoVeiculoPlaca',
+				MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente
+			);
+
+			MOTORISTAPAG_Login_fotoVeiculoPlacaEnviada = true;
+			MOTORISTAPAG_Login_arquivoVeiculoPlacaPendente = null;
+
+			MOTORISTAPAG_Login_func_atualizarCardDocumentoVeiculo('fotoVeiculoPlaca', dadosFotoPlacaEnviada);
+		}
+
+        if (btn) {
+            btn.innerText = 'SALVANDO...';
+        }
+
+        const docMotoristaAtual = await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .get();
+
+        const dadosMotoristaAtual = docMotoristaAtual.exists ? docMotoristaAtual.data() : {};
+
+        const motoristaTemAlertaSuporte =
+		dadosMotoristaAtual.cpfConflito === true ||
+		dadosMotoristaAtual.cpfConflitoStatus === 'pendente_analise_suporte' ||
+		dadosMotoristaAtual.motoristaStatus === 'pendente_analise_suporte';
+
+        const statusGeralMotorista = motoristaTemAlertaSuporte
+            ? 'pendente_analise_suporte'
+            : 'pendente_analise_admin';
+
+        const motivoStatusMotorista = motoristaTemAlertaSuporte
+            ? 'cpf_ja_usado_em_outra_conta'
+            : '';
+
+// MANTENDO SUA SEQUÊNCIA EXATA:
+	const veiculoCadastroAtualId = dadosMotoristaAtual.veiculoCadastroAtualId || 'veiculo_1';
+	const documentosVeiculoAtual = dadosMotoristaAtual.documentosVeiculo || {};
+	const documentoCrlvAtual = dadosCrlvEnviado || documentosVeiculoAtual.crlv || {};
+	const documentoFotoPlacaAtual = dadosFotoPlacaEnviada || documentosVeiculoAtual.fotoVeiculoPlaca || {};
+
+	const documentoCrlvLimpo = {
+		...documentoCrlvAtual
+	};
+
+	const documentoFotoPlacaLimpo = {
+		...documentoFotoPlacaAtual
+	};
+
+	delete documentoCrlvLimpo.atualizadoEm;
+	delete documentoFotoPlacaLimpo.atualizadoEm;
+
+	const veiculosAtuais = Array.isArray(dadosMotoristaAtual.veiculos) ? dadosMotoristaAtual.veiculos : [];
+
+	const veiculoExisteNoArray = veiculosAtuais.some(function(veiculo) {
+		return veiculo && veiculo.id === veiculoCadastroAtualId;
+	});
+
+	if (!veiculoExisteNoArray) {
+		throw new Error('Veículo atual não encontrado para salvar os documentos.');
+	}
+	const veiculosAtualizados = veiculosAtuais.map(function(veiculo) {
+    if (!veiculo || veiculo.id !== veiculoCadastroAtualId) {
+        return veiculo;
+    }
+
+    return {
+        ...veiculo,
+        status: 'pendente_analise',
+        documentosEnviados: true,
+        emUso: false,
+
+        documentos: {
+    crlv: {
+        ...(veiculo.documentos && veiculo.documentos.crlv ? veiculo.documentos.crlv : {}),
+        ...documentoCrlvLimpo,
+        enviado: true,
+        status: 'pendente_analise',
+        motivoReprovacao: ''
+    },
+
+    fotoVeiculoPlaca: {
+        ...(veiculo.documentos && veiculo.documentos.fotoVeiculoPlaca ? veiculo.documentos.fotoVeiculoPlaca : {}),
+        ...documentoFotoPlacaLimpo,
+        enviado: true,
+        status: 'pendente_analise',
+        motivoReprovacao: ''
+    }
+},
+
+atualizadoEm: new Date()
+    };
+});
+
+
+await PRIMEIRAPAG_Login_db
+    .collection('motoristas')
+    .doc(user.uid)
+    .set({
+        documentosVeiculoConcluidos: true,
+        documentosVeiculoStatus: 'pendente_analise',
+
+        cadastroAprovado: false,
+        cadastroCompleto: false,
+
+        statusAnalise: statusGeralMotorista,
+
+        requerAnaliseAdmin: true,
+        podeAceitarCorrida: false,
+        disponivelParaCorridas: false,
+        motoristaOnline: false,
+
+        veiculos: veiculosAtualizados,
+        veiculoCadastroAtualId: veiculoCadastroAtualId,
+        veiculoAtualId: '',
+
+        etapaCadastroMotorista: 'endereco_motorista',
+
+        motoristaStatus: statusGeralMotorista,
+
+        motivoAnaliseAdmin: motivoStatusMotorista,
+
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+        status: {
+            geral: statusGeralMotorista,
+            motivo: motivoStatusMotorista,
+            tipo: 'motorista',
+            uid: user.uid,
+            cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+            cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }
+    }, { merge: true });
+
+await PRIMEIRAPAG_Login_db
+    .collection('usuarios')
+    .doc(user.uid)
+    .set({
+        etapaCadastro: 'motorista_endereco',
+		etapaCadastroMotorista: 'endereco_motorista',
+        cadastroAprovado: false,
+        cadastroCompleto: false,
+
+        statusAnalise: statusGeralMotorista,
+
+        requerAnaliseAdmin: true,
+        podeAceitarCorrida: false,
+        disponivelParaCorridas: false,
+        motoristaOnline: false,
+
+        motoristaStatus: statusGeralMotorista,
+
+        motivoAnaliseAdmin: motivoStatusMotorista,
+
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+        status: {
+            geral: statusGeralMotorista,
+            motivo: motivoStatusMotorista,
+            tipo: 'motorista',
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }
+    }, { merge: true });
+
+MOTORISTAPAG_Login_func_carregarTelaEnderecoMotorista();
+
+} catch (erro) {
+    console.error('Erro ao enviar documentos do veículo:', erro);
+
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_documentos_veiculo',
+        'Não foi possível enviar os documentos. Verifique sua conexão e tente novamente.'
+    );
+
+} finally {
+		if (btn) {
+			btn.innerText = textoOriginal;
+			MOTORISTAPAG_Login_func_verificarLiberarContinuarDocumentosVeiculo();
+		}
+	}
+}
+
+ 
+//--========== TELA MOTORISTA 05: FOTO DOS DADOS DO VEÍCULO ========== // 
+ 
+ //--========== TELA MOTORISTA 06: ENDEREÇO DO MOTORISTA ========== //
+
+function MOTORISTAPAG_Login_func_mascararCepMotorista(input) {
+    if (!input) return;
+
+    let valor = input.value.replace(/\D/g, '').slice(0, 8);
+
+    if (valor.length > 5) {
+        valor = valor.slice(0, 5) + '-' + valor.slice(5);
+    }
+
+    input.value = valor;
+}
+
+async function MOTORISTAPAG_Login_func_carregarTelaEnderecoMotorista() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_endereco_motorista');
+
+    const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cadastro_endereco');
+
+    if (erroBox) {
+        erroBox.innerText = '';
+        erroBox.style.display = 'none';
+    }
+
+    try {
+        const userDoc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        const motoristaDoc = await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .get();
+
+        const u = userDoc.exists ? userDoc.data() : {};
+        const m = motoristaDoc.exists ? motoristaDoc.data() : {};
+        const endereco = u.endereco || m.endereco || {};
+
+        const cep = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_cep');
+        const rua = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_rua');
+        const numero = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_numero');
+        const bairro = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_bairro');
+        const cidade = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_cidade');
+        const estado = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_estado');
+        const complemento = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_complemento');
+        const referencia = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_referencia');
+
+        if (cep) cep.value = endereco.cepFormatado || endereco.cep || '';
+        if (rua) rua.value = endereco.rua || '';
+        if (numero) numero.value = endereco.numero || '';
+        if (bairro) bairro.value = endereco.bairro || '';
+        if (cidade) cidade.value = endereco.cidade || '';
+        if (estado) estado.value = endereco.estado || '';
+        if (complemento) complemento.value = endereco.complemento || '';
+        if (referencia) referencia.value = endereco.referencia || '';
+
+    } catch (erro) {
+        console.error('Erro ao carregar endereço do motorista:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cadastro_endereco',
+            'Não foi possível carregar o endereço.'
+        );
+    }
+}
+
+async function MOTORISTAPAG_Login_func_buscarCepEnderecoMotorista() {
+    const inputCep = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_cep');
+
+    if (!inputCep) return;
+
+    const cep = inputCep.value.replace(/\D/g, '');
+
+    if (cep.length !== 8) return;
+
+    try {
+        const resposta = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
+        const dados = await resposta.json();
+
+        if (dados.erro) {
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'MOTORISTAPAG_Login_error_cadastro_endereco',
+                'CEP não encontrado.'
+            );
+        }
+
+        const rua = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_rua');
+        const bairro = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_bairro');
+        const cidade = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_cidade');
+        const estado = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_estado');
+
+        if (rua) rua.value = dados.logradouro || '';
+		if (bairro) bairro.value = dados.bairro || '';
+		if (cidade) cidade.value = dados.localidade || '';
+		if (estado) estado.value = dados.uf || '';
+
+		const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cadastro_endereco');
+
+		if (erroBox) {
+			erroBox.innerText = '';
+			erroBox.style.display = 'none';
+		}
+
+    } catch (erro) {
+        console.error('Erro ao buscar CEP do motorista:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cadastro_endereco',
+            'Não foi possível buscar o CEP agora.'
+        );
+    }
+}
+
+async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_endereco_cadastro');
+
+    if (btn && btn.disabled) {
+        return;
+    }
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cadastro_endereco',
+            'Sua sessão expirou. Faça login novamente.'
+        );
+    }
+
+    const inputCep = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_cep');
+    const inputRua = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_rua');
+    const inputNumero = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_numero');
+    const inputBairro = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_bairro');
+    const inputCidade = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_cidade');
+    const inputEstado = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_estado');
+    const inputComplemento = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_complemento');
+    const inputReferencia = document.getElementById('MOTORISTAPAG_Login_input_cadastro_endereco_referencia');
+
+    const cepFormatado = inputCep ? inputCep.value.trim() : '';
+    const cep = cepFormatado.replace(/\D/g, '');
+    const rua = inputRua ? inputRua.value.trim().replace(/\s+/g, ' ') : '';
+    const numero = inputNumero ? inputNumero.value.trim().replace(/\s+/g, ' ') : '';
+    const bairro = inputBairro ? inputBairro.value.trim().replace(/\s+/g, ' ') : '';
+    const cidade = inputCidade ? inputCidade.value.trim().replace(/\s+/g, ' ') : '';
+    const estado = inputEstado ? inputEstado.value.trim().toUpperCase() : '';
+    const complemento = inputComplemento ? inputComplemento.value.trim().replace(/\s+/g, ' ') : '';
+    const referencia = inputReferencia ? inputReferencia.value.trim().replace(/\s+/g, ' ') : '';
+
+    if (cep.length !== 8) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cadastro_endereco',
+            'Digite um CEP válido.'
+        );
+    }
+
+    if (!rua || !numero || !bairro || !cidade || estado.length !== 2) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cadastro_endereco',
+            'Preencha CEP, rua, número, bairro, cidade e UF.'
+        );
+    }
+
+    const endereco = {
+        cep: cep,
+        cepFormatado: cepFormatado,
+        rua: rua,
+        numero: numero,
+        bairro: bairro,
+        cidade: cidade,
+        estado: estado,
+        complemento: complemento,
+        referencia: referencia
+    };
+
+    const textoOriginal = btn ? btn.innerText : 'CONTINUAR';
+
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'SALVANDO...';
+        }
+
+        const docMotoristaAtual = await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .get();
+
+        const dadosMotoristaAtual = docMotoristaAtual.exists ? docMotoristaAtual.data() : {};
+
+        const motoristaTemAlertaSuporte =
+            dadosMotoristaAtual.cpfConflito === true ||
+            dadosMotoristaAtual.cpfConflitoStatus === 'pendente_analise_suporte' ||
+            dadosMotoristaAtual.motoristaStatus === 'pendente_analise_suporte';
+
+        const statusGeralMotorista = motoristaTemAlertaSuporte
+            ? 'pendente_analise_suporte'
+            : 'pendente_analise_admin';
+
+        const motivoStatusMotorista = motoristaTemAlertaSuporte
+            ? 'cpf_ja_usado_em_outra_conta'
+            : '';
+
+        await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .set({
+                endereco: endereco,
+                enderecoConcluido: true,
+
+                etapaCadastroMotorista: 'pix_motorista',
+
+                motoristaStatus: statusGeralMotorista,
+                statusAnalise: statusGeralMotorista,
+                motivoAnaliseAdmin: motivoStatusMotorista,
+
+                requerAnaliseAdmin: true,
+                podeAceitarCorrida: false,
+                disponivelParaCorridas: false,
+                motoristaOnline: false,
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+                status: {
+                    geral: statusGeralMotorista,
+                    motivo: motivoStatusMotorista,
+                    tipo: 'motorista',
+                    uid: user.uid,
+                    etapa: 'pix_motorista',
+                    mensagem: 'Endereço salvo. Próxima etapa: confirmar o Pix do motorista.',
+                    cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+                    cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                }
+            }, { merge: true });
+
+        await PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(user.uid)
+			.set({
+				endereco: endereco,
+				enderecoConcluido: true,
+
+				etapaCadastro: 'motorista_pix',
+				etapaCadastroMotorista: 'pix_motorista',
+
+				motoristaStatus: statusGeralMotorista,
+				statusAnalise: statusGeralMotorista,
+				motivoAnaliseAdmin: motivoStatusMotorista,
+
+				requerAnaliseAdmin: true,
+				podeAceitarCorrida: false,
+				disponivelParaCorridas: false,
+				motoristaOnline: false,
+
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+				status: {
+					geral: statusGeralMotorista,
+					motivo: motivoStatusMotorista,
+					tipo: 'motorista',
+					etapa: 'pix_motorista',
+					mensagem: 'Endereço salvo. Próxima etapa: confirmar o Pix do motorista.',
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				}
+			}, { merge: true });
+
+        MOTORISTAPAG_Login_func_carregarTelaPixConfirmacao();
+
+    } catch (erro) {
+        console.error('Erro ao salvar endereço do motorista:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cadastro_endereco',
+            'Não foi possível salvar o endereço. Tente novamente.'
+        );
+
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = textoOriginal;
+        }
+    }
+}
+
+//--========== TELA MOTORISTA 06: ENDEREÇO DO MOTORISTA FINAL ========== //
+ 
+ // ========== TELA MOTORISTA 07: CONFIRMAÇÃO PIX PARA RECEBIMENTO ========== //
+
+let MOTORISTAPAG_Login_pixConfirmacaoCodigo = '';
+let MOTORISTAPAG_Login_unsubscribePixConfirmacao = null;
+let MOTORISTAPAG_Login_timerPixConfirmacao = null;
+let MOTORISTAPAG_Login_segundosPixConfirmacao = 120;
+let MOTORISTAPAG_Login_pixConfirmadoProcessando = false;
+
+function MOTORISTAPAG_Login_func_carregarTelaPixConfirmacao() {
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_pix_confirmacao');
+
+    const boxInicial = document.getElementById('MOTORISTAPAG_Login_pix_box_inicial');
+    const boxAguardando = document.getElementById('MOTORISTAPAG_Login_pix_box_aguardando');
+    const boxConfirmado = document.getElementById('MOTORISTAPAG_Login_pix_box_confirmado');
+
+    if (boxInicial) boxInicial.classList.remove('PRIMEIRAPAG_Login_hidden');
+    if (boxAguardando) boxAguardando.classList.add('PRIMEIRAPAG_Login_hidden');
+    if (boxConfirmado) boxConfirmado.classList.add('PRIMEIRAPAG_Login_hidden');
+
+    MOTORISTAPAG_Login_func_escutarPixConfirmacao();
+}
+function MOTORISTAPAG_Login_func_escutarPixConfirmacao() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) return;
+
+    if (MOTORISTAPAG_Login_unsubscribePixConfirmacao) {
+        MOTORISTAPAG_Login_unsubscribePixConfirmacao();
+        MOTORISTAPAG_Login_unsubscribePixConfirmacao = null;
+    }
+
+    MOTORISTAPAG_Login_unsubscribePixConfirmacao = PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .onSnapshot((doc) => {
+            if (!doc.exists) return;
+
+            const dados = doc.data() || {};
+            const pix = dados.pixConfirmacaoRecebimento || {};
+
+            if (pix.status === 'pago' || pix.pago === true) {
+                MOTORISTAPAG_Login_func_mostrarPixConfirmado();
+            }
+
+            if (
+                pix.status === 'aguardando_pagamento' &&
+                pix.tnpPaymentId &&
+                !MOTORISTAPAG_Login_pixConfirmacaoCodigo
+            ) {
+                const codigoBox = document.getElementById('MOTORISTAPAG_Login_pix_codigo');
+
+                if (codigoBox && codigoBox.innerText.trim()) {
+                    MOTORISTAPAG_Login_pixConfirmacaoCodigo = codigoBox.innerText.trim();
+                }
+            }
+        });
+}
+
+async function MOTORISTAPAG_Login_func_gerarPixConfirmacao(forcarNovoPix = false) {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_gerar_pix_confirmacao');
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_pix_confirmacao',
+            'Você precisa estar logado para gerar o Pix.'
+        );
+    }
+
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'GERANDO PIX...';
+        }
+
+        const gerarPagamentoTNP = PRIMEIRAPAG_Login_functions.httpsCallable('gerarPagamentoTNP');
+
+        const resposta = await gerarPagamentoTNP({
+            tipoPagamento: 'confirmacao_conta_recebimento_motorista',
+            forcarNovoPix: forcarNovoPix === true
+        });
+
+        const dados = resposta.data || {};
+
+        if (dados.ok === true && dados.pixKey) {
+            MOTORISTAPAG_Login_func_mostrarPixAguardando(dados.pixKey);
+            return;
+        }
+
+        if (dados.reutilizar === true && dados.pixKey) {
+            MOTORISTAPAG_Login_func_mostrarPixAguardando(dados.pixKey);
+            return;
+        }
+
+        if (dados.reutilizar === true && !dados.pixKey) {
+            MOTORISTAPAG_Login_func_mostrarPixAguardandoExistente();
+            return;
+        }
+
+        throw new Error(dados.mensagem || 'A TNP não retornou o código Pix.');
+
+    } catch (erro) {
+        console.error('Erro ao gerar Pix real de confirmação:', erro);
+
+        let mensagem = 'Não foi possível gerar o Pix agora. Tente novamente.';
+
+        if (erro && erro.message) {
+            mensagem = erro.message;
+        }
+
+        if (
+            mensagem.includes('Já existe um Pix aguardando pagamento') ||
+            mensagem.includes('Pix aguardando pagamento')
+        ) {
+            MOTORISTAPAG_Login_func_mostrarPixAguardandoExistente();
+            return;
+        }
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_pix_confirmacao',
+            mensagem
+        );
+
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'GERAR PIX DE R$ 0,01';
+        }
+    }
+}
+
+
+function MOTORISTAPAG_Login_func_mostrarPixAguardando(codigoPix) {
+    MOTORISTAPAG_Login_pixConfirmacaoCodigo = codigoPix || '';
+
+    const boxInicial = document.getElementById('MOTORISTAPAG_Login_pix_box_inicial');
+    const boxAguardando = document.getElementById('MOTORISTAPAG_Login_pix_box_aguardando');
+    const boxConfirmado = document.getElementById('MOTORISTAPAG_Login_pix_box_confirmado');
+    const imgQrCode = document.getElementById('MOTORISTAPAG_Login_pix_qrcode_img');
+    const codigoBox = document.getElementById('MOTORISTAPAG_Login_pix_codigo');
+
+    if (boxInicial) boxInicial.classList.add('PRIMEIRAPAG_Login_hidden');
+    if (boxAguardando) boxAguardando.classList.remove('PRIMEIRAPAG_Login_hidden');
+    if (boxConfirmado) boxConfirmado.classList.add('PRIMEIRAPAG_Login_hidden');
+
+    if (imgQrCode) {
+    imgQrCode.style.display = 'block';
+    imgQrCode.src =
+    'https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=' +
+    encodeURIComponent(MOTORISTAPAG_Login_pixConfirmacaoCodigo);
+}
+
+    if (codigoBox) {
+    codigoBox.innerText = MOTORISTAPAG_Login_pixConfirmacaoCodigo;
+	}
+
+	MOTORISTAPAG_Login_func_iniciarCronometroPixConfirmacao();
+}
+
+function MOTORISTAPAG_Login_func_mostrarPixAguardandoExistente() {
+    const boxInicial = document.getElementById('MOTORISTAPAG_Login_pix_box_inicial');
+    const boxAguardando = document.getElementById('MOTORISTAPAG_Login_pix_box_aguardando');
+    const boxConfirmado = document.getElementById('MOTORISTAPAG_Login_pix_box_confirmado');
+    const imgQrCode = document.getElementById('MOTORISTAPAG_Login_pix_qrcode_img');
+    const codigoBox = document.getElementById('MOTORISTAPAG_Login_pix_codigo');
+
+    if (boxInicial) boxInicial.classList.add('PRIMEIRAPAG_Login_hidden');
+    if (boxAguardando) boxAguardando.classList.remove('PRIMEIRAPAG_Login_hidden');
+    if (boxConfirmado) boxConfirmado.classList.add('PRIMEIRAPAG_Login_hidden');
+
+    if (imgQrCode) {
+        imgQrCode.removeAttribute('src');
+        imgQrCode.style.display = 'none';
+    }
+
+    if (codigoBox) {
+        codigoBox.innerText =
+            'Já existe um Pix aguardando pagamento. Se você já pagou, aguarde a confirmação ou toque em verificar pagamento.';
+    }
+
+    MOTORISTAPAG_Login_func_iniciarCronometroPixConfirmacao();
+}
+
+function MOTORISTAPAG_Login_func_copiarPixConfirmacao() {
+    if (!MOTORISTAPAG_Login_pixConfirmacaoCodigo) {
+        return alert('Código Pix ainda não foi gerado.');
+    }
+
+    navigator.clipboard.writeText(MOTORISTAPAG_Login_pixConfirmacaoCodigo)
+        .then(() => {
+            alert('Código Pix copiado!');
+        })
+        .catch(() => {
+            alert('Não foi possível copiar. Toque e segure no código para copiar manualmente.');
+        });
+}
+
+function MOTORISTAPAG_Login_func_iniciarCronometroPixConfirmacao() {
+    const cronometro = document.getElementById('MOTORISTAPAG_Login_pix_cronometro');
+    const acoesDemora = document.getElementById('MOTORISTAPAG_Login_pix_acoes_demora');
+
+    MOTORISTAPAG_Login_func_pararCronometroPixConfirmacao();
+
+    MOTORISTAPAG_Login_segundosPixConfirmacao = 120;
+
+    if (acoesDemora) {
+        acoesDemora.classList.add('PRIMEIRAPAG_Login_hidden');
+    }
+
+    MOTORISTAPAG_Login_func_atualizarTextoCronometroPix();
+
+    MOTORISTAPAG_Login_timerPixConfirmacao = setInterval(() => {
+        MOTORISTAPAG_Login_segundosPixConfirmacao--;
+
+        MOTORISTAPAG_Login_func_atualizarTextoCronometroPix();
+
+        if (MOTORISTAPAG_Login_segundosPixConfirmacao <= 0) {
+            MOTORISTAPAG_Login_func_pararCronometroPixConfirmacao();
+
+            if (cronometro) {
+                cronometro.innerText =
+                    "Ainda não identificamos a confirmação automática. Se você já pagou, toque em verificar pagamento.";
+            }
+
+            if (acoesDemora) {
+                acoesDemora.classList.remove('PRIMEIRAPAG_Login_hidden');
+            }
+        }
+    }, 1000);
+}
+
+function MOTORISTAPAG_Login_func_atualizarTextoCronometroPix() {
+    const cronometro = document.getElementById('MOTORISTAPAG_Login_pix_cronometro');
+
+    if (!cronometro) return;
+
+    const minutos = String(Math.floor(MOTORISTAPAG_Login_segundosPixConfirmacao / 60)).padStart(2, '0');
+    const segundos = String(MOTORISTAPAG_Login_segundosPixConfirmacao % 60).padStart(2, '0');
+
+    cronometro.innerText =
+        `Aguardando confirmação automática por até ${minutos}:${segundos}.`;
+}
+
+function MOTORISTAPAG_Login_func_pararCronometroPixConfirmacao() {
+    if (MOTORISTAPAG_Login_timerPixConfirmacao) {
+        clearInterval(MOTORISTAPAG_Login_timerPixConfirmacao);
+        MOTORISTAPAG_Login_timerPixConfirmacao = null;
+    }
+}
+
+async function MOTORISTAPAG_Login_func_mostrarPixConfirmado() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+	if (MOTORISTAPAG_Login_pixConfirmadoProcessando) {
+		return;
+	}
+
+	MOTORISTAPAG_Login_pixConfirmadoProcessando = true;
+
+	MOTORISTAPAG_Login_func_pararCronometroPixConfirmacao();
+
+    const boxInicial = document.getElementById('MOTORISTAPAG_Login_pix_box_inicial');
+    const boxAguardando = document.getElementById('MOTORISTAPAG_Login_pix_box_aguardando');
+    const boxConfirmado = document.getElementById('MOTORISTAPAG_Login_pix_box_confirmado');
+
+    if (boxInicial) boxInicial.classList.add('PRIMEIRAPAG_Login_hidden');
+    if (boxAguardando) boxAguardando.classList.add('PRIMEIRAPAG_Login_hidden');
+    if (boxConfirmado) boxConfirmado.classList.remove('PRIMEIRAPAG_Login_hidden');
+
+    if (!user) {
+		MOTORISTAPAG_Login_pixConfirmadoProcessando = false;
+		return;
+	}
+
+	await PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid).set({
+	
+    bloqueadoPorPagamentoMotorista: false,
+    contaRecebimentoConfirmada: true,
+    etapaCadastroMotorista: 'termos_motorista',
+
+    motoristaStatus: 'pendente_analise_admin',
+    statusAnalise: 'pendente_analise_admin',
+    requerAnaliseAdmin: true,
+    podeAceitarCorrida: false,
+
+    'pixConfirmacaoRecebimento.status': 'pago',
+    'pixConfirmacaoRecebimento.pago': true,
+    'pixConfirmacaoRecebimento.precisaConfirmarPagamento': false,
+    'pixConfirmacaoRecebimento.confirmadoPeloAppEm': firebase.firestore.FieldValue.serverTimestamp(),
+
+    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+    status: {
+        geral: 'pendente_analise_admin',
+        motivo: '',
+        tipo: 'motorista',
+        uid: user.uid,
+        etapa: 'termos_motorista',
+        mensagem: 'Pix confirmado. Próxima etapa: aceitar os termos do motorista.',
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }
+}, { merge: true });
+
+await PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid).set({
+    bloqueadoPorPagamentoMotorista: false,
+    etapaCadastro: 'motorista_termos',
+    etapaCadastroMotorista: 'termos_motorista',
+
+    motoristaStatus: 'pendente_analise_admin',
+    statusAnalise: 'pendente_analise_admin',
+    requerAnaliseAdmin: true,
+    podeAceitarCorrida: false,
+
+    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+    status: {
+        geral: 'pendente_analise_admin',
+        motivo: '',
+        tipo: 'motorista',
+        etapa: 'termos_motorista',
+        mensagem: 'Pix confirmado. Próxima etapa: aceitar os termos do motorista.',
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }
+}, { merge: true });
+
+MOTORISTAPAG_Login_pixConfirmadoProcessando = false;
+}
+
+async function MOTORISTAPAG_Login_func_verificarPagamentoPixMotorista() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    try {
+        const docMotorista = await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .get();
+
+        const dadosMotorista = docMotorista.exists ? docMotorista.data() : {};
+        const pix = dadosMotorista.pixConfirmacaoRecebimento || {};
+
+        if (pix.status === 'pago' || pix.pago === true) {
+            await MOTORISTAPAG_Login_func_mostrarPixConfirmado();
+            return;
+        }
+
+        const confirmar = confirm(
+            'Ainda não identificamos a confirmação automática do Pix.\n\n' +
+            'Você pode continuar o cadastro, mas sua aprovação ficará pendente até o pagamento ser confirmado.\n\n' +
+            'Deseja continuar mesmo assim?'
+        );
+
+        if (!confirmar) return;
+
+        await PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid).set({
+		bloqueadoPorPagamentoMotorista: true,
+		contaRecebimentoConfirmada: false,
+		podeAceitarCorrida: false,
+		motoristaStatus: 'pendente_pagamento',
+		etapaCadastroMotorista: 'termos_motorista',
+
+		pixConfirmacaoRecebimento: {
+			...pix,
+			status: 'pendente_confirmacao',
+			pago: false,
+			motoristaClicouJaPaguei: true,
+			precisaConfirmarPagamento: true,
+			marcadoPendenteEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+		status: {
+			geral: 'pendente_pagamento',
+			motivo: 'pix_confirmacao_pendente',
+			tipo: 'motorista',
+			uid: user.uid,
+			etapa: 'termos_motorista',
+			mensagem: 'Pix ainda pendente de confirmação. Você pode continuar, mas ficará bloqueado até confirmar.',
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}
+	}, { merge: true });
+
+		await PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid).set({
+		bloqueadoPorPagamentoMotorista: true,
+		podeAceitarCorrida: false,
+		motoristaStatus: 'pendente_pagamento',
+		etapaCadastro: 'motorista_termos',
+		etapaCadastroMotorista: 'termos_motorista',
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+		status: {
+			geral: 'pendente_pagamento',
+			motivo: 'pix_confirmacao_pendente',
+			tipo: 'motorista',
+			etapa: 'termos_motorista',
+			mensagem: 'Pix ainda pendente de confirmação. Você pode continuar, mas ficará bloqueado até confirmar.',
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}
+	}, { merge: true });
+	
+        MOTORISTAPAG_Login_func_carregarTelaTermosMotorista();
+
+    } catch (erro) {
+        console.error('Erro ao verificar pagamento Pix:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_pix_confirmacao',
+            'Não foi possível verificar o pagamento agora. Tente novamente.'
+        );
+    }
+}
+
+async function MOTORISTAPAG_Login_func_continuarParaTermosMotorista() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    await PRIMEIRAPAG_Login_db
+    .collection('motoristas')
+    .doc(user.uid)
+    .set({
+        etapaCadastroMotorista: 'termos_motorista',
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+
+await PRIMEIRAPAG_Login_db
+    .collection('usuarios')
+    .doc(user.uid)
+    .set({
+        etapaCadastro: 'motorista_termos',
+        etapaCadastroMotorista: 'termos_motorista',
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+
+MOTORISTAPAG_Login_func_carregarTelaTermosMotorista();
+}
+  
+  // ========== TELA MOTORISTA 07: CONFIRMAÇÃO PIX PARA RECEBIMENTO FINAL ========== //
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 // =====================================================
 //  MODAIS GERAIS / UNIVERSAIS DO APP
 // =====================================================
@@ -10769,7 +15220,7 @@ async function TNP_Login_func_enviarCorrecaoPendencia() {
     }
 }
 // MODAL UNIVERSAL: CORRIGIR PENDÊNCIA FINAL
-
+		
 
 // ========== MODAL: CADASTRO DE MOTORISTA PENDENTE ========== 
 let PRIMEIRAPAG_Login_var_usuarioMotoristaPendente = null;
@@ -11010,7 +15461,6 @@ function PRIMEIRAPAG_Login_func_continuarCadastroMotoristaPendente() {
 
     PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_categoria');
 }
-
 async function PRIMEIRAPAG_Login_func_desistirCadastroMotorista() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
     const btnDesistir = document.getElementById('PRIMEIRAPAG_Login_btn_desistir_motorista');
@@ -11075,7 +15525,7 @@ async function PRIMEIRAPAG_Login_func_desistirCadastroMotorista() {
                 etapaCadastro: "entrada_app",
                 etapaCadastroMotorista: "cancelado",
                 motoristaStatus: "cancelado_pelo_usuario",
-                atualizadoEm: new Date()
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
 
         await PRIMEIRAPAG_Login_db
@@ -11086,9 +15536,9 @@ async function PRIMEIRAPAG_Login_func_desistirCadastroMotorista() {
                 etapaCadastroMotorista: "cancelado",
                 status: {
                     geral: "cancelado_pelo_usuario",
-                    atualizadoEm: new Date()
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
                 },
-                atualizadoEm: new Date()
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
 
         PRIMEIRAPAG_Login_func_fecharCardMotoristaPendente();
@@ -11120,10 +15570,6 @@ async function PRIMEIRAPAG_Login_func_desistirCadastroMotorista() {
 }		
 
 // ========== MODAL: CADASTRO DE MOTORISTA PENDENTE FINAL ========== 
-
-	
-
-		
 
 
 
