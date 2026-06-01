@@ -542,9 +542,26 @@
     text-transform: uppercase;
 }
 
+
 .QUINTAPAG_Login_file_input {
     display: none;
 }
+
+.QUINTAPAG_Login_file_label2 {
+    display: block;
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--Fame_gold);
+    border: 1px solid rgba(212, 180, 140, 0.35);
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+
 /* ===== SELFIE COM DOCUMENTO - PREFIXO PASSAGEIROPAG ===== */
 
 .PASSAGEIROPAG_Login_selfie_documento_preview {
@@ -3668,6 +3685,73 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_gerenciar_veiculos_doc_linha {
     width: 100%;
     margin-top: 10px;
 }
+
+.TNP_Login_modal_foto_perfil_overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(0, 0, 0, 0.78);
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
+
+.TNP_Login_modal_foto_perfil_overlay.active {
+    display: flex;
+}
+
+.TNP_Login_modal_foto_perfil_box {
+    width: 100%;
+    max-width: 390px;
+    background: linear-gradient(145deg, #211d19, #151312);
+    border: 1px solid rgba(197, 169, 141, 0.45);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.65);
+    text-align: center;
+}
+
+.TNP_Login_modal_foto_perfil_icone {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: rgba(255, 193, 7, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 1px solid rgba(255, 193, 7, 0.35);
+}
+
+.TNP_Login_modal_foto_perfil_box h3 {
+    margin: 0 0 10px;
+    color: #f2c79b;
+    font-size: 1.12rem;
+}
+
+.TNP_Login_modal_foto_perfil_box p {
+    margin: 0;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.TNP_Login_modal_foto_perfil_motivo {
+    margin: 14px 0;
+    padding: 11px;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.28);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #ffd6d6;
+    font-size: 0.84rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+
+
         
 </style>
 </head>
@@ -4287,7 +4371,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         </p>
     </div>
 
-   <label for="QUINTAPAG_Login_input_selfie" class="QUINTAPAG_Login_file_label">
+   <label for="QUINTAPAG_Login_input_selfie" class="QUINTAPAG_Login_file_label2">
     TIRAR FOTO DE PERFIL
   </label>
 
@@ -4312,7 +4396,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
     <label
         for="QUINTAPAG_Login_input_selfie"
-        class="QUINTAPAG_Login_file_label"
+        class="QUINTAPAG_Login_file_label2"
     >
         TROCAR FOTO
     </label>
@@ -4627,14 +4711,16 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 <div style="padding-bottom:120px;">
     <button
-        id="NONAPAG_Login_btn_salvar_contato"
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-        onclick="NONAPAG_Login_func_salvarContatoEmergencia()"
-    >
-        SALVAR E CONTINUAR
-    </button>
+    type="button"
+    id="NONAPAG_Login_btn_salvar_contato"
+    class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+    onclick="NONAPAG_Login_func_salvarContatoEmergencia()"
+>
+    SALVAR E CONTINUAR
+</button>
 
 <button
+    type="button"
     class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
     onclick="DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal()"
 >
@@ -4959,9 +5045,10 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             <div class="PASSAGEIROPAG_Login_pin_motorista">🚗</div>
         </div>
     </div>
-
+<!-- FUNDO DO MAPA FINAL -->
 
 <!-- TOPO -->
+<!-- MENU LATERAL -->
     <div class="PASSAGEIROPAG_Login_topo_home">
         <button class="PASSAGEIROPAG_Login_btn_foto_menu" onclick="PASSAGEIROPAG_Login_func_abrirMenuLateral()">
     <div class="menu_icon_hamburguer">
@@ -4970,13 +5057,13 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         <span></span>
     </div>
 		</button>
-
+<!-- MENU LATERAL FINAL -->
 
         <div class="PASSAGEIROPAG_Login_topo_texto">
             <strong id="PASSAGEIROPAG_Login_nome_topo">Olá!</strong>
             <span>Para onde vamos hoje?</span>
         </div>
-
+ <!-- MENU NOTIFICAÇÕES -->
         <button
             type="button"
             class="PASSAGEIROPAG_Login_btn_sininho"
@@ -4984,8 +5071,95 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         >
             🔔
         </button>
+ <!-- MENU NOTIFICAÇÕES -->
     </div>
-  <!-- MENU LATERAL -->
+
+  <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
+    <div id="PASSAGEIROPAG_Login_painel_chamada" class="PASSAGEIROPAG_Login_painel_chamada">
+ <!-- COMANDO PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
+<div
+    class="PASSAGEIROPAG_Login_puxador"
+    onclick="PASSAGEIROPAG_Login_func_alternarPainel()"
+    ontouchstart="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
+    ontouchmove="PASSAGEIROPAG_Login_func_movendoPainel(event)"
+    ontouchend="PASSAGEIROPAG_Login_func_fimArrastePainel()"
+    onmousedown="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
+></div>
+<!-- COMANDO PAINEL INFERIOR QUE VAI SUBIR E DESCER FINAL-->
+
+<!-- COMANDO DE CHAMADAS -->
+        <div class="PASSAGEIROPAG_Login_card_corrida">
+            <h3>Para onde vamos?</h3>
+
+            <div class="PASSAGEIROPAG_Login_input_fake">
+                📍 Local de partida
+            </div>
+
+            <div class="PASSAGEIROPAG_Login_input_fake">
+                🎯 Para onde você vai?
+            </div>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pedir_corrida')"
+            >
+                PEDIR CORRIDA
+            </button>
+        </div>
+<!-- COMANDO DE CHAMADAS FINAL -->
+<!-- CARD DE AVISO 1 PASSAGEIRO -->
+        <div
+            id="PASSAGEIROPAG_Login_card_verificacao"
+            class="PASSAGEIROPAG_Login_card_extra"
+        >
+            <strong>🛡️ Verificação de segurança</strong>
+            <p>
+                Envie uma selfie segurando seu documento para aumentar a proteção da sua conta.
+            </p>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_selfie_documento')"
+            >
+                ENVIAR AGORA
+            </button>
+
+            <button
+                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+                onclick="PASSAGEIROPAG_Login_func_fecharCardVerificacao()"
+            >
+                FAZER DEPOIS
+            </button>
+        </div>
+<!-- CARD DE AVISO 1 PASSAGEIRO FINAL-->
+<!-- CARD DE CONCIENTIZAÇÃO 1 PASSAGEIRO -->
+        <div class="PASSAGEIROPAG_Login_card_extra">
+            <strong>📢 Segurança na viagem</strong>
+            <p>
+                Respeite o motorista, confirme os dados da corrida e compartilhe sua rota quando necessário.
+            </p>
+        </div>
+<!-- CARD DE CONCIENTIZAÇÃO 1 PASSAGEIRO FINAL -->
+<!-- CARD DE AVISO 2 PASSAGEIRO -->
+        <div class="PASSAGEIROPAG_Login_card_extra" style="padding-bottom:10px;">
+    <strong>💰 Promoções e benefícios</strong>
+    <p>
+        Ative seu ID TNP para acompanhar cashback, benefícios e oportunidades.
+    </p>
+
+    <button
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="PASSAGEIROPAG_Login_func_abrirBeneficiosTnp()"
+    >
+        VER BENEFÍCIOS
+    </button>
+	
+	</div>
+<!-- CARD DE AVISO 2 PASSAGEIRO FINAL -->
+    </div>	
+ <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER final -->	
+	
+	  <!-- MENU LATERAL -->
     <div id="PASSAGEIROPAG_Login_menu_overlay" class="PASSAGEIROPAG_Login_menu_overlay" onclick="PASSAGEIROPAG_Login_func_fecharMenuLateral()"></div>
 
     <div id="PASSAGEIROPAG_Login_menu_lateral" class="PASSAGEIROPAG_Login_menu_lateral">
@@ -5038,87 +5212,10 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 <button onclick="PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main')">
     🚪 Sair
 </button>
-    </div>	
-  <!-- PAINEL INFERIOR QUE VAI SUBIR E DESCER -->
-    <div id="PASSAGEIROPAG_Login_painel_chamada" class="PASSAGEIROPAG_Login_painel_chamada">
-
-<div
-    class="PASSAGEIROPAG_Login_puxador"
-    onclick="PASSAGEIROPAG_Login_func_alternarPainel()"
-    ontouchstart="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
-    ontouchmove="PASSAGEIROPAG_Login_func_movendoPainel(event)"
-    ontouchend="PASSAGEIROPAG_Login_func_fimArrastePainel()"
-    onmousedown="PASSAGEIROPAG_Login_func_inicioArrastePainel(event)"
-></div>
-
-        <div class="PASSAGEIROPAG_Login_card_corrida">
-            <h3>Para onde vamos?</h3>
-
-            <div class="PASSAGEIROPAG_Login_input_fake">
-                📍 Local de partida
-            </div>
-
-            <div class="PASSAGEIROPAG_Login_input_fake">
-                🎯 Para onde você vai?
-            </div>
-
-            <button
-                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pedir_corrida')"
-            >
-                PEDIR CORRIDA
-            </button>
-        </div>
-
-        <div
-            id="PASSAGEIROPAG_Login_card_verificacao"
-            class="PASSAGEIROPAG_Login_card_extra"
-        >
-            <strong>🛡️ Verificação de segurança</strong>
-            <p>
-                Envie uma selfie segurando seu documento para aumentar a proteção da sua conta.
-            </p>
-
-            <button
-                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_selfie_documento')"
-            >
-                ENVIAR AGORA
-            </button>
-
-            <button
-                class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-                onclick="PASSAGEIROPAG_Login_func_fecharCardVerificacao()"
-            >
-                FAZER DEPOIS
-            </button>
-        </div>
-
-        <div class="PASSAGEIROPAG_Login_card_extra">
-            <strong>📢 Segurança na viagem</strong>
-            <p>
-                Respeite o motorista, confirme os dados da corrida e compartilhe sua rota quando necessário.
-            </p>
-        </div>
-
-        <div class="PASSAGEIROPAG_Login_card_extra" style="padding-bottom:10px;">
-    <strong>💰 Promoções e benefícios</strong>
-    <p>
-        Ative seu ID TNP para acompanhar cashback, benefícios e oportunidades.
-    </p>
-
-    <button
-        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-        onclick="PASSAGEIROPAG_Login_func_abrirBeneficiosTnp()"
-    >
-        VER BENEFÍCIOS
-    </button>
-	
-	</div>
-
-    </div>	
+</div>	
 
 </div>
+  <!-- MENU LATERAL FINAL -->
 
 <!-- ========== TELA 12: final INICIAL DO PASSAGEIRO - PREFIXO PASSAGEIROPAG ========== -->
 <!--========== TELA MOTORISTA 01: CATEGORIA PRINCIPAL - PREFIXO MOTORISTAPAG  ========== -->
@@ -5780,10 +5877,87 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 </div>
 <!-- //--========== TELA MOTORISTA 06: ENDEREÇO DO MOTORISTA FINAL ========== // -->
 
+<!-- //--========== TELA MOTORISTA 07: CONTATO DE EMERGÊNCIA ========== // -->
+<div id="MOTORISTAPAG_Login_screen_contato_emergencia_top" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_contato_emergencia_top">
+
+    <div class="PRIMEIRAPAG_Login_error" id="MOTORISTAPAG_Login_error_contato_emergencia_top"></div>
+
+    <h3 class="PRIMEIRAPAG_Login_step_title">Contato de emergência</h3>
+
+    <div class="PRIMEIRAPAG_Login_cadastro_info_box">
+        <h4>Contato principal de segurança</h4>
+        <p>
+            Informe uma pessoa de confiança para contato em caso de emergência.
+            Esse contato será usado tanto no perfil de passageiro quanto no perfil de motorista.
+        </p>
+    </div>
+
+    <div class="MOTORISTAPAG_Login_contato_emergencia_top_box">
+
+        <div class="PRIMEIRAPAG_Login_form_group">
+            <label for="MOTORISTAPAG_Login_input_contato_emergencia_top_nome">Nome do contato</label>
+            <input
+                type="text"
+                id="MOTORISTAPAG_Login_input_contato_emergencia_top_nome"
+                placeholder="Ex: Maria, João, Rosa..."
+                maxlength="80"
+                oninput="MOTORISTAPAG_Login_func_atualizarBotaoContatoEmergenciatop()"
+            >
+        </div>
+
+        <div class="PRIMEIRAPAG_Login_form_group">
+            <label for="MOTORISTAPAG_Login_input_contato_emergencia_top_whatsapp">WhatsApp do contato</label>
+            <input
+                type="tel"
+                id="MOTORISTAPAG_Login_input_contato_emergencia_top_whatsapp"
+                placeholder="(00) 0.0000-0000"
+                inputmode="numeric"
+                maxlength="16"
+                oninput="MOTORISTAPAG_Login_func_maskContatoEmergenciatop(this); MOTORISTAPAG_Login_func_atualizarBotaoContatoEmergenciatop();"
+            >
+        </div>
+
+        <div class="PRIMEIRAPAG_Login_form_group">
+            <label for="MOTORISTAPAG_Login_select_contato_emergencia_top_relacao">Relação</label>
+            <select
+                id="MOTORISTAPAG_Login_select_contato_emergencia_top_relacao"
+                onchange="MOTORISTAPAG_Login_func_atualizarBotaoContatoEmergenciatop()"
+            >
+                <option value="">Selecione</option>
+                <option value="mae">Mãe</option>
+                <option value="pai">Pai</option>
+                <option value="conjuge">Cônjuge</option>
+                <option value="filho">Filho(a)</option>
+                <option value="irmao">Irmão/Irmã</option>
+                <option value="amigo">Amigo(a)</option>
+                <option value="outro">Outro</option>
+            </select>
+        </div>
+
+        <div class="MOTORISTAPAG_Login_contato_emergencia_top_aviso">
+            Esse contato principal também ajuda a completar seu perfil de passageiro.
+            Depois, no perfil do motorista, você poderá adicionar até 2 contatos extras de referência.
+        </div>
+
+    </div>
+
+    <div style="padding-bottom:120px;">
+        <button
+            id="MOTORISTAPAG_Login_btn_salvar_contato_emergencia_top"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            type="button"
+            onclick="MOTORISTAPAG_Login_func_salvarContatoEmergenciaMotoristatop()"
+            disabled
+        >
+            CONTINUAR
+        </button>
+    </div>
+
+</div>
+<!-- //--========== TELA MOTORISTA 07: CONTATO DE EMERGÊNCIA FINAL ========== // -->
 
 
-
-<!-- //--========== TELA MOTORISTA 07:  CONFIRMAÇÃO PIX PARA RECEBIMENTO  ========== // -->
+<!-- //--========== TELA MOTORISTA 08:  CONFIRMAÇÃO PIX PARA RECEBIMENTO  ========== // -->
 
 <div id="MOTORISTAPAG_Login_screen_pix_confirmacao" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_pix_confirmacao">
 
@@ -5918,9 +6092,9 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 </div>
 
-<!-- //--========== TELA MOTORISTA 07:  CONFIRMAÇÃO PIX PARA RECEBIMENTO  FINAL ========== // -->
+<!-- //--========== TELA MOTORISTA 08:  CONFIRMAÇÃO PIX PARA RECEBIMENTO  FINAL ========== // -->
 
-<!-- TELA MOTORISTA 08: TERMOS DO MOTORISTA-->
+<!-- TELA MOTORISTA 09: TERMOS DO MOTORISTA-->
 
 <div id="MOTORISTAPAG_Login_screen_termos_motorista" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_termos_motorista">
 
@@ -5988,6 +6162,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
             type="button"
             onclick="MOTORISTAPAG_Login_func_aceitarTermosMotorista()"
+			disabled
         >
             ACEITAR E CONTINUAR
         </button>
@@ -5995,8 +6170,8 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 </div>
  
-<!-- // ========== TELA MOTORISTA 08: TERMOS DO MOTORISTA FINAL ========== -->
-<!--// ========== TELA MOTORISTA 09: ID TNP DO MOTORISTA ==========-->
+<!-- // ========== TELA MOTORISTA 09: TERMOS DO MOTORISTA FINAL ========== -->
+<!--// ========== TELA MOTORISTA 10: ID TNP DO MOTORISTA ==========-->
 <div id="MOTORISTAPAG_Login_screen_id_tnp" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_screen_id_tnp">
 
     <div class="PRIMEIRAPAG_Login_error" id="MOTORISTAPAG_Login_error_id_tnp"></div>
@@ -6064,13 +6239,14 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
             type="button"
             onclick="MOTORISTAPAG_Login_func_salvarIdTnpMotorista()"
+			disabled
         >
             SALVAR ID TNP
         </button>
     </div>
 
 </div>
-<!--// ========== TELA MOTORISTA 8: ID TNP DO MOTORISTA FINAL ==========-->
+<!--// ========== TELA MOTORISTA 10: ID TNP DO MOTORISTA FINAL ==========-->
 
 
 
@@ -6315,10 +6491,51 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
 </div>
-
-<!--// ========== MODAL UNIVERSAL PIX TNP ========== -->
-
 <!--// ========== MODAL UNIVERSAL PIX TNP FINAL ========== -->
+
+
+<!--// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL ========== -->
+
+<div id="TNP_Login_modal_revisao_foto_perfil" class="TNP_Login_modal_foto_perfil_overlay">
+    <div class="TNP_Login_modal_foto_perfil_box">
+
+        <div class="TNP_Login_modal_foto_perfil_icone">📸</div>
+
+        <h3>Foto de perfil precisa de revisão</h3>
+
+        <p id="TNP_Login_modal_revisao_foto_perfil_texto">
+            O administrador solicitou uma nova foto de perfil.
+        </p>
+
+        <div 
+            id="TNP_Login_modal_revisao_foto_perfil_motivo"
+            class="TNP_Login_modal_foto_perfil_motivo"
+        ></div>
+
+        <button
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="TNP_Login_func_irParaCorrecaoFotoPerfilAdmin()"
+        >
+            CORRIGIR FOTO DE PERFIL
+        </button>
+
+        <button
+            id="TNP_Login_btn_fechar_modal_foto_perfil"
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="TNP_Login_func_fecharModalRevisaoFotoPerfil()"
+            style="display:none;"
+        >
+            FECHAR
+        </button>
+
+    </div>
+</div>
+<!--// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ========== -->
+
+
+
 
 <!-- ===================================================== -->
 <!--  MODAIS GERAIS / UNIVERSAIS DO APP FINAL -->
@@ -6741,9 +6958,24 @@ function PRIMEIRAPAG_Login_func_logar() {
 
             const PRIMEIRAPAG_user = PRIMEIRAPAG_docUsuario.data();
 
-           
-// LOGIN COMO PASSAGEIRO
-if (PRIMEIRAPAG_tipo === 'passageiro') {
+		const PRIMEIRAPAG_precisaTermosGerais =
+			PRIMEIRAPAG_Login_func_precisaAtualizarTermos(PRIMEIRAPAG_user, 'termosGerais');
+
+		const PRIMEIRAPAG_precisaTermosPassageiro =
+			PRIMEIRAPAG_Login_func_precisaAtualizarTermos(PRIMEIRAPAG_user, 'passageiro');
+
+		if (PRIMEIRAPAG_precisaTermosGerais || PRIMEIRAPAG_precisaTermosPassageiro) {
+			PRIMEIRAPAG_Login_func_mostrarErro(
+				'PRIMEIRAPAG_Login_error_main',
+				'Atualizamos nossos termos. Para continuar, aceite a nova versão.'
+			);
+
+			PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_privacidade');
+			return;
+		}
+
+		// LOGIN COMO PASSAGEIRO
+		if (PRIMEIRAPAG_tipo === 'passageiro') {
     if (PRIMEIRAPAG_Login_func_temCadastroMotoristaPendente(PRIMEIRAPAG_user)) {
         PRIMEIRAPAG_Login_func_abrirCardMotoristaPendente(PRIMEIRAPAG_user);
         return;
@@ -6961,6 +7193,9 @@ async function PRIMEIRAPAG_Login_func_solicitarPermissoesCadastro() {
 
 let SEGUNDAPAG_Login_var_emailCadastro = "";
 let SEGUNDAPAG_Login_var_uidCadastro = "";
+const TNP_MOB_VERSAO_TERMOS_GERAIS = '2026.05';
+const TNP_MOB_VERSAO_TERMOS_PASSAGEIRO = '2026.05';
+const TNP_MOB_VERSAO_TERMOS_MOTORISTA = '2026.05';
 
 function SEGUNDAPAG_Login_func_preencherEmailConfirmacao() {
     const emailDestino = document.getElementById('SEGUNDAPAG_Login_email_destino');
@@ -6981,6 +7216,36 @@ function SEGUNDAPAG_Login_func_isSenhaForte(SEGUNDAPAG_Login_senha) {
         /[A-Z]/.test(SEGUNDAPAG_Login_senha) &&
         /[a-z]/.test(SEGUNDAPAG_Login_senha) &&
         /[0-9]/.test(SEGUNDAPAG_Login_senha);
+}
+
+function PRIMEIRAPAG_Login_func_precisaAtualizarTermos(usuario, tipo) {
+    const aceites = usuario && usuario.aceites ? usuario.aceites : {};
+
+    if (tipo === 'termosGerais') {
+        return (
+            !aceites.termosGerais ||
+            aceites.termosGerais.aceito !== true ||
+            aceites.termosGerais.versao !== TNP_MOB_VERSAO_TERMOS_GERAIS
+        );
+    }
+
+    if (tipo === 'passageiro') {
+        return (
+            !aceites.passageiro ||
+            aceites.passageiro.aceito !== true ||
+            aceites.passageiro.versao !== TNP_MOB_VERSAO_TERMOS_PASSAGEIRO
+        );
+    }
+
+    if (tipo === 'motorista') {
+        return (
+            !aceites.motorista ||
+            aceites.motorista.aceito !== true ||
+            aceites.motorista.versao !== TNP_MOB_VERSAO_TERMOS_MOTORISTA
+        );
+    }
+
+    return true;
 }
 
 async function SEGUNDAPAG_Login_func_criarContaRapida() {
@@ -7047,20 +7312,50 @@ async function SEGUNDAPAG_Login_func_criarContaRapida() {
 
         await PRIMEIRAPAG_Login_db.collection('usuarios').doc(SEGUNDAPAG_Login_user.uid).set({
             uid: SEGUNDAPAG_Login_user.uid,
-            nome: SEGUNDAPAG_Login_nome,
-            email: SEGUNDAPAG_Login_email,
-            tipo: "passageiro",
+			nome: SEGUNDAPAG_Login_nome,
+			email: SEGUNDAPAG_Login_email,
 
-            perfis: {
-                passageiro: true,
-                motorista: false
-            },
+			tipo: "",
 
-            tipoContaEscolhido: false,
+			perfis: {
+				passageiro: false,
+				motorista: false
+			},
 
-            termosAceitos: localStorage.getItem("TNP_MOB_TERMOS_ACEITOS") === "true",
-            termosAceitosEm: firebase.firestore.FieldValue.serverTimestamp(),
-            versaoTermos: "1.0",
+			tipoContaEscolhido: false,
+
+            aceites: {
+			termosGerais: {
+				aceito: true,
+				versao: TNP_MOB_VERSAO_TERMOS_GERAIS,
+				aceitoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
+
+			passageiro: {
+				aceito: true,
+				versao: TNP_MOB_VERSAO_TERMOS_PASSAGEIRO,
+				aceitoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
+
+			motorista: {
+				aceito: false,
+				versao: "",
+				aceitoEm: null
+			}
+		},
+
+			termosAceitos: true,
+			termosAceitosEm: firebase.firestore.FieldValue.serverTimestamp(),
+			versaoTermos: TNP_MOB_VERSAO_TERMOS_GERAIS,
+
+			termosGeraisAceitos: true,
+			termosGeraisVersao: TNP_MOB_VERSAO_TERMOS_GERAIS,
+
+			termosPassageiroAceitos: true,
+			termosPassageiroVersao: TNP_MOB_VERSAO_TERMOS_PASSAGEIRO,
+
+			termosMotoristaAceitos: false,
+			termosMotoristaVersao: "",
 
             cadastroCompleto: false,
             cadastroPrincipalConcluido: false,
@@ -7080,10 +7375,14 @@ async function SEGUNDAPAG_Login_func_criarContaRapida() {
             etapaCadastro: "confirmar_email",
 
             corridasIniciaisLiberadas: 3,
-            corridasUsadasSemCadastro: 0,
+			corridasUsadasSemCadastro: 0,
 
-            corridasSemTnpLimite: 10,
-            corridasUsadasSemTnp: 0,
+			corridasSemTnpLimite: 10,
+			corridasUsadasSemTnp: 0,
+
+			limiteDocumentoAteCorrida: 10,
+			limiteEnderecoFotoAteCorrida: 10,
+			limiteSelfieDocumentoExtraAteCorrida: 20,
 
             idTnpInformado: false,
             cadastroTnpConcluido: false,
@@ -7692,12 +7991,11 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_payloadPassageiro.cadastroCompleto = false;
 
 			QUARTAPAG_Login_payloadPassageiro.status = {
-				geral: "cadastro_rapido",
-				etapa: "selfie",
-				tipo: "passageiro",
-				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
+			geral: "cadastro_rapido",
+			etapa: "selfie",
+			mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
 		}
 
 		await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadPassageiro, { merge: true });
@@ -7725,7 +8023,12 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 		};
 
 		if (!QUARTAPAG_Login_usuarioJaCompleto) {
-			QUARTAPAG_Login_payloadUsuarioMotorista.passageiroTermosAceitos = false;
+			QUARTAPAG_Login_payloadUsuarioMotorista.passageiroTermosAceitos = true;
+			QUARTAPAG_Login_payloadUsuarioMotorista.passageiroTermosVersao = TNP_MOB_VERSAO_TERMOS_PASSAGEIRO;
+
+			QUARTAPAG_Login_payloadUsuarioMotorista.termosPassageiroAceitos = true;
+			QUARTAPAG_Login_payloadUsuarioMotorista.termosPassageiroVersao = TNP_MOB_VERSAO_TERMOS_PASSAGEIRO;
+
 			QUARTAPAG_Login_payloadUsuarioMotorista.passageiroLiberado = false;
 
 			QUARTAPAG_Login_payloadUsuarioMotorista.etapaCadastro = "selfie";
@@ -7735,13 +8038,11 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_payloadUsuarioMotorista.motoristaStatus = "cadastro_iniciado";
 
 			QUARTAPAG_Login_payloadUsuarioMotorista.status = {
-				geral: "cadastro_iniciado",
-				etapa: "selfie",
-				tipo: "motorista",
-				uid: QUARTAPAG_Login_user.uid,
-				mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
+			geral: "cadastro_iniciado",
+			etapa: "selfie",
+			mensagem: "Tipo de conta escolhido. Próxima etapa: selfie de perfil.",
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
 		}
 
 		await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadUsuarioMotorista, { merge: true });
@@ -8032,7 +8333,14 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
     }
 
     const QUINTAPAG_Login_editandoFotoPerfil =
-        sessionStorage.getItem("TNP_MOB_EDITANDO_FOTO_PERFIL") === "true";
+		sessionStorage.getItem("TNP_MOB_EDITANDO_FOTO_PERFIL") === "true";
+
+	const QUINTAPAG_Login_corrigindoFotoPerfilAdmin =
+		sessionStorage.getItem("TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN") === "true";
+
+	const QUINTAPAG_Login_origemCorrecaoFotoPerfil =
+		sessionStorage.getItem("TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL") || "";
+		
 
     if (QUINTAPAG_Login_btn) {
     QUINTAPAG_Login_btn.disabled = true;
@@ -8072,28 +8380,64 @@ try {
 		QUINTAPAG_Login_dadosUsuarioAntes.cadastroCompleto === true ||
 		QUINTAPAG_Login_dadosUsuarioAntes.cadastroPrincipalConcluido === true;
 
+	const QUINTAPAG_Login_editandoFotoPerfil =
+		sessionStorage.getItem("TNP_MOB_EDITANDO_FOTO_PERFIL") === "true";
+
+	const QUINTAPAG_Login_corrigindoFotoPerfilAdmin =
+		sessionStorage.getItem("TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN") === "true";
+
+	const QUINTAPAG_Login_origemCorrecaoFotoPerfil =
+		sessionStorage.getItem("TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL") || "";
+
 	const QUINTAPAG_Login_payloadFoto = {
+		fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
+		fotoPerfilEnviada: true,
+
 		selfieUrl: QUINTAPAG_Login_selfieUrl,
 		selfieEnviada: true,
 
-		fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
-		fotoPerfilEnviada: true,
-		fotoPerfilObrigatoria: true,
+		fotoPerfilStatus: QUINTAPAG_Login_corrigindoFotoPerfilAdmin
+			? 'pendente_analise'
+			: 'enviada',
+
+		selfieStatus: QUINTAPAG_Login_corrigindoFotoPerfilAdmin
+			? 'pendente_analise'
+			: 'enviada',
+
+		fotoPerfilMotivoReprovacao: '',
+
+		bloqueadoPorPendenciaAdmin: false,
+		bloqueadoPorSelfieInadequada: false,
+
+		pendenciaAdminObrigatoria: false,
+		pendenciaAdminOrigem: '',
+		pendenciaAdminTipo: '',
+		pendenciaAdminCampo: '',
+
+		motivoAnaliseAdmin: '',
 
 		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 	};
+
+	if (QUINTAPAG_Login_corrigindoFotoPerfilAdmin) {
+		QUINTAPAG_Login_payloadFoto.requerAnaliseAdmin = true;
+		QUINTAPAG_Login_payloadFoto.bloqueadoPorCadastro = false;
+
+		QUINTAPAG_Login_payloadFoto.status = {
+			geral: 'pendente_analise_foto_perfil',
+			etapa: QUINTAPAG_Login_origemCorrecaoFotoPerfil === 'motorista'
+				? 'motorista_analise_final'
+				: 'home_passageiro',
+			mensagem: 'Foto de perfil reenviada. Aguardando análise do administrador.',
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
+	}
 
 	if (!QUINTAPAG_Login_editandoFotoPerfil && !QUINTAPAG_Login_usuarioJaCompleto) {
 		Object.assign(QUINTAPAG_Login_payloadFoto, {
 			cadastroRapidoConcluido: true,
 			cadastroCompleto: false,
-			bloqueadoPorCadastro: false,
-
-			corridasIniciaisLiberadas: 3,
-			corridasUsadasSemCadastro: 0,
-
-			corridasSemTnpLimite: 10,
-			corridasUsadasSemTnp: 0
+			bloqueadoPorCadastro: false
 		});
 
 		if (QUINTAPAG_Login_tipoUsuario === "motorista") {
@@ -8110,11 +8454,11 @@ try {
 			});
 		} else {
 			Object.assign(QUINTAPAG_Login_payloadFoto, {
-				etapaCadastro: "entrada_app",
+				etapaCadastro: "revisao_final",
 
 				status: {
 					geral: "liberado_com_limite",
-					etapa: "entrada_app",
+					etapa: "revisao_final",
 					mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
 					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 				}
@@ -8124,7 +8468,10 @@ try {
 
 	await QUINTAPAG_Login_userRef.set(QUINTAPAG_Login_payloadFoto, { merge: true });
 
-	if (QUINTAPAG_Login_tipoUsuario === "motorista") {
+	if (
+		QUINTAPAG_Login_tipoUsuario === "motorista" ||
+		QUINTAPAG_Login_origemCorrecaoFotoPerfil === "motorista"
+	) {
 		const QUINTAPAG_Login_motoristaRef = PRIMEIRAPAG_Login_db
 			.collection('motoristas')
 			.doc(QUINTAPAG_Login_user.uid);
@@ -8143,10 +8490,50 @@ try {
 		const QUINTAPAG_Login_payloadMotorista = {
 			fotoPerfilUrl: QUINTAPAG_Login_selfieUrl,
 			fotoPerfilEnviada: true,
+
 			selfieUrl: QUINTAPAG_Login_selfieUrl,
 			selfieEnviada: true,
+
+			fotoPerfilStatus: QUINTAPAG_Login_corrigindoFotoPerfilAdmin
+				? 'pendente_analise'
+				: 'enviada',
+
+			selfieStatus: QUINTAPAG_Login_corrigindoFotoPerfilAdmin
+				? 'pendente_analise'
+				: 'enviada',
+
+			fotoPerfilMotivoReprovacao: '',
+
+			bloqueadoPorPendenciaAdmin: false,
+			bloqueadoPorSelfieInadequada: false,
+
+			pendenciaAdminObrigatoria: false,
+			pendenciaAdminOrigem: '',
+			pendenciaAdminTipo: '',
+			pendenciaAdminCampo: '',
+
+			motivoAnaliseAdmin: '',
+
 			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 		};
+
+		if (QUINTAPAG_Login_corrigindoFotoPerfilAdmin) {
+    QUINTAPAG_Login_payloadFoto.requerAnaliseAdmin = true;
+    QUINTAPAG_Login_payloadFoto.bloqueadoPorCadastro = false;
+
+    QUINTAPAG_Login_payloadFoto.ultimaPendenciaCorrigida = 'fotoPerfil';
+    QUINTAPAG_Login_payloadFoto.fotoPerfilCorrigidaEm = firebase.firestore.FieldValue.serverTimestamp();
+
+    QUINTAPAG_Login_payloadFoto.status = {
+        geral: 'pendente_analise_foto_perfil',
+        etapa: QUINTAPAG_Login_origemCorrecaoFotoPerfil === 'motorista'
+            ? 'motorista_analise_final'
+            : 'home_passageiro',
+        mensagem: 'Foto de perfil reenviada. Aguardando análise do administrador.',
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    };
+}
+		
 
 		if (!QUINTAPAG_Login_editandoFotoPerfil && !QUINTAPAG_Login_motoristaJaCompleto) {
 			Object.assign(QUINTAPAG_Login_payloadMotorista, {
@@ -8162,23 +8549,40 @@ try {
 		}
 
 		await QUINTAPAG_Login_motoristaRef.set(QUINTAPAG_Login_payloadMotorista, { merge: true });
+	}
 
-		if (QUINTAPAG_Login_btn) {
-			QUINTAPAG_Login_btn.disabled = false;
-			QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
-		}
+	if (QUINTAPAG_Login_btn) {
+		QUINTAPAG_Login_btn.disabled = false;
+		QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
+	}
 
-		if (QUINTAPAG_Login_status) {
-			QUINTAPAG_Login_status.style.display = 'block';
-			QUINTAPAG_Login_status.innerText = QUINTAPAG_Login_editandoFotoPerfil
+	if (QUINTAPAG_Login_status) {
+		QUINTAPAG_Login_status.style.display = 'block';
+		QUINTAPAG_Login_status.innerText = QUINTAPAG_Login_corrigindoFotoPerfilAdmin
+			? 'Foto de perfil enviada. Agora ela ficará aguardando análise do administrador.'
+			: QUINTAPAG_Login_editandoFotoPerfil
 				? 'Foto de perfil atualizada com sucesso.'
 				: 'Foto salva com sucesso.';
+	}
+
+	QUINTAPAG_Login_var_selfieProcessada = null;
+
+	sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+	sessionStorage.removeItem("TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN");
+	sessionStorage.removeItem("TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL");
+
+	if (QUINTAPAG_Login_corrigindoFotoPerfilAdmin) {
+		if (QUINTAPAG_Login_origemCorrecaoFotoPerfil === "motorista") {
+			MOTORISTAPAG_Login_func_carregarHomeMotorista();
+			return;
 		}
 
-		QUINTAPAG_Login_var_selfieProcessada = null;
-		sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
+		PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+		return;
+	}
 
-		if (QUINTAPAG_Login_editandoFotoPerfil || QUINTAPAG_Login_motoristaJaCompleto) {
+	if (QUINTAPAG_Login_tipoUsuario === "motorista") {
+		if (QUINTAPAG_Login_editandoFotoPerfil || QUINTAPAG_Login_usuarioJaCompleto) {
 			DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 			return;
 		}
@@ -8191,21 +8595,6 @@ try {
 
 		return;
 	}
-
-	if (QUINTAPAG_Login_btn) {
-		QUINTAPAG_Login_btn.disabled = false;
-		QUINTAPAG_Login_btn.innerText = "ENVIAR FOTO";
-	}
-
-	if (QUINTAPAG_Login_status) {
-		QUINTAPAG_Login_status.style.display = 'block';
-		QUINTAPAG_Login_status.innerText = QUINTAPAG_Login_editandoFotoPerfil
-			? 'Foto de perfil atualizada com sucesso.'
-			: 'Foto salva com sucesso.';
-	}
-
-	QUINTAPAG_Login_var_selfieProcessada = null;
-	sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
 
 	DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 	return;
@@ -8931,12 +9320,13 @@ documentoFormatado: SETIMAPAG_Login_documentoJaSalvo
 
 		documentoIdentidadePendente: true,
 		selfieComDocumentoPendente: true,
-		limiteDocumentoAteCorrida: 10,
-
+		
 		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-		"statusCadastroPassageiro.dadosPessoais": "concluido",
-		"statusCadastroPassageiro.documentos": "pendente_ate_10_corridas"
+		statusCadastroPassageiro: {
+			dadosPessoais: "concluido",
+			documentos: "pendente_ate_10_corridas"
+		}
     };
 	const SETIMAPAG_Login_usuarioJaCompleto =
     SETIMAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
@@ -9392,10 +9782,13 @@ const OITAVAPAG_Login_referencia = OITAVAPAG_Login_inputReferencia.value.trim();
  try {
     
 	const OITAVAPAG_Login_userRef = PRIMEIRAPAG_Login_db
-        .collection('usuarios')
-        .doc(OITAVAPAG_Login_user.uid);
-		
-const OITAVAPAG_Login_payload = {
+		.collection('usuarios')
+		.doc(OITAVAPAG_Login_user.uid);
+
+	const OITAVAPAG_Login_editandoEndereco =
+		sessionStorage.getItem("TNP_MOB_EDITANDO_ENDERECO") === "true";
+			
+	const OITAVAPAG_Login_payload = {
     endereco: {
         cep: OITAVAPAG_Login_cep.replace(/\D/g, ""),
         cepFormatado: OITAVAPAG_Login_cep,
@@ -9408,46 +9801,48 @@ const OITAVAPAG_Login_payload = {
         referencia: OITAVAPAG_Login_referencia || ""
     },
 
-    enderecoFormatado:
-        `${OITAVAPAG_Login_rua}, ${OITAVAPAG_Login_numero}` +
-        `${OITAVAPAG_Login_complemento ? ' - ' + OITAVAPAG_Login_complemento : ''}` +
-        ` - ${OITAVAPAG_Login_bairro}, ${OITAVAPAG_Login_cidade}/${OITAVAPAG_Login_estado}` +
-        ` - CEP ${OITAVAPAG_Login_cep}`,
+   enderecoFormatado:
+    `${OITAVAPAG_Login_rua}, ${OITAVAPAG_Login_numero}` +
+    `${OITAVAPAG_Login_complemento ? ' - ' + OITAVAPAG_Login_complemento : ''}` +
+    ` - ${OITAVAPAG_Login_bairro}, ${OITAVAPAG_Login_cidade}/${OITAVAPAG_Login_estado}` +
+    ` - CEP ${OITAVAPAG_Login_cep}`,
 
-			enderecoConcluido: true,
+	enderecoConcluido: true,
 
-		comprovanteEnderecoPendente: true,
-		fotoEnderecoPendente: true,
-		limiteEnderecoFotoAteCorrida: 10,
+	comprovanteEnderecoPendente: true,
+	fotoEnderecoPendente: true,
 
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+	atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	};
 
-		"statusCadastroPassageiro.endereco": "concluido",
-		"statusCadastroPassageiro.comprovanteEndereco": "pendente_ate_10_corridas"
+	const OITAVAPAG_Login_userSnapAntes = await OITAVAPAG_Login_userRef.get();
+
+	const OITAVAPAG_Login_dadosAtuaisAntes = OITAVAPAG_Login_userSnapAntes.exists
+		? OITAVAPAG_Login_userSnapAntes.data()
+		: {};
+
+	OITAVAPAG_Login_payload.statusCadastroPassageiro = {
+		...(OITAVAPAG_Login_dadosAtuaisAntes.statusCadastroPassageiro || {}),
+		endereco: "concluido",
+		comprovanteEndereco: "pendente_ate_10_corridas"
+	};
+
+	const OITAVAPAG_Login_usuarioJaCompleto =
+		OITAVAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
+		OITAVAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
+		OITAVAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
+
+	if (!OITAVAPAG_Login_editandoEndereco && !OITAVAPAG_Login_usuarioJaCompleto) {
+		OITAVAPAG_Login_payload.etapaCadastro = "contato_emergencia";
+		OITAVAPAG_Login_payload.etapaCadastroCompleto = "contato_emergencia";
+
+		OITAVAPAG_Login_payload.status = {
+			geral: "cadastro_completo_pendente",
+			etapa: "contato_emergencia",
+			mensagem: "Endereço salvo. Próxima etapa: contato de emergência.",
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 		};
-		const OITAVAPAG_Login_userSnapAntes = await OITAVAPAG_Login_userRef.get();
-
-		const OITAVAPAG_Login_dadosAtuaisAntes = OITAVAPAG_Login_userSnapAntes.exists
-			? OITAVAPAG_Login_userSnapAntes.data()
-			: {};
-
-		const OITAVAPAG_Login_usuarioJaCompleto =
-			OITAVAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
-			OITAVAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
-			OITAVAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
-
-		if (!OITAVAPAG_Login_usuarioJaCompleto) {
-			OITAVAPAG_Login_payload.etapaCadastro = "contato_emergencia";
-			OITAVAPAG_Login_payload.etapaCadastroCompleto = "contato_emergencia";
-
-			OITAVAPAG_Login_payload.status = {
-				geral: "cadastro_completo_pendente",
-				etapa: "contato_emergencia",
-				mensagem: "Endereço salvo. Próxima etapa: contato de emergência.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
-		}
-		
+	}
 		
 
     await PRIMEIRAPAG_Login_db.runTransaction(async (transaction) => {
@@ -9461,7 +9856,6 @@ const OITAVAPAG_Login_payload = {
             const OITAVAPAG_Login_historicoRef = OITAVAPAG_Login_userRef
                 .collection('historicoAlteracoes')
                 .doc();
-
             transaction.set(OITAVAPAG_Login_historicoRef, {
                 tipo: "endereco",
                 uid: OITAVAPAG_Login_user.uid,
@@ -9485,8 +9879,7 @@ const OITAVAPAG_Login_payload = {
     OITAVAPAG_Login_btn.disabled = false;
     OITAVAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 }
-    const OITAVAPAG_Login_editandoEndereco =
-    sessionStorage.getItem("TNP_MOB_EDITANDO_ENDERECO") === "true";
+    
 
 if (OITAVAPAG_Login_editandoEndereco) {
     sessionStorage.removeItem("TNP_MOB_EDITANDO_ENDERECO");
@@ -9652,36 +10045,43 @@ if (
 }
 
 try {
-    const NONAPAG_Login_userRef = PRIMEIRAPAG_Login_db
-        .collection('usuarios')
-        .doc(NONAPAG_Login_user.uid);
+		const NONAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(NONAPAG_Login_user.uid);
 
-    const NONAPAG_Login_payload = {
-        contatoEmergencia: {
-            nome: NONAPAG_Login_nome,
-            whatsapp: NONAPAG_Login_whatsapp.replace(/\D/g, ""),
-            whatsappFormatado: NONAPAG_Login_whatsapp,
-            relacao: NONAPAG_Login_relacao
-        },
+		const NONAPAG_Login_editandoContato =
+			sessionStorage.getItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA") === "true";
 
-		contatoEmergenciaConcluido: true,
+		const NONAPAG_Login_payload = {
+			contatoEmergencia: {
+				nome: NONAPAG_Login_nome,
+				whatsapp: NONAPAG_Login_whatsapp.replace(/\D/g, ""),
+				whatsappFormatado: NONAPAG_Login_whatsapp,
+				relacao: NONAPAG_Login_relacao
+			},
 
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+			contatoEmergenciaConcluido: true,
 
-		"statusCadastroPassageiro.contatoEmergencia": "concluido"
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 		};
+
 		const NONAPAG_Login_userSnapAntes = await NONAPAG_Login_userRef.get();
 
 		const NONAPAG_Login_dadosAtuaisAntes = NONAPAG_Login_userSnapAntes.exists
 			? NONAPAG_Login_userSnapAntes.data()
 			: {};
 
+		NONAPAG_Login_payload.statusCadastroPassageiro = {
+			...(NONAPAG_Login_dadosAtuaisAntes.statusCadastroPassageiro || {}),
+			contatoEmergencia: "concluido"
+		};
+
 		const NONAPAG_Login_usuarioJaCompleto =
 			NONAPAG_Login_dadosAtuaisAntes.perfil100 === true ||
 			NONAPAG_Login_dadosAtuaisAntes.cadastroCompleto === true ||
 			NONAPAG_Login_dadosAtuaisAntes.cadastroPrincipalConcluido === true;
 
-		if (!NONAPAG_Login_usuarioJaCompleto) {
+		if (!NONAPAG_Login_editandoContato && !NONAPAG_Login_usuarioJaCompleto) {
 			NONAPAG_Login_payload.etapaCadastro = "revisao_final";
 			NONAPAG_Login_payload.etapaCadastroCompleto = "revisao_final";
 
@@ -9729,15 +10129,11 @@ try {
     NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
 }
 
-    const NONAPAG_Login_editandoContato =
-    sessionStorage.getItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA") === "true";
-
 if (NONAPAG_Login_editandoContato) {
     sessionStorage.removeItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA");
-    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-} else {
-    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 }
+
+DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal(); 
 
 } catch (NONAPAG_Login_erro) {
        if (NONAPAG_Login_btn) {
@@ -10287,128 +10683,68 @@ async function DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal() {
     }
 
     if (DECIMAPRIMEIRAPAG_Login_btn) {
-    DECIMAPRIMEIRAPAG_Login_btn.disabled = true;
-    DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONTINUANDO...";
-}
+        DECIMAPRIMEIRAPAG_Login_btn.disabled = true;
+        DECIMAPRIMEIRAPAG_Login_btn.innerText = "VERIFICANDO...";
+    }
 
     try {
-        const DECIMAPRIMEIRAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+        const DECIMAPRIMEIRAPAG_Login_docAtual = await PRIMEIRAPAG_Login_db
             .collection('usuarios')
-            .doc(DECIMAPRIMEIRAPAG_Login_user.uid);
-
-        const DECIMAPRIMEIRAPAG_Login_docAtual = await DECIMAPRIMEIRAPAG_Login_userRef.get();
+            .doc(DECIMAPRIMEIRAPAG_Login_user.uid)
+            .get();
 
         const dAtual = DECIMAPRIMEIRAPAG_Login_docAtual.exists
             ? DECIMAPRIMEIRAPAG_Login_docAtual.data()
             : {};
 
-        const DECIMAPRIMEIRAPAG_Login_jaTemIdTnp =
-            dAtual.idTnpInformado === true && dAtual.idTnp;
+        if (DECIMAPRIMEIRAPAG_Login_btn) {
+            DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
+            DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
+        }
 
-        if (DECIMAPRIMEIRAPAG_Login_jaTemIdTnp) {
-		await DECIMAPRIMEIRAPAG_Login_userRef.set({
-			cadastroPrincipalConcluido: true,
-			cadastroTnpConcluido: true,
-			cadastroCompleto: true,
-			perfil100: true,
+        if (dAtual.dadosPessoaisConcluidos !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+        }
 
-			etapaCadastro: "home_passageiro",
-			etapaCadastroCompleto: "completo",
+        if (dAtual.enderecoConcluido !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+        }
 
-			bloqueadoPorTnp: false,
-			bloqueadoPorPagamento: false,
+        if (dAtual.contatoEmergenciaConcluido !== true) {
+            return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+        }
 
-			selfieDocumentoExtraPendente: true,
-			selfieDocumentoExtraConcluida: false,
-			limiteSelfieDocumentoExtraAteCorrida: 20,
-			bloqueadoPorSelfieDocumentoExtra: false,
+        if (dAtual.idTnpInformado === true && dAtual.idTnp) {
+            if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+                return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+            }
 
-			status: {
-				geral: "ativo_com_cashback",
-				etapa: "home_passageiro",
-				mensagem: "Cadastro completo com cashback ativo.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
+            return PRIMEIRAPAG_Login_func_mostrarErro(
+                'DECIMAPRIMEIRAPAG_Login_error_revisao',
+                'A página inicial do passageiro ainda não foi carregada.'
+            );
+        }
 
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		}, { merge: true });
+        if (document.getElementById('DECIMASEGUNDAPAG_Login_screen_tnp')) {
+            return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
+        }
 
-		if (DECIMAPRIMEIRAPAG_Login_btn) {
-			DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
-			DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
-		}
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMAPRIMEIRAPAG_Login_error_revisao',
+            'A tela TNP ainda não foi carregada.'
+        );
 
-		if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
-    return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
-}
+    } catch (DECIMAPRIMEIRAPAG_Login_erro) {
+        if (DECIMAPRIMEIRAPAG_Login_btn) {
+            DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
+            DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
+        }
 
-return PRIMEIRAPAG_Login_func_mostrarErro(
-    'DECIMAPRIMEIRAPAG_Login_error_revisao',
-    'A página inicial do passageiro ainda não foi carregada.'
-);
-	}
-         
-await DECIMAPRIMEIRAPAG_Login_userRef.set({
-    cadastroPrincipalConcluido: true,
-
-            cadastroCompleto: false,
-            perfil100: false,
-
-            etapaCadastro: "tnp",
-			etapaCadastroCompleto: "tnp",
-
-            idTnpInformado: false,
-            cadastroTnpConcluido: false,
-
-            corridasSemTnpLimite: 10,
-            corridasUsadasSemTnp: 0,
-            bloqueadoPorTnp: false,
-
-            comprovanteEnderecoPendente: true,
-            fotoEnderecoPendente: true,
-            limiteEnderecoFotoAteCorrida: 10,
-
-            selfieDocumentoExtraPendente: true,
-            selfieDocumentoExtraConcluida: false,
-            limiteSelfieDocumentoExtraAteCorrida: 20,
-            bloqueadoPorSelfieDocumentoExtra: false,
-
-            status: {
-					geral: "ativo_com_pendencias_leves",
-					etapa: "tnp",
-					mensagem: "Cadastro principal concluído. Próxima etapa: ID TNP e cashback.",
-					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				},
-
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
-
-		if (DECIMAPRIMEIRAPAG_Login_btn) {
-			DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
-			DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
-		}
-
-if (document.getElementById('DECIMASEGUNDAPAG_Login_screen_tnp')) {
-    PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
-    return;
-}
-
-return PRIMEIRAPAG_Login_func_mostrarErro(
-    'DECIMAPRIMEIRAPAG_Login_error_revisao',
-    'A tela TNP ainda não foi carregada.'
-);
-
-} catch (DECIMAPRIMEIRAPAG_Login_erro) {
-    if (DECIMAPRIMEIRAPAG_Login_btn) {
-        DECIMAPRIMEIRAPAG_Login_btn.disabled = false;
-        DECIMAPRIMEIRAPAG_Login_btn.innerText = "CONFIRMAR E CONTINUAR";
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'DECIMAPRIMEIRAPAG_Login_error_revisao',
+            'Erro ao continuar: ' + DECIMAPRIMEIRAPAG_Login_erro.message
+        );
     }
-
-    PRIMEIRAPAG_Login_func_mostrarErro(
-        'DECIMAPRIMEIRAPAG_Login_error_revisao',
-        'Erro ao continuar: ' + DECIMAPRIMEIRAPAG_Login_erro.message
-    );
-}
 }
 
 async function DECIMAPRIMEIRAPAG_Login_func_confirmarEContinuar() {
@@ -10733,7 +11069,6 @@ async function PASSAGEIROPAG_Login_func_registrarAvisoPendenciaAdminPassageiro(p
  // ========== TELA 10: REVISÃO FINAL COM PREFIXO DECIMAPRIMEIRAPAG ==========
  
  // ========== TELA 11: ID TNP E CADASTRO NA TNP COM PREFIXO DECIMASEGUNDAPAG ==========
-
 function DECIMASEGUNDAPAG_Login_func_abrirCadastroTnp() {
     /*
         TROCAR PELO LINK REAL DA SUA INDICAÇÃO TNP
@@ -10770,6 +11105,32 @@ function DECIMASEGUNDAPAG_Login_func_validarIdTnp(DECIMASEGUNDAPAG_Login_idTnp) 
     }
 
     return true;
+}
+
+function DECIMASEGUNDAPAG_Login_func_irParaEtapaPendente(dados) {
+    const etapa = dados.etapaCadastro || "";
+
+    if (etapa === "dados_pessoais") {
+        PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+        return;
+    }
+
+    if (etapa === "endereco") {
+        PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+        return;
+    }
+
+    if (etapa === "contato_emergencia") {
+        PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+        return;
+    }
+
+    if (etapa === "revisao_final") {
+        DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+        return;
+    }
+
+    DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 }
 
 async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
@@ -10840,38 +11201,70 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
 
         if (DECIMASEGUNDAPAG_Login_btn) {
 		DECIMASEGUNDAPAG_Login_btn.innerText = "SALVANDO ID TNP...";
-	}
+		}
 
-        await DECIMASEGUNDAPAG_Login_userRef.set({
-			idTnp: DECIMASEGUNDAPAG_Login_idTnp,
-			idTnpInformado: true,
+			const DECIMASEGUNDAPAG_Login_dadosAtuais = DECIMASEGUNDAPAG_Login_doc.exists
+		? DECIMASEGUNDAPAG_Login_doc.data()
+		: {};
+
+	const DECIMASEGUNDAPAG_Login_principalConcluido =
+		DECIMASEGUNDAPAG_Login_dadosAtuais.cadastroPrincipalConcluido === true ||
+		(
+			DECIMASEGUNDAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true &&
+			DECIMASEGUNDAPAG_Login_dadosAtuais.enderecoConcluido === true &&
+			DECIMASEGUNDAPAG_Login_dadosAtuais.contatoEmergenciaConcluido === true
+		);
+
+	const DECIMASEGUNDAPAG_Login_payloadTnp = {
+		idTnp: DECIMASEGUNDAPAG_Login_idTnp,
+		idTnpInformado: true,
+		cadastroTnpConcluido: true,
+
+		cashbackLiberado: true,
+		bloqueadoPorTnp: false,
+		bloqueadoPorPagamento: false,
+
+		tnp: {
+			id: DECIMASEGUNDAPAG_Login_idTnp,
+			informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+			origem: "tnp_mob"
+		},
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	};
+
+	if (DECIMASEGUNDAPAG_Login_principalConcluido) {
+		Object.assign(DECIMASEGUNDAPAG_Login_payloadTnp, {
 			cadastroPrincipalConcluido: true,
-			cadastroTnpConcluido: true,
 			cadastroCompleto: true,
+			perfil100: true,
 
-            cashbackLiberado: true,
-            bloqueadoPorTnp: false,
-            bloqueadoPorPagamento: false,
-
-            perfil100: true,
 			etapaCadastro: "home_passageiro",
 			etapaCadastroCompleto: "completo",
 
 			status: {
 				geral: "ativo_com_cashback",
 				etapa: "home_passageiro",
-				mensagem: "ID TNP cadastrado. Cashback liberado.",
+				mensagem: "ID TNP cadastrado. Cadastro completo e cashback liberado.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
+			}
+		});
+	} else {
+		Object.assign(DECIMASEGUNDAPAG_Login_payloadTnp, {
+			cadastroPrincipalConcluido: false,
+			cadastroCompleto: false,
+			perfil100: false,
 
-			tnp: {
-				id: DECIMASEGUNDAPAG_Login_idTnp,
-				informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-				origem: "tnp_mob"
-			},
+			status: {
+				geral: "cadastro_principal_pendente_com_cashback",
+				etapa: DECIMASEGUNDAPAG_Login_dadosAtuais.etapaCadastro || "entrada_app",
+				mensagem: "ID TNP cadastrado. Cashback liberado, mas ainda falta completar o cadastro principal.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			}
+		});
+	}
 
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
+	await DECIMASEGUNDAPAG_Login_userRef.set(DECIMASEGUNDAPAG_Login_payloadTnp, { merge: true });
 
         DECIMASEGUNDAPAG_Login_input.disabled = true;
 
@@ -10880,15 +11273,20 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
 		DECIMASEGUNDAPAG_Login_btn.innerText = "ID TNP CADASTRADO";
 	}
 
-        if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
-    PASSAGEIROPAG_Login_func_carregarHomePassageiro();
-    return;
-}
+	 if (!DECIMASEGUNDAPAG_Login_principalConcluido) {
+		DECIMASEGUNDAPAG_Login_func_irParaEtapaPendente(DECIMASEGUNDAPAG_Login_dadosAtuais);
+		return;
+	}
 
-PRIMEIRAPAG_Login_func_mostrarErro(
-    'DECIMASEGUNDAPAG_Login_error_tnp',
-    'A página inicial do passageiro ainda não foi carregada.'
-);
+	if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+		PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+		return;
+	}
+
+	PRIMEIRAPAG_Login_func_mostrarErro(
+		'DECIMASEGUNDAPAG_Login_error_tnp',
+		'A página inicial do passageiro ainda não foi carregada.'
+	);
 
     } catch (DECIMASEGUNDAPAG_Login_erro) {
 		if (DECIMASEGUNDAPAG_Login_btn) {
@@ -10915,30 +11313,64 @@ async function DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois() {
     }
 
     try {
-        await PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .doc(DECIMASEGUNDAPAG_Login_user.uid)
-            .set({
-					idTnpInformado: false,
-					cadastroTnpConcluido: false,
-					cadastroCompleto: false,
-					perfil100: false,
-					cashbackLiberado: false,
+        const DECIMASEGUNDAPAG_Login_userRef = PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(DECIMASEGUNDAPAG_Login_user.uid);
 
-					etapaCadastro: "home_passageiro",
-				etapaCadastroCompleto: "tnp_pendente",
+		const DECIMASEGUNDAPAG_Login_doc = await DECIMASEGUNDAPAG_Login_userRef.get();
 
-				status: {
-					geral: "ativo_sem_cashback",
-					etapa: "home_passageiro",
-					mensagem: "Usuário deixou o ID TNP para depois.",
-					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				},
+		const DECIMASEGUNDAPAG_Login_dadosAtuais = DECIMASEGUNDAPAG_Login_doc.exists
+			? DECIMASEGUNDAPAG_Login_doc.data()
+			: {};
 
+		const DECIMASEGUNDAPAG_Login_principalConcluido =
+			DECIMASEGUNDAPAG_Login_dadosAtuais.cadastroPrincipalConcluido === true ||
+			(
+				DECIMASEGUNDAPAG_Login_dadosAtuais.dadosPessoaisConcluidos === true &&
+				DECIMASEGUNDAPAG_Login_dadosAtuais.enderecoConcluido === true &&
+				DECIMASEGUNDAPAG_Login_dadosAtuais.contatoEmergenciaConcluido === true
+			);
+
+		const DECIMASEGUNDAPAG_Login_payloadTnpDepois = {
+			idTnpInformado: false,
+			cadastroTnpConcluido: false,
+			cadastroCompleto: false,
+			perfil100: false,
+			cashbackLiberado: false,
+
+			etapaCadastro: "home_passageiro",
+			etapaCadastroCompleto: DECIMASEGUNDAPAG_Login_principalConcluido
+				? "tnp_pendente"
+				: "cadastro_principal_pendente",
+
+			status: {
+				geral: DECIMASEGUNDAPAG_Login_principalConcluido
+					? "ativo_sem_cashback"
+					: "cadastro_principal_pendente_sem_cashback",
+				etapa: "home_passageiro",
+				mensagem: DECIMASEGUNDAPAG_Login_principalConcluido
+					? "Usuário deixou o ID TNP para depois."
+					: "Usuário deixou o ID TNP para depois, mas ainda precisa completar o cadastro principal.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
+			},
 
-				if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
+
+		if (DECIMASEGUNDAPAG_Login_principalConcluido) {
+			DECIMASEGUNDAPAG_Login_payloadTnpDepois.cadastroPrincipalConcluido = true;
+		} else {
+			DECIMASEGUNDAPAG_Login_payloadTnpDepois.cadastroPrincipalConcluido = false;
+		}
+
+		await DECIMASEGUNDAPAG_Login_userRef.set(DECIMASEGUNDAPAG_Login_payloadTnpDepois, { merge: true });
+
+		if (!DECIMASEGUNDAPAG_Login_principalConcluido) {
+			DECIMASEGUNDAPAG_Login_func_irParaEtapaPendente(DECIMASEGUNDAPAG_Login_dadosAtuais);
+			return;
+		}
+
+		if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
 			PASSAGEIROPAG_Login_func_carregarHomePassageiro();
 			return;
 		}
@@ -10983,6 +11415,8 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
             .get();
 
         const d = doc.exists ? doc.data() : {};
+		
+		TNP_Login_func_verificarModalFotoPerfilAdmin(d, 'passageiro');
 		
 		await PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(d);
 
@@ -11618,23 +12052,24 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
             }, { merge: true });
 
         await PRIMEIRAPAG_Login_db
-            .collection('usuarios')
-            .doc(user.uid)
-            .set({
-                tipo: 'motorista',
+		.collection('usuarios')
+		.doc(user.uid)
+		.set({
+			tipo: 'motorista',
 
-                perfis: {
-                    passageiro: true,
-                    motorista: true
-                },
+			perfis: {
+				passageiro: true,
+				motorista: true
+			},
 
-                etapaCadastro: 'motorista_cnh',
-                etapaCadastroMotorista: 'cnh',
-                motoristaStatus: 'cadastro_iniciado',
+			etapaCadastro: 'motorista_cnh',
+			etapaCadastroMotorista: 'cnh',
+			motoristaStatus: 'cadastro_iniciado',
 
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-                status: statusCnh
-            }, { merge: true });
+			statusMotorista: statusCnh,
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}, { merge: true });
 
         PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
 
@@ -11930,25 +12365,25 @@ const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(vali
                 ? 'bloqueado_cnh_vencida'
                 : 'cadastro_iniciado',
 
-            status: {
-                geral: statusCnhValidade.bloqueado
-                    ? 'bloqueado_cnh_vencida'
-                    : 'cadastro_iniciado',
+            statusMotorista: {
+			geral: statusCnhValidade.bloqueado
+				? 'bloqueado_cnh_vencida'
+				: 'cadastro_iniciado',
 
-                etapa: 'fotos_cnh',
-                tipo: 'motorista',
-                uid: user.uid,
+			etapa: 'fotos_cnh',
+			tipo: 'motorista',
+			uid: user.uid,
 
-                motivo: statusCnhValidade.bloqueado
-                    ? 'cnh_vencida_fora_da_tolerancia'
-                    : '',
+			motivo: statusCnhValidade.bloqueado
+				? 'cnh_vencida_fora_da_tolerancia'
+				: '',
 
-                mensagem: statusCnhValidade.bloqueado
-                    ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
-                    : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.',
+			mensagem: statusCnhValidade.bloqueado
+				? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
+				: 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.',
 
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            },
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
 
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         }, { merge: true });
@@ -13209,7 +13644,7 @@ await PRIMEIRAPAG_Login_db
         motoristaStatus: statusGeralMotorista,
         motivoAnaliseAdmin: motivoStatusMotorista,
 
-        status: {
+        statusMotorista: {
             geral: statusGeralMotorista,
             etapa: 'dados_veiculo',
             motivo: motivoStatusMotorista,
@@ -13563,14 +13998,21 @@ async function MOTORISTAPAG_Login_func_salvarDadosVeiculo() {
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
             status: {
-                geral: statusGeralMotorista,
-                motivo: motivoStatusMotorista,
-                tipo: 'motorista',
-                uid: user.uid,
-                cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
-                cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            }
+			geral: statusGeralMotorista,
+			etapa: 'documentos_veiculo',
+			motivo: motivoStatusMotorista,
+			tipo: 'motorista',
+			uid: user.uid,
+
+			mensagem: motoristaTemCpfConflito
+				? 'Dados do veículo salvos. Cadastro segue com alerta para análise do suporte.'
+				: 'Dados do veículo salvos. Próxima etapa: enviar documentos do veículo.',
+
+			cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+			cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}
         }, { merge: true });
 
     await PRIMEIRAPAG_Login_db
@@ -13585,12 +14027,19 @@ async function MOTORISTAPAG_Login_func_salvarDadosVeiculo() {
 
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-            status: {
-                geral: statusGeralMotorista,
-                motivo: motivoStatusMotorista,
-                tipo: 'motorista',
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            }
+            statusMotorista: {
+			geral: statusGeralMotorista,
+			etapa: 'documentos_veiculo',
+			motivo: motivoStatusMotorista,
+			tipo: 'motorista',
+			uid: user.uid,
+
+			mensagem: motoristaTemCpfConflito
+				? 'Dados do veículo salvos. Cadastro segue com alerta para análise do suporte.'
+				: 'Dados do veículo salvos. Próxima etapa: enviar documentos do veículo.',
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}
         }, { merge: true });
 
     MOTORISTAPAG_Login_func_carregarTelaDocumentosVeiculo();
@@ -14121,32 +14570,32 @@ async function MOTORISTAPAG_Login_func_continuarDepoisDocumentosVeiculo() {
         return veiculo;
     }
 
-    return {
-        ...veiculo,
-        status: 'pendente_analise',
-        documentosEnviados: true,
-        emUso: false,
+ return {
+		...veiculo,
+		status: 'pendente_analise',
+		documentosEnviados: true,
+		emUso: false,
 
-        documentos: {
-    crlv: {
-        ...(veiculo.documentos && veiculo.documentos.crlv ? veiculo.documentos.crlv : {}),
-        ...documentoCrlvLimpo,
-        enviado: true,
-        status: 'pendente_analise',
-        motivoReprovacao: ''
-    },
+		documentos: {
+			crlv: {
+				...(veiculo.documentos && veiculo.documentos.crlv ? veiculo.documentos.crlv : {}),
+				...documentoCrlvLimpo,
+				enviado: true,
+				status: 'pendente_analise',
+				motivoReprovacao: ''
+			},
 
-    fotoVeiculoPlaca: {
-        ...(veiculo.documentos && veiculo.documentos.fotoVeiculoPlaca ? veiculo.documentos.fotoVeiculoPlaca : {}),
-        ...documentoFotoPlacaLimpo,
-        enviado: true,
-        status: 'pendente_analise',
-        motivoReprovacao: ''
-    }
-},
+			fotoVeiculoPlaca: {
+				...(veiculo.documentos && veiculo.documentos.fotoVeiculoPlaca ? veiculo.documentos.fotoVeiculoPlaca : {}),
+				...documentoFotoPlacaLimpo,
+				enviado: true,
+				status: 'pendente_analise',
+				motivoReprovacao: ''
+			}
+		},
 
-atualizadoEm: new Date()
-    };
+		atualizadoEm: firebase.firestore.Timestamp.now()
+	};
 });
 
 
@@ -14168,8 +14617,10 @@ await PRIMEIRAPAG_Login_db
         motoristaOnline: false,
 
         veiculos: veiculosAtualizados,
-        veiculoCadastroAtualId: veiculoCadastroAtualId,
-        veiculoAtualId: '',
+		veiculosAtualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+		veiculoCadastroAtualId: veiculoCadastroAtualId,
+		veiculoAtualId: '',
 
         etapaCadastroMotorista: 'endereco_motorista',
 
@@ -14180,14 +14631,21 @@ await PRIMEIRAPAG_Login_db
         atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
         status: {
-            geral: statusGeralMotorista,
-            motivo: motivoStatusMotorista,
-            tipo: 'motorista',
-            uid: user.uid,
-            cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
-            cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }
+		geral: statusGeralMotorista,
+		etapa: 'endereco_motorista',
+		motivo: motivoStatusMotorista,
+		tipo: 'motorista',
+		uid: user.uid,
+
+		mensagem: motoristaTemAlertaSuporte
+			? 'Documentos do veículo enviados. Cadastro segue com alerta para análise do suporte.'
+			: 'Documentos do veículo enviados. Próxima etapa: informar endereço do motorista.',
+
+		cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+		cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	}
     }, { merge: true });
 
 await PRIMEIRAPAG_Login_db
@@ -14212,12 +14670,19 @@ await PRIMEIRAPAG_Login_db
 
         atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-        status: {
-            geral: statusGeralMotorista,
-            motivo: motivoStatusMotorista,
-            tipo: 'motorista',
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }
+        statusMotorista: {
+		geral: statusGeralMotorista,
+		etapa: 'endereco_motorista',
+		motivo: motivoStatusMotorista,
+		tipo: 'motorista',
+		uid: user.uid,
+
+		mensagem: motoristaTemAlertaSuporte
+			? 'Documentos do veículo enviados. Cadastro segue com alerta para análise do suporte.'
+			: 'Documentos do veículo enviados. Próxima etapa: informar endereço do motorista.',
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	}
     }, { merge: true });
 
 MOTORISTAPAG_Login_func_carregarTelaEnderecoMotorista();
@@ -14456,7 +14921,7 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
                 endereco: endereco,
                 enderecoConcluido: true,
 
-                etapaCadastroMotorista: 'pix_motorista',
+                etapaCadastroMotorista: 'contato_emergencia_motorista',
 
                 motoristaStatus: statusGeralMotorista,
                 statusAnalise: statusGeralMotorista,
@@ -14474,8 +14939,8 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
                     motivo: motivoStatusMotorista,
                     tipo: 'motorista',
                     uid: user.uid,
-                    etapa: 'pix_motorista',
-                    mensagem: 'Endereço salvo. Próxima etapa: confirmar o Pix do motorista.',
+                    etapa: 'contato_emergencia_motorista',
+                    mensagem: 'Endereço salvo. Próxima etapa: informar contato de emergência.',
                     cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
                     cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
                     atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
@@ -14489,8 +14954,8 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 				endereco: endereco,
 				enderecoConcluido: true,
 
-				etapaCadastro: 'motorista_pix',
-				etapaCadastroMotorista: 'pix_motorista',
+				etapaCadastro: 'motorista_contato_emergencia',
+				etapaCadastroMotorista: 'contato_emergencia_motorista',
 
 				motoristaStatus: statusGeralMotorista,
 				statusAnalise: statusGeralMotorista,
@@ -14503,17 +14968,18 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-				status: {
-					geral: statusGeralMotorista,
-					motivo: motivoStatusMotorista,
-					tipo: 'motorista',
-					etapa: 'pix_motorista',
-					mensagem: 'Endereço salvo. Próxima etapa: confirmar o Pix do motorista.',
-					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-				}
+				statusMotorista: {
+				geral: statusGeralMotorista,
+				motivo: motivoStatusMotorista,
+				tipo: 'motorista',
+				uid: user.uid,
+				etapa: 'contato_emergencia_motorista',
+				mensagem: 'Endereço salvo. Próxima etapa: informar contato de emergência.',
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			}
 			}, { merge: true });
 
-        MOTORISTAPAG_Login_func_carregarTelaPixConfirmacao();
+        MOTORISTAPAG_Login_func_carregarTelaContatoEmergenciaMotoristatop();
 
     } catch (erro) {
         console.error('Erro ao salvar endereço do motorista:', erro);
@@ -14532,8 +14998,308 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 }
 
 //--========== TELA MOTORISTA 06: ENDEREÇO DO MOTORISTA FINAL ========== //
+
+
+//--========== TELA MOTORISTA 07: CONTATO DE EMERGÊNCIA ========== //
+function MOTORISTAPAG_Login_func_maskContatoEmergenciatop(input) {
+    if (!input) return;
+
+    let valor = String(input.value || "").replace(/\D/g, "").slice(0, 11);
+
+    if (valor.length > 10) {
+        valor = valor.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4}).*/, "($1) $2.$3-$4");
+    } else if (valor.length > 6) {
+        valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+    } else if (valor.length > 2) {
+        valor = valor.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
+    } else if (valor.length > 0) {
+        valor = valor.replace(/^(\d{0,2}).*/, "($1");
+    }
+
+    input.value = valor;
+}
+
+function MOTORISTAPAG_Login_func_limparErroContatoEmergenciatop() {
+    const erro = document.getElementById('MOTORISTAPAG_Login_error_contato_emergencia_top');
+
+    if (erro) {
+        erro.innerText = '';
+        erro.style.display = 'none';
+    }
+}
+
+function MOTORISTAPAG_Login_func_lerContatoEmergenciatop() {
+    const nomeInput = document.getElementById('MOTORISTAPAG_Login_input_contato_emergencia_top_nome');
+    const whatsappInput = document.getElementById('MOTORISTAPAG_Login_input_contato_emergencia_top_whatsapp');
+    const relacaoSelect = document.getElementById('MOTORISTAPAG_Login_select_contato_emergencia_top_relacao');
+
+    const nome = nomeInput
+        ? nomeInput.value.trim().replace(/\s+/g, ' ')
+        : '';
+
+    const whatsappFormatado = whatsappInput
+        ? whatsappInput.value.trim()
+        : '';
+
+    const whatsapp = whatsappFormatado.replace(/\D/g, '');
+
+    const relacao = relacaoSelect
+        ? relacaoSelect.value
+        : '';
+
+    return {
+        nome: nome,
+        whatsapp: whatsapp,
+        whatsappFormatado: whatsappFormatado,
+        relacao: relacao
+    };
+}
+
+function MOTORISTAPAG_Login_func_contatoEmergenciatopValido(contato) {
+    if (!contato) return false;
+
+    return (
+        contato.nome.length >= 2 &&
+        contato.whatsapp.length >= 10 &&
+        contato.whatsapp.length <= 11 &&
+        !!contato.relacao
+    );
+}
+
+function MOTORISTAPAG_Login_func_atualizarBotaoContatoEmergenciatop() {
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_contato_emergencia_top');
+    const contato = MOTORISTAPAG_Login_func_lerContatoEmergenciatop();
+
+    MOTORISTAPAG_Login_func_limparErroContatoEmergenciatop();
+
+    if (btn) {
+        btn.disabled = !MOTORISTAPAG_Login_func_contatoEmergenciatopValido(contato);
+    }
+}
+
+async function MOTORISTAPAG_Login_func_carregarTelaContatoEmergenciaMotoristatop() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_contato_emergencia_top');
+
+    const nomeInput = document.getElementById('MOTORISTAPAG_Login_input_contato_emergencia_top_nome');
+    const whatsappInput = document.getElementById('MOTORISTAPAG_Login_input_contato_emergencia_top_whatsapp');
+    const relacaoSelect = document.getElementById('MOTORISTAPAG_Login_select_contato_emergencia_top_relacao');
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_contato_emergencia_top');
+
+    MOTORISTAPAG_Login_func_limparErroContatoEmergenciatop();
+
+    if (nomeInput) nomeInput.value = '';
+    if (whatsappInput) whatsappInput.value = '';
+    if (relacaoSelect) relacaoSelect.value = '';
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'CONTINUAR';
+    }
+
+    try {
+        const userDoc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        const u = userDoc.exists ? userDoc.data() : {};
+        const contato = u.contatoEmergencia || {};
+
+        if (nomeInput) nomeInput.value = contato.nome || '';
+
+        if (whatsappInput) {
+            whatsappInput.value = contato.whatsappFormatado || contato.whatsapp || '';
+            MOTORISTAPAG_Login_func_maskContatoEmergenciatop(whatsappInput);
+        }
+
+        if (relacaoSelect) relacaoSelect.value = contato.relacao || '';
+
+        MOTORISTAPAG_Login_func_atualizarBotaoContatoEmergenciatop();
+
+    } catch (erro) {
+        console.error('Erro ao carregar contato de emergência do motorista:', erro);
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_contato_emergencia_top',
+            'Não foi possível carregar o contato de emergência agora.'
+        );
+    }
+}
+
+async function MOTORISTAPAG_Login_func_salvarContatoEmergenciaMotoristatop() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_contato_emergencia_top');
+
+    if (btn && btn.disabled) {
+        return;
+    }
+
+    if (window.MOTORISTAPAG_Login_var_salvandoContatoEmergenciatop === true) {
+        return;
+    }
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_contato_emergencia_top',
+            'Sua sessão expirou. Faça login novamente.'
+        );
+    }
+
+    const contatoPrincipal = MOTORISTAPAG_Login_func_lerContatoEmergenciatop();
+
+    if (!MOTORISTAPAG_Login_func_contatoEmergenciatopValido(contatoPrincipal)) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_contato_emergencia_top',
+            'Preencha nome, WhatsApp válido e relação do contato de emergência.'
+        );
+    }
+
+    window.MOTORISTAPAG_Login_var_salvandoContatoEmergenciatop = true;
+
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'SALVANDO...';
+        }
+
+        const motoristaDoc = await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .get();
+
+        const dadosMotoristaAtual = motoristaDoc.exists ? motoristaDoc.data() : {};
+
+        const motoristaTemAlertaSuporte =
+            dadosMotoristaAtual.cpfConflito === true ||
+            dadosMotoristaAtual.cpfConflitoStatus === 'pendente_analise_suporte' ||
+            dadosMotoristaAtual.motoristaStatus === 'pendente_analise_suporte';
+
+        const statusGeralMotorista = motoristaTemAlertaSuporte
+            ? 'pendente_analise_suporte'
+            : 'pendente_analise_admin';
+
+        const motivoStatusMotorista = motoristaTemAlertaSuporte
+            ? 'cpf_ja_usado_em_outra_conta'
+            : '';
+
+        const statusMotoristaContato = {
+            geral: statusGeralMotorista,
+            etapa: 'pix_motorista',
+            motivo: motivoStatusMotorista,
+            tipo: 'motorista',
+            uid: user.uid,
+            mensagem: 'Contato de emergência salvo. Próxima etapa: confirmar o Pix do motorista.',
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                contatoEmergencia: contatoPrincipal,
+                contatoEmergenciaConcluido: true,
+
+                etapaCadastro: 'motorista_pix',
+                etapaCadastroMotorista: 'pix_motorista',
+
+                motoristaStatus: statusGeralMotorista,
+                statusAnalise: statusGeralMotorista,
+                motivoAnaliseAdmin: motivoStatusMotorista,
+
+                requerAnaliseAdmin: true,
+                podeAceitarCorrida: false,
+                disponivelParaCorridas: false,
+                motoristaOnline: false,
+
+                statusCadastroPassageiro: {
+                    dadosPessoais: 'concluido',
+                    endereco: 'concluido',
+                    contatoEmergencia: 'concluido',
+                    comprovanteEndereco: 'pendente_ate_10_corridas',
+                    documentos: 'pendente_ate_10_corridas'
+                },
+
+                statusMotorista: statusMotoristaContato,
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+        await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .set({
+                contatoEmergenciaConcluido: true,
+                etapaCadastroMotorista: 'pix_motorista',
+
+                motoristaStatus: statusGeralMotorista,
+                statusAnalise: statusGeralMotorista,
+                motivoAnaliseAdmin: motivoStatusMotorista,
+
+                requerAnaliseAdmin: true,
+                podeAceitarCorrida: false,
+                disponivelParaCorridas: false,
+                motoristaOnline: false,
+
+                status: {
+                    geral: statusGeralMotorista,
+                    etapa: 'pix_motorista',
+                    motivo: motivoStatusMotorista,
+                    tipo: 'motorista',
+                    uid: user.uid,
+                    mensagem: 'Contato de emergência salvo. Próxima etapa: confirmar o Pix do motorista.',
+                    cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+                    cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                },
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'CONTATO SALVO';
+        }
+
+        window.MOTORISTAPAG_Login_var_salvandoContatoEmergenciatop = false;
+
+        if (typeof MOTORISTAPAG_Login_func_carregarTelaPixConfirmacao === 'function') {
+            return MOTORISTAPAG_Login_func_carregarTelaPixConfirmacao();
+        }
+
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_contato_emergencia_top',
+            'Contato salvo. A tela de Pix do motorista será carregada na próxima etapa.'
+        );
+
+    } catch (erro) {
+        console.error('Erro ao salvar contato de emergência do motorista:', erro);
+
+        window.MOTORISTAPAG_Login_var_salvandoContatoEmergenciatop = false;
+
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_contato_emergencia_top',
+            'Não foi possível salvar o contato de emergência: ' + (erro.message || erro.code || 'erro desconhecido')
+        );
+
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'CONTINUAR';
+        }
+    }
+}
+
+//--========== TELA MOTORISTA 07: CONTATO DE EMERGÊNCIA FINAL ========== //
+
+
+
  
- // ========== TELA MOTORISTA 07: CONFIRMAÇÃO PIX PARA RECEBIMENTO ========== //
+ // ========== TELA MOTORISTA 08: CONFIRMAÇÃO PIX PARA RECEBIMENTO ========== //
 
 let MOTORISTAPAG_Login_pixConfirmacaoCodigo = '';
 let MOTORISTAPAG_Login_unsubscribePixConfirmacao = null;
@@ -14818,22 +15584,24 @@ async function MOTORISTAPAG_Login_func_mostrarPixConfirmado() {
     requerAnaliseAdmin: true,
     podeAceitarCorrida: false,
 
-    'pixConfirmacaoRecebimento.status': 'pago',
-    'pixConfirmacaoRecebimento.pago': true,
-    'pixConfirmacaoRecebimento.precisaConfirmarPagamento': false,
-    'pixConfirmacaoRecebimento.confirmadoPeloAppEm': firebase.firestore.FieldValue.serverTimestamp(),
+    pixConfirmacaoRecebimento: {
+		status: 'pago',
+		pago: true,
+		precisaConfirmarPagamento: false,
+		confirmadoPeloAppEm: firebase.firestore.FieldValue.serverTimestamp()
+	},
 
     atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-    status: {
-        geral: 'pendente_analise_admin',
-        motivo: '',
-        tipo: 'motorista',
-        uid: user.uid,
-        etapa: 'termos_motorista',
-        mensagem: 'Pix confirmado. Próxima etapa: aceitar os termos do motorista.',
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    }
+    statusMotorista: {
+			geral: 'pendente_analise_admin',
+			motivo: '',
+			tipo: 'motorista',
+			uid: user.uid,
+			etapa: 'termos_motorista',
+			mensagem: 'Pix confirmado. Próxima etapa: aceitar os termos do motorista.',
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}
 }, { merge: true });
 
 await PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid).set({
@@ -14848,14 +15616,15 @@ await PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid).set({
 
     atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-    status: {
-        geral: 'pendente_analise_admin',
-        motivo: '',
-        tipo: 'motorista',
-        etapa: 'termos_motorista',
-        mensagem: 'Pix confirmado. Próxima etapa: aceitar os termos do motorista.',
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    }
+    statusMotorista: {
+		geral: 'pendente_analise_admin',
+		motivo: '',
+		tipo: 'motorista',
+		uid: user.uid,
+		etapa: 'termos_motorista',
+		mensagem: 'Pix confirmado. Próxima etapa: aceitar os termos do motorista.',
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	}
 }, { merge: true });
 
 MOTORISTAPAG_Login_pixConfirmadoProcessando = false;
@@ -14908,15 +15677,15 @@ async function MOTORISTAPAG_Login_func_verificarPagamentoPixMotorista() {
 
 		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-		status: {
-			geral: 'pendente_pagamento',
-			motivo: 'pix_confirmacao_pendente',
-			tipo: 'motorista',
-			uid: user.uid,
-			etapa: 'termos_motorista',
-			mensagem: 'Pix ainda pendente de confirmação. Você pode continuar, mas ficará bloqueado até confirmar.',
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		}
+		statusMotorista: {
+		geral: 'pendente_pagamento',
+		motivo: 'pix_confirmacao_pendente',
+		tipo: 'motorista',
+		uid: user.uid,
+		etapa: 'termos_motorista',
+		mensagem: 'Pix ainda pendente de confirmação. Você pode continuar, mas ficará bloqueado até confirmar.',
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	}
 	}, { merge: true });
 
 		await PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid).set({
@@ -14982,14 +15751,79 @@ MOTORISTAPAG_Login_func_carregarTelaTermosMotorista();
  
 // ========== <!-- TELA MOTORISTA 07: TERMOS DO MOTORISTA --> ==========
 
+function MOTORISTAPAG_Login_func_carregarTelaIdTnpMotorista() {
+    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_id_tnp');
+
+    const erro = document.getElementById('MOTORISTAPAG_Login_error_id_tnp');
+    const input = document.getElementById('MOTORISTAPAG_Login_input_id_tnp');
+    const check = document.getElementById('MOTORISTAPAG_Login_check_confirmar_id_tnp');
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_id_tnp');
+
+    if (erro) {
+        erro.innerText = '';
+        erro.style.display = 'none';
+    }
+
+    if (input) {
+        input.value = '';
+        input.classList.remove('error');
+
+        input.oninput = function () {
+            input.value = input.value.replace(/\D/g, '').slice(0, 20);
+
+            if (erro) {
+                erro.innerText = '';
+                erro.style.display = 'none';
+            }
+        };
+    }
+
+    if (check) {
+        check.checked = false;
+
+        check.onchange = function () {
+            if (btn) {
+                btn.disabled = !check.checked;
+            }
+
+            if (erro) {
+                erro.innerText = '';
+                erro.style.display = 'none';
+            }
+        };
+    }
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'SALVAR ID TNP';
+    }
+}
+
 function MOTORISTAPAG_Login_func_carregarTelaTermosMotorista() {
     PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_termos_motorista');
 
     const check = document.getElementById('MOTORISTAPAG_Login_check_termos_motorista');
     const erro = document.getElementById('MOTORISTAPAG_Login_error_termos_motorista');
+    const btn = document.getElementById('MOTORISTAPAG_Login_btn_aceitar_termos_motorista');
 
     if (check) {
         check.checked = false;
+
+        check.onchange = function () {
+            if (btn) {
+                btn.disabled = !check.checked;
+            }
+
+            if (erro) {
+                erro.style.display = 'none';
+                erro.innerText = '';
+            }
+        };
+    }
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'ACEITAR E CONTINUAR';
     }
 
     if (erro) {
@@ -15021,67 +15855,112 @@ async function MOTORISTAPAG_Login_func_aceitarTermosMotorista() {
         );
     }
 
-   try {
-    if (btn) {
-        btn.disabled = true;
-        btn.innerText = 'SALVANDO...';
-    }
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'SALVANDO...';
+        }
 
-    await PRIMEIRAPAG_Login_db
-        .collection('motoristas')
-        .doc(user.uid)
-        .set({
-            termosMotoristaAceitos: true,
-            termosMotoristaAceitosEm: firebase.firestore.FieldValue.serverTimestamp(),
-            versaoTermosMotorista: '1.0',
-
-            etapaCadastroMotorista: 'id_tnp_motorista',
-
-            'status.etapa': 'id_tnp_motorista',
-            'status.mensagem': 'Termos aceitos. Próxima etapa: informar ID TNP.',
-            'status.atualizadoEm': firebase.firestore.FieldValue.serverTimestamp(),
-
+        const statusMotoristaTermos = {
+            geral: 'pendente_analise_admin',
+            motivo: '',
+            tipo: 'motorista',
+            uid: user.uid,
+            etapa: 'id_tnp_motorista',
+            mensagem: 'Termos aceitos. Próxima etapa: informar ID TNP.',
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
+        };
 
-    await PRIMEIRAPAG_Login_db
-        .collection('usuarios')
-        .doc(user.uid)
-        .set({
-            termosMotoristaAceitos: true,
-            termosMotoristaAceitosEm: firebase.firestore.FieldValue.serverTimestamp(),
-            versaoTermosMotorista: '1.0',
+        const aceiteMotorista = {
+            aceito: true,
+            versao: TNP_MOB_VERSAO_TERMOS_MOTORISTA,
+            aceitoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
 
-            etapaCadastro: 'motorista_id_tnp',
-            etapaCadastroMotorista: 'id_tnp_motorista',
+        await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .set({
+                termosMotoristaAceitos: true,
+                termosMotoristaAceitosEm: firebase.firestore.FieldValue.serverTimestamp(),
+                termosMotoristaVersao: TNP_MOB_VERSAO_TERMOS_MOTORISTA,
+                versaoTermosMotorista: TNP_MOB_VERSAO_TERMOS_MOTORISTA,
 
-            'status.etapa': 'id_tnp_motorista',
-            'status.mensagem': 'Termos aceitos. Próxima etapa: informar ID TNP.',
-            'status.atualizadoEm': firebase.firestore.FieldValue.serverTimestamp(),
+                aceites: {
+                    motorista: aceiteMotorista
+                },
 
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
+                etapaCadastroMotorista: 'id_tnp_motorista',
 
-    return MOTORISTAPAG_Login_func_carregarTelaIdTnpMotorista();
+                motoristaStatus: 'pendente_analise_admin',
+                statusAnalise: 'pendente_analise_admin',
+                requerAnaliseAdmin: true,
+                podeAceitarCorrida: false,
 
-} catch (erro) {
-    console.error('Erro ao aceitar termos do motorista:', erro);
+                status: statusMotoristaTermos,
 
-    PRIMEIRAPAG_Login_func_mostrarErro(
-        'MOTORISTAPAG_Login_error_termos_motorista',
-        'Não foi possível salvar o aceite dos termos. Tente novamente.'
-    );
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
 
-} finally {
-    if (btn) {
-        btn.disabled = false;
-        btn.innerText = 'ACEITAR E CONTINUAR';
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                termosMotoristaAceitos: true,
+                termosMotoristaAceitosEm: firebase.firestore.FieldValue.serverTimestamp(),
+                termosMotoristaVersao: TNP_MOB_VERSAO_TERMOS_MOTORISTA,
+                versaoTermosMotorista: TNP_MOB_VERSAO_TERMOS_MOTORISTA,
+
+                aceites: {
+                    motorista: aceiteMotorista
+                },
+
+                etapaCadastro: 'motorista_id_tnp',
+                etapaCadastroMotorista: 'id_tnp_motorista',
+
+                motoristaStatus: 'pendente_analise_admin',
+                statusAnalise: 'pendente_analise_admin',
+                requerAnaliseAdmin: true,
+                podeAceitarCorrida: false,
+
+                statusMotorista: statusMotoristaTermos,
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+        return MOTORISTAPAG_Login_func_carregarTelaIdTnpMotorista();
+
+    } catch (erro) {
+		console.error('ERRO REAL AO ACEITAR TERMOS DO MOTORISTA:', erro);
+
+		const mensagemErro =
+			erro && erro.message
+				? erro.message
+				: erro && erro.code
+					? erro.code
+					: 'erro desconhecido';
+
+		PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_termos_motorista',
+			'Não foi possível salvar o aceite dos termos: ' + mensagemErro
+		);
+
+	} finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'ACEITAR E CONTINUAR';
+        }
     }
 }
-}
-// ========== <!-- TELA MOTORISTA 07: TERMOS DO MOTORISTA FINAL --> ==========
+// ========== <!-- TELA MOTORISTA 08: TERMOS DO MOTORISTA FINAL --> ==========
 
-// ========== TELA MOTORISTA 08: ID TNP DO MOTORISTA ==========
+// ========== TELA MOTORISTA 09: ID TNP DO MOTORISTA ==========
+
+function MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp) {
+    const idLimpo = String(idTnp || "").replace(/\D/g, "");
+
+    return idLimpo.length >= 3 && idLimpo.length <= 20;
+}
 
 async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
@@ -15124,6 +16003,7 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     }
 
  try {
+ 
     if (btn) {
         btn.disabled = true;
         btn.innerText = 'SALVANDO...';
@@ -15180,44 +16060,89 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
             requerAnaliseAdmin: true,
             podeAceitarCorrida: false,
 
-            'status.etapa': 'analise_final_motorista',
-            'status.geral': statusGeralFinal,
-            'status.mensagem': statusMensagemFinal,
-            'status.motivo': statusMotivoFinal,
-            'status.atualizadoEm': firebase.firestore.FieldValue.serverTimestamp(),
+            status: {
+			geral: statusGeralFinal,
+			etapa: 'analise_final_motorista',
+			motivo: statusMotivoFinal,
+			tipo: 'motorista',
+			uid: user.uid,
+			mensagem: statusMensagemFinal,
+			cnhValidadeStatus: motoristaDados.cnhValidadeStatus || 'valida',
+			cnhBloqueioPorVencimento: motoristaDados.cnhBloqueioPorVencimento === true,
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
 
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         }, { merge: true });
 
     await PRIMEIRAPAG_Login_db
-        .collection('usuarios')
-        .doc(user.uid)
-        .set({
-            idTnp: idTnp,
-            idTnpInformado: true,
+    .collection('usuarios')
+    .doc(user.uid)
+    .set({
+        idTnp: idTnp,
+        idTnpInformado: true,
+        cadastroTnpConcluido: true,
 
-            etapaCadastro: 'motorista_analise_final',
-            etapaCadastroMotorista: 'analise_final_motorista',
+        cadastroCompleto: true,
+        cadastroPrincipalConcluido: true,
+        cadastroRapidoConcluido: true,
 
-            motoristaStatus: motoristaStatusFinal,
-            requerAnaliseAdmin: true,
-            podeAceitarCorrida: false,
+        perfil100: true,
+        passageiroLiberado: true,
+        cashbackLiberado: true,
 
-            tnp: {
-                id: idTnp,
-                informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-                origem: 'cadastro_motorista',
-                confirmadoPeloMotorista: true
-            },
+        dadosPessoaisConcluidos: true,
+        enderecoConcluido: true,
+        contatoEmergenciaConcluido: true,
 
-            'status.etapa': 'analise_final_motorista',
-            'status.geral': statusGeralFinal,
-            'status.mensagem': statusMensagemFinal,
-            'status.motivo': statusMotivoFinal,
-            'status.atualizadoEm': firebase.firestore.FieldValue.serverTimestamp(),
+        bloqueadoPorCadastro: false,
+        bloqueadoPorTnp: false,
+        bloqueadoPorPagamento: false,
+        bloqueadoPorSelfieDocumentoExtra: false,
 
+        etapaCadastro: 'motorista_analise_final',
+        etapaCadastroMotorista: 'analise_final_motorista',
+
+        motoristaStatus: motoristaStatusFinal,
+        requerAnaliseAdmin: true,
+        podeAceitarCorrida: false,
+
+        tnp: {
+            id: idTnp,
+            informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            origem: 'cadastro_motorista',
+            confirmadoPeloMotorista: true,
+            cpfVinculado: true,
+            uid: user.uid
+        },
+
+        statusCadastroPassageiro: {
+            dadosPessoais: 'concluido',
+            endereco: 'concluido',
+            contatoEmergencia: 'concluido',
+            comprovanteEndereco: 'pendente_ate_10_corridas',
+            documentos: 'pendente_ate_10_corridas'
+        },
+
+        status: {
+            geral: 'ativo_com_cashback',
+            etapa: 'home_passageiro',
+            mensagem: 'Cadastro completo e cashback liberado.',
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
+        },
+
+        statusMotorista: {
+            geral: statusGeralFinal,
+            etapa: 'analise_final_motorista',
+            motivo: statusMotivoFinal,
+            tipo: 'motorista',
+            uid: user.uid,
+            mensagem: statusMensagemFinal,
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        },
+
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
 
     if (input) {
         input.disabled = true;
@@ -15228,7 +16153,14 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
         btn.innerText = 'ID TNP CADASTRADO';
     }
 
-        return MOTORISTAPAG_Login_func_carregarHomeMotorista();
+        if (typeof MOTORISTAPAG_Login_func_carregarHomeMotorista === "function") {
+		return MOTORISTAPAG_Login_func_carregarHomeMotorista();
+	}
+
+	return PRIMEIRAPAG_Login_func_mostrarErro(
+		'MOTORISTAPAG_Login_error_id_tnp',
+		'Cadastro enviado para análise. A tela inicial do motorista ainda será carregada na próxima etapa.'
+	);
 
 } catch (erro) {
     console.error('Erro ao salvar ID TNP do motorista:', erro);
@@ -15244,7 +16176,7 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     }
 }
  }
-// ========== TELA MOTORISTA 8: ID TNP DO MOTORISTA FINAL ==========
+// ========== TELA MOTORISTA 09: ID TNP DO MOTORISTA FINAL ==========
  
  
  
@@ -15436,6 +16368,16 @@ async function TNP_Login_func_abrirModalCorrigirPendencia(origem, tipoPendencia)
 function TNP_Login_func_configPendencia(origem, tipoPendencia) {
     const configs = {
         motorista: {
+		
+			fotoPerfil: {
+				titulo: 'Reenviar foto de perfil',
+				texto: 'Envie uma nova selfie/foto de perfil conforme a orientação do administrador.',
+				pastaStorage: 'documentos',
+				campoFirestore: 'fotoPerfilCorrecao',
+				campoStatus: 'fotoPerfilStatus',
+				campoMotivo: 'fotoPerfilMotivoReprovacao'
+			},
+		
             fotoCnh: {
                 titulo: 'Reenviar foto da CNH',
                 texto: 'Envie uma nova foto da CNH conforme a orientação do administrador.',
@@ -15474,7 +16416,18 @@ function TNP_Login_func_configPendencia(origem, tipoPendencia) {
         },
 
         passageiro: {
-            selfieDocumento: {
+            
+			fotoPerfil: {
+				titulo: 'Reenviar foto de perfil',
+				texto: 'Envie uma nova selfie/foto de perfil conforme a orientação do administrador.',
+				pastaStorage: 'documentos',
+				campoFirestore: 'fotoPerfilCorrecao',
+				campoStatus: 'fotoPerfilStatus',
+				campoMotivo: 'fotoPerfilMotivoReprovacao'
+			},
+			
+			
+			selfieDocumento: {
                 titulo: 'Reenviar selfie com documento',
                 texto: 'Envie uma nova selfie segurando o documento conforme a orientação do administrador.',
                 pastaStorage: 'documentos',
@@ -15779,136 +16732,281 @@ async function TNP_Login_func_enviarCorrecaoPendencia() {
     }
 
     try {
-        if (btnEnviar) {
-            btnEnviar.disabled = true;
-            btnEnviar.innerText = 'ENVIANDO...';
-        }
+    if (btnEnviar) {
+        btnEnviar.disabled = true;
+        btnEnviar.innerText = 'ENVIANDO...';
+    }
 
-        const origem = TNP_Login_pendenciaAtual.origem;
-        const tipoPendencia = TNP_Login_pendenciaAtual.tipoPendencia;
-        const config = TNP_Login_pendenciaAtual.config;
+    const origem = TNP_Login_pendenciaAtual.origem;
+    const tipoPendencia = TNP_Login_pendenciaAtual.tipoPendencia;
+    const config = TNP_Login_pendenciaAtual.config;
 
-        const nomeArquivo = `${tipoPendencia}_${Date.now()}.jpg`;
+    const nomeArquivo = `${tipoPendencia}_${Date.now()}.jpg`;
 
-        const caminhoStorage = origem === 'motorista'
-            ? `motoristas/${user.uid}/${config.pastaStorage}/${nomeArquivo}`
-            : `usuarios/${user.uid}/${config.pastaStorage}/${nomeArquivo}`;
+    const caminhoStorage = origem === 'motorista'
+        ? `motoristas/${user.uid}/${config.pastaStorage}/${nomeArquivo}`
+        : `usuarios/${user.uid}/${config.pastaStorage}/${nomeArquivo}`;
 
-        const storageRef = PRIMEIRAPAG_Login_storage
-            .ref()
-            .child(caminhoStorage);
+    const storageRef = PRIMEIRAPAG_Login_storage
+        .ref()
+        .child(caminhoStorage);
 
-        const arquivoCompactado = TNP_Login_arquivoCorrecaoPendente.arquivoCompactado;
+    const arquivoCompactado = TNP_Login_arquivoCorrecaoPendente.arquivoCompactado;
 
-        await storageRef.put(arquivoCompactado, {
-            contentType: 'image/jpeg'
-        });
+    await storageRef.put(arquivoCompactado, {
+        contentType: 'image/jpeg'
+    });
 
-        const url = await storageRef.getDownloadURL();
+    const url = await storageRef.getDownloadURL();
 
-        const dadosAtualizados = {
-            enviado: true,
-            url: url,
-            caminho: caminhoStorage,
-            status: 'pendente_analise',
-            motivoReprovacao: '',
-            tamanhoOriginal: TNP_Login_arquivoCorrecaoPendente.tamanhoOriginal,
-            tamanhoFinal: TNP_Login_arquivoCorrecaoPendente.tamanhoFinal,
-            economiaBytes: TNP_Login_arquivoCorrecaoPendente.economia,
-            reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    const dadosAtualizados = {
+        enviado: true,
+        url: url,
+        caminho: caminhoStorage,
+        status: 'pendente_analise',
+        motivoReprovacao: '',
+        tamanhoOriginal: TNP_Login_arquivoCorrecaoPendente.tamanhoOriginal,
+        tamanhoFinal: TNP_Login_arquivoCorrecaoPendente.tamanhoFinal,
+        economiaBytes: TNP_Login_arquivoCorrecaoPendente.economia,
+        reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    let update = TNP_Login_func_montarAtualizacaoCampo(
+        config.campoFirestore,
+        dadosAtualizados
+    );
+
+    update.requerAnaliseAdmin = true;
+    update.motivoAnaliseAdmin = '';
+
+    update.bloqueadoPorPendenciaAdmin = false;
+    update.pendenciaAdminObrigatoria = false;
+    update.pendenciaAdminOrigem = '';
+    update.pendenciaAdminTipo = '';
+    update.pendenciaAdminCampo = '';
+
+    update.atualizadoEm = firebase.firestore.FieldValue.serverTimestamp();
+
+    if (tipoPendencia === 'fotoPerfil') {
+        update = {
+            fotoPerfilUrl: url,
+            selfieUrl: url,
+
+            fotoPerfilEnviada: true,
+            selfieEnviada: true,
+
+            fotoPerfilStatus: 'pendente_analise',
+            selfieStatus: 'pendente_analise',
+            fotoPerfilMotivoReprovacao: '',
+
+            fotoPerfilCorrecao: {
+                enviado: true,
+                url: url,
+                caminho: caminhoStorage,
+                status: 'pendente_analise',
+                motivoReprovacao: '',
+                tamanhoOriginal: TNP_Login_arquivoCorrecaoPendente.tamanhoOriginal,
+                tamanhoFinal: TNP_Login_arquivoCorrecaoPendente.tamanhoFinal,
+                economiaBytes: TNP_Login_arquivoCorrecaoPendente.economia,
+                reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            requerAnaliseAdmin: true,
+            motivoAnaliseAdmin: '',
+
+            bloqueadoPorCadastro: false,
+            bloqueadoPorPendenciaAdmin: false,
+            bloqueadoPorSelfieInadequada: false,
+
+            pendenciaAdminObrigatoria: false,
+            pendenciaAdminOrigem: '',
+            pendenciaAdminTipo: '',
+            pendenciaAdminCampo: '',
+
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         };
+    }
 
-        const update = TNP_Login_func_montarAtualizacaoCampo(
-            config.campoFirestore,
-            dadosAtualizados
-        );
-
-        update.requerAnaliseAdmin = true;
-        update.atualizadoEm = firebase.firestore.FieldValue.serverTimestamp();
-
-        if (origem === 'motorista') {
-            if (
-                tipoPendencia === 'fotoCnh' ||
-                tipoPendencia === 'selfieComCnh'
-            ) {
-                update.fotosCnhStatus = 'pendente_analise';
-            }
-
-            if (
-                tipoPendencia === 'crlv' ||
-                tipoPendencia === 'fotoVeiculoPlaca'
-            ) {
-                update.documentosVeiculoStatus = 'pendente_analise';
-            }
-
+    if (origem === 'motorista') {
+        if (tipoPendencia === 'fotoPerfil') {
+            update.motoristaStatus = 'pendente_analise_admin';
+            update.statusAnalise = 'pendente_analise_admin';
+            update.podeAceitarCorrida = false;
+            update.disponivelParaCorridas = false;
             update.etapaCadastroMotorista = 'analise_final_motorista';
-        }
-		if (origem === 'passageiro') {
-		if (tipoPendencia === 'selfieDocumento') {
-			update.selfieDocumentoExtraPendente = true;
-			update.selfieDocumentoExtraConcluida = false;
-			update.bloqueadoPorSelfieDocumentoExtra = false;
-			update.ultimaPendenciaCorrigida = 'selfieDocumento';
-			update['statusCadastroPassageiro.documentos'] = 'pendente_analise';
-		}
 
-		if (tipoPendencia === 'comprovanteEndereco') {
-			update.comprovanteEnderecoPendente = true;
-			update.fotoEnderecoPendente = true;
-			update.ultimaPendenciaCorrigida = 'comprovanteEndereco';
-			update['statusCadastroPassageiro.comprovanteEndereco'] = 'pendente_analise';
-		}
-	}
-
-        const docRef = origem === 'motorista'
-            ? PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid)
-            : PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid);
-
-        await docRef.update(update);
-
-		TNP_Login_pendenciaObrigatoria = false;
-		TNP_Login_func_fecharModalCorrigirPendencia();
-
-		if (origem === 'motorista') {
-			if (typeof MOTORISTAPAG_Login_func_abrirModalStatusCadastro === "function") {
-				MOTORISTAPAG_Login_func_abrirModalStatusCadastro();
-			} else {
-				TNP_Login_func_abrirMensagemProvisoria(
-					'Correção enviada',
-					'Sua correção foi enviada e ficará aguardando análise do administrador.'
-				);
-			}
-
-			return;
-		}
-
-		if (origem === 'passageiro') {
-		TNP_Login_func_abrirMensagemProvisoria(
-			'Correção enviada',
-			'Sua correção foi enviada e ficará aguardando análise do administrador.'
-		);
-
-		return;
-	}
-
-    } catch (e) {
-        console.error('Erro ao enviar correção de pendência:', e);
-
-        if (erro) {
-            erro.innerText =
-                'Erro ao enviar: ' +
-                (e.code || e.message || 'erro desconhecido');
-
-            erro.style.display = 'block';
+            update.statusMotorista = {
+                geral: 'pendente_analise_admin',
+                etapa: 'analise_final_motorista',
+                mensagem: 'Foto de perfil reenviada. Aguardando análise do administrador.',
+                motivo: '',
+                tipo: 'motorista',
+                uid: user.uid,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            };
         }
 
-    } finally {
-        if (btnEnviar) {
-            btnEnviar.disabled = false;
-            btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+        if (
+            tipoPendencia === 'fotoCnh' ||
+            tipoPendencia === 'selfieComCnh'
+        ) {
+            update.fotosCnhStatus = 'pendente_analise';
+        }
+
+        if (
+            tipoPendencia === 'crlv' ||
+            tipoPendencia === 'fotoVeiculoPlaca'
+        ) {
+            update.documentosVeiculoStatus = 'pendente_analise';
+        }
+
+        update.etapaCadastroMotorista = 'analise_final_motorista';
+    }
+
+    if (origem === 'passageiro') {
+        if (tipoPendencia === 'fotoPerfil') {
+            update.status = {
+                geral: 'pendente_analise_selfie',
+                etapa: 'home_passageiro',
+                mensagem: 'Foto de perfil reenviada. Aguardando análise do administrador.',
+                motivo: '',
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            };
+        }
+
+        if (tipoPendencia === 'selfieDocumento') {
+            update.selfieDocumentoExtraPendente = true;
+            update.selfieDocumentoExtraConcluida = false;
+            update.bloqueadoPorSelfieDocumentoExtra = false;
+            update.ultimaPendenciaCorrigida = 'selfieDocumento';
+            update['statusCadastroPassageiro.documentos'] = 'pendente_analise';
+        }
+
+        if (tipoPendencia === 'comprovanteEndereco') {
+            update.comprovanteEnderecoPendente = true;
+            update.fotoEnderecoPendente = true;
+            update.ultimaPendenciaCorrigida = 'comprovanteEndereco';
+            update['statusCadastroPassageiro.comprovanteEndereco'] = 'pendente_analise';
         }
     }
+
+    if (origem === 'motorista') {
+		const motoristaRef = PRIMEIRAPAG_Login_db
+			.collection('motoristas')
+			.doc(user.uid);
+
+		if (tipoPendencia === 'fotoPerfil') {
+			await motoristaRef.set(update, { merge: true });
+		} else {
+			await motoristaRef.update(update);
+		}
+
+		const updateUsuarioMotorista = {
+			requerAnaliseAdmin: true,
+			motivoAnaliseAdmin: '',
+
+			bloqueadoPorCadastro: false,
+			bloqueadoPorPendenciaAdmin: false,
+
+			pendenciaAdminObrigatoria: false,
+			pendenciaAdminOrigem: '',
+			pendenciaAdminTipo: '',
+			pendenciaAdminCampo: '',
+
+			motoristaStatus: 'pendente_analise_admin',
+			statusAnalise: 'pendente_analise_admin',
+			podeAceitarCorrida: false,
+			disponivelParaCorridas: false,
+
+			etapaCadastro: 'motorista_analise_final',
+			etapaCadastroMotorista: 'analise_final_motorista',
+
+			statusMotorista: {
+				geral: 'pendente_analise_admin',
+				etapa: 'analise_final_motorista',
+				mensagem: 'Correção reenviada. Aguardando análise do administrador.',
+				motivo: '',
+				tipo: 'motorista',
+				uid: user.uid,
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
+
+		if (tipoPendencia === 'fotoPerfil') {
+			updateUsuarioMotorista.fotoPerfilUrl = url;
+			updateUsuarioMotorista.selfieUrl = url;
+			updateUsuarioMotorista.fotoPerfilEnviada = true;
+			updateUsuarioMotorista.selfieEnviada = true;
+			updateUsuarioMotorista.fotoPerfilStatus = 'pendente_analise';
+			updateUsuarioMotorista.selfieStatus = 'pendente_analise';
+			updateUsuarioMotorista.fotoPerfilMotivoReprovacao = '';
+			updateUsuarioMotorista.bloqueadoPorSelfieInadequada = false;
+			updateUsuarioMotorista.fotoPerfilCorrecao = update.fotoPerfilCorrecao;
+		}
+
+		await PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(user.uid)
+			.set(updateUsuarioMotorista, { merge: true });
+
+	} else {
+		const usuarioRef = PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(user.uid);
+
+		if (tipoPendencia === 'fotoPerfil') {
+			await usuarioRef.set(update, { merge: true });
+		} else {
+			await usuarioRef.update(update);
+		}
+	}
+
+    TNP_Login_pendenciaObrigatoria = false;
+    TNP_Login_func_fecharModalCorrigirPendencia();
+
+    if (origem === 'motorista') {
+        if (typeof MOTORISTAPAG_Login_func_abrirModalStatusCadastro === "function") {
+            MOTORISTAPAG_Login_func_abrirModalStatusCadastro();
+        } else {
+            TNP_Login_func_abrirMensagemProvisoria(
+                'Correção enviada',
+                'Sua correção foi enviada e ficará aguardando análise do administrador.'
+            );
+        }
+
+        return;
+    }
+
+    if (origem === 'passageiro') {
+        TNP_Login_func_abrirMensagemProvisoria(
+            'Correção enviada',
+            'Sua correção foi enviada e ficará aguardando análise do administrador.'
+        );
+
+        return;
+    }
+
+} catch (e) {
+    console.error('Erro ao enviar correção de pendência:', e);
+
+    if (erro) {
+        erro.innerText =
+            'Erro ao enviar: ' +
+            (e.code || e.message || 'erro desconhecido');
+
+        erro.style.display = 'block';
+    }
+
+} finally {
+    if (btnEnviar) {
+        btnEnviar.disabled = false;
+        btnEnviar.innerText = 'ENVIAR CORREÇÃO';
+    }
+}
 }
 // MODAL UNIVERSAL: CORRIGIR PENDÊNCIA FINAL
 		
@@ -16097,6 +17195,34 @@ function PRIMEIRAPAG_Login_func_continuarCadastroMotoristaPendente() {
         }
         return;
     }
+	
+	if (
+            etapa === "motorista_endereco" ||
+            etapaMotorista === "endereco_motorista"
+        ) {
+            if (typeof MOTORISTAPAG_Login_func_carregarTelaEnderecoMotorista === "function") {
+                MOTORISTAPAG_Login_func_carregarTelaEnderecoMotorista();
+            } else {
+                PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_endereco_motorista');
+            }
+            return;
+        }
+		
+		if (
+    etapa === "motorista_contato_emergencia" ||
+    etapaMotorista === "contato_emergencia_motorista"
+) {
+    if (typeof MOTORISTAPAG_Login_func_carregarTelaContatoEmergenciaMotoristatop === "function") {
+        MOTORISTAPAG_Login_func_carregarTelaContatoEmergenciaMotoristatop();
+    } else {
+        PRIMEIRAPAG_Login_func_mostrarErro(
+            'PRIMEIRAPAG_Login_error_main',
+            'A tela de contato de emergência do motorista será criada na próxima etapa.'
+        );
+    }
+    return;
+}
+
 
     if (
         etapa === "motorista_pix" ||
@@ -16845,6 +17971,106 @@ function TNPPIX_func_testeAbrirModalPassageiro() {
 
 // ========== MODAL UNIVERSAL PIX TNP FINAL ==========-->
  
+let TNP_Login_fotoPerfilAdminAtual = null;
+
+function TNP_Login_func_verificarModalFotoPerfilAdmin(dadosUsuario, origem) {
+    const modal = document.getElementById('TNP_Login_modal_revisao_foto_perfil');
+    const texto = document.getElementById('TNP_Login_modal_revisao_foto_perfil_texto');
+    const motivoEl = document.getElementById('TNP_Login_modal_revisao_foto_perfil_motivo');
+    const btnFechar = document.getElementById('TNP_Login_btn_fechar_modal_foto_perfil');
+
+    if (!modal || !dadosUsuario) return false;
+
+    const precisaCorrigir =
+        dadosUsuario.pendenciaAdminTipo === 'fotoPerfil' &&
+        (
+            dadosUsuario.fotoPerfilStatus === 'pendente_correcao' ||
+            dadosUsuario.selfieStatus === 'pendente_correcao'
+        );
+
+    if (!precisaCorrigir) {
+        modal.classList.remove('active');
+        TNP_Login_fotoPerfilAdminAtual = null;
+        return false;
+    }
+
+    const obrigatoria = dadosUsuario.pendenciaAdminObrigatoria === true;
+
+    TNP_Login_fotoPerfilAdminAtual = {
+        origem: origem,
+        obrigatoria: obrigatoria
+    };
+
+    if (texto) {
+        texto.innerText = origem === 'motorista'
+            ? 'O administrador solicitou uma nova foto de perfil do motorista. Para continuar, envie uma nova selfie nítida.'
+            : 'O administrador solicitou uma nova foto de perfil. Para continuar, envie uma nova selfie nítida.';
+    }
+
+    if (motivoEl) {
+        motivoEl.innerText =
+            'Motivo: ' +
+            (
+                dadosUsuario.fotoPerfilMotivoReprovacao ||
+                dadosUsuario.motivoAnaliseAdmin ||
+                'Foto inadequada, imprópria ou sem nitidez.'
+            );
+    }
+
+    if (btnFechar) {
+        btnFechar.style.display = obrigatoria ? 'none' : 'block';
+    }
+
+    modal.classList.add('active');
+
+    return true;
+}
+
+function TNP_Login_func_fecharModalRevisaoFotoPerfil() {
+    if (
+        TNP_Login_fotoPerfilAdminAtual &&
+        TNP_Login_fotoPerfilAdminAtual.obrigatoria === true
+    ) {
+        return TNP_Login_func_abrirMensagemProvisoria(
+            'Correção obrigatória',
+            'Para continuar, envie a nova foto de perfil solicitada pelo administrador.'
+        );
+    }
+
+    const modal = document.getElementById('TNP_Login_modal_revisao_foto_perfil');
+
+    if (modal) {
+        modal.classList.remove('active');
+    }
+
+    TNP_Login_fotoPerfilAdminAtual = null;
+}
+
+function TNP_Login_func_irParaCorrecaoFotoPerfilAdmin() {
+    const origem =
+        TNP_Login_fotoPerfilAdminAtual &&
+        TNP_Login_fotoPerfilAdminAtual.origem
+            ? TNP_Login_fotoPerfilAdminAtual.origem
+            : 'passageiro';
+
+    sessionStorage.setItem('TNP_MOB_EDITANDO_FOTO_PERFIL', 'true');
+    sessionStorage.setItem('TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN', 'true');
+    sessionStorage.setItem('TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL', origem);
+
+    const modal = document.getElementById('TNP_Login_modal_revisao_foto_perfil');
+
+    if (modal) {
+        modal.classList.remove('active');
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+}
+
+// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL ========== 
+
+
+
+// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ==========
 
 
 // =====================================================
