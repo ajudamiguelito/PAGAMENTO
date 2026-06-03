@@ -3751,6 +3751,449 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_gerenciar_veiculos_doc_linha {
     text-align: left;
 }
 
+/* //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA ========== // */
+
+.PASSAGEIROPAG_Login_screen_ajuda {
+    width: 100%;
+    min-height: 100%;
+    padding: 18px 16px 28px;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    background:
+        radial-gradient(circle at top center, rgba(205, 170, 135, 0.13), transparent 34%),
+        linear-gradient(180deg, #1d1a17 0%, #12100f 100%);
+
+    color: #ffffff;
+}
+
+/* TOPO */
+
+.PASSAGEIROPAG_Login_ajuda_topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.PASSAGEIROPAG_Login_ajuda_btn_voltar,
+.PASSAGEIROPAG_Login_ajuda_btn_fechar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(211, 176, 140, 0.38);
+    background: rgba(31, 26, 22, 0.92);
+    color: #d9b894;
+    font-size: 22px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
+}
+
+.PASSAGEIROPAG_Login_ajuda_btn_fechar {
+    margin-left: auto;
+}
+
+.PASSAGEIROPAG_Login_ajuda_topo_textos {
+    flex: 1;
+    min-width: 0;
+}
+
+.PASSAGEIROPAG_Login_ajuda_topo_textos h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+}
+
+.PASSAGEIROPAG_Login_ajuda_topo_textos p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #c9a98a;
+}
+
+/* BUSCA */
+
+.PASSAGEIROPAG_Login_ajuda_busca_box {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    background: #2a241f;
+    border: 1px solid rgba(211, 176, 140, 0.28);
+    border-radius: 18px;
+
+    padding: 13px 14px;
+    margin-bottom: 18px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 20px rgba(0, 0, 0, 0.24);
+}
+
+.PASSAGEIROPAG_Login_ajuda_busca_box span {
+    font-size: 17px;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_ajuda_busca_box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.PASSAGEIROPAG_Login_ajuda_busca_box input::placeholder {
+    color: #bda58f;
+}
+
+/* CONTEÚDO */
+
+.PASSAGEIROPAG_Login_ajuda_conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.PASSAGEIROPAG_Login_ajuda_bloco_titulo {
+    margin: 4px 2px -4px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #d8b48e;
+}
+
+/* CARD/LISTA */
+
+.PASSAGEIROPAG_Login_ajuda_card {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: rgba(34, 29, 25, 0.96);
+    border: 1px solid rgba(211, 176, 140, 0.24);
+    border-radius: 22px;
+    overflow: hidden;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 10px 25px rgba(0, 0, 0, 0.26);
+}
+
+.PASSAGEIROPAG_Login_ajuda_item {
+    width: 100%;
+    min-height: 72px;
+
+    border: none;
+    border-bottom: 1px solid rgba(211, 176, 140, 0.13);
+    background: transparent;
+
+    padding: 14px 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    text-align: left;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.PASSAGEIROPAG_Login_ajuda_item:last-child {
+    border-bottom: none;
+}
+
+.PASSAGEIROPAG_Login_ajuda_item:active {
+    background: rgba(211, 176, 140, 0.08);
+}
+
+.PASSAGEIROPAG_Login_ajuda_item_icone {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+
+    background: rgba(211, 176, 140, 0.16);
+    color: #f1d0ac;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_ajuda_item_texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.PASSAGEIROPAG_Login_ajuda_item_texto strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.25;
+}
+
+.PASSAGEIROPAG_Login_ajuda_item_texto small {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #d1b59c;
+    line-height: 1.3;
+}
+
+.PASSAGEIROPAG_Login_ajuda_item_seta {
+    font-size: 24px;
+    line-height: 1;
+    color: #c9a98a;
+    flex-shrink: 0;
+}
+
+/* ARTIGO FINAL */
+
+.PASSAGEIROPAG_Login_ajuda_artigo {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: rgba(34, 29, 25, 0.98);
+    border: 1px solid rgba(211, 176, 140, 0.24);
+    border-radius: 24px;
+
+    padding: 18px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 12px 28px rgba(0, 0, 0, 0.30);
+}
+
+.PASSAGEIROPAG_Login_ajuda_artigo_emoji {
+    width: 58px;
+    height: 58px;
+    border-radius: 19px;
+
+    background: rgba(211, 176, 140, 0.17);
+    color: #f1d0ac;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 29px;
+    margin-bottom: 14px;
+}
+
+.PASSAGEIROPAG_Login_ajuda_artigo h3 {
+    margin: 0 0 12px;
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+.PASSAGEIROPAG_Login_ajuda_artigo_texto {
+    color: #ead6c4;
+    font-size: 15px;
+    line-height: 1.58;
+    white-space: pre-line;
+}
+
+/* FEEDBACK */
+
+.PASSAGEIROPAG_Login_ajuda_feedback {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(211, 176, 140, 0.20);
+}
+
+.PASSAGEIROPAG_Login_ajuda_feedback p {
+    margin: 0 0 11px;
+    color: #d8b48e;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.PASSAGEIROPAG_Login_ajuda_feedback_botoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.PASSAGEIROPAG_Login_ajuda_feedback_botoes button {
+    border: 1px solid rgba(211, 176, 140, 0.25);
+    border-radius: 15px;
+    background: rgba(211, 176, 140, 0.16);
+    color: #ffffff;
+
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.PASSAGEIROPAG_Login_ajuda_feedback_botoes button:active {
+    transform: scale(0.98);
+}
+
+/* BOTÃO WHATSAPP */
+
+.PASSAGEIROPAG_Login_ajuda_btn_whatsapp {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+
+    background: linear-gradient(180deg, #7a4429 0%, #60331f 100%);
+    color: #ffffff;
+
+    margin-top: 16px;
+    padding: 15px 14px;
+
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.34);
+}
+
+.PASSAGEIROPAG_Login_ajuda_btn_whatsapp:active {
+    transform: scale(0.98);
+}
+
+/* SEM RESULTADO */
+
+.PASSAGEIROPAG_Login_ajuda_vazio {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: rgba(34, 29, 25, 0.96);
+    border: 1px dashed rgba(211, 176, 140, 0.34);
+    border-radius: 20px;
+
+    padding: 20px 16px;
+    text-align: center;
+
+    color: #d7c0aa;
+    line-height: 1.45;
+}
+
+.PASSAGEIROPAG_Login_ajuda_vazio strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+/* //--========== CENTRAL DE AJUDA: TEMA CLARO ========== // */
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_screen_ajuda {
+    background:
+        radial-gradient(circle at top center, rgba(123, 72, 39, 0.10), transparent 34%),
+        linear-gradient(180deg, #fff8f0 0%, #f2e3d2 100%);
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_topo_textos h2 {
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_topo_textos p {
+    color: #7b5a42;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_btn_voltar,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_btn_fechar {
+    background: #ffffff;
+    color: #5d321f;
+    border: 1px solid rgba(93, 50, 31, 0.22);
+    box-shadow: 0 7px 16px rgba(93, 50, 31, 0.12);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_busca_box {
+    background: #ffffff;
+    border: 1px solid rgba(93, 50, 31, 0.16);
+    box-shadow: 0 8px 20px rgba(93, 50, 31, 0.08);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_busca_box input {
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_busca_box input::placeholder {
+    color: #92745f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_bloco_titulo {
+    color: #5d321f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_card,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_artigo,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_vazio {
+    background: #ffffff;
+    border: 1px solid rgba(93, 50, 31, 0.13);
+    box-shadow: 0 10px 22px rgba(93, 50, 31, 0.08);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_item {
+    color: #3b2417;
+    border-bottom: 1px solid rgba(93, 50, 31, 0.09);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_item:active {
+    background: rgba(93, 50, 31, 0.05);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_item_icone,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_artigo_emoji {
+    background: #f3e2d0;
+    color: #5d321f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_item_texto strong,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_artigo h3,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_vazio strong {
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_item_texto small,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_artigo_texto,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_vazio {
+    color: #6a4934;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_item_seta {
+    color: #9a765d;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_feedback {
+    border-top: 1px solid rgba(93, 50, 31, 0.12);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_feedback p {
+    color: #5d321f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_feedback_botoes button {
+    background: #f3e2d0;
+    color: #5d321f;
+    border: 1px solid rgba(93, 50, 31, 0.10);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_btn_whatsapp {
+    background: linear-gradient(180deg, #704127 0%, #5a321f 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(93, 50, 31, 0.22);
+}
+
 
 
         
@@ -5195,7 +5638,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 <button
     type="button"
-    onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Solicitar ajuda', 'Aqui você poderá falar com o suporte, relatar problemas em corridas e tirar dúvidas sobre sua conta.')"
+    onclick="PASSAGEIROPAG_Login_func_carregarCentralAjuda()"
 >
     ❓ Solicitar ajuda
 </button>
@@ -5307,10 +5750,48 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
   
 <!--// ============  Tela 20 Histórico Passageiro Final  ============= // -->  
   
- <!--// ============  Tela 21 MENSAGENS  ============= // -->  
-  <!-- ===================================================== -->
-<!-- PASSAGEIRO - MENSAGENS                                -->
-<!-- ===================================================== -->
+  
+
+<!-- //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA ========== // -->
+<div id="PASSAGEIROPAG_Login_screen_ajuda" class="PRIMEIRAPAG_Login_screen PASSAGEIROPAG_Login_screen_ajuda">
+
+    <div class="PASSAGEIROPAG_Login_ajuda_topo">
+        <button type="button"
+                class="PASSAGEIROPAG_Login_ajuda_btn_voltar"
+                onclick="PASSAGEIROPAG_Login_func_ajudaVoltar()">
+            ←
+        </button>
+
+        <div class="PASSAGEIROPAG_Login_ajuda_topo_textos">
+            <h2 id="PASSAGEIROPAG_Login_ajuda_titulo_topo">Central de Ajuda</h2>
+            <p id="PASSAGEIROPAG_Login_ajuda_subtitulo_topo">Olá, como podemos ajudar?</p>
+        </div>
+
+        <button type="button"
+                class="PASSAGEIROPAG_Login_ajuda_btn_fechar"
+                onclick="PASSAGEIROPAG_Login_func_fecharCentralAjuda()">
+            ×
+        </button>
+    </div>
+
+    <div class="PASSAGEIROPAG_Login_ajuda_busca_box">
+        <span>🔍</span>
+        <input type="text"
+               id="PASSAGEIROPAG_Login_ajuda_input_busca"
+               placeholder="Pesquisar artigos de ajuda"
+               oninput="PASSAGEIROPAG_Login_func_pesquisarAjuda()">
+    </div>
+
+    <div id="PASSAGEIROPAG_Login_ajuda_conteudo" class="PASSAGEIROPAG_Login_ajuda_conteudo">
+        <!-- CONTEÚDO GERADO PELO JAVASCRIPT -->
+    </div>
+
+</div>
+   <!-- //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA FINAL ========== // -->
+    
+  
+ <!--// ============  Tela 22 PASSAGEIRO - MENSAGENS  ============= // -->  
+
 <div id="PASSAGEIROPAG_Login_screen_mensagens" class="PRIMEIRAPAG_Login_screen">
 
     <div class="PRIMEIRAPAG_Login_error" id="PASSAGEIROPAG_Login_error_mensagens"></div>
@@ -5356,7 +5837,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
 </div>
-  <!--// ============  Tela 21 MENSAGENS Final  ============= // --> 
+  <!--// ============  Tela 22 MENSAGENS Final  ============= // --> 
   
   
   
@@ -12025,22 +12506,812 @@ function PASSAGEIROPAG_Login_func_carregarHistoricoCorridas() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ============  Tela 20 Histórico Passageiro Final  ============= // --> 
 
-// ============  Tela 21 MENSAGENS  ============= // -->  
+ //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA  ========== // -->
+ 
+const PASSAGEIROPAG_Login_ajudaWhatsappSuporte = "5531996645814";
+
+let PASSAGEIROPAG_Login_ajudaTelaAtual = "inicio";
+let PASSAGEIROPAG_Login_ajudaHistorico = [];
+let PASSAGEIROPAG_Login_ajudaArtigoAtual = null;
+
+const PASSAGEIROPAG_Login_ajudaDados = [
+    {
+        id: "revisar_pagamento",
+        nivel: 2,
+        icone: "💰",
+        titulo: "Revisar pagamento da minha corrida",
+        descricao: "Cobranças, cancelamento, rota, PIX e valores extras.",
+        itens: [
+            {
+                id: "cancelamento_cobrado",
+                emoji: "💸",
+                titulo: "Eu cancelei uma viagem e fui cobrado",
+                texto: "Entendemos que imprevistos acontecem.\n\nQuando o motorista já se deslocou até o local de embarque e o tempo de espera foi excedido, uma pequena taxa de cancelamento pode ser aplicada para ajudar a cobrir o deslocamento e o tempo do motorista.\n\nSe você acredita que a cobrança foi indevida, toque em “Preciso de ajuda” para falar com o suporte."
+            },
+            {
+                id: "viagem_sem_embarque",
+                emoji: "🚗",
+                titulo: "O motorista iniciou a viagem sem que eu embarcasse",
+                texto: "Se você solicitou uma corrida, não embarcou e mesmo assim foi cobrado, primeiro confirme se nenhum familiar ou amigo utilizou sua conta.\n\nSe a cobrança realmente não foi reconhecida, nossa equipe pode analisar a corrida, localização e histórico do trajeto."
+            },
+            {
+                id: "mudanca_rota",
+                emoji: "🛣️",
+                titulo: "Motorista mudou a rota",
+                texto: "Às vezes a rota pode mudar por trânsito, bloqueios, obras ou atualização do GPS.\n\nMesmo assim, o motorista deve buscar o caminho mais eficiente e comunicar qualquer alteração importante.\n\nSe você acredita que foi cobrado a mais por desvio de rota, toque em “Preciso de ajuda” para nossa equipe analisar."
+            },
+            {
+                id: "valor_extra",
+                emoji: "⚠️",
+                titulo: "Motorista pediu valor extra em dinheiro ou PIX",
+                texto: "Se a corrida foi paga pelo aplicativo, o motorista não deve pedir pagamento extra em dinheiro ou PIX.\n\nCaso isso tenha acontecido, não pague novamente sem confirmar no aplicativo.\n\nToque em “Preciso de ajuda” para informar o ocorrido e permitir que nossa equipe revise a corrida."
+            },
+            {
+                id: "pix_nao_confirmou",
+                emoji: "📲",
+                titulo: "Tive problemas para pagar minha corrida com PIX",
+                texto: "Se você pagou por PIX e o aplicativo ainda mostra pagamento pendente, aguarde alguns minutos e atualize a tela.\n\nConfira também se o comprovante está correto e se o valor foi realmente debitado.\n\nSe continuar pendente, toque em “Preciso de ajuda” e envie o comprovante ao suporte."
+            }
+        ]
+    },
+    {
+        id: "corridas",
+        nivel: 3,
+        icone: "🚗",
+        titulo: "Corridas",
+        descricao: "Ajuda com solicitação, cancelamento, embarque, destino e motorista.",
+        subtopicos: [
+            {
+                id: "itens_perdidos",
+                titulo: "Itens perdidos",
+                descricao: "Esqueci algo no veículo.",
+                itens: [
+                    {
+                        id: "perdi_item",
+                        emoji: "🎒",
+                        titulo: "Perdi um item, como faço para recuperá-lo?",
+                        texto: "Se você esqueceu algo no veículo, tente entrar em contato com o motorista o mais rápido possível pelo histórico da corrida.\n\nSe não conseguir contato, toque em “Preciso de ajuda” e informe a data, horário, destino e o item esquecido.\n\nNossa equipe tentará intermediar o contato com o motorista."
+                    },
+                    {
+                        id: "familiar_perdeu_item",
+                        emoji: "📱",
+                        titulo: "Meu amigo ou familiar perdeu um item",
+                        texto: "Se outra pessoa perdeu um item em uma corrida feita pela sua conta, informe os dados da viagem e uma descrição do objeto.\n\nEssas informações serão usadas apenas para ajudar na localização do item."
+                    }
+                ]
+            },
+            {
+                id: "embarque_destino",
+                titulo: "Embarque e destino",
+                descricao: "Ponto de embarque, destino e paradas.",
+                itens: [
+                    {
+                        id: "alterar_embarque",
+                        emoji: "📍",
+                        titulo: "Como faço para alterar meu ponto de embarque?",
+                        texto: "Depois que a corrida é aceita, o motorista já começa a se deslocar até o ponto informado.\n\nSe o ponto de embarque estiver errado, o ideal é cancelar a corrida e solicitar outra com o endereço correto.\n\nAntes de confirmar uma corrida, confira sempre se o endereço está certo."
+                    },
+                    {
+                        id: "alterar_destino",
+                        emoji: "🏁",
+                        titulo: "Como faço para alterar meu destino?",
+                        texto: "Quando essa função estiver disponível, você poderá alterar o destino pelo próprio aplicativo durante a viagem.\n\nAntes de mudar o destino, converse com o motorista para evitar confusão.\n\nAlterações de destino podem mudar o valor final da corrida."
+                    },
+                    {
+                        id: "viagem_local_errado",
+                        emoji: "🧭",
+                        titulo: "Viagem encerrada no local incorreto",
+                        texto: "Se sua viagem foi encerrada antes de chegar ao destino ou em um local errado, informe o ocorrido ao suporte.\n\nNossa equipe poderá analisar o trajeto, horário e dados da corrida para entender o que aconteceu."
+                    }
+                ]
+            },
+            {
+                id: "solicitar_cancelar",
+                titulo: "Solicitar e cancelar uma corrida",
+                descricao: "Problemas ao pedir ou cancelar corrida.",
+                itens: [
+                    {
+                        id: "nao_consigo_solicitar",
+                        emoji: "🔎",
+                        titulo: "Por que não consigo solicitar uma corrida?",
+                        texto: "Isso pode acontecer por falta de motoristas próximos, instabilidade de conexão, cadastro pendente ou forma de pagamento recusada.\n\nVerifique sua internet, seu cadastro e tente novamente.\n\nSe continuar acontecendo, toque em “Preciso de ajuda”."
+                    },
+                    {
+                        id: "como_cancelar",
+                        emoji: "❌",
+                        titulo: "Como faço para cancelar uma corrida?",
+                        texto: "Quando a corrida estiver ativa, procure a opção “Cancelar corrida”.\n\nO aplicativo poderá perguntar o motivo do cancelamento.\n\nAlguns cancelamentos podem gerar taxa, principalmente se o motorista já chegou ou está próximo do embarque."
+                    }
+                ]
+            },
+            {
+                id: "comportamento_motorista",
+                titulo: "Comportamento do motorista",
+                descricao: "Atraso, atendimento, veículo e identificação.",
+                itens: [
+                    {
+                        id: "motorista_atrasado",
+                        emoji: "⏱️",
+                        titulo: "O motorista está atrasado, o que devo fazer?",
+                        texto: "Atrasos podem acontecer por trânsito, obras, chuva ou bloqueios.\n\nAcompanhe o motorista pelo mapa e, se possível, envie uma mensagem pelo aplicativo.\n\nSe o atraso for muito grande, você poderá cancelar a corrida."
+                    },
+                    {
+                        id: "motorista_rude",
+                        emoji: "😟",
+                        titulo: "Meu motorista foi rude ou não profissional",
+                        texto: "O TNP MoB busca manter uma comunidade respeitosa para passageiros e motoristas.\n\nSe você teve uma experiência ruim, relate o ocorrido para que nossa equipe possa avaliar o caso.\n\nDependendo da gravidade, medidas poderão ser tomadas."
+                    },
+                    {
+                        id: "confirmar_motorista",
+                        emoji: "✅",
+                        titulo: "Como confirmar a identidade do motorista?",
+                        texto: "Antes de entrar no veículo, confira no aplicativo:\n\n1. Nome do motorista.\n2. Foto do motorista.\n3. Placa do veículo.\n4. Modelo e cor do veículo.\n\nSe houver qualquer diferença, não embarque e procure ajuda."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "pagamentos_cashback",
+        nivel: 3,
+        icone: "💳",
+        titulo: "Pagamentos e cashback",
+        descricao: "Métodos de pagamento, PIX, cashback e ID TNP.",
+        subtopicos: [
+            {
+                id: "metodo_pagamento",
+                titulo: "Método de pagamento",
+                descricao: "Adicionar, alterar ou corrigir pagamento.",
+                itens: [
+                    {
+                        id: "formas_pagamento",
+                        emoji: "💳",
+                        titulo: "Quais métodos de pagamento posso usar?",
+                        texto: "Na primeira versão do TNP MoB, os métodos podem variar conforme a liberação do sistema.\n\nA ideia é permitir pagamentos online e opções controladas pelo aplicativo.\n\nQuando novas formas forem liberadas, elas aparecerão na tela de pagamento antes de confirmar a corrida."
+                    },
+                    {
+                        id: "pagamento_falhou",
+                        emoji: "⚠️",
+                        titulo: "O que fazer se o pagamento falhar?",
+                        texto: "Confira se os dados do pagamento estão corretos, se há saldo/limite disponível e se sua internet está funcionando.\n\nSe for PIX, aguarde alguns minutos e verifique se o comprovante foi gerado corretamente.\n\nSe o problema continuar, fale com o suporte."
+                    },
+                    {
+                        id: "alterar_pagamento",
+                        emoji: "🔁",
+                        titulo: "Como alterar o método de pagamento?",
+                        texto: "Antes de confirmar a corrida, confira a forma de pagamento selecionada.\n\nQuando a função estiver disponível, você poderá trocar o método diretamente na tela de solicitação da corrida."
+                    }
+                ]
+            },
+            {
+                id: "pix",
+                titulo: "PIX",
+                descricao: "Pagamentos via PIX no aplicativo.",
+                itens: [
+                    {
+                        id: "pix_pendente",
+                        emoji: "📲",
+                        titulo: "Meu PIX ficou pendente",
+                        texto: "Se o PIX ficou pendente, aguarde alguns minutos e atualize o aplicativo.\n\nNão faça outro pagamento sem conferir se o primeiro foi debitado.\n\nSe o valor saiu da sua conta e não confirmou no app, fale com o suporte e envie o comprovante."
+                    },
+                    {
+                        id: "pix_duplicado",
+                        emoji: "🧾",
+                        titulo: "Paguei duas vezes por engano",
+                        texto: "Se você acredita que pagou duas vezes, separe os comprovantes dos dois pagamentos.\n\nToque em “Preciso de ajuda” e envie as informações para análise.\n\nNossa equipe irá conferir os registros antes de qualquer ajuste."
+                    }
+                ]
+            },
+            {
+                id: "cashback_tnp",
+                titulo: "Cashback TNP",
+                descricao: "Dúvidas sobre cashback e vínculo com TNP.",
+                itens: [
+                    {
+                        id: "como_funciona_cashback",
+                        emoji: "💰",
+                        titulo: "Como funciona o cashback TNP?",
+                        texto: "O cashback TNP é um benefício vinculado ao ecossistema TNP.\n\nQuando o passageiro informa corretamente seu ID TNP e cumpre as regras do cadastro, o sistema pode liberar os benefícios conforme as regras vigentes.\n\nSe seu cashback não aparecer, confira se o ID TNP foi informado corretamente."
+                    },
+                    {
+                        id: "corrigir_id_tnp",
+                        emoji: "🪪",
+                        titulo: "Informar ou corrigir meu ID TNP",
+                        texto: "O ID TNP ajuda a vincular sua conta do aplicativo ao seu cadastro TNP.\n\nSe você digitou errado, procure a opção de cadastro TNP no perfil ou fale com o suporte para análise.\n\nNunca use ID de outra pessoa sem autorização."
+                    },
+                    {
+                        id: "limite_sem_tnp",
+                        emoji: "🚦",
+                        titulo: "Limite de corridas sem cadastro TNP",
+                        texto: "O aplicativo pode permitir algumas corridas antes de exigir o cadastro TNP completo.\n\nApós atingir o limite, o passageiro pode ser orientado a completar o cadastro para continuar usando todos os recursos."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "seguranca",
+        nivel: 2,
+        icone: "🛡️",
+        titulo: "Segurança e emergências",
+        descricao: "Contato de emergência, motorista diferente, veículo diferente e denúncias.",
+        itens: [
+            {
+                id: "compartilhar_viagem",
+                emoji: "📤",
+                titulo: "Como compartilhar minha viagem?",
+                texto: "Durante uma corrida, você poderá compartilhar sua rota com uma pessoa de confiança quando essa função estiver disponível.\n\nEssa opção ajuda familiares ou amigos a acompanharem sua viagem com mais segurança."
+            },
+            {
+                id: "contato_emergencia",
+                emoji: "☎️",
+                titulo: "Contato de emergência",
+                texto: "O contato de emergência é usado para aumentar sua segurança no aplicativo.\n\nMantenha esse contato sempre atualizado no seu perfil.\n\nEm caso de risco real, acione primeiro os serviços públicos de emergência da sua região."
+            },
+            {
+                id: "motorista_diferente",
+                emoji: "👤",
+                titulo: "O motorista era diferente do aplicativo",
+                texto: "Se a pessoa que chegou para buscar você não for a mesma que aparece no aplicativo, não embarque.\n\nConfira sempre nome, foto e dados do veículo antes de iniciar a viagem.\n\nDepois, relate o ocorrido para nossa equipe."
+            },
+            {
+                id: "veiculo_diferente",
+                emoji: "🚘",
+                titulo: "O veículo era diferente do aplicativo",
+                texto: "Se a placa, modelo ou cor do veículo forem diferentes do que aparece no app, não inicie a corrida.\n\nSua segurança vem em primeiro lugar.\n\nToque em “Preciso de ajuda” para informar o problema."
+            },
+            {
+                id: "ameaca_agressao",
+                emoji: "🚨",
+                titulo: "Sofri ameaça, agressão ou situação de risco",
+                texto: "Se você estiver em perigo imediato, procure um local seguro e acione as autoridades competentes.\n\nDepois, informe o ocorrido ao suporte do TNP MoB com o máximo de detalhes possível.\n\nSua segurança é prioridade."
+            }
+        ]
+    }
+];
+
+function PASSAGEIROPAG_Login_func_carregarCentralAjuda() {
+    const tela = document.getElementById("PASSAGEIROPAG_Login_screen_ajuda");
+    const inputBusca = document.getElementById("PASSAGEIROPAG_Login_ajuda_input_busca");
+
+    if (!tela) {
+        alert("Tela Central de Ajuda não encontrada no HTML.");
+        return;
+    }
+
+    if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
+        PASSAGEIROPAG_Login_func_fecharMenuLateral();
+    }
+
+    if (inputBusca) {
+        inputBusca.value = "";
+    }
+
+    PASSAGEIROPAG_Login_ajudaTelaAtual = "inicio";
+    PASSAGEIROPAG_Login_ajudaHistorico = [];
+    PASSAGEIROPAG_Login_ajudaArtigoAtual = null;
+
+    if (typeof PRIMEIRAPAG_Login_func_irPara === "function") {
+        PRIMEIRAPAG_Login_func_irPara("PASSAGEIROPAG_Login_screen_ajuda");
+    } else {
+        document.querySelectorAll(".PRIMEIRAPAG_Login_screen").forEach(function (screen) {
+            screen.classList.remove("active");
+        });
+
+        tela.classList.add("active");
+    }
+
+    PASSAGEIROPAG_Login_func_renderizarAjudaInicio(false);
+}
+
+function PASSAGEIROPAG_Login_func_fecharCentralAjuda() {
+    const inputBusca = document.getElementById("PASSAGEIROPAG_Login_ajuda_input_busca");
+
+    if (inputBusca) {
+        inputBusca.value = "";
+    }
+
+    PASSAGEIROPAG_Login_ajudaTelaAtual = "inicio";
+    PASSAGEIROPAG_Login_ajudaHistorico = [];
+    PASSAGEIROPAG_Login_ajudaArtigoAtual = null;
+
+    if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+        PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+        return;
+    }
+
+    if (typeof PASSAGEIROPAG_Login_func_carregarPerfilPassageiro === "function") {
+        PASSAGEIROPAG_Login_func_carregarPerfilPassageiro();
+        return;
+    }
+
+    alert("Central de ajuda fechada. Depois vamos ligar esse botão na Home do passageiro.");
+}
+
+function PASSAGEIROPAG_Login_func_ajudaVoltar() {
+    const inputBusca = document.getElementById("PASSAGEIROPAG_Login_ajuda_input_busca");
+
+    if (inputBusca && inputBusca.value.trim()) {
+        inputBusca.value = "";
+        PASSAGEIROPAG_Login_func_renderizarAjudaInicio();
+        return;
+    }
+
+    if (!PASSAGEIROPAG_Login_ajudaHistorico.length) {
+        PASSAGEIROPAG_Login_func_fecharCentralAjuda();
+        return;
+    }
+
+    const ultimaTela = PASSAGEIROPAG_Login_ajudaHistorico.pop();
+
+    if (ultimaTela.tipo === "inicio") {
+        PASSAGEIROPAG_Login_func_renderizarAjudaInicio(false);
+        return;
+    }
+
+    if (ultimaTela.tipo === "topico") {
+        PASSAGEIROPAG_Login_func_renderizarTopico(ultimaTela.topicoId, false);
+        return;
+    }
+
+    if (ultimaTela.tipo === "subtopico") {
+        PASSAGEIROPAG_Login_func_renderizarSubtopico(ultimaTela.topicoId, ultimaTela.subtopicoId, false);
+    }
+}
+
+function PASSAGEIROPAG_Login_func_ajudaAtualizarTopo(titulo, subtitulo) {
+    const tituloTopo = document.getElementById("PASSAGEIROPAG_Login_ajuda_titulo_topo");
+    const subtituloTopo = document.getElementById("PASSAGEIROPAG_Login_ajuda_subtitulo_topo");
+
+    if (tituloTopo) {
+        tituloTopo.innerText = titulo || "Central de Ajuda";
+    }
+
+    if (subtituloTopo) {
+        subtituloTopo.innerText = subtitulo || "Olá, como podemos ajudar?";
+    }
+}
+
+function PASSAGEIROPAG_Login_func_ajudaScrollTopo() {
+    const tela = document.getElementById("PASSAGEIROPAG_Login_screen_ajuda");
+
+    if (tela) {
+        tela.scrollTop = 0;
+    }
+
+    const area = document.getElementById("PRIMEIRAPAG_Login_content_area");
+
+    if (area) {
+        area.scrollTop = 0;
+    }
+}
+
+function PASSAGEIROPAG_Login_func_renderizarAjudaInicio(salvarHistorico) {
+    const conteudo = document.getElementById("PASSAGEIROPAG_Login_ajuda_conteudo");
+
+    if (!conteudo) return;
+
+    PASSAGEIROPAG_Login_ajudaTelaAtual = "inicio";
+    PASSAGEIROPAG_Login_ajudaArtigoAtual = null;
+
+    PASSAGEIROPAG_Login_func_ajudaAtualizarTopo("Central de Ajuda", "Olá, como podemos ajudar?");
+
+    let html = "";
+
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_bloco_titulo">Todos os tópicos</div>';
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    PASSAGEIROPAG_Login_ajudaDados.forEach(function (topico) {
+        html += `
+            <button type="button"
+                    class="PASSAGEIROPAG_Login_ajuda_item"
+                    onclick="PASSAGEIROPAG_Login_func_renderizarTopico('${topico.id}', true)">
+                <span class="PASSAGEIROPAG_Login_ajuda_item_icone">${topico.icone}</span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                    <strong>${topico.titulo}</strong>
+                    <small>${topico.descricao}</small>
+                </span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+            </button>
+        `;
+    });
+
+    html += '</div>';
+
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_bloco_titulo">Andamento</div>';
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+    html += `
+        <button type="button"
+                class="PASSAGEIROPAG_Login_ajuda_item"
+                onclick="PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda()">
+            <span class="PASSAGEIROPAG_Login_ajuda_item_icone">💬</span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                <strong>Histórico de mensagens</strong>
+                <small>Acompanhe conversas e chamados com o suporte.</small>
+            </span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+        </button>
+    `;
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+	
+PASSAGEIROPAG_Login_func_ajudaScrollTopo();	
+}
+
+function PASSAGEIROPAG_Login_func_renderizarTopico(topicoId, salvarHistorico) {
+    const conteudo = document.getElementById("PASSAGEIROPAG_Login_ajuda_conteudo");
+    const topico = PASSAGEIROPAG_Login_ajudaDados.find(function (item) {
+        return item.id === topicoId;
+    });
+
+    if (!conteudo || !topico) return;
+
+    if (salvarHistorico) {
+        PASSAGEIROPAG_Login_ajudaHistorico.push({ tipo: "inicio" });
+    }
+
+    PASSAGEIROPAG_Login_ajudaTelaAtual = "topico";
+    PASSAGEIROPAG_Login_ajudaArtigoAtual = null;
+
+    PASSAGEIROPAG_Login_func_ajudaAtualizarTopo(topico.titulo, topico.descricao);
+
+    let html = "";
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    if (topico.nivel === 2) {
+        topico.itens.forEach(function (artigo) {
+            html += PASSAGEIROPAG_Login_func_montarBotaoArtigo(topico.id, null, artigo);
+        });
+    }
+
+    if (topico.nivel === 3) {
+        topico.subtopicos.forEach(function (subtopico) {
+            html += `
+                <button type="button"
+                        class="PASSAGEIROPAG_Login_ajuda_item"
+                        onclick="PASSAGEIROPAG_Login_func_renderizarSubtopico('${topico.id}', '${subtopico.id}', true)">
+                    <span class="PASSAGEIROPAG_Login_ajuda_item_icone">📌</span>
+                    <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                        <strong>${subtopico.titulo}</strong>
+                        <small>${subtopico.descricao}</small>
+                    </span>
+                    <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+                </button>
+            `;
+        });
+    }
+
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+	
+PASSAGEIROPAG_Login_func_ajudaScrollTopo();	
+}
+
+function PASSAGEIROPAG_Login_func_renderizarSubtopico(topicoId, subtopicoId, salvarHistorico) {
+    const conteudo = document.getElementById("PASSAGEIROPAG_Login_ajuda_conteudo");
+    const topico = PASSAGEIROPAG_Login_ajudaDados.find(function (item) {
+        return item.id === topicoId;
+    });
+
+    if (!conteudo || !topico || !Array.isArray(topico.subtopicos)) return;
+
+    const subtopico = topico.subtopicos.find(function (item) {
+        return item.id === subtopicoId;
+    });
+
+    if (!subtopico) return;
+
+    if (salvarHistorico) {
+        PASSAGEIROPAG_Login_ajudaHistorico.push({
+            tipo: "topico",
+            topicoId: topicoId
+        });
+    }
+
+    PASSAGEIROPAG_Login_ajudaTelaAtual = "subtopico";
+    PASSAGEIROPAG_Login_ajudaArtigoAtual = null;
+
+    PASSAGEIROPAG_Login_func_ajudaAtualizarTopo(subtopico.titulo, topico.titulo);
+
+    let html = "";
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    subtopico.itens.forEach(function (artigo) {
+        html += PASSAGEIROPAG_Login_func_montarBotaoArtigo(topico.id, subtopico.id, artigo);
+    });
+
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+	
+PASSAGEIROPAG_Login_func_ajudaScrollTopo();	
+}
+
+function PASSAGEIROPAG_Login_func_montarBotaoArtigo(topicoId, subtopicoId, artigo) {
+    const subtopicoParam = subtopicoId ? "'" + subtopicoId + "'" : "null";
+
+    return `
+        <button type="button"
+                class="PASSAGEIROPAG_Login_ajuda_item"
+                onclick="PASSAGEIROPAG_Login_func_renderizarArtigo('${topicoId}', ${subtopicoParam}, '${artigo.id}', true)">
+            <span class="PASSAGEIROPAG_Login_ajuda_item_icone">${artigo.emoji || "ℹ️"}</span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                <strong>${artigo.titulo}</strong>
+                <small>Toque para ver a explicação.</small>
+            </span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+        </button>
+    `;
+}
+
+function PASSAGEIROPAG_Login_func_renderizarArtigo(topicoId, subtopicoId, artigoId, salvarHistorico) {
+    const conteudo = document.getElementById("PASSAGEIROPAG_Login_ajuda_conteudo");
+    const topico = PASSAGEIROPAG_Login_ajudaDados.find(function (item) {
+        return item.id === topicoId;
+    });
+
+    if (!conteudo || !topico) return;
+
+    let artigo = null;
+
+    if (subtopicoId && Array.isArray(topico.subtopicos)) {
+        const subtopico = topico.subtopicos.find(function (item) {
+            return item.id === subtopicoId;
+        });
+
+        if (subtopico) {
+            artigo = subtopico.itens.find(function (item) {
+                return item.id === artigoId;
+            });
+        }
+    } else if (Array.isArray(topico.itens)) {
+        artigo = topico.itens.find(function (item) {
+            return item.id === artigoId;
+        });
+    }
+
+    if (!artigo) return;
+
+    if (salvarHistorico) {
+        if (subtopicoId) {
+            PASSAGEIROPAG_Login_ajudaHistorico.push({
+                tipo: "subtopico",
+                topicoId: topicoId,
+                subtopicoId: subtopicoId
+            });
+        } else {
+            PASSAGEIROPAG_Login_ajudaHistorico.push({
+                tipo: "topico",
+                topicoId: topicoId
+            });
+        }
+    }
+
+    PASSAGEIROPAG_Login_ajudaTelaAtual = "artigo";
+    PASSAGEIROPAG_Login_ajudaArtigoAtual = artigo;
+
+    PASSAGEIROPAG_Login_func_ajudaAtualizarTopo("Descrição do problema", topico.titulo);
+
+    conteudo.innerHTML = `
+        <div class="PASSAGEIROPAG_Login_ajuda_artigo">
+            <div class="PASSAGEIROPAG_Login_ajuda_artigo_emoji">${artigo.emoji || "ℹ️"}</div>
+
+            <h3>${artigo.titulo}</h3>
+
+            <div class="PASSAGEIROPAG_Login_ajuda_artigo_texto">${artigo.texto}</div>
+
+            <div class="PASSAGEIROPAG_Login_ajuda_feedback">
+                <p>Esse conteúdo te ajudou?</p>
+
+                <div class="PASSAGEIROPAG_Login_ajuda_feedback_botoes">
+                    <button type="button" onclick="PASSAGEIROPAG_Login_func_feedbackAjuda('nao')">😟 Não</button>
+                    <button type="button" onclick="PASSAGEIROPAG_Login_func_feedbackAjuda('sim')">😊 Sim</button>
+                </div>
+            </div>
+
+            <button type="button"
+                    class="PASSAGEIROPAG_Login_ajuda_btn_whatsapp"
+                    onclick="PASSAGEIROPAG_Login_func_abrirWhatsappAjuda()">
+                Preciso de ajuda
+            </button>
+        </div>
+    `;
+	
+PASSAGEIROPAG_Login_func_ajudaScrollTopo();	
+}
+
+function PASSAGEIROPAG_Login_func_normalizarTextoAjuda(texto) {
+    return String(texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+}
+
+function PASSAGEIROPAG_Login_func_pesquisarAjuda() {
+    const inputBusca = document.getElementById("PASSAGEIROPAG_Login_ajuda_input_busca");
+    const conteudo = document.getElementById("PASSAGEIROPAG_Login_ajuda_conteudo");
+
+    if (!inputBusca || !conteudo) return;
+
+    const termo = PASSAGEIROPAG_Login_func_normalizarTextoAjuda(inputBusca.value);
+
+    if (!termo) {
+        PASSAGEIROPAG_Login_ajudaHistorico = [];
+        PASSAGEIROPAG_Login_func_renderizarAjudaInicio(false);
+        return;
+    }
+
+    const resultados = [];
+
+    PASSAGEIROPAG_Login_ajudaDados.forEach(function (topico) {
+        if (topico.nivel === 2 && Array.isArray(topico.itens)) {
+            topico.itens.forEach(function (artigo) {
+                const textoBusca = [
+                    topico.titulo,
+                    topico.descricao,
+                    artigo.titulo,
+                    artigo.texto
+                ].join(" ").toLowerCase();
+
+                if (textoBusca.includes(termo)) {
+                    resultados.push({
+                        topicoId: topico.id,
+                        subtopicoId: null,
+                        artigo: artigo,
+                        caminho: topico.titulo
+                    });
+                }
+            });
+        }
+
+        if (topico.nivel === 3 && Array.isArray(topico.subtopicos)) {
+            topico.subtopicos.forEach(function (subtopico) {
+                subtopico.itens.forEach(function (artigo) {
+                    const textoBusca = [
+                        topico.titulo,
+                        topico.descricao,
+                        subtopico.titulo,
+                        subtopico.descricao,
+                        artigo.titulo,
+                        artigo.texto
+                    ].map(PASSAGEIROPAG_Login_func_normalizarTextoAjuda).join(" ");
+
+                    if (textoBusca.includes(termo)) {
+                        resultados.push({
+                            topicoId: topico.id,
+                            subtopicoId: subtopico.id,
+                            artigo: artigo,
+                            caminho: topico.titulo + " > " + subtopico.titulo
+                        });
+                    }
+                });
+            });
+        }
+    });
+
+	const totalResultados = resultados.length;
+	const resultadosLimitados = resultados.slice(0, 20);
+	
+    PASSAGEIROPAG_Login_func_ajudaAtualizarTopo("Resultado da busca", totalResultados + " resultado(s) encontrado(s)");
+
+    if (!resultados.length) {
+        conteudo.innerHTML = `
+            <div class="PASSAGEIROPAG_Login_ajuda_vazio">
+                <strong>Nenhum resultado encontrado</strong>
+                Tente pesquisar por outra palavra, como PIX, rota, motorista, emergência ou cadastro.
+            </div>
+        `;
+        return;
+    }
+
+    let html = '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    resultadosLimitados.forEach(function (resultado) {
+        html += `
+            <button type="button"
+                    class="PASSAGEIROPAG_Login_ajuda_item"
+                    onclick="PASSAGEIROPAG_Login_func_abrirResultadoBusca('${resultado.topicoId}', ${resultado.subtopicoId ? "'" + resultado.subtopicoId + "'" : "null"}, '${resultado.artigo.id}')">
+                <span class="PASSAGEIROPAG_Login_ajuda_item_icone">${resultado.artigo.emoji || "ℹ️"}</span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                    <strong>${resultado.artigo.titulo}</strong>
+                    <small>${resultado.caminho}</small>
+                </span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+            </button>
+        `;
+    });
+
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+	
+PASSAGEIROPAG_Login_func_ajudaScrollTopo();	
+}
+
+function PASSAGEIROPAG_Login_func_abrirResultadoBusca(topicoId, subtopicoId, artigoId) {
+    const inputBusca = document.getElementById("PASSAGEIROPAG_Login_ajuda_input_busca");
+
+    if (inputBusca) {
+        inputBusca.value = "";
+    }
+
+    PASSAGEIROPAG_Login_ajudaHistorico = [{ tipo: "inicio" }];
+
+    PASSAGEIROPAG_Login_func_renderizarArtigo(topicoId, subtopicoId, artigoId, false);
+}
+
+function PASSAGEIROPAG_Login_func_feedbackAjuda(tipo) {
+    if (tipo === "sim") {
+        alert("Obrigado pela resposta! Que bom que conseguimos ajudar.");
+        return;
+    }
+
+    const confirmar = confirm("Esse conteúdo não resolveu sua dúvida. Deseja falar com o suporte agora?");
+
+    if (confirmar) {
+        PASSAGEIROPAG_Login_func_abrirWhatsappAjuda();
+    }
+}
+
+function PASSAGEIROPAG_Login_func_abrirWhatsappAjuda() {
+    const tituloAjuda = PASSAGEIROPAG_Login_ajudaArtigoAtual
+        ? PASSAGEIROPAG_Login_ajudaArtigoAtual.titulo
+        : "Central de Ajuda";
+
+    const user = typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+        ? PRIMEIRAPAG_Login_auth.currentUser
+        : null;
+
+    const emailUsuario = user && user.email ? user.email : "não informado";
+    const uidUsuario = user && user.uid ? user.uid : "não informado";
+
+    const mensagem = encodeURIComponent(
+        "Olá, preciso de ajuda no TNP MoB.\n\n" +
+        "Assunto: " + tituloAjuda + "\n" +
+        "E-mail: " + emailUsuario + "\n" +
+        "UID: " + uidUsuario
+    );
+
+    const url = "https://wa.me/" + PASSAGEIROPAG_Login_ajudaWhatsappSuporte + "?text=" + mensagem;
+
+    window.open(url, "_blank");
+}
+
+function PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda() {
+    alert("Histórico de mensagens ainda será criado depois. Por enquanto, use o botão “Preciso de ajuda” dentro de um artigo.");
+}
+
+window.PASSAGEIROPAG_Login_func_carregarCentralAjuda = PASSAGEIROPAG_Login_func_carregarCentralAjuda;
+window.PASSAGEIROPAG_Login_func_fecharCentralAjuda = PASSAGEIROPAG_Login_func_fecharCentralAjuda;
+window.PASSAGEIROPAG_Login_func_ajudaVoltar = PASSAGEIROPAG_Login_func_ajudaVoltar;
+window.PASSAGEIROPAG_Login_func_pesquisarAjuda = PASSAGEIROPAG_Login_func_pesquisarAjuda;
+window.PASSAGEIROPAG_Login_func_renderizarTopico = PASSAGEIROPAG_Login_func_renderizarTopico;
+window.PASSAGEIROPAG_Login_func_renderizarSubtopico = PASSAGEIROPAG_Login_func_renderizarSubtopico;
+window.PASSAGEIROPAG_Login_func_renderizarArtigo = PASSAGEIROPAG_Login_func_renderizarArtigo;
+window.PASSAGEIROPAG_Login_func_abrirResultadoBusca = PASSAGEIROPAG_Login_func_abrirResultadoBusca;
+window.PASSAGEIROPAG_Login_func_feedbackAjuda = PASSAGEIROPAG_Login_func_feedbackAjuda;
+window.PASSAGEIROPAG_Login_func_abrirWhatsappAjuda = PASSAGEIROPAG_Login_func_abrirWhatsappAjuda;
+window.PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda = PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda;
+  
+  //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA FINAL ========== // -->
+ 
+  
+
+
+
+
+
+
+
+
+
+
+// ============  Tela 22 MENSAGENS  ============= // -->  
   function PASSAGEIROPAG_Login_func_carregarMensagens() {
     if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
         PASSAGEIROPAG_Login_func_fecharMenuLateral();
