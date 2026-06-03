@@ -4194,6 +4194,343 @@ body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_ajuda_btn_whatsapp {
     box-shadow: 0 8px 18px rgba(93, 50, 31, 0.22);
 }
 
+/* //--========== TELA 22 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== // */
+
+.PASSAGEIROPAG_Login_screen_central_seguranca {
+    width: 100%;
+    min-height: 100%;
+    padding: 18px 16px 28px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background:
+        radial-gradient(circle at top center, rgba(205, 170, 135, 0.13), transparent 34%),
+        linear-gradient(180deg, #1d1a17 0%, #12100f 100%);
+    color: #ffffff;
+}
+
+.PASSAGEIROPAG_Login_seg_topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.PASSAGEIROPAG_Login_seg_btn_voltar {
+    width: 42px !important;
+    min-width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(211, 176, 140, 0.38);
+    background: rgba(31, 26, 22, 0.92);
+    color: #d9b894;
+    font-size: 22px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.PASSAGEIROPAG_Login_seg_topo_textos h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.PASSAGEIROPAG_Login_seg_topo_textos p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #c9a98a;
+}
+
+.PASSAGEIROPAG_Login_seg_alerta {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(95, 35, 25, 0.35);
+    border: 1px solid rgba(255, 120, 90, 0.35);
+    border-radius: 22px;
+    padding: 15px;
+    margin-bottom: 14px;
+}
+
+.PASSAGEIROPAG_Login_seg_alerta_icone {
+    width: 44px;
+    height: 44px;
+    border-radius: 15px;
+    background: rgba(255, 120, 90, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_seg_alerta strong {
+    display: block;
+    color: #ffffff;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.PASSAGEIROPAG_Login_seg_alerta p {
+    margin: 0;
+    color: #f1d1c3;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.PASSAGEIROPAG_Login_seg_botoes_emergencia {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.PASSAGEIROPAG_Login_seg_botoes_emergencia button {
+    min-height: 50px;
+    border: none;
+    border-radius: 16px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    color: #ffffff;
+    background: linear-gradient(180deg, #8b2f22 0%, #6d2219 100%);
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.28);
+}
+
+.PASSAGEIROPAG_Login_seg_botoes_emergencia button:nth-child(2) {
+    background: linear-gradient(180deg, #7a4429 0%, #60331f 100%);
+}
+
+.PASSAGEIROPAG_Login_seg_bloco_titulo {
+    margin: 8px 2px 8px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #d8b48e;
+}
+
+.PASSAGEIROPAG_Login_seg_card {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(34, 29, 25, 0.96);
+    border: 1px solid rgba(211, 176, 140, 0.24);
+    border-radius: 22px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 10px 25px rgba(0, 0, 0, 0.26);
+}
+
+.PASSAGEIROPAG_Login_seg_item {
+    width: 100%;
+    min-height: 76px;
+    border: none;
+    border-bottom: 1px solid rgba(211, 176, 140, 0.13);
+    background: transparent;
+    padding: 14px 13px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    text-align: left;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: inherit;
+}
+
+.PASSAGEIROPAG_Login_seg_item:last-child {
+    border-bottom: none;
+}
+
+.PASSAGEIROPAG_Login_seg_item:active {
+    background: rgba(211, 176, 140, 0.08);
+}
+
+.PASSAGEIROPAG_Login_seg_item span {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+    background: rgba(211, 176, 140, 0.16);
+    color: #f1d0ac;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_seg_item div {
+    flex: 1;
+    min-width: 0;
+}
+
+.PASSAGEIROPAG_Login_seg_item strong {
+    display: block;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+.PASSAGEIROPAG_Login_seg_item small {
+    display: block;
+    margin-top: 4px;
+    color: #d1b59c;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.PASSAGEIROPAG_Login_seg_item em {
+    font-style: normal;
+    font-size: 24px;
+    color: #c9a98a;
+    flex-shrink: 0;
+}
+
+.PASSAGEIROPAG_Login_seg_item_label {
+    position: relative;
+}
+
+.PASSAGEIROPAG_Login_seg_item_label input {
+    display: none;
+}
+
+.PASSAGEIROPAG_Login_seg_gravacao_box {
+    background: rgba(34, 29, 25, 0.98);
+    border: 1px solid rgba(211, 176, 140, 0.28);
+    border-radius: 22px;
+    padding: 15px;
+    margin-bottom: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.26);
+}
+
+.PASSAGEIROPAG_Login_seg_gravacao_box strong {
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.PASSAGEIROPAG_Login_seg_gravacao_box p {
+    margin: 0 0 12px;
+    color: #d1b59c;
+    font-size: 13px;
+}
+
+.PASSAGEIROPAG_Login_seg_gravacao_box audio,
+.PASSAGEIROPAG_Login_seg_gravacao_box video {
+    width: 100%;
+    max-height: 260px;
+    border-radius: 16px;
+    background: #000000;
+    margin-bottom: 12px;
+}
+
+.PASSAGEIROPAG_Login_seg_gravacao_box button {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(180deg, #8b2f22 0%, #6d2219 100%);
+    color: #ffffff;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+/* TEMA CLARO */
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_screen_central_seguranca {
+    background:
+        radial-gradient(circle at top center, rgba(123, 72, 39, 0.10), transparent 34%),
+        linear-gradient(180deg, #fff8f0 0%, #f2e3d2 100%);
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_topo_textos h2 {
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_topo_textos p {
+    color: #7b5a42;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_btn_voltar {
+    background: #ffffff;
+    color: #5d321f;
+    border: 1px solid rgba(93, 50, 31, 0.22);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_alerta {
+    background: #fff0ea;
+    border: 1px solid rgba(150, 55, 35, 0.20);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_alerta strong {
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_alerta p {
+    color: #6a4934;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_card,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_gravacao_box {
+    background: #ffffff;
+    border: 1px solid rgba(93, 50, 31, 0.13);
+    box-shadow: 0 10px 22px rgba(93, 50, 31, 0.08);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_bloco_titulo {
+    color: #5d321f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_item {
+    color: #3b2417;
+    border-bottom: 1px solid rgba(93, 50, 31, 0.09);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_item span {
+    background: #f3e2d0;
+    color: #5d321f;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_item strong,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_gravacao_box strong {
+    color: #3b2417;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_item small,
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_gravacao_box p {
+    color: #6a4934;
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_item em {
+    color: #9a765d;
+}
+
+/* Corrige cards cortando itens da Central de Segurança */
+.PASSAGEIROPAG_Login_screen_central_seguranca .PASSAGEIROPAG_Login_seg_card {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.PASSAGEIROPAG_Login_screen_central_seguranca .PASSAGEIROPAG_Login_seg_card_gravacao,
+.PASSAGEIROPAG_Login_screen_central_seguranca .PASSAGEIROPAG_Login_seg_card_corrida {
+    display: block !important;
+}
+
+.PASSAGEIROPAG_Login_screen_central_seguranca .PASSAGEIROPAG_Login_seg_item {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 76px !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+
 
 
         
@@ -5650,10 +5987,11 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     💬 Mensagens
 </button>
 
-<button
-    type="button"
-    onclick="PASSAGEIROPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui você encontrará recursos de proteção, contatos de emergência, verificação de conta e orientações de segurança.')"
+<button 
+	type="button" 
+	onclick="PASSAGEIROPAG_Login_func_carregarCentralSeguranca()"
 >
+
     🛡️ Central de segurança
 </button>
 
@@ -5777,9 +6115,9 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <div class="PASSAGEIROPAG_Login_ajuda_busca_box">
         <span>🔍</span>
         <input type="text"
-               id="PASSAGEIROPAG_Login_ajuda_input_busca"
-               placeholder="Pesquisar artigos de ajuda"
-               oninput="PASSAGEIROPAG_Login_func_pesquisarAjuda()">
+			   id="PASSAGEIROPAG_Login_ajuda_input_busca"
+			   placeholder="Pesquisar artigos de ajuda"
+			   oninput="PASSAGEIROPAG_Login_func_pesquisarAjudaComEspera()">
     </div>
 
     <div id="PASSAGEIROPAG_Login_ajuda_conteudo" class="PASSAGEIROPAG_Login_ajuda_conteudo">
@@ -5838,10 +6176,153 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 </div>
   <!--// ============  Tela 22 MENSAGENS Final  ============= // --> 
-  
-  
-  
-  
+ 
+<!-- //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== // -->
+<div id="PASSAGEIROPAG_Login_screen_central_seguranca" class="PRIMEIRAPAG_Login_screen PASSAGEIROPAG_Login_screen_central_seguranca">
+
+    <div class="PASSAGEIROPAG_Login_seg_topo">
+        <button type="button"
+                class="PASSAGEIROPAG_Login_seg_btn_voltar"
+                onclick="PASSAGEIROPAG_Login_func_fecharCentralSeguranca()">
+            ←
+        </button>
+
+        <div class="PASSAGEIROPAG_Login_seg_topo_textos">
+            <h2>Central de Segurança</h2>
+            <p>Recursos rápidos para situações de segurança.</p>
+        </div>
+    </div>
+
+    <div class="PASSAGEIROPAG_Login_seg_alerta">
+        <div class="PASSAGEIROPAG_Login_seg_alerta_icone">🚨</div>
+        <div>
+            <strong>Em perigo imediato?</strong>
+            <p>Procure um local seguro e ligue para a emergência. Use os recursos abaixo para registrar ou pedir ajuda.</p>
+        </div>
+    </div>
+
+    <div class="PASSAGEIROPAG_Login_seg_botoes_emergencia">
+        <button type="button" onclick="PASSAGEIROPAG_Login_func_ligarEmergencia190()">
+            📞 Ligar 190
+        </button>
+
+        <button type="button" onclick="PASSAGEIROPAG_Login_func_falarSuporteSeguranca('Situação de risco')">
+            💬 Suporte TNP MoB
+        </button>
+    </div>
+
+    <div class="PASSAGEIROPAG_Login_seg_bloco_titulo">Gravação de segurança</div>
+
+<div class="PASSAGEIROPAG_Login_seg_card PASSAGEIROPAG_Login_seg_card_gravacao">
+
+    <button type="button"
+            class="PASSAGEIROPAG_Login_seg_item"
+            onclick="PASSAGEIROPAG_Login_func_iniciarAudioSeguranca()">
+        <span>🎙️</span>
+        <div>
+            <strong>Gravar áudio de segurança</strong>
+            <small>Inicia gravação com permissão do aparelho.</small>
+        </div>
+        <em>›</em>
+    </button>
+
+    <button type="button"
+            class="PASSAGEIROPAG_Login_seg_item"
+            onclick="PASSAGEIROPAG_Login_func_iniciarVideoSeguranca()">
+        <span>📹</span>
+        <div>
+            <strong>Gravar vídeo de segurança</strong>
+            <small>Abre a câmera e microfone com aviso visível.</small>
+        </div>
+        <em>›</em>
+    </button>
+
+    <label class="PASSAGEIROPAG_Login_seg_item PASSAGEIROPAG_Login_seg_item_label">
+        <span>📸</span>
+        <div>
+            <strong>Tirar foto de segurança</strong>
+            <small>Abre a câmera traseira para registrar uma imagem.</small>
+        </div>
+        <em>›</em>
+
+        <input type="file"
+               accept="image/*"
+               capture="environment"
+               onchange="PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada(this)">
+    </label>
+
+</div>
+
+    <div id="PASSAGEIROPAG_Login_seg_gravacao_box" class="PASSAGEIROPAG_Login_seg_gravacao_box" style="display:none;">
+        <strong id="PASSAGEIROPAG_Login_seg_gravacao_titulo">Gravação ativa</strong>
+        <p id="PASSAGEIROPAG_Login_seg_gravacao_status">Aguardando...</p>
+
+        <video id="PASSAGEIROPAG_Login_seg_video_preview" autoplay muted playsinline style="display:none;"></video>
+
+        <audio id="PASSAGEIROPAG_Login_seg_audio_preview" controls style="display:none;"></audio>
+        <video id="PASSAGEIROPAG_Login_seg_video_resultado" controls playsinline style="display:none;"></video>
+
+        <button type="button"
+                id="PASSAGEIROPAG_Login_seg_btn_parar_gravacao"
+                onclick="PASSAGEIROPAG_Login_func_pararGravacaoSeguranca()">
+            Parar gravação
+        </button>
+    </div>
+
+    <div class="PASSAGEIROPAG_Login_seg_bloco_titulo">Durante a corrida</div>
+
+<div class="PASSAGEIROPAG_Login_seg_card PASSAGEIROPAG_Login_seg_card_corrida">
+
+    <button type="button"
+            class="PASSAGEIROPAG_Login_seg_item"
+            onclick="PASSAGEIROPAG_Login_func_compartilharViagemSeguranca()">
+        <span>📤</span>
+        <div>
+            <strong>Compartilhar viagem</strong>
+            <small>Disponível quando a corrida estiver em andamento.</small>
+        </div>
+        <em>›</em>
+    </button>
+
+    <button type="button"
+            class="PASSAGEIROPAG_Login_seg_item"
+            onclick="PASSAGEIROPAG_Login_func_falarSuporteSeguranca('Motorista diferente do aplicativo')">
+        <span>👤</span>
+        <div>
+            <strong>Motorista diferente do app</strong>
+            <small>Não embarque se os dados não baterem.</small>
+        </div>
+        <em>›</em>
+    </button>
+
+    <button type="button"
+            class="PASSAGEIROPAG_Login_seg_item"
+            onclick="PASSAGEIROPAG_Login_func_falarSuporteSeguranca('Veículo diferente do aplicativo')">
+        <span>🚘</span>
+        <div>
+            <strong>Veículo diferente do app</strong>
+            <small>Confira placa, modelo e cor antes de entrar.</small>
+        </div>
+        <em>›</em>
+    </button>
+
+    <button type="button"
+            class="PASSAGEIROPAG_Login_seg_item"
+            onclick="PASSAGEIROPAG_Login_func_falarSuporteSeguranca('Relatar incidente de segurança')">
+        <span>📝</span>
+        <div>
+            <strong>Reportar incidente de segurança</strong>
+            <small>Ameaça, agressão, assédio, discriminação ou risco.</small>
+        </div>
+        <em>›</em>
+    </button>
+
+</div>
+
+</div>
+<!-- //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== // -->
+
+    
 <!--// ===================================================== -->
 <!--// PASSAGEIRO - MODAIS E TELAS AUXILIARES                -->  
 <!--// ===================================================== -->
@@ -13132,6 +13613,16 @@ function PASSAGEIROPAG_Login_func_normalizarTextoAjuda(texto) {
         .trim();
 }
 
+let PASSAGEIROPAG_Login_ajudaTimerBusca = null;
+
+function PASSAGEIROPAG_Login_func_pesquisarAjudaComEspera() {
+    clearTimeout(PASSAGEIROPAG_Login_ajudaTimerBusca);
+
+    PASSAGEIROPAG_Login_ajudaTimerBusca = setTimeout(function () {
+        PASSAGEIROPAG_Login_func_pesquisarAjuda();
+    }, 180);
+}
+
 function PASSAGEIROPAG_Login_func_pesquisarAjuda() {
     const inputBusca = document.getElementById("PASSAGEIROPAG_Login_ajuda_input_busca");
     const conteudo = document.getElementById("PASSAGEIROPAG_Login_ajuda_conteudo");
@@ -13156,7 +13647,7 @@ function PASSAGEIROPAG_Login_func_pesquisarAjuda() {
                     topico.descricao,
                     artigo.titulo,
                     artigo.texto
-                ].join(" ").toLowerCase();
+                ].map(PASSAGEIROPAG_Login_func_normalizarTextoAjuda).join(" ");
 
                 if (textoBusca.includes(termo)) {
                     resultados.push({
@@ -13289,6 +13780,7 @@ function PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda() {
 window.PASSAGEIROPAG_Login_func_carregarCentralAjuda = PASSAGEIROPAG_Login_func_carregarCentralAjuda;
 window.PASSAGEIROPAG_Login_func_fecharCentralAjuda = PASSAGEIROPAG_Login_func_fecharCentralAjuda;
 window.PASSAGEIROPAG_Login_func_ajudaVoltar = PASSAGEIROPAG_Login_func_ajudaVoltar;
+window.PASSAGEIROPAG_Login_func_pesquisarAjudaComEspera = PASSAGEIROPAG_Login_func_pesquisarAjudaComEspera;
 window.PASSAGEIROPAG_Login_func_pesquisarAjuda = PASSAGEIROPAG_Login_func_pesquisarAjuda;
 window.PASSAGEIROPAG_Login_func_renderizarTopico = PASSAGEIROPAG_Login_func_renderizarTopico;
 window.PASSAGEIROPAG_Login_func_renderizarSubtopico = PASSAGEIROPAG_Login_func_renderizarSubtopico;
@@ -13297,19 +13789,9 @@ window.PASSAGEIROPAG_Login_func_abrirResultadoBusca = PASSAGEIROPAG_Login_func_a
 window.PASSAGEIROPAG_Login_func_feedbackAjuda = PASSAGEIROPAG_Login_func_feedbackAjuda;
 window.PASSAGEIROPAG_Login_func_abrirWhatsappAjuda = PASSAGEIROPAG_Login_func_abrirWhatsappAjuda;
 window.PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda = PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda;
-  
+ 
   //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA FINAL ========== // -->
  
-  
-
-
-
-
-
-
-
-
-
 
 // ============  Tela 22 MENSAGENS  ============= // -->  
   function PASSAGEIROPAG_Login_func_carregarMensagens() {
@@ -13321,12 +13803,300 @@ window.PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda = PASSAGEIROPAG_Log
 
     PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_mensagens');
 }
-  
-  
-  
-  
-  
-// ============  Tela 21 MENSAGENS Final  ============= // --> 
+    
+// ============  Tela 22 MENSAGENS Final  ============= // --> 
+
+// //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== //
+
+const PASSAGEIROPAG_Login_segWhatsappSuporte = "5531996645814";
+
+let PASSAGEIROPAG_Login_segMediaRecorder = null;
+let PASSAGEIROPAG_Login_segMidiaChunks = [];
+let PASSAGEIROPAG_Login_segStreamAtual = null;
+let PASSAGEIROPAG_Login_segTipoGravacao = "";
+
+function PASSAGEIROPAG_Login_func_carregarCentralSeguranca() {
+    const tela = document.getElementById("PASSAGEIROPAG_Login_screen_central_seguranca");
+
+    if (!tela) {
+        alert("Tela Central de Segurança não encontrada no HTML.");
+        return;
+    }
+
+    if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
+        PASSAGEIROPAG_Login_func_fecharMenuLateral();
+    }
+
+    if (typeof PRIMEIRAPAG_Login_func_irPara === "function") {
+        PRIMEIRAPAG_Login_func_irPara("PASSAGEIROPAG_Login_screen_central_seguranca");
+    } else {
+        document.querySelectorAll(".PRIMEIRAPAG_Login_screen").forEach(function (screen) {
+            screen.classList.remove("active");
+        });
+
+        tela.classList.add("active");
+    }
+
+    PASSAGEIROPAG_Login_func_limparGravacaoSeguranca();
+    PASSAGEIROPAG_Login_func_scrollTopoCentralSeguranca();
+}
+
+function PASSAGEIROPAG_Login_func_fecharCentralSeguranca() {
+    PASSAGEIROPAG_Login_func_pararStreamSeguranca();
+
+    if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+        PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+        return;
+    }
+
+    if (typeof PASSAGEIROPAG_Login_func_carregarPerfilPassageiro === "function") {
+        PASSAGEIROPAG_Login_func_carregarPerfilPassageiro();
+        return;
+    }
+
+    alert("Central de Segurança fechada. Depois vamos ligar esse retorno na Home do passageiro.");
+}
+
+function PASSAGEIROPAG_Login_func_scrollTopoCentralSeguranca() {
+    const tela = document.getElementById("PASSAGEIROPAG_Login_screen_central_seguranca");
+    const area = document.getElementById("PRIMEIRAPAG_Login_content_area");
+
+    if (tela) tela.scrollTop = 0;
+    if (area) area.scrollTop = 0;
+}
+
+function PASSAGEIROPAG_Login_func_ligarEmergencia190() {
+    window.location.href = "tel:190";
+}
+
+function PASSAGEIROPAG_Login_func_falarSuporteSeguranca(tipo) {
+    const user = typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+        ? PRIMEIRAPAG_Login_auth.currentUser
+        : null;
+
+    const emailUsuario = user && user.email ? user.email : "não informado";
+    const uidUsuario = user && user.uid ? user.uid : "não informado";
+
+    const mensagem = encodeURIComponent(
+        "Olá, preciso de ajuda na Central de Segurança do TNP MoB.\n\n" +
+        "Tipo: " + (tipo || "Segurança") + "\n" +
+        "E-mail: " + emailUsuario + "\n" +
+        "UID: " + uidUsuario
+    );
+
+    window.open(
+        "https://wa.me/" + PASSAGEIROPAG_Login_segWhatsappSuporte + "?text=" + mensagem,
+        "_blank"
+    );
+}
+
+function PASSAGEIROPAG_Login_func_compartilharViagemSeguranca() {
+    alert("Compartilhar viagem estará disponível quando a corrida estiver em andamento.");
+}
+
+async function PASSAGEIROPAG_Login_func_iniciarAudioSeguranca() {
+    const confirmar = confirm(
+        "A gravação de áudio será iniciada com sua permissão.\n\nUse este recurso apenas em situações de segurança."
+    );
+
+    if (!confirmar) return;
+
+    try {
+        PASSAGEIROPAG_Login_func_limparGravacaoSeguranca();
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: false
+        });
+
+        PASSAGEIROPAG_Login_segTipoGravacao = "audio";
+        PASSAGEIROPAG_Login_func_iniciarGravacaoSeguranca(stream, "audio");
+
+    } catch (erro) {
+        alert("Não foi possível acessar o microfone. Verifique as permissões do aparelho.");
+        console.error("Erro ao iniciar áudio de segurança:", erro);
+    }
+}
+
+async function PASSAGEIROPAG_Login_func_iniciarVideoSeguranca() {
+    const confirmar = confirm(
+        "A gravação de vídeo será iniciada com sua permissão.\n\nA câmera ficará ativa de forma visível durante a gravação."
+    );
+
+    if (!confirmar) return;
+
+    try {
+        PASSAGEIROPAG_Login_func_limparGravacaoSeguranca();
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: {
+                facingMode: "environment"
+            }
+        });
+
+        PASSAGEIROPAG_Login_segTipoGravacao = "video";
+        PASSAGEIROPAG_Login_func_iniciarGravacaoSeguranca(stream, "video");
+
+    } catch (erro) {
+        alert("Não foi possível acessar a câmera/microfone. Verifique as permissões do aparelho.");
+        console.error("Erro ao iniciar vídeo de segurança:", erro);
+    }
+}
+
+function PASSAGEIROPAG_Login_func_iniciarGravacaoSeguranca(stream, tipo) {
+    const box = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_box");
+    const titulo = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_titulo");
+    const status = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_status");
+    const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
+
+    PASSAGEIROPAG_Login_segStreamAtual = stream;
+    PASSAGEIROPAG_Login_segMidiaChunks = [];
+
+    if (box) box.style.display = "block";
+
+    if (titulo) {
+        titulo.innerText = tipo === "video"
+            ? "📹 Vídeo de segurança ativo"
+            : "🎙️ Áudio de segurança ativo";
+    }
+
+    if (status) {
+        status.innerText = "Gravando... toque em PARAR GRAVAÇÃO quando terminar.";
+    }
+
+    if (tipo === "video" && videoPreview) {
+        videoPreview.srcObject = stream;
+        videoPreview.style.display = "block";
+    }
+
+    PASSAGEIROPAG_Login_segMediaRecorder = new MediaRecorder(stream);
+
+    PASSAGEIROPAG_Login_segMediaRecorder.ondataavailable = function (event) {
+        if (event.data && event.data.size > 0) {
+            PASSAGEIROPAG_Login_segMidiaChunks.push(event.data);
+        }
+    };
+
+    PASSAGEIROPAG_Login_segMediaRecorder.onstop = function () {
+        PASSAGEIROPAG_Login_func_finalizarArquivoSeguranca(tipo);
+    };
+
+    PASSAGEIROPAG_Login_segMediaRecorder.start();
+}
+
+function PASSAGEIROPAG_Login_func_pararGravacaoSeguranca() {
+    if (
+        PASSAGEIROPAG_Login_segMediaRecorder &&
+        PASSAGEIROPAG_Login_segMediaRecorder.state !== "inactive"
+    ) {
+        PASSAGEIROPAG_Login_segMediaRecorder.stop();
+    }
+
+    PASSAGEIROPAG_Login_func_pararStreamSeguranca();
+}
+
+function PASSAGEIROPAG_Login_func_finalizarArquivoSeguranca(tipo) {
+    const status = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_status");
+    const audioPreview = document.getElementById("PASSAGEIROPAG_Login_seg_audio_preview");
+    const videoResultado = document.getElementById("PASSAGEIROPAG_Login_seg_video_resultado");
+    const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
+
+    const mimeType = tipo === "video" ? "video/webm" : "audio/webm";
+    const blob = new Blob(PASSAGEIROPAG_Login_segMidiaChunks, { type: mimeType });
+    const url = URL.createObjectURL(blob);
+
+    if (videoPreview) {
+        videoPreview.srcObject = null;
+        videoPreview.style.display = "none";
+    }
+
+    if (tipo === "audio" && audioPreview) {
+        audioPreview.src = url;
+        audioPreview.style.display = "block";
+    }
+
+    if (tipo === "video" && videoResultado) {
+        videoResultado.src = url;
+        videoResultado.style.display = "block";
+    }
+
+    if (status) {
+        status.innerText = "Gravação finalizada. Em breve vamos ligar o envio desse arquivo ao suporte/Firebase.";
+    }
+}
+
+function PASSAGEIROPAG_Login_func_pararStreamSeguranca() {
+    if (PASSAGEIROPAG_Login_segStreamAtual) {
+        PASSAGEIROPAG_Login_segStreamAtual.getTracks().forEach(function (track) {
+            track.stop();
+        });
+    }
+
+    PASSAGEIROPAG_Login_segStreamAtual = null;
+}
+
+function PASSAGEIROPAG_Login_func_limparGravacaoSeguranca() {
+    const box = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_box");
+    const status = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_status");
+    const audioPreview = document.getElementById("PASSAGEIROPAG_Login_seg_audio_preview");
+    const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
+    const videoResultado = document.getElementById("PASSAGEIROPAG_Login_seg_video_resultado");
+
+    PASSAGEIROPAG_Login_func_pararStreamSeguranca();
+
+    PASSAGEIROPAG_Login_segMediaRecorder = null;
+    PASSAGEIROPAG_Login_segMidiaChunks = [];
+    PASSAGEIROPAG_Login_segTipoGravacao = "";
+
+    if (box) box.style.display = "none";
+    if (status) status.innerText = "Aguardando...";
+
+    if (audioPreview) {
+        audioPreview.removeAttribute("src");
+        audioPreview.style.display = "none";
+    }
+
+    if (videoPreview) {
+        videoPreview.srcObject = null;
+        videoPreview.style.display = "none";
+    }
+
+    if (videoResultado) {
+        videoResultado.removeAttribute("src");
+        videoResultado.style.display = "none";
+    }
+}
+
+function PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada(input) {
+    if (!input || !input.files || !input.files[0]) return;
+
+    alert("Foto registrada no aparelho. Em breve vamos ligar esse envio ao suporte/Firebase.");
+
+    input.value = "";
+}
+
+window.PASSAGEIROPAG_Login_func_carregarCentralSeguranca = PASSAGEIROPAG_Login_func_carregarCentralSeguranca;
+window.PASSAGEIROPAG_Login_func_fecharCentralSeguranca = PASSAGEIROPAG_Login_func_fecharCentralSeguranca;
+window.PASSAGEIROPAG_Login_func_ligarEmergencia190 = PASSAGEIROPAG_Login_func_ligarEmergencia190;
+window.PASSAGEIROPAG_Login_func_falarSuporteSeguranca = PASSAGEIROPAG_Login_func_falarSuporteSeguranca;
+window.PASSAGEIROPAG_Login_func_compartilharViagemSeguranca = PASSAGEIROPAG_Login_func_compartilharViagemSeguranca;
+window.PASSAGEIROPAG_Login_func_iniciarAudioSeguranca = PASSAGEIROPAG_Login_func_iniciarAudioSeguranca;
+window.PASSAGEIROPAG_Login_func_iniciarVideoSeguranca = PASSAGEIROPAG_Login_func_iniciarVideoSeguranca;
+window.PASSAGEIROPAG_Login_func_pararGravacaoSeguranca = PASSAGEIROPAG_Login_func_pararGravacaoSeguranca;
+window.PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada = PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada;
+
+// //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== //
+
+
+
+
+
+
+
+
+
+
 
 
 
