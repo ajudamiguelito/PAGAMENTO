@@ -4530,6 +4530,32 @@ body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_item em {
     overflow: visible !important;
 }
 
+.PASSAGEIROPAG_Login_seg_acoes_arquivo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin-top: 10px;
+}
+
+.PASSAGEIROPAG_Login_seg_acoes_arquivo button {
+    width: 100%;
+    min-height: 46px;
+    border: none;
+    border-radius: 14px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    background: rgba(211, 176, 140, 0.16);
+    color: #ffffff;
+    border: 1px solid rgba(211, 176, 140, 0.22);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_acoes_arquivo button {
+    background: #f3e2d0;
+    color: #5d321f;
+    border: 1px solid rgba(93, 50, 31, 0.10);
+}
 
 
 
@@ -6037,7 +6063,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
   
   
   
-<!--// ============  Tela 20 Histórico Passageiro ============= // -->
+<!--// ============  TELA 20 Histórico Passageiro ============= // -->
 
 <!-- ===================================================== -->
 <!-- PASSAGEIRO - HISTÓRICO DE CORRIDAS                    -->
@@ -6086,7 +6112,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 </div>
   
-<!--// ============  Tela 20 Histórico Passageiro Final  ============= // -->  
+<!--// ============  TELA 20 Histórico Passageiro Final  ============= // -->  
   
   
 
@@ -6128,7 +6154,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
    <!-- //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA FINAL ========== // -->
     
   
- <!--// ============  Tela 22 PASSAGEIRO - MENSAGENS  ============= // -->  
+ <!--// ============  TELA 22 PASSAGEIRO - MENSAGENS  ============= // -->  
 
 <div id="PASSAGEIROPAG_Login_screen_mensagens" class="PRIMEIRAPAG_Login_screen">
 
@@ -6175,7 +6201,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </div>
 
 </div>
-  <!--// ============  Tela 22 MENSAGENS Final  ============= // --> 
+  <!--// ============  TELA 22 MENSAGENS Final  ============= // --> 
  
 <!-- //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== // -->
 <div id="PASSAGEIROPAG_Login_screen_central_seguranca" class="PRIMEIRAPAG_Login_screen PASSAGEIROPAG_Login_screen_central_seguranca">
@@ -6263,10 +6289,24 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         <video id="PASSAGEIROPAG_Login_seg_video_resultado" controls playsinline style="display:none;"></video>
 
         <button type="button"
-                id="PASSAGEIROPAG_Login_seg_btn_parar_gravacao"
-                onclick="PASSAGEIROPAG_Login_func_pararGravacaoSeguranca()">
-            Parar gravação
-        </button>
+        id="PASSAGEIROPAG_Login_seg_btn_parar_gravacao"
+        onclick="PASSAGEIROPAG_Login_func_pararGravacaoSeguranca()">
+			Parar gravação
+		</button>
+
+		<div id="PASSAGEIROPAG_Login_seg_acoes_arquivo" class="PASSAGEIROPAG_Login_seg_acoes_arquivo" style="display:none;">
+			<button type="button" onclick="PASSAGEIROPAG_Login_func_baixarArquivoSeguranca()">
+				⬇️ Baixar gravação
+			</button>
+
+			<button type="button" onclick="PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca()">
+				📤 Compartilhar por minha conta
+			</button>
+
+			<button type="button" onclick="PASSAGEIROPAG_Login_func_descartarArquivoSeguranca()">
+				🗑️ Descartar
+			</button>
+		</div>
     </div>
 
     <div class="PASSAGEIROPAG_Login_seg_bloco_titulo">Durante a corrida</div>
@@ -6321,7 +6361,6 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 </div>
 <!-- //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== // -->
-
     
 <!--// ===================================================== -->
 <!--// PASSAGEIRO - MODAIS E TELAS AUXILIARES                -->  
@@ -12975,7 +13014,7 @@ function PASSAGEIROPAG_Login_func_irParaTela(telaId) {
 }
 
 
-// ============  Tela 20 Histórico Passageiro  ============= // --> 
+// ============  TELA 20 Histórico Passageiro  ============= // --> 
 function PASSAGEIROPAG_Login_func_carregarHistoricoCorridas() {
     if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
         PASSAGEIROPAG_Login_func_fecharMenuLateral();
@@ -12987,7 +13026,7 @@ function PASSAGEIROPAG_Login_func_carregarHistoricoCorridas() {
 }
 
 
-// ============  Tela 20 Histórico Passageiro Final  ============= // --> 
+// ============  TELA 20 Histórico Passageiro Final  ============= // --> 
 
  //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA  ========== // -->
  
@@ -13606,12 +13645,15 @@ PASSAGEIROPAG_Login_func_ajudaScrollTopo();
 }
 
 function PASSAGEIROPAG_Login_func_normalizarTextoAjuda(texto) {
-    return String(texto || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-}
+	return String(texto || "")
+			.toLowerCase()
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "") // Remove acentos
+			.replace(/ç/g, "c")              // Garante a conversão do ç -> c
+			.replace(/[^a-z0-9 ]/g, "")      // Remove pontuação e símbolos (mantém letras, números e espaços)
+			.replace(/\s+/g, " ")            // Transforma múltiplos espaços em apenas um
+			.trim();                         // Remove espaços nas pontas
+	}
 
 let PASSAGEIROPAG_Login_ajudaTimerBusca = null;
 
@@ -13793,7 +13835,7 @@ window.PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda = PASSAGEIROPAG_Log
   //--========== TELA 21 PASSAGEIRO: CENTRAL DE AJUDA FINAL ========== // -->
  
 
-// ============  Tela 22 MENSAGENS  ============= // -->  
+// ============  TELA 22 MENSAGENS  ============= // -->  
   function PASSAGEIROPAG_Login_func_carregarMensagens() {
     if (typeof PASSAGEIROPAG_Login_func_fecharMenuLateral === "function") {
         PASSAGEIROPAG_Login_func_fecharMenuLateral();
@@ -13804,7 +13846,7 @@ window.PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda = PASSAGEIROPAG_Log
     PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_mensagens');
 }
     
-// ============  Tela 22 MENSAGENS Final  ============= // --> 
+// ============  TELA 22 MENSAGENS Final  ============= // --> 
 
 // //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== //
 
@@ -13814,6 +13856,15 @@ let PASSAGEIROPAG_Login_segMediaRecorder = null;
 let PASSAGEIROPAG_Login_segMidiaChunks = [];
 let PASSAGEIROPAG_Login_segStreamAtual = null;
 let PASSAGEIROPAG_Login_segTipoGravacao = "";
+
+let PASSAGEIROPAG_Login_segArquivoBlobAtual = null;
+let PASSAGEIROPAG_Login_segArquivoUrlAtual = "";
+let PASSAGEIROPAG_Login_segArquivoNomeAtual = "";
+let PASSAGEIROPAG_Login_segTimerLimite = null;
+let PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
+
+const PASSAGEIROPAG_Login_segLimiteAudioMs = 10 * 60 * 1000; // 10 minutos
+const PASSAGEIROPAG_Login_segLimiteVideoMs = 3 * 60 * 1000;  // 3 minutos
 
 function PASSAGEIROPAG_Login_func_carregarCentralSeguranca() {
     const tela = document.getElementById("PASSAGEIROPAG_Login_screen_central_seguranca");
@@ -13842,7 +13893,21 @@ function PASSAGEIROPAG_Login_func_carregarCentralSeguranca() {
 }
 
 function PASSAGEIROPAG_Login_func_fecharCentralSeguranca() {
-    PASSAGEIROPAG_Login_func_pararStreamSeguranca();
+    if (
+        PASSAGEIROPAG_Login_segMediaRecorder &&
+        PASSAGEIROPAG_Login_segMediaRecorder.state === "recording"
+    ) {
+        const confirmar = confirm(
+            "Existe uma gravação de segurança em andamento.\n\n" +
+            "Deseja parar a gravação e sair da Central de Segurança?"
+        );
+
+        if (!confirmar) return;
+
+        PASSAGEIROPAG_Login_func_pararGravacaoSeguranca();
+    } else {
+        PASSAGEIROPAG_Login_func_pararStreamSeguranca();
+    }
 
     if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
         PASSAGEIROPAG_Login_func_carregarHomePassageiro();
@@ -13894,14 +13959,37 @@ function PASSAGEIROPAG_Login_func_compartilharViagemSeguranca() {
     alert("Compartilhar viagem estará disponível quando a corrida estiver em andamento.");
 }
 
-async function PASSAGEIROPAG_Login_func_iniciarAudioSeguranca() {
-    const confirmar = confirm(
-        "A gravação de áudio será iniciada com sua permissão.\n\nUse este recurso apenas em situações de segurança."
-    );
+function PASSAGEIROPAG_Login_func_navegadorSuportaGravacaoSeguranca() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Seu navegador não permite acessar câmera ou microfone nesta tela.");
+        return false;
+    }
 
-    if (!confirmar) return;
+    if (typeof MediaRecorder === "undefined") {
+        alert("Seu navegador não suporta gravação de áudio/vídeo.");
+        return false;
+    }
+
+    return true;
+}
+
+async function PASSAGEIROPAG_Login_func_iniciarAudioSeguranca() {
+    if (PASSAGEIROPAG_Login_segAcaoEmAndamento) return;
+
+    PASSAGEIROPAG_Login_segAcaoEmAndamento = true;
 
     try {
+        if (!PASSAGEIROPAG_Login_func_navegadorSuportaGravacaoSeguranca()) return;
+
+        const confirmar = confirm(
+            "A gravação de áudio será iniciada com sua permissão.\n\n" +
+            "O TNP MoB não envia nem armazena automaticamente esta gravação.\n" +
+            "O arquivo ficará temporariamente no aparelho até você baixar, compartilhar ou descartar.\n\n" +
+            "Use apenas em situações de segurança."
+        );
+
+        if (!confirmar) return;
+
         PASSAGEIROPAG_Login_func_limparGravacaoSeguranca();
 
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -13915,17 +14003,29 @@ async function PASSAGEIROPAG_Login_func_iniciarAudioSeguranca() {
     } catch (erro) {
         alert("Não foi possível acessar o microfone. Verifique as permissões do aparelho.");
         console.error("Erro ao iniciar áudio de segurança:", erro);
+
+    } finally {
+        PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
     }
 }
 
 async function PASSAGEIROPAG_Login_func_iniciarVideoSeguranca() {
-    const confirmar = confirm(
-        "A gravação de vídeo será iniciada com sua permissão.\n\nA câmera ficará ativa de forma visível durante a gravação."
-    );
+    if (PASSAGEIROPAG_Login_segAcaoEmAndamento) return;
 
-    if (!confirmar) return;
+    PASSAGEIROPAG_Login_segAcaoEmAndamento = true;
 
     try {
+        if (!PASSAGEIROPAG_Login_func_navegadorSuportaGravacaoSeguranca()) return;
+
+        const confirmar = confirm(
+            "A gravação de vídeo será iniciada com sua permissão.\n\n" +
+            "O TNP MoB não envia nem armazena automaticamente esta gravação.\n" +
+            "O arquivo ficará temporariamente no aparelho até você baixar, compartilhar ou descartar.\n\n" +
+            "Use apenas em situações de segurança."
+        );
+
+        if (!confirmar) return;
+
         PASSAGEIROPAG_Login_func_limparGravacaoSeguranca();
 
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -13941,6 +14041,9 @@ async function PASSAGEIROPAG_Login_func_iniciarVideoSeguranca() {
     } catch (erro) {
         alert("Não foi possível acessar a câmera/microfone. Verifique as permissões do aparelho.");
         console.error("Erro ao iniciar vídeo de segurança:", erro);
+
+    } finally {
+        PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
     }
 }
 
@@ -13949,25 +14052,37 @@ function PASSAGEIROPAG_Login_func_iniciarGravacaoSeguranca(stream, tipo) {
     const titulo = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_titulo");
     const status = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_status");
     const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
+    const acoesArquivo = document.getElementById("PASSAGEIROPAG_Login_seg_acoes_arquivo");
+	const btnParar = document.getElementById("PASSAGEIROPAG_Login_seg_btn_parar_gravacao");
 
     PASSAGEIROPAG_Login_segStreamAtual = stream;
     PASSAGEIROPAG_Login_segMidiaChunks = [];
 
     if (box) box.style.display = "block";
+		
+    if (acoesArquivo) acoesArquivo.style.display = "none";
+	
+	if (btnParar) {
+        btnParar.disabled = false;
+        btnParar.innerText = "Parar gravação";
+        btnParar.style.display = "block";
+    }
+
+    if (videoPreview) {
+        videoPreview.srcObject = null;
+        videoPreview.style.display = "none";
+    }
 
     if (titulo) {
         titulo.innerText = tipo === "video"
-            ? "📹 Vídeo de segurança ativo"
-            : "🎙️ Áudio de segurança ativo";
+            ? "📹 Modo segurança ativo"
+            : "🎙️ Modo segurança ativo";
     }
 
     if (status) {
-        status.innerText = "Gravando... toque em PARAR GRAVAÇÃO quando terminar.";
-    }
-
-    if (tipo === "video" && videoPreview) {
-        videoPreview.srcObject = stream;
-        videoPreview.style.display = "block";
+        status.innerText = tipo === "video"
+            ? "Gravando vídeo de segurança. A câmera está ativa com sua permissão. Toque em PARAR GRAVAÇÃO quando terminar."
+            : "Gravando áudio de segurança. O microfone está ativo com sua permissão. Toque em PARAR GRAVAÇÃO quando terminar.";
     }
 
     PASSAGEIROPAG_Login_segMediaRecorder = new MediaRecorder(stream);
@@ -13983,16 +14098,35 @@ function PASSAGEIROPAG_Login_func_iniciarGravacaoSeguranca(stream, tipo) {
     };
 
     PASSAGEIROPAG_Login_segMediaRecorder.start();
+
+    clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
+
+    PASSAGEIROPAG_Login_segTimerLimite = setTimeout(function () {
+        PASSAGEIROPAG_Login_func_pararGravacaoSeguranca();
+
+        alert(
+            "Gravação finalizada automaticamente por segurança.\n\n" +
+            "O arquivo não foi enviado automaticamente."
+        );
+    }, tipo === "video" ? PASSAGEIROPAG_Login_segLimiteVideoMs : PASSAGEIROPAG_Login_segLimiteAudioMs);
 }
 
 function PASSAGEIROPAG_Login_func_pararGravacaoSeguranca() {
     if (
-        PASSAGEIROPAG_Login_segMediaRecorder &&
-        PASSAGEIROPAG_Login_segMediaRecorder.state !== "inactive"
+        !PASSAGEIROPAG_Login_segMediaRecorder ||
+        PASSAGEIROPAG_Login_segMediaRecorder.state === "inactive"
     ) {
-        PASSAGEIROPAG_Login_segMediaRecorder.stop();
+        return;
     }
 
+    const btnParar = document.getElementById("PASSAGEIROPAG_Login_seg_btn_parar_gravacao");
+
+    if (btnParar) {
+        btnParar.disabled = true;
+        btnParar.innerText = "Finalizando...";
+    }
+
+    PASSAGEIROPAG_Login_segMediaRecorder.stop();
     PASSAGEIROPAG_Login_func_pararStreamSeguranca();
 }
 
@@ -14001,10 +14135,28 @@ function PASSAGEIROPAG_Login_func_finalizarArquivoSeguranca(tipo) {
     const audioPreview = document.getElementById("PASSAGEIROPAG_Login_seg_audio_preview");
     const videoResultado = document.getElementById("PASSAGEIROPAG_Login_seg_video_resultado");
     const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
+    const acoesArquivo = document.getElementById("PASSAGEIROPAG_Login_seg_acoes_arquivo");
+		const btnParar = document.getElementById("PASSAGEIROPAG_Login_seg_btn_parar_gravacao");
 
     const mimeType = tipo === "video" ? "video/webm" : "audio/webm";
+    const extensao = tipo === "video" ? "webm" : "webm";
+    const dataAgora = new Date().toISOString().replace(/[:.]/g, "-");
+
+	if (!PASSAGEIROPAG_Login_segMidiaChunks.length) {
+		if (status) {
+			status.innerText = "Nenhum áudio/vídeo foi capturado. Tente gravar novamente.";
+		}
+
+		clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
+		return;
+	}
+
     const blob = new Blob(PASSAGEIROPAG_Login_segMidiaChunks, { type: mimeType });
     const url = URL.createObjectURL(blob);
+
+    PASSAGEIROPAG_Login_segArquivoBlobAtual = blob;
+    PASSAGEIROPAG_Login_segArquivoUrlAtual = url;
+    PASSAGEIROPAG_Login_segArquivoNomeAtual = "tnp-mob-seguranca-" + tipo + "-" + dataAgora + "." + extensao;
 
     if (videoPreview) {
         videoPreview.srcObject = null;
@@ -14022,8 +14174,20 @@ function PASSAGEIROPAG_Login_func_finalizarArquivoSeguranca(tipo) {
     }
 
     if (status) {
-        status.innerText = "Gravação finalizada. Em breve vamos ligar o envio desse arquivo ao suporte/Firebase.";
+        status.innerText =
+            "Gravação finalizada. O arquivo não foi enviado automaticamente. " +
+            "Você pode baixar, compartilhar por sua conta ou descartar.";
     }
+
+	if (btnParar) {
+		btnParar.style.display = "none";
+	}
+
+    if (acoesArquivo) {
+        acoesArquivo.style.display = "grid";
+    }
+
+    clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
 }
 
 function PASSAGEIROPAG_Login_func_pararStreamSeguranca() {
@@ -14042,15 +14206,30 @@ function PASSAGEIROPAG_Login_func_limparGravacaoSeguranca() {
     const audioPreview = document.getElementById("PASSAGEIROPAG_Login_seg_audio_preview");
     const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
     const videoResultado = document.getElementById("PASSAGEIROPAG_Login_seg_video_resultado");
+    const acoesArquivo = document.getElementById("PASSAGEIROPAG_Login_seg_acoes_arquivo");
 
     PASSAGEIROPAG_Login_func_pararStreamSeguranca();
+
+    clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
+    PASSAGEIROPAG_Login_segTimerLimite = null;
+
+    if (PASSAGEIROPAG_Login_segArquivoUrlAtual) {
+        URL.revokeObjectURL(PASSAGEIROPAG_Login_segArquivoUrlAtual);
+    }
 
     PASSAGEIROPAG_Login_segMediaRecorder = null;
     PASSAGEIROPAG_Login_segMidiaChunks = [];
     PASSAGEIROPAG_Login_segTipoGravacao = "";
+    PASSAGEIROPAG_Login_segArquivoBlobAtual = null;
+    PASSAGEIROPAG_Login_segArquivoUrlAtual = "";
+    PASSAGEIROPAG_Login_segArquivoNomeAtual = "";
 
     if (box) box.style.display = "none";
     if (status) status.innerText = "Aguardando...";
+
+    if (acoesArquivo) {
+        acoesArquivo.style.display = "none";
+    }
 
     if (audioPreview) {
         audioPreview.removeAttribute("src");
@@ -14068,13 +14247,87 @@ function PASSAGEIROPAG_Login_func_limparGravacaoSeguranca() {
     }
 }
 
+function PASSAGEIROPAG_Login_func_baixarArquivoSeguranca() {
+    if (!PASSAGEIROPAG_Login_segArquivoBlobAtual || !PASSAGEIROPAG_Login_segArquivoUrlAtual) {
+        alert("Nenhuma gravação disponível para baixar.");
+        return;
+    }
+
+    const link = document.createElement("a");
+    link.href = PASSAGEIROPAG_Login_segArquivoUrlAtual;
+    link.download = PASSAGEIROPAG_Login_segArquivoNomeAtual || "tnp-mob-gravacao-seguranca.webm";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+async function PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca() {
+    if (PASSAGEIROPAG_Login_segAcaoEmAndamento) return;
+
+    if (!PASSAGEIROPAG_Login_segArquivoBlobAtual) {
+        alert("Nenhuma gravação disponível para compartilhar.");
+        return;
+    }
+
+    PASSAGEIROPAG_Login_segAcaoEmAndamento = true;
+
+    try {
+        const arquivo = new File(
+            [PASSAGEIROPAG_Login_segArquivoBlobAtual],
+            PASSAGEIROPAG_Login_segArquivoNomeAtual || "tnp-mob-gravacao-seguranca.webm",
+            { type: PASSAGEIROPAG_Login_segArquivoBlobAtual.type || "application/octet-stream" }
+        );
+
+        if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+            await navigator.share({
+                title: "Gravação de segurança TNP MoB",
+                text: "Estou compartilhando uma gravação de segurança feita por mim no TNP MoB.",
+                files: [arquivo]
+            });
+
+            return;
+        }
+
+        alert("Seu navegador não permite compartilhar arquivos direto. Use o botão Baixar gravação e envie manualmente.");
+
+    } catch (erro) {
+        console.warn("Compartilhamento cancelado ou não concluído:", erro);
+
+    } finally {
+        PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
+    }
+}
+
+function PASSAGEIROPAG_Login_func_descartarArquivoSeguranca() {
+    if (
+        PASSAGEIROPAG_Login_segMediaRecorder &&
+        PASSAGEIROPAG_Login_segMediaRecorder.state === "recording"
+    ) {
+        alert("Pare a gravação antes de descartar o arquivo.");
+        return;
+    }
+
+    const confirmar = confirm("Deseja descartar esta gravação? Essa ação remove o arquivo temporário da tela.");
+
+    if (!confirmar) return;
+
+    PASSAGEIROPAG_Login_func_limparGravacaoSeguranca();
+
+    alert("Gravação descartada. Nenhum arquivo foi enviado.");
+}
+
 function PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada(input) {
     if (!input || !input.files || !input.files[0]) return;
 
-    alert("Foto registrada no aparelho. Em breve vamos ligar esse envio ao suporte/Firebase.");
+    alert(
+        "Foto selecionada/registrada.\n\n" +
+        "Ela não foi enviada automaticamente ao TNP MoB.\n" +
+        "Se precisar, compartilhe por sua conta com o suporte ou guarde no aparelho."
+    );
 
     input.value = "";
 }
+
 
 window.PASSAGEIROPAG_Login_func_carregarCentralSeguranca = PASSAGEIROPAG_Login_func_carregarCentralSeguranca;
 window.PASSAGEIROPAG_Login_func_fecharCentralSeguranca = PASSAGEIROPAG_Login_func_fecharCentralSeguranca;
@@ -14085,8 +14338,13 @@ window.PASSAGEIROPAG_Login_func_iniciarAudioSeguranca = PASSAGEIROPAG_Login_func
 window.PASSAGEIROPAG_Login_func_iniciarVideoSeguranca = PASSAGEIROPAG_Login_func_iniciarVideoSeguranca;
 window.PASSAGEIROPAG_Login_func_pararGravacaoSeguranca = PASSAGEIROPAG_Login_func_pararGravacaoSeguranca;
 window.PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada = PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada;
+window.PASSAGEIROPAG_Login_func_baixarArquivoSeguranca = PASSAGEIROPAG_Login_func_baixarArquivoSeguranca;
+window.PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca = PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca;
+window.PASSAGEIROPAG_Login_func_descartarArquivoSeguranca = PASSAGEIROPAG_Login_func_descartarArquivoSeguranca;
 
 // //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== //
+
+
 
 
 
