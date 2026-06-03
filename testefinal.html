@@ -4557,6 +4557,29 @@ body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_acoes_arquivo button {
     border: 1px solid rgba(93, 50, 31, 0.10);
 }
 
+/* //--========== CRONÔMETRO DA GRAVAÇÃO DE SEGURANÇA ========== // */
+
+.PASSAGEIROPAG_Login_seg_cronometro {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_seg_cronometro {
+    background: rgba(93, 50, 31, 0.10);
+    color: #5d321f;
+    border: 1px solid rgba(93, 50, 31, 0.16);
+}
+
 
 
         
@@ -6362,6 +6385,28 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 </div>
 <!-- //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== // -->
     
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <!--// ===================================================== -->
 <!--// PASSAGEIRO - MODAIS E TELAS AUXILIARES                -->  
 <!--// ===================================================== -->
@@ -13863,6 +13908,9 @@ let PASSAGEIROPAG_Login_segArquivoNomeAtual = "";
 let PASSAGEIROPAG_Login_segTimerLimite = null;
 let PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
 
+let PASSAGEIROPAG_Login_segTimerCronometro = null;
+let PASSAGEIROPAG_Login_segInicioGravacaoMs = 0;
+
 const PASSAGEIROPAG_Login_segLimiteAudioMs = 10 * 60 * 1000; // 10 minutos
 const PASSAGEIROPAG_Login_segLimiteVideoMs = 3 * 60 * 1000;  // 3 minutos
 
@@ -13957,6 +14005,57 @@ function PASSAGEIROPAG_Login_func_falarSuporteSeguranca(tipo) {
 
 function PASSAGEIROPAG_Login_func_compartilharViagemSeguranca() {
     alert("Compartilhar viagem estará disponível quando a corrida estiver em andamento.");
+}
+
+function PASSAGEIROPAG_Login_func_formatarTempoSeguranca(totalSegundos) {
+    const minutos = Math.floor(totalSegundos / 60);
+    const segundos = totalSegundos % 60;
+
+    return String(minutos).padStart(2, "0") + ":" + String(segundos).padStart(2, "0");
+}
+
+function PASSAGEIROPAG_Login_func_atualizarCronometroSeguranca() {
+    const cronometro = document.getElementById("PASSAGEIROPAG_Login_seg_cronometro");
+
+    if (!cronometro || !PASSAGEIROPAG_Login_segInicioGravacaoMs) return;
+
+    const segundos = Math.floor((Date.now() - PASSAGEIROPAG_Login_segInicioGravacaoMs) / 1000);
+
+    cronometro.innerText = PASSAGEIROPAG_Login_func_formatarTempoSeguranca(segundos);
+}
+
+function PASSAGEIROPAG_Login_func_iniciarCronometroSeguranca() {
+    clearInterval(PASSAGEIROPAG_Login_segTimerCronometro);
+
+    PASSAGEIROPAG_Login_segInicioGravacaoMs = Date.now();
+
+    PASSAGEIROPAG_Login_func_atualizarCronometroSeguranca();
+
+    PASSAGEIROPAG_Login_segTimerCronometro = setInterval(function () {
+        PASSAGEIROPAG_Login_func_atualizarCronometroSeguranca();
+    }, 1000);
+}
+
+function PASSAGEIROPAG_Login_func_pararCronometroSeguranca() {
+    clearInterval(PASSAGEIROPAG_Login_segTimerCronometro);
+    PASSAGEIROPAG_Login_segTimerCronometro = null;
+}
+
+function PASSAGEIROPAG_Login_func_centralizarBoxGravacaoSeguranca() {
+    const box = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_box");
+
+    if (!box) return;
+
+    setTimeout(function () {
+        try {
+            box.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        } catch (erro) {
+            box.scrollIntoView();
+        }
+    }, 180);
 }
 
 function PASSAGEIROPAG_Login_func_navegadorSuportaGravacaoSeguranca() {
@@ -14074,16 +14173,19 @@ function PASSAGEIROPAG_Login_func_iniciarGravacaoSeguranca(stream, tipo) {
     }
 
     if (titulo) {
-        titulo.innerText = tipo === "video"
-            ? "📹 Modo segurança ativo"
-            : "🎙️ Modo segurança ativo";
-    }
+		titulo.innerHTML = tipo === "video"
+			? '📹 Modo segurança ativo <span id="PASSAGEIROPAG_Login_seg_cronometro" class="PASSAGEIROPAG_Login_seg_cronometro">00:00</span>'
+			: '🎙️ Modo segurança ativo <span id="PASSAGEIROPAG_Login_seg_cronometro" class="PASSAGEIROPAG_Login_seg_cronometro">00:00</span>';
+	}
 
     if (status) {
         status.innerText = tipo === "video"
             ? "Gravando vídeo de segurança. A câmera está ativa com sua permissão. Toque em PARAR GRAVAÇÃO quando terminar."
             : "Gravando áudio de segurança. O microfone está ativo com sua permissão. Toque em PARAR GRAVAÇÃO quando terminar.";
     }
+	
+	PASSAGEIROPAG_Login_func_iniciarCronometroSeguranca();
+	PASSAGEIROPAG_Login_func_centralizarBoxGravacaoSeguranca();
 
     PASSAGEIROPAG_Login_segMediaRecorder = new MediaRecorder(stream);
 
@@ -14147,7 +14249,15 @@ function PASSAGEIROPAG_Login_func_finalizarArquivoSeguranca(tipo) {
 			status.innerText = "Nenhum áudio/vídeo foi capturado. Tente gravar novamente.";
 		}
 
+		if (btnParar) {
+			btnParar.disabled = false;
+			btnParar.innerText = "Parar gravação";
+			btnParar.style.display = "block";
+		}
+
 		clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
+		PASSAGEIROPAG_Login_func_pararCronometroSeguranca();
+
 		return;
 	}
 
@@ -14188,6 +14298,7 @@ function PASSAGEIROPAG_Login_func_finalizarArquivoSeguranca(tipo) {
     }
 
     clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
+	PASSAGEIROPAG_Login_func_pararCronometroSeguranca();
 }
 
 function PASSAGEIROPAG_Login_func_pararStreamSeguranca() {
@@ -14203,7 +14314,9 @@ function PASSAGEIROPAG_Login_func_pararStreamSeguranca() {
 function PASSAGEIROPAG_Login_func_limparGravacaoSeguranca() {
     const box = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_box");
     const status = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_status");
-    const audioPreview = document.getElementById("PASSAGEIROPAG_Login_seg_audio_preview");
+    const titulo = document.getElementById("PASSAGEIROPAG_Login_seg_gravacao_titulo");
+	const btnParar = document.getElementById("PASSAGEIROPAG_Login_seg_btn_parar_gravacao");
+	const audioPreview = document.getElementById("PASSAGEIROPAG_Login_seg_audio_preview");
     const videoPreview = document.getElementById("PASSAGEIROPAG_Login_seg_video_preview");
     const videoResultado = document.getElementById("PASSAGEIROPAG_Login_seg_video_resultado");
     const acoesArquivo = document.getElementById("PASSAGEIROPAG_Login_seg_acoes_arquivo");
@@ -14211,7 +14324,10 @@ function PASSAGEIROPAG_Login_func_limparGravacaoSeguranca() {
     PASSAGEIROPAG_Login_func_pararStreamSeguranca();
 
     clearTimeout(PASSAGEIROPAG_Login_segTimerLimite);
-    PASSAGEIROPAG_Login_segTimerLimite = null;
+	PASSAGEIROPAG_Login_segTimerLimite = null;
+
+	PASSAGEIROPAG_Login_func_pararCronometroSeguranca();
+	PASSAGEIROPAG_Login_segInicioGravacaoMs = 0;
 
     if (PASSAGEIROPAG_Login_segArquivoUrlAtual) {
         URL.revokeObjectURL(PASSAGEIROPAG_Login_segArquivoUrlAtual);
@@ -14224,8 +14340,13 @@ function PASSAGEIROPAG_Login_func_limparGravacaoSeguranca() {
     PASSAGEIROPAG_Login_segArquivoUrlAtual = "";
     PASSAGEIROPAG_Login_segArquivoNomeAtual = "";
 
-    if (box) box.style.display = "none";
-    if (status) status.innerText = "Aguardando...";
+    if (titulo) titulo.innerText = "Gravação ativa";
+
+	if (btnParar) {
+		btnParar.disabled = false;
+		btnParar.innerText = "Parar gravação";
+		btnParar.style.display = "block";
+	}
 
     if (acoesArquivo) {
         acoesArquivo.style.display = "none";
@@ -14341,6 +14462,10 @@ window.PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada = PASSAGEIROPAG_Login_f
 window.PASSAGEIROPAG_Login_func_baixarArquivoSeguranca = PASSAGEIROPAG_Login_func_baixarArquivoSeguranca;
 window.PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca = PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca;
 window.PASSAGEIROPAG_Login_func_descartarArquivoSeguranca = PASSAGEIROPAG_Login_func_descartarArquivoSeguranca;
+
+
+
+
 
 // //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== //
 
