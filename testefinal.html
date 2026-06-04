@@ -14382,6 +14382,31 @@ function PASSAGEIROPAG_Login_func_baixarArquivoSeguranca() {
     document.body.removeChild(link);
 }
 
+function PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca() {
+    if (!PASSAGEIROPAG_Login_segArquivoBlobAtual) {
+        return null;
+    }
+
+    const tipoAtual = PASSAGEIROPAG_Login_segTipoGravacao || "";
+    const dataAgora = new Date().toISOString().replace(/[:.]/g, "-");
+
+    // ÁUDIO: grava em WEBM, mas compartilha disfarçado como OGG
+    if (tipoAtual === "audio") {
+        return new File(
+            [PASSAGEIROPAG_Login_segArquivoBlobAtual],
+            "tnp-mob-seguranca-audio-" + dataAgora + ".ogg",
+            { type: "audio/ogg" }
+        );
+    }
+
+    // VÍDEO: mantém o formato original
+    return new File(
+        [PASSAGEIROPAG_Login_segArquivoBlobAtual],
+        PASSAGEIROPAG_Login_segArquivoNomeAtual || "tnp-mob-gravacao-seguranca.webm",
+        { type: PASSAGEIROPAG_Login_segArquivoBlobAtual.type || "video/webm" }
+    );
+}
+
 async function PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca() {
     if (PASSAGEIROPAG_Login_segAcaoEmAndamento) return;
 
@@ -14393,26 +14418,35 @@ async function PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca() {
     PASSAGEIROPAG_Login_segAcaoEmAndamento = true;
 
     try {
-        const arquivo = new File(
-            [PASSAGEIROPAG_Login_segArquivoBlobAtual],
-            PASSAGEIROPAG_Login_segArquivoNomeAtual || "tnp-mob-gravacao-seguranca.webm",
-            { type: PASSAGEIROPAG_Login_segArquivoBlobAtual.type || "application/octet-stream" }
-        );
+        const arquivo = PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca();
+
+        if (!arquivo) {
+            alert("Não foi possível preparar o arquivo para compartilhamento.");
+            return;
+        }
 
         if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
             await navigator.share({
                 title: "Gravação de segurança TNP MoB",
-                text: "Estou compartilhando uma gravação de segurança feita por mim no TNP MoB.",
+                text: "Gravação de segurança feita por mim no TNP MoB.",
                 files: [arquivo]
             });
 
             return;
         }
 
-        alert("Seu navegador não permite compartilhar arquivos direto. Use o botão Baixar gravação e envie manualmente.");
+        alert(
+            "Seu navegador não permite compartilhar esse arquivo diretamente.\n\n" +
+            "Toque em BAIXAR GRAVAÇÃO e depois envie manualmente pelo WhatsApp."
+        );
 
     } catch (erro) {
-        console.warn("Compartilhamento cancelado ou não concluído:", erro);
+        console.warn("Compartilhamento não concluído:", erro);
+
+        alert(
+            "Não foi possível compartilhar direto.\n\n" +
+            "Use a opção BAIXAR GRAVAÇÃO e envie manualmente pelo WhatsApp."
+        );
 
     } finally {
         PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
@@ -14462,8 +14496,7 @@ window.PASSAGEIROPAG_Login_func_fotoSegurancaSelecionada = PASSAGEIROPAG_Login_f
 window.PASSAGEIROPAG_Login_func_baixarArquivoSeguranca = PASSAGEIROPAG_Login_func_baixarArquivoSeguranca;
 window.PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca = PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca;
 window.PASSAGEIROPAG_Login_func_descartarArquivoSeguranca = PASSAGEIROPAG_Login_func_descartarArquivoSeguranca;
-
-
+window.PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca = PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca;
 
 
 
