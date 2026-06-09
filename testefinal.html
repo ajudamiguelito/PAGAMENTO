@@ -6603,10 +6603,14 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <div class="PRIMEIRAPAG_Login_form_group">
         <label for="DECIMASEGUNDAPAG_Login_input_id_tnp">ID TNP</label>
         <input
-            type="text"
-            id="DECIMASEGUNDAPAG_Login_input_id_tnp"
-            placeholder="Digite seu ID TNP"
-        >
+		type="tel"
+		id="DECIMASEGUNDAPAG_Login_input_id_tnp"
+		maxlength="10"
+		inputmode="numeric"
+		autocomplete="off"
+		placeholder="Digite seu ID TNP"
+		oninput="DECIMASEGUNDAPAG_Login_func_maskIdTnp(this)"
+	>
     </div>
 
     <button
@@ -7758,6 +7762,19 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             oninput="MOTORISTAPAG_Login_func_maskDataNascimento(this)"
         >
     </div>
+	
+	<div class="PRIMEIRAPAG_Login_form_group">
+    <label for="MOTORISTAPAG_Login_select_genero_motorista">
+        Gênero
+    </label>
+
+    <select id="MOTORISTAPAG_Login_select_genero_motorista">
+        <option value="">Selecione</option>
+        <option value="feminino">Feminino</option>
+        <option value="masculino">Masculino</option>
+        <option value="nao_informar">Prefiro não informar</option>
+    </select>
+</div>
 
     <div class="PRIMEIRAPAG_Login_form_group">
         <label for="MOTORISTAPAG_Login_select_cnh_categoria">Categoria da CNH</label>
@@ -8595,9 +8612,11 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
             <input
 			type="tel"
 			id="MOTORISTAPAG_Login_input_id_tnp"
-			placeholder="Digite seu ID TNP"
+			maxlength="10"
 			inputmode="numeric"
-			maxlength="20"
+			autocomplete="off"
+			placeholder="Digite seu ID TNP"
+			oninput="MOTORISTAPAG_Login_func_maskIdTnpMotorista(this)"
 		>
         </div>
 
@@ -11116,7 +11135,12 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 
 			perfis: {
 				passageiro: true,
-				motorista: false
+
+				// Não apaga perfil de motorista se a conta já tiver motorista.
+				motorista:
+					QUARTAPAG_Login_dadosAtuaisAntes.perfis?.motorista === true ||
+					QUARTAPAG_Login_dadosAtuaisAntes.tipo === "motorista" ||
+					!!QUARTAPAG_Login_dadosAtuaisAntes.motoristaStatus
 			},
 
 			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
@@ -11136,13 +11160,15 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 
 		await QUARTAPAG_Login_userRef.set(QUARTAPAG_Login_payloadPassageiro, { merge: true });
 
-		QUARTAPAG_Login_btn.dataset.processando = "nao";
-		QUARTAPAG_Login_btn.disabled = false;
-		QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+		if (QUARTAPAG_Login_btn) {
+			QUARTAPAG_Login_btn.dataset.processando = "nao";
+			QUARTAPAG_Login_btn.disabled = false;
+			QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+		}
 
 		PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
 		return;
-}		
+	}
 
 	// MOTORISTA
 	if (QUARTAPAG_Login_tipo === "motorista") {
@@ -11199,15 +11225,17 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 			QUARTAPAG_Login_dadosMotoristaAntes.status?.geral === "aprovado" ||
 			QUARTAPAG_Login_dadosMotoristaAntes.podeAceitarCorrida === true;
 
+		const QUARTAPAG_Login_nomeMotorista =
+			QUARTAPAG_Login_dadosAtuaisAntes.nomeDocumento ||
+			QUARTAPAG_Login_dadosAtuaisAntes.nome ||
+			QUARTAPAG_Login_user.displayName ||
+			"";
+
 		const QUARTAPAG_Login_payloadMotoristas = {
 			uid: QUARTAPAG_Login_user.uid,
 			email: QUARTAPAG_Login_user.email,
-			nome:
-				QUARTAPAG_Login_dadosAtuaisAntes.nomeDocumento ||
-				QUARTAPAG_Login_dadosAtuaisAntes.nome ||
-				QUARTAPAG_Login_user.displayName ||
-				"",
-		
+			nome: QUARTAPAG_Login_nomeMotorista,
+
 			tipo: "motorista",
 			origemCadastro: "tipo_conta_motorista",
 
@@ -11234,16 +11262,21 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 
 		await QUARTAPAG_Login_motoristaRef.set(QUARTAPAG_Login_payloadMotoristas, { merge: true });
 
-		QUARTAPAG_Login_btn.dataset.processando = "nao";
-		QUARTAPAG_Login_btn.disabled = false;
-		QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+		if (QUARTAPAG_Login_btn) {
+			QUARTAPAG_Login_btn.dataset.processando = "nao";
+			QUARTAPAG_Login_btn.disabled = false;
+			QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+		}
 
 		PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
 		return;
 	}
-	QUARTAPAG_Login_btn.dataset.processando = "nao";
-	QUARTAPAG_Login_btn.disabled = false;
-	QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+
+	if (QUARTAPAG_Login_btn) {
+		QUARTAPAG_Login_btn.dataset.processando = "nao";
+		QUARTAPAG_Login_btn.disabled = false;
+		QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+	}
 
 	return PRIMEIRAPAG_Login_func_mostrarErro(
 		'QUARTAPAG_Login_error_tipo_conta',
@@ -11251,9 +11284,11 @@ async function QUARTAPAG_Login_func_continuarTipoConta() {
 	);
 
 } catch (QUARTAPAG_Login_erro) {
-	QUARTAPAG_Login_btn.dataset.processando = "nao";
-	QUARTAPAG_Login_btn.disabled = false;
-	QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+	if (QUARTAPAG_Login_btn) {
+		QUARTAPAG_Login_btn.dataset.processando = "nao";
+		QUARTAPAG_Login_btn.disabled = false;
+		QUARTAPAG_Login_btn.innerText = "CONTINUAR";
+	}
 
 	console.error("ERRO AO SALVAR TIPO DE CONTA:", QUARTAPAG_Login_erro);
 
@@ -11470,16 +11505,6 @@ async function QUINTAPAG_Login_func_confirmarSelfie() {
             'Tire ou selecione uma selfie antes de continuar.'
         );
     }
-
-    const QUINTAPAG_Login_editandoFotoPerfil =
-		sessionStorage.getItem("TNP_MOB_EDITANDO_FOTO_PERFIL") === "true";
-
-	const QUINTAPAG_Login_corrigindoFotoPerfilAdmin =
-		sessionStorage.getItem("TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN") === "true";
-
-	const QUINTAPAG_Login_origemCorrecaoFotoPerfil =
-		sessionStorage.getItem("TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL") || "";
-		
 
     if (QUINTAPAG_Login_btn) {
     QUINTAPAG_Login_btn.disabled = true;
@@ -13294,9 +13319,10 @@ try {
     });
 
     if (NONAPAG_Login_btn) {
-    NONAPAG_Login_btn.disabled = false;
-    NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
-}
+		NONAPAG_Login_btn.dataset.processando = "nao";
+		NONAPAG_Login_btn.disabled = false;
+		NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+	}
 
 if (NONAPAG_Login_editandoContato) {
     sessionStorage.removeItem("TNP_MOB_EDITANDO_CONTATO_EMERGENCIA");
@@ -13306,9 +13332,10 @@ DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 
 } catch (NONAPAG_Login_erro) {
        if (NONAPAG_Login_btn) {
-    NONAPAG_Login_btn.disabled = false;
-    NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
-}
+		NONAPAG_Login_btn.dataset.processando = "nao";
+		NONAPAG_Login_btn.disabled = false;
+		NONAPAG_Login_btn.innerText = "SALVAR E CONTINUAR";
+	}
 
         PRIMEIRAPAG_Login_func_mostrarErro(
             'NONAPAG_Login_error_contato_emergencia',
@@ -14267,13 +14294,29 @@ function DECIMASEGUNDAPAG_Login_func_fecharModalAjudaTnp() {
 }
 
 function DECIMASEGUNDAPAG_Login_func_validarIdTnp(DECIMASEGUNDAPAG_Login_idTnp) {
-    const DECIMASEGUNDAPAG_Login_limpo = DECIMASEGUNDAPAG_Login_idTnp.trim();
+    const DECIMASEGUNDAPAG_Login_limpo = String(DECIMASEGUNDAPAG_Login_idTnp || "").replace(/\D/g, "");
 
-    if (DECIMASEGUNDAPAG_Login_limpo.length < 3) {
+    if (!DECIMASEGUNDAPAG_Login_limpo) {
+        return false;
+    }
+
+    if (DECIMASEGUNDAPAG_Login_limpo.length > 10) {
         return false;
     }
 
     return true;
+}
+
+function DECIMASEGUNDAPAG_Login_func_maskIdTnp(input) {
+    if (!input) return;
+
+    let valor = String(input.value || "").replace(/\D/g, "");
+
+    if (valor.length > 10) {
+        valor = valor.substring(0, 10);
+    }
+
+    input.value = valor;
 }
 
 function DECIMASEGUNDAPAG_Login_func_irParaEtapaPendente(dados) {
@@ -14354,18 +14397,22 @@ async function DECIMASEGUNDAPAG_Login_func_salvarIdTnp() {
             }
         }
 
-        const DECIMASEGUNDAPAG_Login_idTnp = DECIMASEGUNDAPAG_Login_input.value.trim();
+        const DECIMASEGUNDAPAG_Login_idTnp = String(DECIMASEGUNDAPAG_Login_input.value || "")
+			.replace(/\D/g, "")
+			.slice(0, 10);
 
-        if (!DECIMASEGUNDAPAG_Login_func_validarIdTnp(DECIMASEGUNDAPAG_Login_idTnp)) {
+		DECIMASEGUNDAPAG_Login_input.value = DECIMASEGUNDAPAG_Login_idTnp;
+
+		if (!DECIMASEGUNDAPAG_Login_func_validarIdTnp(DECIMASEGUNDAPAG_Login_idTnp)) {
 		if (DECIMASEGUNDAPAG_Login_btn) {
 			DECIMASEGUNDAPAG_Login_btn.disabled = false;
 			DECIMASEGUNDAPAG_Login_btn.innerText = "SALVAR ID TNP";
 		}
 
 		return PRIMEIRAPAG_Login_func_mostrarErro(
-                'DECIMASEGUNDAPAG_Login_error_tnp',
-                'Informe um ID TNP válido.'
-            );
+			'DECIMASEGUNDAPAG_Login_error_tnp',
+			'Informe um ID TNP válido usando apenas números, sem espaços, com no máximo 10 dígitos.'
+		);
         }
 
         if (DECIMASEGUNDAPAG_Login_btn) {
@@ -14513,15 +14560,16 @@ async function DECIMASEGUNDAPAG_Login_func_deixarTnpParaDepois() {
 				: "cadastro_principal_pendente",
 
 			status: {
-				geral: DECIMASEGUNDAPAG_Login_principalConcluido
-					? "ativo_sem_cashback"
-					: "cadastro_principal_pendente_sem_cashback",
-				etapa: "home_passageiro",
-				mensagem: DECIMASEGUNDAPAG_Login_principalConcluido
-					? "Usuário deixou o ID TNP para depois."
-					: "Usuário deixou o ID TNP para depois, mas ainda precisa completar o cadastro principal.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
+			geral: DECIMASEGUNDAPAG_Login_principalConcluido
+				? "ativo_sem_cashback"
+				: "cadastro_principal_pendente_sem_cashback",
+			etapa: "home_passageiro",
+			tipo: "passageiro",
+			mensagem: DECIMASEGUNDAPAG_Login_principalConcluido
+				? "Usuário deixou o ID TNP para depois."
+				: "Usuário deixou o ID TNP para depois, mas ainda precisa completar o cadastro principal.",
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
 
 			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 		};
@@ -17235,16 +17283,16 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
 
 //--========== TELA MOTORISTA 01: CATEGORIA PRINCIPAL - PREFIXO MOTORISTAPAG FINAL ========== //
 // ========== TELA MOTORISTA 02: DADOS DA CNH - PREFIXO MOTORISTAPAG  ==========
-	function MOTORISTAPAG_Login_func_limparErroCnh() {
-		const erroCnh = document.getElementById('MOTORISTAPAG_Login_error_cnh');
+function MOTORISTAPAG_Login_func_limparErroCnh() {
+    const erroCnh = document.getElementById('MOTORISTAPAG_Login_error_cnh');
 
-		if (erroCnh) {
-			erroCnh.innerText = '';
-			erroCnh.style.display = 'none';
-		}
-	}
-	
-	async function MOTORISTAPAG_Login_func_salvarDadosCnh() {
+    if (erroCnh) {
+        erroCnh.innerText = '';
+        erroCnh.style.display = 'none';
+    }
+}
+
+async function MOTORISTAPAG_Login_func_salvarDadosCnh() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
     const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
 
@@ -17253,33 +17301,39 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
     if (btn && btn.dataset.processando === 'sim') {
         return;
     }
-	const inputNumero = document.getElementById('MOTORISTAPAG_Login_input_cnh_numero');
-	const inputCpf = document.getElementById('MOTORISTAPAG_Login_input_cnh_cpf');
-	const inputNascimento = document.getElementById('MOTORISTAPAG_Login_input_data_nascimento');
-	const selectCategoria = document.getElementById('MOTORISTAPAG_Login_select_cnh_categoria');
-	const inputValidade = document.getElementById('MOTORISTAPAG_Login_input_cnh_validade');
 
-	[inputNumero, inputCpf, inputNascimento, selectCategoria, inputValidade].forEach(campo => {
-		if (campo) campo.classList.remove('error');
-	});
+    const inputNumero = document.getElementById('MOTORISTAPAG_Login_input_cnh_numero');
+    const inputCpf = document.getElementById('MOTORISTAPAG_Login_input_cnh_cpf');
+    const inputNascimento = document.getElementById('MOTORISTAPAG_Login_input_data_nascimento');
+    const generoInput = document.getElementById('MOTORISTAPAG_Login_select_genero_motorista');
 
-	if (!inputNumero || !inputCpf || !inputNascimento || !selectCategoria || !inputValidade) {
-		return PRIMEIRAPAG_Login_func_mostrarErro(
-			'MOTORISTAPAG_Login_error_cnh',
-			'Erro interno: campos da CNH não encontrados.'
-		);
-	}
+    const selectCategoria = document.getElementById('MOTORISTAPAG_Login_select_cnh_categoria');
+    const inputValidade = document.getElementById('MOTORISTAPAG_Login_input_cnh_validade');
 
-	const numeroCnh = inputNumero.value.replace(/\D/g, '');
-	const cpfCnhFormatado = inputCpf.value.trim();
-	const cpfCnh = MOTORISTAPAG_Login_func_limparCpf(cpfCnhFormatado);
+    [inputNumero, inputCpf, inputNascimento, generoInput, selectCategoria, inputValidade].forEach(campo => {
+        if (campo) campo.classList.remove('error');
+    });
 
-	const dataNascimentoFormatada = inputNascimento.value.trim();
+    if (!inputNumero || !inputCpf || !inputNascimento || !generoInput || !selectCategoria || !inputValidade) {
+        return PRIMEIRAPAG_Login_func_mostrarErro(
+            'MOTORISTAPAG_Login_error_cnh',
+            'Erro interno: campos da CNH não encontrados.'
+        );
+    }
+
+    const numeroCnh = inputNumero.value.replace(/\D/g, '');
+    const cpfCnhFormatado = inputCpf.value.trim();
+    const cpfCnh = MOTORISTAPAG_Login_func_limparCpf(cpfCnhFormatado);
+
+    const dataNascimentoFormatada = inputNascimento.value.trim();
 	const dataNascimento = MOTORISTAPAG_Login_func_converterDataBrParaIso(dataNascimentoFormatada);
+	const idadeMotorista = MOTORISTAPAG_Login_func_calcularIdadePorDataIso(dataNascimento);
+
+	const generoMotorista = generoInput ? String(generoInput.value || "").trim() : "";
 
 	const categoriaCnh = selectCategoria.value;
-	const validadeCnhFormatada = inputValidade.value.trim();
-	const validadeCnh = MOTORISTAPAG_Login_func_converterDataBrParaIso(validadeCnhFormatada);
+    const validadeCnhFormatada = inputValidade.value.trim();
+    const validadeCnh = MOTORISTAPAG_Login_func_converterDataBrParaIso(validadeCnhFormatada);
 	
     if (!numeroCnh) {
         inputNumero.classList.add('error');
@@ -17326,6 +17380,15 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
 		return PRIMEIRAPAG_Login_func_mostrarErro(
 			'MOTORISTAPAG_Login_error_cnh',
 			'Digite uma data de nascimento válida no formato DD/MM/AAAA.'
+		);
+	}
+	
+	if (!generoMotorista) {
+		generoInput.classList.add('error');
+
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Selecione o gênero para continuar.'
 		);
 	}
 
@@ -17409,93 +17472,118 @@ const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(vali
         });
 
     const statusGeralCnh = statusCnhValidade.bloqueado
-    ? 'bloqueado_cnh_vencida'
-    : 'cadastro_iniciado';
+        ? 'bloqueado_cnh_vencida'
+        : 'cadastro_iniciado';
 
-const motivoCnh = statusCnhValidade.bloqueado
-    ? 'cnh_vencida_fora_da_tolerancia'
-    : '';
+    const motivoCnh = statusCnhValidade.bloqueado
+        ? 'cnh_vencida_fora_da_tolerancia'
+        : '';
 
-const mensagemCnh = statusCnhValidade.bloqueado
-    ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
-    : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.';
+    const mensagemCnh = statusCnhValidade.bloqueado
+        ? 'CNH vencida fora da tolerância. Cadastro enviado para análise.'
+        : 'Dados da CNH salvos. Próxima etapa: enviar as fotos da CNH.';
 
-const payloadMotoristaCnh = {
-    cnhNumero: numeroCnh,
-    cnhCpfTitular: cpfCnh,
-    cnhCpfTitularFormatado: cpfCnhFormatado,
+    const payloadMotoristaCnh = {
+        cnhNumero: numeroCnh,
+        cnhCpfTitular: cpfCnh,
+        cnhCpfTitularFormatado: cpfCnhFormatado,
 
-    dataNascimento: dataNascimento,
-    dataNascimentoFormatada: dataNascimentoFormatada,
-    dataNascimentoConcluida: true,
+        genero: generoMotorista,
+        generoInformado: true,
 
-    cnhCategoria: categoriaCnh,
+        dataNascimento: dataNascimento,
+        dataNascimentoFormatada: dataNascimentoFormatada,
+        dataNascimentoConcluida: true,
 
-    cnhValidade: validadeCnh,
-    cnhValidadeFormatada: validadeCnhFormatada,
+        cnhCategoria: categoriaCnh,
 
-    cnhValidadeStatus: statusCnhValidade.status,
-    cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
-    cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
-    cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
-    cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-    cnhMensagemValidade: statusCnhValidade.mensagem,
-
-    cnhAviso30DiasEnviado: false,
-    cnhAviso15DiasEnviado: false,
-    cnhAviso7DiasEnviado: false,
-
-    cnhAvisoTolerancia15DiasEnviado: false,
-    cnhAvisoTolerancia7DiasEnviado: false,
-    cnhAvisoTolerancia5DiasEnviado: false,
-    cnhAvisoTolerancia4DiasEnviado: false,
-    cnhAvisoTolerancia3DiasEnviado: false,
-    cnhAvisoTolerancia2DiasEnviado: false,
-    cnhAvisoTolerancia1DiaEnviado: false,
-
-    cpfConflito: false,
-    cpfConflitoStatus: '',
-    cpfConflitoMensagem: '',
-
-    etapaCadastroMotorista: 'fotos_cnh',
-
-    motoristaStatus: statusGeralCnh,
-
-    status: {
-        geral: statusGeralCnh,
-        etapa: 'fotos_cnh',
-        tipo: 'motorista',
-        uid: user.uid,
-
-        motivo: motivoCnh,
-        mensagem: mensagemCnh,
+        cnhValidade: validadeCnh,
+        cnhValidadeFormatada: validadeCnhFormatada,
 
         cnhValidadeStatus: statusCnhValidade.status,
+        cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
+        cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
+        cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
         cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+        cnhMensagemValidade: statusCnhValidade.mensagem,
+
+        cnhAviso30DiasEnviado: false,
+        cnhAviso15DiasEnviado: false,
+        cnhAviso7DiasEnviado: false,
+
+        cnhAvisoTolerancia15DiasEnviado: false,
+        cnhAvisoTolerancia7DiasEnviado: false,
+        cnhAvisoTolerancia5DiasEnviado: false,
+        cnhAvisoTolerancia4DiasEnviado: false,
+        cnhAvisoTolerancia3DiasEnviado: false,
+        cnhAvisoTolerancia2DiasEnviado: false,
+        cnhAvisoTolerancia1DiaEnviado: false,
+
+        cpfConflito: false,
+        cpfConflitoStatus: '',
+        cpfConflitoMensagem: '',
+
+        etapaCadastroMotorista: 'fotos_cnh',
+
+        motoristaStatus: statusGeralCnh,
+
+        status: {
+            geral: statusGeralCnh,
+            etapa: 'fotos_cnh',
+            tipo: 'motorista',
+            uid: user.uid,
+
+            motivo: motivoCnh,
+            mensagem: mensagemCnh,
+
+            cnhValidadeStatus: statusCnhValidade.status,
+            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        },
 
         atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    },
+    };
 
-    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-};
-
-if (statusCnhValidade.bloqueado) {
-    payloadMotoristaCnh.requerAnaliseAdmin = true;
-    payloadMotoristaCnh.motivoAnaliseAdmin = 'cnh_vencida_fora_da_tolerancia';
-}
+    if (statusCnhValidade.bloqueado) {
+        payloadMotoristaCnh.requerAnaliseAdmin = true;
+        payloadMotoristaCnh.motivoAnaliseAdmin = 'cnh_vencida_fora_da_tolerancia';
+    }
 
 await PRIMEIRAPAG_Login_db
     .collection('motoristas')
     .doc(user.uid)
     .set(payloadMotoristaCnh, { merge: true });
 
-const payloadUsuarioCnh = {
-    cpf: cpfCnh,
-    cpfFormatado: cpfCnhFormatado,
+const usuarioSnapAtual = await PRIMEIRAPAG_Login_db
+    .collection('usuarios')
+    .doc(user.uid)
+    .get();
 
-    dataNascimento: dataNascimento,
-    dataNascimentoFormatada: dataNascimentoFormatada,
-    dataNascimentoConcluida: true,
+const usuarioAtual = usuarioSnapAtual.exists ? usuarioSnapAtual.data() : {};
+const nomeDocumentoMotorista = usuarioAtual.nomeDocumento || usuarioAtual.nome || "";
+
+const payloadUsuarioCnh = {
+    tipoDocumento: 'cpf',
+	documentoNumero: cpfCnh,
+	documentoFormatado: cpfCnhFormatado,
+
+	cpf: cpfCnh,
+	cpfFormatado: cpfCnhFormatado,
+
+	nomeDocumento: nomeDocumentoMotorista,
+	idade: idadeMotorista,
+	dataAbertura: "",
+	dataAberturaFormatada: "",
+
+	genero: generoMotorista,
+	generoInformado: true,
+
+	dataNascimento: dataNascimento,
+	dataNascimentoFormatada: dataNascimentoFormatada,
+	dataNascimentoConcluida: true,
+
+	dadosPessoaisConcluidos: true,
 
     cpfConflito: false,
     cpfConflitoStatus: '',
@@ -17551,30 +17639,30 @@ await PRIMEIRAPAG_Login_db
     .collection('usuarios')
     .doc(user.uid)
     .set(payloadUsuarioCnh, { merge: true });
-		if (btn) {
-		btn.dataset.processando = 'nao';
-		btn.disabled = false;
-		btn.innerText = textoOriginal;
-	}
 
-	MOTORISTAPAG_Login_func_limparErroCnh();
+if (btn) {
+    btn.dataset.processando = 'nao';
+    btn.disabled = false;
+    btn.innerText = textoOriginal;
+}
 
-	MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+MOTORISTAPAG_Login_func_limparErroCnh();
 
-        // Próxima tela: fotos_cnh
-       
+MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
 
-    } catch (erro) {
+// Próxima tela: fotos_cnh
+
+} catch (erro) {
     console.error('ERRO AO SALVAR DADOS DA CNH:', erro);
 
     const msgErro = erro.message || "";
     const codeErro = erro.code || "";
 
-		if (btn) {
-		btn.dataset.processando = 'nao';
-		btn.disabled = false;
-		btn.innerText = textoOriginal;
-	}
+    if (btn) {
+        btn.dataset.processando = 'nao';
+        btn.disabled = false;
+        btn.innerText = textoOriginal;
+    }
 
     if (codeErro === 'functions/not-found') {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -17693,6 +17781,41 @@ function MOTORISTAPAG_Login_func_converterDataBrParaIso(dataBr) {
     }
 
     return `${ano}-${mes}-${dia}`;
+}
+
+function MOTORISTAPAG_Login_func_calcularIdadePorDataIso(dataIso) {
+    if (!dataIso) {
+        return null;
+    }
+
+    const partes = dataIso.split("-");
+
+    if (partes.length !== 3) {
+        return null;
+    }
+
+    const ano = Number(partes[0]);
+    const mes = Number(partes[1]);
+    const dia = Number(partes[2]);
+
+    if (!ano || !mes || !dia) {
+        return null;
+    }
+
+    const hoje = new Date();
+    let idade = hoje.getFullYear() - ano;
+
+    const mesAtual = hoje.getMonth() + 1;
+    const diaAtual = hoje.getDate();
+
+    if (
+        mesAtual < mes ||
+        (mesAtual === mes && diaAtual < dia)
+    ) {
+        idade--;
+    }
+
+    return idade;
 }
 
 function MOTORISTAPAG_Login_func_dataBrValida(dataBr) {
@@ -17820,16 +17943,21 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
     const inputNumero = document.getElementById('MOTORISTAPAG_Login_input_cnh_numero');
 	const inputCpf = document.getElementById('MOTORISTAPAG_Login_input_cnh_cpf');
 	const inputNascimento = document.getElementById('MOTORISTAPAG_Login_input_data_nascimento');
+	const generoInput = document.getElementById('MOTORISTAPAG_Login_select_genero_motorista');
 	const selectCategoria = document.getElementById('MOTORISTAPAG_Login_select_cnh_categoria');
 	const inputValidade = document.getElementById('MOTORISTAPAG_Login_input_cnh_validade');
-	
-	if (!inputNumero || !inputCpf || !inputNascimento || !selectCategoria || !inputValidade) {
+
+	[inputNumero, inputCpf, inputNascimento, generoInput, selectCategoria, inputValidade].forEach(campo => {
+		if (campo) campo.classList.remove('error');
+	});
+
+	if (!inputNumero || !inputCpf || !inputNascimento || !generoInput || !selectCategoria || !inputValidade) {
 		return PRIMEIRAPAG_Login_func_mostrarErro(
 			'MOTORISTAPAG_Login_error_cnh',
 			'Erro interno: campos da CNH não encontrados.'
 		);
 	}
-    
+	
 	if (!user) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
             'MOTORISTAPAG_Login_error_cnh',
@@ -17843,6 +17971,9 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
 
 	const dataNascimentoFormatada = inputNascimento ? inputNascimento.value.trim() : '';
 	const dataNascimento = MOTORISTAPAG_Login_func_converterDataBrParaIso(dataNascimentoFormatada);
+	const idadeMotorista = MOTORISTAPAG_Login_func_calcularIdadePorDataIso(dataNascimento);
+
+	const generoMotorista = generoInput ? String(generoInput.value || "").trim() : "";
 
 	const categoriaCnh = selectCategoria.value;
 	
@@ -17851,6 +17982,15 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
 		return PRIMEIRAPAG_Login_func_mostrarErro(
 			'MOTORISTAPAG_Login_error_cnh',
 			'Informe uma data de nascimento válida no formato DD/MM/AAAA.'
+		);
+	}
+	
+	if (!generoMotorista) {
+		generoInput.classList.add('error');
+
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Selecione o gênero para continuar.'
 		);
 	}
 	
@@ -17900,165 +18040,191 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
 
 	const statusCnhValidade = MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(validadeCnh);
 
-    try {
-    if (btn) {
-		btn.dataset.processando = 'sim';
-		btn.disabled = true;
-		btn.innerText = 'SALVANDO COM ALERTA...';
+  try {
+		if (btn) {
+			btn.dataset.processando = 'sim';
+			btn.disabled = true;
+			btn.innerText = 'SALVANDO COM ALERTA...';
+		}
+
+		await PRIMEIRAPAG_Login_db
+			.collection('motoristas')
+			.doc(user.uid)
+			.set({
+				cnhNumero: numeroCnh,
+				cnhCpfTitular: cpfCnh,
+				cnhCpfTitularFormatado: cpfCnhFormatado,
+
+				genero: generoMotorista,
+				generoInformado: true,
+
+				dataNascimento: dataNascimento,
+				dataNascimentoFormatada: dataNascimentoFormatada,
+				dataNascimentoConcluida: true,
+
+				cnhCategoria: categoriaCnh,
+
+				cnhValidade: validadeCnh,
+				cnhValidadeFormatada: validadeCnhFormatada,
+
+				cnhValidadeStatus: statusCnhValidade.status,
+				cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
+				cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
+				cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
+				cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+				cnhMensagemValidade: statusCnhValidade.mensagem,
+
+				cnhAviso30DiasEnviado: false,
+				cnhAviso15DiasEnviado: false,
+				cnhAviso7DiasEnviado: false,
+
+				cnhAvisoTolerancia15DiasEnviado: false,
+				cnhAvisoTolerancia7DiasEnviado: false,
+				cnhAvisoTolerancia5DiasEnviado: false,
+				cnhAvisoTolerancia4DiasEnviado: false,
+				cnhAvisoTolerancia3DiasEnviado: false,
+				cnhAvisoTolerancia2DiasEnviado: false,
+				cnhAvisoTolerancia1DiaEnviado: false,
+
+				etapaCnhConcluida: true,
+				etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+				cpfConflito: true,
+				cpfConflitoStatus: 'pendente_analise_suporte',
+				cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+				cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+				cpfConflitoOrigem: 'cadastro_motorista_cnh',
+
+				requerAnaliseAdmin: true,
+				motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+				etapaCadastroMotorista: 'fotos_cnh',
+				motoristaStatus: 'pendente_analise_suporte',
+
+				status: {
+					geral: 'pendente_analise_suporte',
+					etapa: 'fotos_cnh',
+					tipo: 'motorista',
+					uid: user.uid,
+
+					motivo: 'cpf_ja_usado_em_outra_conta',
+					mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
+
+					cnhValidadeStatus: statusCnhValidade.status,
+					cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				},
+
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			}, { merge: true });
+
+		const usuarioSnapAtual = await PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(user.uid)
+			.get();
+
+		const usuarioAtual = usuarioSnapAtual.exists ? usuarioSnapAtual.data() : {};
+		const nomeDocumentoMotorista = usuarioAtual.nomeDocumento || usuarioAtual.nome || "";
+
+		await PRIMEIRAPAG_Login_db
+			.collection('usuarios')
+			.doc(user.uid)
+			.set({
+				tipoDocumento: 'cpf',
+				documentoNumero: cpfCnh,
+				documentoFormatado: cpfCnhFormatado,
+
+				cpf: cpfCnh,
+				cpfFormatado: cpfCnhFormatado,
+
+				nomeDocumento: nomeDocumentoMotorista,
+				idade: idadeMotorista,
+				dataAbertura: "",
+				dataAberturaFormatada: "",
+
+				genero: generoMotorista,
+				generoInformado: true,
+
+				dataNascimento: dataNascimento,
+				dataNascimentoFormatada: dataNascimentoFormatada,
+				dataNascimentoConcluida: true,
+
+				dadosPessoaisConcluidos: true,
+
+				cpfConflito: true,
+				cpfConflitoStatus: 'pendente_analise_suporte',
+				cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+				cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+				cpfConflitoOrigem: 'cadastro_motorista_cnh',
+
+				etapaCnhConcluida: true,
+				etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+				requerAnaliseAdmin: true,
+				motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+				etapaCadastro: 'motorista_fotos_cnh',
+				etapaCadastroMotorista: 'fotos_cnh',
+				motoristaStatus: 'pendente_analise_suporte',
+
+				status: {
+					geral: 'pendente_analise_suporte',
+					etapa: 'fotos_cnh',
+					tipo: 'motorista',
+					uid: user.uid,
+
+					motivo: 'cpf_ja_usado_em_outra_conta',
+					mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
+
+					cnhValidadeStatus: statusCnhValidade.status,
+					cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				},
+
+				statusMotorista: {
+					geral: 'pendente_analise_suporte',
+					etapa: 'fotos_cnh',
+					tipo: 'motorista',
+					uid: user.uid,
+
+					motivo: 'cpf_ja_usado_em_outra_conta',
+					mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
+
+					cnhValidadeStatus: statusCnhValidade.status,
+					cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
+
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				},
+
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			}, { merge: true });
+
+		if (btn) {
+			btn.dataset.processando = 'nao';
+			btn.disabled = false;
+			btn.innerText = textoOriginal;
+		}
+
+		MOTORISTAPAG_Login_func_limparErroCnh();
+
+		MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+
+	} catch (erro) {
+		console.error('ERRO AO CONTINUAR COM ALERTA DE CPF:', erro);
+
+		if (btn) {
+			btn.dataset.processando = 'nao';
+			btn.disabled = false;
+			btn.innerText = textoOriginal;
+		}
+
+		PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_cnh',
+			'Não foi possível continuar com alerta agora. Tente novamente.'
+		);
 	}
-    await PRIMEIRAPAG_Login_db
-    .collection('motoristas')
-    .doc(user.uid)
-    .set({
-        cnhNumero: numeroCnh,
-        cnhCpfTitular: cpfCnh,
-        cnhCpfTitularFormatado: cpfCnhFormatado,
-
-        dataNascimento: dataNascimento,
-        dataNascimentoFormatada: dataNascimentoFormatada,
-        dataNascimentoConcluida: true,
-
-        cnhCategoria: categoriaCnh,
-
-        cnhValidade: validadeCnh,
-        cnhValidadeFormatada: validadeCnhFormatada,
-
-        cnhValidadeStatus: statusCnhValidade.status,
-        cnhDiasParaVencer: statusCnhValidade.diasParaVencer,
-        cnhDiasAposVencimento: statusCnhValidade.diasAposVencimento,
-        cnhDiasRestantesTolerancia: statusCnhValidade.diasRestantesTolerancia,
-        cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-        cnhMensagemValidade: statusCnhValidade.mensagem,
-
-        cnhAviso30DiasEnviado: false,
-        cnhAviso15DiasEnviado: false,
-        cnhAviso7DiasEnviado: false,
-
-        cnhAvisoTolerancia15DiasEnviado: false,
-        cnhAvisoTolerancia7DiasEnviado: false,
-        cnhAvisoTolerancia5DiasEnviado: false,
-        cnhAvisoTolerancia4DiasEnviado: false,
-        cnhAvisoTolerancia3DiasEnviado: false,
-        cnhAvisoTolerancia2DiasEnviado: false,
-        cnhAvisoTolerancia1DiaEnviado: false,
-
-        etapaCnhConcluida: true,
-        etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
-
-        cpfConflito: true,
-        cpfConflitoStatus: 'pendente_analise_suporte',
-        cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
-        cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
-        cpfConflitoOrigem: 'cadastro_motorista_cnh',
-
-        requerAnaliseAdmin: true,
-        motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
-
-        etapaCadastroMotorista: 'fotos_cnh',
-        motoristaStatus: 'pendente_analise_suporte',
-
-        status: {
-            geral: 'pendente_analise_suporte',
-            etapa: 'fotos_cnh',
-            tipo: 'motorista',
-            uid: user.uid,
-
-            motivo: 'cpf_ja_usado_em_outra_conta',
-            mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
-
-            cnhValidadeStatus: statusCnhValidade.status,
-            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        },
-
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
-
-    await PRIMEIRAPAG_Login_db
-    .collection('usuarios')
-    .doc(user.uid)
-    .set({
-        cpf: cpfCnh,
-        cpfFormatado: cpfCnhFormatado,
-
-        dataNascimento: dataNascimento,
-        dataNascimentoFormatada: dataNascimentoFormatada,
-        dataNascimentoConcluida: true,
-
-        cpfConflito: true,
-        cpfConflitoStatus: 'pendente_analise_suporte',
-        cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
-        cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
-        cpfConflitoOrigem: 'cadastro_motorista_cnh',
-
-        etapaCnhConcluida: true,
-        etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
-
-        requerAnaliseAdmin: true,
-        motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
-
-        etapaCadastro: 'motorista_fotos_cnh',
-        etapaCadastroMotorista: 'fotos_cnh',
-        motoristaStatus: 'pendente_analise_suporte',
-
-        status: {
-            geral: 'pendente_analise_suporte',
-            etapa: 'fotos_cnh',
-            tipo: 'motorista',
-            uid: user.uid,
-
-            motivo: 'cpf_ja_usado_em_outra_conta',
-            mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
-
-            cnhValidadeStatus: statusCnhValidade.status,
-            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        },
-
-        statusMotorista: {
-            geral: 'pendente_analise_suporte',
-            etapa: 'fotos_cnh',
-            tipo: 'motorista',
-            uid: user.uid,
-
-            motivo: 'cpf_ja_usado_em_outra_conta',
-            mensagem: 'CPF já existe em outra conta. Cadastro seguirá com alerta para análise do suporte.',
-
-            cnhValidadeStatus: statusCnhValidade.status,
-            cnhBloqueioPorVencimento: statusCnhValidade.bloqueado,
-
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        },
-
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
-
-if (btn) {
-    btn.dataset.processando = 'nao';
-    btn.disabled = false;
-    btn.innerText = textoOriginal;
-}
-
-MOTORISTAPAG_Login_func_limparErroCnh();
-
-MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
-
-} catch (erro) {
-    console.error('ERRO AO CONTINUAR COM ALERTA DE CPF:', erro);
-
-    if (btn) {
-		btn.dataset.processando = 'nao';
-		btn.disabled = false;
-		btn.innerText = textoOriginal;
-	}
-
-    PRIMEIRAPAG_Login_func_mostrarErro(
-        'MOTORISTAPAG_Login_error_cnh',
-        'Não foi possível continuar com alerta agora. Tente novamente.'
-    );
-}
 }
 function MOTORISTAPAG_Login_func_calcularStatusValidadeCnh(cnhValidadeIso) {
     if (!cnhValidadeIso) {
@@ -20177,6 +20343,12 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 		let motivoStatusMotorista = '';
 		let mensagemStatusMotorista = 'Endereço salvo. Próxima etapa: informar contato de emergência.';
 
+		const enderecoFormatado =
+									`${endereco.rua}, ${endereco.numero}` +
+									`${endereco.complemento ? ' - ' + endereco.complemento : ''}` +
+									` - ${endereco.bairro}, ${endereco.cidade}/${endereco.estado}` +
+									` - CEP ${endereco.cepFormatado || endereco.cep || ''}`;
+
 		if (motoristaTemCnhBloqueada) {
 			statusGeralMotorista = 'bloqueado_cnh_vencida';
 			motivoStatusMotorista = 'cnh_vencida_fora_da_tolerancia';
@@ -20188,12 +20360,15 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 			motivoStatusMotorista = 'cpf_ja_usado_em_outra_conta';
 			mensagemStatusMotorista = 'Endereço salvo. Cadastro segue com alerta para análise do suporte.';
 		}
+		
+		
 
 		await PRIMEIRAPAG_Login_db
 			.collection('motoristas')
 			.doc(user.uid)
 			.set({
 				endereco: endereco,
+				enderecoFormatado: enderecoFormatado,
 				enderecoConcluido: true,
 
 				etapaCadastroMotorista: 'contato_emergencia_motorista',
@@ -20223,6 +20398,7 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 			.doc(user.uid)
 			.set({
 				endereco: endereco,
+				enderecoFormatado: enderecoFormatado,
 				enderecoConcluido: true,
 
 				etapaCadastro: 'motorista_contato_emergencia',
@@ -20419,6 +20595,11 @@ async function MOTORISTAPAG_Login_func_carregarTelaContatoEmergenciaMotoristatop
 async function MOTORISTAPAG_Login_func_salvarContatoEmergenciaMotoristatop() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
     const btn = document.getElementById('MOTORISTAPAG_Login_btn_salvar_contato_emergencia_top');
+    const textoOriginal = btn ? btn.innerText : 'CONTINUAR';
+
+    if (btn && btn.dataset.processando === 'sim') {
+        return;
+    }
 
     if (btn && btn.disabled) {
         return;
@@ -21367,8 +21548,18 @@ async function MOTORISTAPAG_Login_func_aceitarTermosMotorista() {
 function MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp) {
     const idLimpo = String(idTnp || "").replace(/\D/g, "");
 
-    return idLimpo.length >= 3 && idLimpo.length <= 20;
+    if (!idLimpo) {
+        return false;
+    }
+
+    if (idLimpo.length > 10) {
+        return false;
+    }
+
+    return true;
 }
+
+
 
 async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
@@ -21394,14 +21585,18 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
         );
     }
 
-    const idTnp = String(input.value || "").replace(/\D/g, "");
+    const idTnp = String(input.value || "")
+		.replace(/\D/g, "")
+		.slice(0, 10);
 
-    if (!MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp)) {
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'MOTORISTAPAG_Login_error_id_tnp',
-            'Informe um ID TNP válido.'
-        );
-    }
+	input.value = idTnp;
+
+	if (!MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp)) {
+		return PRIMEIRAPAG_Login_func_mostrarErro(
+			'MOTORISTAPAG_Login_error_id_tnp',
+			'Informe um ID TNP válido usando apenas números, sem espaços, com no máximo 10 dígitos.'
+		);
+	}
 
     if (!check || !check.checked) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
@@ -21426,19 +21621,25 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     const motoristaDados = motoristaDoc.exists ? motoristaDoc.data() : {};
     const pixMotorista = motoristaDados.pixConfirmacaoRecebimento || {};
 
-    const pagamentoPendente =
-        motoristaDados.bloqueadoPorPagamentoMotorista === true ||
-        pixMotorista.precisaConfirmarPagamento === true ||
-        pixMotorista.status === 'pendente_confirmacao' ||
-        pixMotorista.status === 'aguardando_pagamento';
+    const pixJaPago =
+    pixMotorista.pago === true ||
+    pixMotorista.status === 'pago';
 
-    const motoristaStatusFinal = pagamentoPendente
-        ? 'pendente_pagamento'
-        : 'pendente_analise_admin';
+	const pagamentoPendente =
+		!pixJaPago && (
+			motoristaDados.bloqueadoPorPagamentoMotorista === true ||
+			pixMotorista.precisaConfirmarPagamento === true ||
+			pixMotorista.status === 'pendente_confirmacao' ||
+			pixMotorista.status === 'aguardando_pagamento'
+		);
 
-    const statusGeralFinal = pagamentoPendente
-        ? 'pendente_pagamento'
-        : 'pendente_analise_admin';
+	const motoristaStatusFinal = pagamentoPendente
+		? 'pendente_pagamento'
+		: 'pendente_analise_admin';
+
+	const statusGeralFinal = pagamentoPendente
+		? 'pendente_pagamento'
+		: 'pendente_analise_admin';
 
     const statusMensagemFinal = pagamentoPendente
         ? 'ID TNP informado. Cadastro enviado para análise, mas o motorista ficará bloqueado até confirmar o Pix.'
@@ -21454,6 +21655,16 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
 		.set({
 			idTnp: idTnp,
 			idTnpInformado: true,
+
+			bloqueadoPorPagamentoMotorista: pagamentoPendente,
+
+			pixConfirmacaoRecebimento: {
+				...pixMotorista,
+				precisaConfirmarPagamento: pagamentoPendente,
+				status: pixJaPago ? 'pago' : (pixMotorista.status || 'aguardando_pagamento'),
+				pago: pixJaPago,
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
 
 			tnp: {
 				id: idTnp,
@@ -21506,9 +21717,10 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
         contatoEmergenciaConcluido: true,
 
         bloqueadoPorCadastro: false,
-        bloqueadoPorTnp: false,
-        bloqueadoPorPagamento: false,
-        bloqueadoPorSelfieDocumentoExtra: false,
+		bloqueadoPorTnp: false,
+		bloqueadoPorPagamento: false,
+		bloqueadoPorSelfieDocumentoExtra: false,
+		bloqueadoPorPagamentoMotorista: pagamentoPendente,
 
         etapaCadastro: 'motorista_analise_final',
         etapaCadastroMotorista: 'analise_final_motorista',
@@ -21581,10 +21793,11 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     );
 
     if (btn) {
-        btn.disabled = false;
-        btn.innerText = 'SALVAR ID TNP';
-    }
-}
+			btn.dataset.processando = 'nao';
+			btn.disabled = false;
+			btn.innerText = 'SALVAR ID TNP';
+		}
+	}
  }
 // ========== TELA MOTORISTA 10: ID TNP DO MOTORISTA FINAL ==========
 
