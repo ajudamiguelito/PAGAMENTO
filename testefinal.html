@@ -5613,6 +5613,548 @@ body.TNP_TEMA_CLARO .NOTIFICACOES_acoes button:nth-child(4) {
     align-items: center;
     justify-content: center;
 }
+
+.MOTORISTAMENSAGENS_topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.MOTORISTAMENSAGENS_topo h2 {
+    margin: 0;
+    color: var(--Fame_gold);
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.MOTORISTAMENSAGENS_topo p {
+    margin: 3px 0 0;
+    color: var(--Fame_muted);
+    font-size: 0.78rem;
+    text-align: center;
+}
+
+.MOTORISTAMENSAGENS_btn_voltar,
+.MOTORISTAMENSAGENS_btn_atualizar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    background: var(--Fame_card);
+    color: var(--Fame_gold);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_resumo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.MOTORISTAMENSAGENS_resumo div {
+    background: var(--Fame_card);
+    border: 1px solid rgba(197, 169, 141, 0.25);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+}
+
+.MOTORISTAMENSAGENS_resumo strong {
+    display: block;
+    color: var(--Fame_gold);
+    font-size: 1.3rem;
+}
+
+.MOTORISTAMENSAGENS_resumo span {
+    color: var(--Fame_muted);
+    font-size: 0.76rem;
+}
+
+.MOTORISTAMENSAGENS_filtros {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin-bottom: 14px;
+}
+
+.MOTORISTAMENSAGENS_filtros button {
+    border: 1px solid rgba(197, 169, 141, 0.30);
+    background: var(--Fame_card);
+    color: var(--Fame_gold);
+    border-radius: 999px;
+    padding: 9px 5px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_filtros button.ativo {
+    background: var(--Fame_gold);
+    color: var(--Fame_card);
+}
+
+.MOTORISTAMENSAGENS_lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 24px;
+}
+
+.MOTORISTAMENSAGENS_card {
+    background: var(--Fame_card);
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    border-radius: 16px;
+    padding: 13px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.MOTORISTAMENSAGENS_card_topo {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 7px;
+}
+
+.MOTORISTAMENSAGENS_card_topo strong {
+    color: var(--Fame_gold);
+    font-size: 0.92rem;
+}
+
+.MOTORISTAMENSAGENS_card_topo span {
+    color: var(--Fame_muted);
+    font-size: 0.72rem;
+}
+
+.MOTORISTAMENSAGENS_card p {
+    margin: 0;
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.35;
+}
+
+.MOTORISTAMENSAGENS_card_rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.MOTORISTAMENSAGENS_tipo {
+    border-radius: 999px;
+    padding: 5px 9px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    background: var(--Fame_input);
+    color: var(--Fame_gold);
+}
+
+.MOTORISTAMENSAGENS_badge {
+    min-width: 21px;
+    height: 21px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #dc3545;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MOTORISTAMENSAGENS_vazio {
+    background: var(--Fame_card);
+    border: 1px dashed rgba(197, 169, 141, 0.35);
+    border-radius: 16px;
+    padding: 22px;
+    color: var(--Fame_muted);
+    text-align: center;
+    font-size: 0.86rem;
+}
+/* TEMA CLARO - MENSAGENS MOTORISTA */
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_tela {
+    background: #f7f2ec;
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_card,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_resumo div,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_voltar,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_atualizar,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_filtros button,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_vazio {
+    background: #ffffff;
+    color: #1f1f1f;
+    border-color: rgba(123, 84, 56, 0.28);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_topo h2,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_resumo strong,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_card_topo strong,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_voltar,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_atualizar,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_filtros button,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_tipo {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_topo p,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_resumo span,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_card_topo span,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_vazio {
+    color: #7c7065;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_filtros button.ativo {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_tipo {
+    background: #f3eee8;
+}
+#MOTORISTAPAG_Login_screen_home {
+    position: relative;
+    overflow: hidden;
+}
+
+.MOTORISTAMENSAGENS_tela {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    background: var(--Fame_dark);
+    color: var(--Fame_text);
+    overflow-y: auto;
+}
+
+.MOTORISTAMENSAGENS_box {
+    width: 100%;
+    min-height: 100%;
+    background: var(--Fame_card);
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    border-radius: 18px;
+    padding: 14px;
+}
+
+.MOTORISTAMENSAGENS_lista_area {
+    display: block;
+}
+
+.MOTORISTAMENSAGENS_conversa_area {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.MOTORISTAMENSAGENS_conversa_topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(197, 169, 141, 0.18);
+}
+
+.MOTORISTAMENSAGENS_btn_voltar_conversa {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    background: rgba(197, 169, 141, 0.08);
+    color: var(--Fame_gold);
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_conversa_topo h3 {
+    margin: 0;
+    color: var(--Fame_gold);
+    font-size: 1rem;
+}
+
+.MOTORISTAMENSAGENS_conversa_topo p {
+    margin: 3px 0 0 0;
+    color: var(--Fame_muted);
+    font-size: 0.76rem;
+}
+
+.MOTORISTAMENSAGENS_conversa_mensagens {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 8px 2px 12px;
+}
+
+.MOTORISTAMENSAGENS_msg {
+    max-width: 82%;
+    width: fit-content;
+    min-width: 90px;
+    height: auto;
+    flex-shrink: 0;
+    padding: 6px 12px 5px;
+    border-radius: 16px;
+    font-size: 0.82rem;
+    line-height: 1.28;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.MOTORISTAMENSAGENS_msg.recebida {
+    align-self: flex-start;
+    background: rgba(197, 169, 141, 0.10);
+    border: 1px solid rgba(197, 169, 141, 0.20);
+    color: var(--Fame_text);
+	padding-top: 10px;
+    padding-bottom: 8px;
+}
+
+.MOTORISTAMENSAGENS_msg.enviada {
+    align-self: flex-end;
+    background: var(--Fame_gold);
+    color: #1f1f1f;
+    font-weight: 600;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 8px;
+}
+
+.MOTORISTAMENSAGENS_msg small {
+    display: block;
+    margin-top: 2px;
+    opacity: 0.75;
+    font-size: 0.66rem;
+    line-height: 1;
+    text-align: right;
+}
+
+.MOTORISTAMENSAGENS_conversa_envio button {
+    cursor: pointer;
+}
+.MOTORISTAMENSAGENS_input_box {
+    position: relative;
+    width: 100%;
+    min-height: 46px;
+    display: flex;
+    align-items: flex-end;
+    background: var(--Fame_input);
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    border-radius: 18px;
+    padding: 8px 46px 8px 12px;
+    overflow: hidden;
+}
+
+.MOTORISTAMENSAGENS_input_box textarea {
+    width: 100%;
+    min-height: 28px;
+    max-height: 230px;
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.35;
+    overflow-y: auto;
+    padding: 5px 0;
+}
+
+.MOTORISTAMENSAGENS_input_box textarea::placeholder {
+    color: var(--Fame_muted);
+}
+
+.MOTORISTAMENSAGENS_btn_enviar_redondo {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--Fame_gold);
+    color: #1f1f1f;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TEMA CLARO - MENSAGENS DO MOTORISTA */
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_tela {
+    background: #f7f2ec;
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_box {
+    background: #ffffff;
+    border-color: rgba(123, 84, 56, 0.28);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_topo h2,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_conversa_topo h3 {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_topo p,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_conversa_topo p {
+    color: #7c7065;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_resumo div,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_card,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_msg.recebida,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_msg_sistema {
+    background: #f7f2ec;
+    border-color: rgba(123, 84, 56, 0.25);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_card p,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_resumo span,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_vazio {
+    color: #7c7065;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_card_topo strong,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_resumo strong {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_filtros button {
+    background: #ffffff;
+    color: #7b5438;
+    border-color: rgba(123, 84, 56, 0.28);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_filtros button.ativo {
+    background: #7b5438;
+    color: #ffffff;
+    border-color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_voltar,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_atualizar,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_voltar_conversa {
+    background: #ffffff;
+    color: #7b5438;
+    border-color: rgba(123, 84, 56, 0.30);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_tipo {
+    background: rgba(123, 84, 56, 0.10);
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_badge {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_msg.enviada {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_conversa_envio {
+    border-top-color: rgba(123, 84, 56, 0.18);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_conversa_envio textarea {
+    background: #f3eee8;
+    border-color: rgba(123, 84, 56, 0.30);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_conversa_envio textarea::placeholder {
+    color: #7c7065;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_conversa_envio button {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_input_box {
+    background: #f3eee8;
+    border-color: rgba(123, 84, 56, 0.30);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_input_box textarea {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_enviar_redondo {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+.MOTORISTAMENSAGENS_msg {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.MOTORISTAMENSAGENS_msg.recebida,
+.MOTORISTAMENSAGENS_msg.enviada {
+    overflow: visible;
+}
+
+.MOTORISTAMENSAGENS_data_conversa {
+    align-self: center;
+    max-width: 90%;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(197, 169, 141, 0.10);
+    border: 1px solid rgba(197, 169, 141, 0.18);
+    color: var(--Fame_muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.MOTORISTAMENSAGENS_conversa_envio {
+    width: 100%;
+    flex-shrink: 0;
+    padding-top: 10px;
+    border-top: 1px solid rgba(197, 169, 141, 0.18);
+}
+
+.MOTORISTAMENSAGENS_msg small {
+    margin-top: 3px !important;
+    line-height: 1 !important;
+}
+.MOTORISTAMENSAGENS_msg.enviada,
+.MOTORISTAMENSAGENS_msg.recebida {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    display: block !important; /* Garante que o comportamento de bloco não crie espaços extras */
+}
         
 </style>
 </head>
@@ -9061,8 +9603,13 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <button onclick="MOTORISTAPAG_Login_func_abrirPerfilMotorista()">👤 Meu perfil</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Histórico', 'Aqui ficarão as corridas aceitas, concluídas e canceladas.')">🕘 Histórico</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Solicitar ajuda', 'Aqui o motorista poderá pedir suporte.')">❓ Solicitar ajuda</button>
-    <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Mensagens', 'Aqui ficarão mensagens e avisos.')">💬 Mensagens</button>
-    <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui ficarão orientações e recursos de segurança.')">🛡️ Central de segurança</button>
+    <button
+    type="button"
+    onclick="MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista()"
+	>
+		💬 Mensagens
+	</button>
+   	<button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui ficarão orientações e recursos de segurança.')">🛡️ Central de segurança</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirGanhos()">💰 Meus ganhos</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirConfiguracoesMotorista()">⚙️ Configurações</button>
     <button onclick="PASSAGEIROPAG_Login_func_carregarHomePassageiro()">🙋 Usar como passageiro</button>
@@ -9174,8 +9721,128 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
     </div>
 </div>
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL PERFIL DO MOTORISTA FINAL -->
- 
- 
+
+<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS -->
+
+<div id="MOTORISTAMENSAGENS_tela" class="MOTORISTAMENSAGENS_tela" style="display:none;">
+    <div class="MOTORISTAPAG_Login_modal_home_box MOTORISTAMENSAGENS_box">
+
+    <div class="MOTORISTAMENSAGENS_topo">
+        <button
+            type="button"
+            class="MOTORISTAMENSAGENS_btn_voltar"
+            onclick="MOTORISTAMENSAGENS_func_fecharTela()"
+        >
+            ←
+        </button>
+
+        <div>
+            <h2>Mensagens</h2>
+            <p>Suporte, passageiro e chamados</p>
+        </div>
+
+        <button
+            type="button"
+            class="MOTORISTAMENSAGENS_btn_atualizar"
+            onclick="MOTORISTAMENSAGENS_func_carregarListaTeste()"
+        >
+            ⟳
+        </button>
+    </div>
+
+    <div class="MOTORISTAMENSAGENS_resumo">
+        <div>
+            <strong id="MOTORISTAMENSAGENS_total_abertos">0</strong>
+            <span>abertos</span>
+        </div>
+
+        <div>
+            <strong id="MOTORISTAMENSAGENS_total_nao_lidas">0</strong>
+            <span>não lidas</span>
+        </div>
+    </div>
+
+    <div class="MOTORISTAMENSAGENS_filtros">
+        <button type="button" class="ativo" onclick="MOTORISTAMENSAGENS_func_filtrar('todos', this)">
+            Todos
+        </button>
+
+        <button type="button" onclick="MOTORISTAMENSAGENS_func_filtrar('suporte', this)">
+            Suporte
+        </button>
+
+        <button type="button" onclick="MOTORISTAMENSAGENS_func_filtrar('corrida', this)">
+            Corrida
+        </button>
+
+        <button type="button" onclick="MOTORISTAMENSAGENS_func_filtrar('item_esquecido', this)">
+            Item
+        </button>
+    </div>
+
+    <div id="MOTORISTAMENSAGENS_lista_area" class="MOTORISTAMENSAGENS_lista_area">
+
+    <div id="MOTORISTAMENSAGENS_lista" class="MOTORISTAMENSAGENS_lista">
+        <div class="MOTORISTAMENSAGENS_vazio">
+            Nenhuma mensagem no momento.
+        </div>
+    </div>
+
+</div>
+
+<div id="MOTORISTAMENSAGENS_conversa_area" class="MOTORISTAMENSAGENS_conversa_area" style="display:none;">
+
+    <div class="MOTORISTAMENSAGENS_conversa_topo">
+        <button
+            type="button"
+            class="MOTORISTAMENSAGENS_btn_voltar_conversa"
+            onclick="MOTORISTAMENSAGENS_func_voltarLista()"
+        >
+            ←
+        </button>
+
+        <div>
+            <h3 id="MOTORISTAMENSAGENS_conversa_titulo">Conversa</h3>
+            <p id="MOTORISTAMENSAGENS_conversa_subtitulo">Atendimento em andamento</p>
+        </div>
+    </div>
+
+    <div id="MOTORISTAMENSAGENS_conversa_mensagens" class="MOTORISTAMENSAGENS_conversa_mensagens">
+        <div class="MOTORISTAMENSAGENS_msg_sistema">
+            Selecione uma conversa para visualizar as mensagens.
+        </div>
+    </div>
+
+   <div class="MOTORISTAMENSAGENS_conversa_envio">
+
+		<div class="MOTORISTAMENSAGENS_input_box">
+			<textarea
+				id="MOTORISTAMENSAGENS_input_mensagem"
+				placeholder="Digite sua mensagem..."
+				maxlength="500"
+				rows="1"
+				oninput="MOTORISTAMENSAGENS_func_autoAjustarInputMensagem(this)"
+			></textarea>
+
+			<button
+				type="button"
+				id="MOTORISTAMENSAGENS_btn_enviar"
+				class="MOTORISTAMENSAGENS_btn_enviar_redondo"
+				onclick="MOTORISTAMENSAGENS_func_enviarMensagemTeste()"
+				title="Enviar mensagem"
+			>
+				➤
+			</button>
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS FINAL--> 
  
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL FERRAMENTAS -->
 
@@ -11004,6 +11671,28 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
     </div>
 </div>
 <!-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM FINAL -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =======ESSAS DUAS DIV ABAIXO É O FEXAMENTO DA HOME========== -->
 </div>
 </div>
 <!-- ===================================================== -->
@@ -23390,10 +24079,14 @@ async function MOTORISTAPAG_Login_func_carregarHomeMotorista() {
     PRIMEIRAPAG_Login_func_limparErros();
 
     if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === "function") {
-        MOTORISTAPAG_Login_func_fecharMenuLateral();
-    }
+		MOTORISTAPAG_Login_func_fecharMenuLateral();
+	}
 
-    PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_home');
+	if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+		MOTORISTAPAG_Login_func_fecharModais();
+	}
+
+	PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_home');
 
     if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
         MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo();
@@ -23478,21 +24171,74 @@ async function MOTORISTAPAG_Login_func_carregarHomeMotorista() {
             }
         }
 
-        const statusAnalise =
-            m.status?.geral ||
-            m.statusAnalise ||
-            m.motoristaStatus ||
-            u.statusMotorista?.geral ||
-            u.motoristaStatus ||
-            "em_analise";
+        let statusAnalise =
+		m.status?.geral ||
+		m.statusAnalise ||
+		m.motoristaStatus ||
+		u.statusMotorista?.geral ||
+		u.motoristaStatus ||
+		"em_analise";
 
-        const podeAceitar = m.podeAceitarCorrida === true;
+	const pixJaPago =
+		m.pixConfirmacaoRecebimento?.pago === true ||
+		m.pixConfirmacaoRecebimento?.status === "pago" ||
+		m.contaRecebimentoConfirmada === true;
+
+	const veiculoAtual = Array.isArray(m.veiculos)
+		? m.veiculos.find(v => v.id === m.veiculoAtualId) || m.veiculos[0]
+		: null;
+
+	const crlvStatus =
+		m.documentosVeiculo?.crlv?.status ||
+		veiculoAtual?.documentos?.crlv?.status ||
+		"";
+
+	const fotoVeiculoPlacaStatus =
+		m.documentosVeiculo?.fotoVeiculoPlaca?.status ||
+		veiculoAtual?.documentos?.fotoVeiculoPlaca?.status ||
+		"";
+
+	const fotoCnhStatus = m.documentosMotorista?.fotoCnh?.status || "";
+	const selfieCnhStatus = m.documentosMotorista?.selfieComCnh?.status || "";
+
+	const documentosEmAnalise =
+		fotoCnhStatus === "pendente_analise" ||
+		selfieCnhStatus === "pendente_analise" ||
+		crlvStatus === "pendente_analise" ||
+		fotoVeiculoPlacaStatus === "pendente_analise" ||
+		m.documentosVeiculoStatus === "pendente_analise";
+
+	const documentosComPendencia =
+		fotoCnhStatus === "reprovado" ||
+		fotoCnhStatus === "pendente_correcao" ||
+		selfieCnhStatus === "reprovado" ||
+		selfieCnhStatus === "pendente_correcao" ||
+		crlvStatus === "reprovado" ||
+		crlvStatus === "pendente_correcao" ||
+		fotoVeiculoPlacaStatus === "reprovado" ||
+		fotoVeiculoPlacaStatus === "pendente_correcao";
+
+	if (statusAnalise === "pendente_pagamento" && pixJaPago === true) {
+		statusAnalise = "pendente_analise_admin";
+	}
+
+	if (documentosEmAnalise === true) {
+		statusAnalise = "pendente_analise_admin";
+	}
+
+	if (documentosComPendencia === true) {
+		statusAnalise = "pendente_correcao";
+	}
+
+	const podeAceitar = m.podeAceitarCorrida === true;
 
         if (btnConectar) {
-            if (podeAceitar === true || statusAnalise === "aprovado") {
-                btnConectar.innerText = "CONECTAR";
-                btnConectar.dataset.estado = "offline";
-                btnConectar.disabled = false;
+		    btnConectar.classList.remove('MOTORISTAPAG_Login_home_btn_online');
+
+		if (podeAceitar === true) {
+			btnConectar.innerText = "CONECTAR";
+			btnConectar.dataset.estado = "offline";
+			btnConectar.disabled = false;
             } else if (
                 statusAnalise === "reprovado" ||
                 statusAnalise === "bloqueado" ||
@@ -23547,6 +24293,10 @@ async function MOTORISTAPAG_Login_func_carregarHomeMotorista() {
 }
 
 function MOTORISTAPAG_Login_func_fecharModais() {
+    if (typeof MOTORISTAMENSAGENS_func_fecharTela === 'function') {
+        MOTORISTAMENSAGENS_func_fecharTela();
+    }
+
     document.querySelectorAll('.MOTORISTAPAG_Login_modal_home').forEach(modal => {
         if (modal) {
             modal.classList.remove('active');
@@ -23699,13 +24449,20 @@ function MOTORISTAPAG_Login_func_botaoConectar() {
     }
 
     if (estado === "pendencia") {
-        return MOTORISTAPAG_Login_func_abrirPaginaProvisoria(
-            "Pendência no cadastro",
-            "Existe uma pendência no seu cadastro. Abra Meu perfil para revisar as informações."
-        );
-    }
+		return MOTORISTAPAG_Login_func_abrirPaginaProvisoria(
+			"Pendência no cadastro",
+			"Existe uma pendência no seu cadastro. Abra Meu perfil para revisar as informações."
+		);
+	}
 
-    if (estado === "offline") {
+	if (estado === "pagamento") {
+		return MOTORISTAPAG_Login_func_abrirPaginaProvisoria(
+			"Pagamento em análise",
+			"O pagamento já foi identificado ou ainda está sendo confirmado. Aguarde a liberação do cadastro."
+		);
+	}
+
+	if (estado === "offline") {
         btn.dataset.estado = "online";
         btn.innerText = "SAIR";
         btn.classList.add('MOTORISTAPAG_Login_home_btn_online');
@@ -23738,25 +24495,433 @@ function MOTORISTAPAG_Login_func_abrirPerfilMotorista() {
     MOTORISTAPAG_Login_func_fecharMenuLateral();
     MOTORISTAPAG_Login_func_fecharModais();
 
+    if (typeof MOTORISTAMENSAGENS_func_fecharTela === 'function') {
+        MOTORISTAMENSAGENS_func_fecharTela();
+    }
+
     const modal = document.getElementById('MOTORISTAPAG_Login_modal_perfil_motorista');
 
     if (modal) {
         modal.classList.add('active');
     }
 
-    MOTORISTAPAG_Login_func_preencherPerfilMotorista();
+    if (typeof MOTORISTAPAG_Login_func_preencherPerfilMotorista === 'function') {
+        MOTORISTAPAG_Login_func_preencherPerfilMotorista();
+    }
 }
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL PERFIL DO MOTORISTA FINAL -->
  
- 
- 
-//-- ===================================================== 
-// TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME FINAL 
-// ===================================================== 
+
+//-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS -->
+
+var MOTORISTAMENSAGENS_filtroAtual = 'todos';
+
+var MOTORISTAMENSAGENS_listaTeste = [
+    {
+        id: 'teste_1',
+        tipo: 'suporte',
+        titulo: 'Suporte TNP MoB',
+        ultimaMensagem: 'Olá motorista, temos uma atualização sobre seu atendimento.',
+        status: 'aberto',
+        naoLidas: 1,
+        horario: '03:37',
+        dataConversa: '12/06/2026 às 03:37',
+        mensagens: [
+            {
+                autor: 'sistema',
+                texto: 'Conversa aberta em modo teste.',
+                horario: '12/06/2026 às 03:37'
+            },
+            {
+                autor: 'recebida',
+                texto: 'Olá motorista, temos uma atualização sobre seu atendimento.',
+                horario: '03:37'
+            }
+        ]
+    },
+    {
+        id: 'teste_2',
+        tipo: 'corrida',
+        titulo: 'Mensagem da corrida',
+        ultimaMensagem: 'Passageiro enviou uma mensagem sobre o ponto de embarque.',
+        status: 'aberto',
+        naoLidas: 2,
+        horario: '10 min',
+        dataConversa: '12/06/2026 às 03:40',
+        mensagens: [
+            {
+                autor: 'sistema',
+                texto: 'Conversa aberta em modo teste.',
+                horario: '12/06/2026 às 03:40'
+            },
+            {
+                autor: 'recebida',
+                texto: 'Passageiro enviou uma mensagem sobre o ponto de embarque.',
+                horario: '10 min'
+            }
+        ]
+    },
+    {
+        id: 'teste_3',
+        tipo: 'item_esquecido',
+        titulo: 'Item esquecido',
+        ultimaMensagem: 'Chamado de item esquecido aguardando verificação.',
+        status: 'aberto',
+        naoLidas: 0,
+        horario: 'Hoje',
+        dataConversa: '12/06/2026 às 03:45',
+        mensagens: [
+            {
+                autor: 'sistema',
+                texto: 'Chamado de item esquecido aberto em modo teste.',
+                horario: '12/06/2026 às 03:45'
+            },
+            {
+                autor: 'recebida',
+                texto: 'Chamado de item esquecido aguardando verificação.',
+                horario: 'Hoje'
+            }
+        ]
+    }
+];
+
+function MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista() {
+    const tela = document.getElementById('MOTORISTAMENSAGENS_tela');
+
+    if (!tela) {
+        alert('Tela de mensagens do motorista não encontrada.');
+        return;
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === 'function') {
+        MOTORISTAPAG_Login_func_fecharMenuLateral();
+    }
+
+    document.querySelectorAll('.MOTORISTAPAG_Login_modal_home').forEach(modal => {
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    tela.style.display = 'block';
+
+    MOTORISTAMENSAGENS_filtroAtual = 'todos';
+
+    document.querySelectorAll('#MOTORISTAMENSAGENS_tela .MOTORISTAMENSAGENS_filtros button').forEach(function(btn) {
+        btn.classList.remove('ativo');
+    });
+
+    const primeiroFiltro = document.querySelector('#MOTORISTAMENSAGENS_tela .MOTORISTAMENSAGENS_filtros button');
+
+    if (primeiroFiltro) {
+        primeiroFiltro.classList.add('ativo');
+    }
+
+    if (typeof MOTORISTAMENSAGENS_func_carregarListaTeste === 'function') {
+        MOTORISTAMENSAGENS_func_carregarListaTeste();
+    }
+}
+
+function MOTORISTAMENSAGENS_func_fecharTela() {
+    const tela = document.getElementById('MOTORISTAMENSAGENS_tela');
+
+    if (tela) {
+        tela.style.display = 'none';
+    }
+
+    MOTORISTAMENSAGENS_filtroAtual = 'todos';
+}
+
+function MOTORISTAMENSAGENS_func_carregarListaTeste() {
+    const lista = document.getElementById('MOTORISTAMENSAGENS_lista');
+    const totalAbertos = document.getElementById('MOTORISTAMENSAGENS_total_abertos');
+    const totalNaoLidas = document.getElementById('MOTORISTAMENSAGENS_total_nao_lidas');
+
+    if (!lista) return;
+
+    const mensagensFiltradas = MOTORISTAMENSAGENS_listaTeste.filter(function(item) {
+        if (MOTORISTAMENSAGENS_filtroAtual === 'todos') return true;
+        return item.tipo === MOTORISTAMENSAGENS_filtroAtual;
+    });
+
+    const abertos = MOTORISTAMENSAGENS_listaTeste.filter(function(item) {
+        return item.status === 'aberto';
+    }).length;
+
+    const naoLidas = MOTORISTAMENSAGENS_listaTeste.reduce(function(total, item) {
+        return total + (item.naoLidas || 0);
+    }, 0);
+
+    if (totalAbertos) {
+        totalAbertos.innerText = abertos;
+    }
+
+    if (totalNaoLidas) {
+        totalNaoLidas.innerText = naoLidas;
+    }
+
+    if (mensagensFiltradas.length === 0) {
+        lista.innerHTML = `
+            <div class="MOTORISTAMENSAGENS_vazio">
+                Nenhuma mensagem encontrada.
+            </div>
+        `;
+        return;
+    }
+
+    lista.innerHTML = mensagensFiltradas.map(function(item) {
+        return MOTORISTAMENSAGENS_func_cardMensagem(item);
+    }).join('');
+}
+
+function MOTORISTAMENSAGENS_func_cardMensagem(item) {
+    const badgeNaoLidas = item.naoLidas > 0
+        ? `<span class="MOTORISTAMENSAGENS_badge">${item.naoLidas}</span>`
+        : '';
+
+    return `
+        <div class="MOTORISTAMENSAGENS_card" onclick="MOTORISTAMENSAGENS_func_abrirConversa('${item.id}')">
+            <div class="MOTORISTAMENSAGENS_card_topo">
+                <strong>${item.titulo}</strong>
+                <span>${item.horario}</span>
+            </div>
+
+            <p>${item.ultimaMensagem}</p>
+
+            <div class="MOTORISTAMENSAGENS_card_rodape">
+                <span class="MOTORISTAMENSAGENS_tipo ${item.tipo}">
+                    ${MOTORISTAMENSAGENS_func_nomeTipo(item.tipo)}
+                </span>
+
+                ${badgeNaoLidas}
+            </div>
+        </div>
+    `;
+}
+
+function MOTORISTAMENSAGENS_func_nomeTipo(tipo) {
+    if (tipo === 'suporte') return 'Suporte';
+    if (tipo === 'corrida') return 'Corrida';
+    if (tipo === 'item_esquecido') return 'Item esquecido';
+
+    return 'Mensagem';
+}
+
+function MOTORISTAMENSAGENS_func_filtrar(filtro, botao) {
+    MOTORISTAMENSAGENS_filtroAtual = filtro;
+
+    document.querySelectorAll('#MOTORISTAMENSAGENS_tela .MOTORISTAMENSAGENS_filtros button').forEach(function(btn) {
+        btn.classList.remove('ativo');
+    });
+
+    if (botao) {
+        botao.classList.add('ativo');
+    }
+
+    MOTORISTAMENSAGENS_func_carregarListaTeste();
+}
+
+function MOTORISTAMENSAGENS_func_abrirConversa(id) {
+    const item = MOTORISTAMENSAGENS_listaTeste.find(function(msg) {
+        return msg.id === id;
+    });
+
+    if (!item) {
+        alert('Conversa não encontrada.');
+        return;
+    }
+
+    const listaArea = document.getElementById('MOTORISTAMENSAGENS_lista_area');
+    const conversaArea = document.getElementById('MOTORISTAMENSAGENS_conversa_area');
+    const titulo = document.getElementById('MOTORISTAMENSAGENS_conversa_titulo');
+    const subtitulo = document.getElementById('MOTORISTAMENSAGENS_conversa_subtitulo');
+    const mensagens = document.getElementById('MOTORISTAMENSAGENS_conversa_mensagens');
+    const input = document.getElementById('MOTORISTAMENSAGENS_input_mensagem');
+
+    if (listaArea) {
+        listaArea.style.display = 'none';
+    }
+
+    if (conversaArea) {
+        conversaArea.style.display = 'flex';
+    }
+
+    if (titulo) {
+        titulo.innerText = item.titulo;
+    }
+
+    if (subtitulo) {
+        subtitulo.innerText = MOTORISTAMENSAGENS_func_nomeTipo(item.tipo);
+    }
+
+    if (mensagens) {
+        mensagens.innerHTML = '';
+
+        const data = document.createElement('div');
+        data.className = 'MOTORISTAMENSAGENS_data_conversa';
+        data.textContent = item.dataConversa || MOTORISTAMENSAGENS_func_dataHoraAgora();
+        mensagens.appendChild(data);
+
+        item.mensagens.forEach(function(msg) {
+            if (msg.autor === 'sistema') {
+                const sistema = document.createElement('div');
+                sistema.className = 'MOTORISTAMENSAGENS_msg_sistema';
+                sistema.textContent = msg.texto;
+                mensagens.appendChild(sistema);
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.className = 'MOTORISTAMENSAGENS_msg ' + msg.autor;
+
+            const textoMensagem = document.createElement('span');
+            textoMensagem.textContent = msg.texto;
+
+            const hora = document.createElement('small');
+            hora.textContent = msg.horario || '';
+
+            div.appendChild(textoMensagem);
+            div.appendChild(hora);
+
+            mensagens.appendChild(div);
+        });
+
+        mensagens.scrollTop = mensagens.scrollHeight;
+    }
+
+    item.naoLidas = 0;
+
+    if (input) {
+        input.value = '';
+        input.dataset.conversaId = id;
+        input.style.height = '28px';
+        input.style.overflowY = 'hidden';
+        input.focus();
+    }
+
+    MOTORISTAMENSAGENS_func_carregarListaTeste();
+}
+
+function MOTORISTAMENSAGENS_func_voltarLista() {
+    const listaArea = document.getElementById('MOTORISTAMENSAGENS_lista_area');
+    const conversaArea = document.getElementById('MOTORISTAMENSAGENS_conversa_area');
+    const input = document.getElementById('MOTORISTAMENSAGENS_input_mensagem');
+
+    if (conversaArea) {
+        conversaArea.style.display = 'none';
+    }
+
+    if (listaArea) {
+        listaArea.style.display = 'block';
+    }
+
+    if (input) {
+        input.value = '';
+        input.dataset.conversaId = '';
+        input.style.height = '28px';
+        input.style.overflowY = 'hidden';
+    }
+
+    MOTORISTAMENSAGENS_func_carregarListaTeste();
+}
+function MOTORISTAMENSAGENS_func_dataHoraAgora() {
+    const agora = new Date();
+
+    const data = agora.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+
+    const hora = agora.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    return data + ' às ' + hora;
+}
+
+function MOTORISTAMENSAGENS_func_horaAgora() {
+    return new Date().toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
 
 
+function MOTORISTAMENSAGENS_func_enviarMensagemTeste() {
+    const input = document.getElementById('MOTORISTAMENSAGENS_input_mensagem');
+    const mensagens = document.getElementById('MOTORISTAMENSAGENS_conversa_mensagens');
 
+    if (!input || !mensagens) return;
 
+    const conversaId = input.dataset.conversaId || '';
+    const texto = input.value.trim();
+
+    if (!texto) {
+        input.focus();
+        return;
+    }
+
+    const item = MOTORISTAMENSAGENS_listaTeste.find(function(msg) {
+        return msg.id === conversaId;
+    });
+
+    if (!item) {
+        alert('Conversa não encontrada para envio.');
+        return;
+    }
+
+    const horaAtual = MOTORISTAMENSAGENS_func_horaAgora();
+
+    const novaMensagem = {
+        autor: 'enviada',
+        texto: texto,
+        horario: horaAtual
+    };
+
+    item.mensagens.push(novaMensagem);
+    item.ultimaMensagem = texto;
+    item.horario = horaAtual;
+    item.naoLidas = 0;
+
+    const div = document.createElement('div');
+    div.className = 'MOTORISTAMENSAGENS_msg enviada';
+
+    const textoMensagem = document.createElement('span');
+    textoMensagem.textContent = texto;
+
+    const hora = document.createElement('small');
+    hora.textContent = horaAtual;
+
+    div.appendChild(textoMensagem);
+    div.appendChild(hora);
+
+    mensagens.appendChild(div);
+
+    input.value = '';
+    input.style.height = '28px';
+    input.style.overflowY = 'hidden';
+
+    mensagens.scrollTop = mensagens.scrollHeight;
+    input.focus();
+
+    MOTORISTAMENSAGENS_func_carregarListaTeste();
+}
+
+function MOTORISTAMENSAGENS_func_autoAjustarInputMensagem(textarea) {
+    if (!textarea) return;
+
+    textarea.style.height = 'auto';
+
+    const alturaMaxima = 230;
+    const novaAltura = Math.min(textarea.scrollHeight, alturaMaxima);
+
+    textarea.style.height = novaAltura + 'px';
+    textarea.style.overflowY = textarea.scrollHeight > alturaMaxima ? 'auto' : 'hidden';
+}
+
+//-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS FINAL -->
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL CONFIGURAÇÕES -->
 
 
