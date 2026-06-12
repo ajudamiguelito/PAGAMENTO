@@ -5394,6 +5394,225 @@ body.TNP_TEMA_CLARO .PASSAGEIROPAG_Login_modal_link_tnp_aviso {
     border-color: rgba(123, 84, 56, 0.25);
 }
 
+/* ==================================================
+   NOTIFICAÇÕES / SININHO - PAINEL INFERIOR UNIVERSAL
+================================================== */
+
+.NOTIFICACOES_badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #dc3545;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.PASSAGEIROPAG_Login_btn_sininho,
+.MOTORISTAPAG_Login_home_btn_sino {
+    position: relative;
+}
+
+/* IMPORTANTE:
+   Como o HTML do modal está dentro da Fame_moldura,
+   o overlay precisa ser absolute, não fixed.
+*/
+.NOTIFICACOES_overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+/* PAINEL RECOLHIDO */
+.NOTIFICACOES_modal {
+    width: 100%;
+    height: 300px;
+    background: var(--Fame_card);
+    color: var(--Fame_text);
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    border-bottom: none;
+    border-radius: 28px 28px 0 0;
+    padding: 10px 16px 18px 16px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.45);
+    overflow: hidden;
+    transition: height 0.28s ease;
+}
+
+/* PAINEL ABERTO / GRANDE */
+.NOTIFICACOES_modal.grande {
+    height: 78%;
+}
+
+.NOTIFICACOES_puxador {
+    width: 52px;
+    height: 5px;
+    border-radius: 20px;
+    background: rgba(197,169,141,0.65);
+    margin: 0 auto 12px auto;
+    cursor: pointer;
+}
+
+.NOTIFICACOES_topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    border-bottom: 1px solid rgba(197, 169, 141, 0.18);
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+.NOTIFICACOES_topo h3 {
+    margin: 0;
+    color: var(--Fame_gold);
+    font-size: 1rem;
+}
+
+.NOTIFICACOES_topo p {
+    margin: 4px 0 0;
+    color: var(--Fame_muted);
+    font-size: 0.78rem;
+}
+
+.NOTIFICACOES_topo_acoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.NOTIFICACOES_btn_rapida,
+.NOTIFICACOES_btn_fechar {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    background: var(--Fame_input);
+    color: var(--Fame_gold);
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.NOTIFICACOES_btn_rapida {
+    font-size: 0.95rem;
+}
+
+.NOTIFICACOES_conteudo {
+    background: var(--Fame_input);
+    border: 1px solid rgba(197, 169, 141, 0.22);
+    border-radius: 14px;
+    padding: 14px;
+    min-height: 72px;
+    max-height: 92px;
+    overflow-y: auto;
+    color: var(--Fame_text);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+
+.NOTIFICACOES_modal.grande .NOTIFICACOES_conteudo {
+    min-height: 260px;
+    max-height: calc(78vh - 265px);
+}
+
+.NOTIFICACOES_acoes,
+.NOTIFICACOES_opcoes_iniciar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.NOTIFICACOES_acoes button,
+.NOTIFICACOES_opcoes_iniciar button {
+    border-radius: 12px;
+    padding: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    background: var(--Fame_input);
+    color: var(--Fame_gold);
+    border: 1px solid rgba(197, 169, 141, 0.35);
+}
+
+.NOTIFICACOES_acoes button:nth-child(3),
+.NOTIFICACOES_acoes button:nth-child(4) {
+    background: var(--Fame_gold);
+    color: var(--Fame_card);
+}
+
+/* TEMA CLARO */
+body.TNP_TEMA_CLARO .NOTIFICACOES_overlay {
+    background: rgba(31, 31, 31, 0.42);
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_modal {
+    background: #ffffff;
+    color: #1f1f1f;
+    border-color: rgba(123, 84, 56, 0.30);
+    box-shadow: 0 -8px 26px rgba(123, 84, 56, 0.20);
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_conteudo {
+    background: #f3eee8;
+    color: #1f1f1f;
+    border-color: rgba(123, 84, 56, 0.25);
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_btn_rapida,
+body.TNP_TEMA_CLARO .NOTIFICACOES_btn_fechar,
+body.TNP_TEMA_CLARO .NOTIFICACOES_acoes button,
+body.TNP_TEMA_CLARO .NOTIFICACOES_opcoes_iniciar button {
+    background: #ffffff;
+    color: #7b5438;
+    border-color: rgba(123, 84, 56, 0.35);
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_acoes button:nth-child(3),
+body.TNP_TEMA_CLARO .NOTIFICACOES_acoes button:nth-child(4) {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+.PASSAGEIROPAG_Login_menu_item_com_badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.NOTIFICACOES_badge_menu {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #dc3545;
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
         
 </style>
 </head>
@@ -6683,14 +6902,14 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 <div id="PASSAGEIROPAG_Login_screen_home" class="PRIMEIRAPAG_Login_screen">
 
     <!-- FUNDO DO MAPA -->
-    <div id="PASSAGEIROPAG_Login_mapa_fundo">
-        <div class="PASSAGEIROPAG_Login_mapa_fake">
-            <div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_1"></div>
-            <div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_2"></div>
-            <div class="PASSAGEIROPAG_Login_pin_origem">📍</div>
-            <div class="PASSAGEIROPAG_Login_pin_motorista">🚗</div>
-        </div>
-    </div>
+    <div id="PASSAGEIROPAG_Login_mapa_fundo" aria-hidden="true">
+		<div class="PASSAGEIROPAG_Login_mapa_fake">
+			<div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_1"></div>
+			<div class="PASSAGEIROPAG_Login_rua PASSAGEIROPAG_Login_rua_2"></div>
+			<div class="PASSAGEIROPAG_Login_pin_origem">📍</div>
+			<div class="PASSAGEIROPAG_Login_pin_motorista">🚗</div>
+		</div>
+	</div>
 <!-- FUNDO DO MAPA FINAL -->
 
 <!-- TOPO -->
@@ -6717,9 +6936,10 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
         <button
 			type="button"
 			class="PASSAGEIROPAG_Login_btn_sininho"
-			onclick="PASSAGEIROPAG_Login_func_carregarMensagens()"
+			onclick="NOTIFICACOES_func_abrirPainelUniversal('passageiro')"
 		>
 			🔔
+			<span id="NOTIFICACOES_badge_passageiro" class="NOTIFICACOES_badge" style="display:none;">0</span>
 		</button>
  <!-- MENU NOTIFICAÇÕES -->
     </div>
@@ -6847,9 +7067,11 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 <button
     type="button"
+    class="PASSAGEIROPAG_Login_menu_item_com_badge"
     onclick="PASSAGEIROPAG_Login_func_carregarMensagens()"
 >
-    💬 Mensagens
+    <span>💬 Mensagens</span>
+    <span id="NOTIFICACOES_badge_menu_mensagens_passageiro" class="NOTIFICACOES_badge_menu" style="display:none;">0</span>
 </button>
 
 <button
@@ -8671,58 +8893,69 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
 <!-- HOME OPERACIONAL DO MOTORISTA -->
 <div id="MOTORISTAPAG_Login_screen_home" class="PRIMEIRAPAG_Login_screen MOTORISTAPAG_Login_home_operacional">
- <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - FUNDO MAPA  -->
+ <!-- TELA 1 MOTORISTA 9: HOME DO MOTORISTA - FUNDO MAPA  -->
    
-    <div id="MOTORISTAPAG_Login_mapa_fundo" class="MOTORISTAPAG_Login_mapa_fundo">
-        <div class="MOTORISTAPAG_Login_rota_fake MOTORISTAPAG_Login_rota_1"></div>
-        <div class="MOTORISTAPAG_Login_rota_fake MOTORISTAPAG_Login_rota_2"></div>
-        <div class="MOTORISTAPAG_Login_pin_play">▶</div>
-        <div class="MOTORISTAPAG_Login_carro_fake">🚗</div>
-    </div>
-<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - FUNDO MAPA FINAL -->
-<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - TOPO -->	
-    <div class="MOTORISTAPAG_Login_home_topo">
-<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MENU LATERAL -->	
-       <button
-    type="button"
-    class="MOTORISTAPAG_Login_home_btn_menu"
-    onclick="MOTORISTAPAG_Login_func_abrirMenuLateral()"
->
-    <div class="menu_icon_hamburguer">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</button>
-<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MENU LATERAL FINAL -->	
+    <div
+		id="MOTORISTAPAG_Login_mapa_fundo"
+		class="MOTORISTAPAG_Login_mapa_fundo"
+		aria-hidden="true"
+	>
+		<div class="MOTORISTAPAG_Login_rota_fake MOTORISTAPAG_Login_rota_1"></div>
+		<div class="MOTORISTAPAG_Login_rota_fake MOTORISTAPAG_Login_rota_2"></div>
+		<div class="MOTORISTAPAG_Login_pin_play">▶</div>
+		<div class="MOTORISTAPAG_Login_carro_fake">🚗</div>
+	</div>
+<!-- TELA 1 MOTORISTA 9: HOME DO MOTORISTA - FUNDO MAPA FINAL -->
+ <div class="MOTORISTAPAG_Login_home_topo">
 
-  <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS -->
+<!-- TELA 2 MOTORISTA 9: HOME DO MOTORISTA - MENU LATERAL -->
+    <button
+        type="button"
+        class="MOTORISTAPAG_Login_home_btn_menu"
+        onclick="MOTORISTAPAG_Login_func_abrirMenuLateral()"
+        aria-label="Abrir menu lateral"
+    >
+        <div class="menu_icon_hamburguer" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+<!-- TELA 2 MOTORISTA 9: HOME DO MOTORISTA - MENU LATERAL FINAL -->	
+
+<!-- TELA 3 MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS -->
 
 <button
     type="button"
     class="MOTORISTAPAG_Login_home_ganhos"
     onclick="MOTORISTAPAG_Login_func_abrirGanhos()"
+    aria-label="Abrir meus ganhos"
 >
     <span id="MOTORISTAPAG_Login_home_ganhos_valor">R$0,00</span>
 
-    <span
-        id="MOTORISTAPAG_Login_btn_ocultar_ganhos"
-        class="MOTORISTAPAG_Login_icone_ocultar_ganhos"
-        onclick="MOTORISTAPAG_Login_func_alternarVisibilidadeGanhos(event)"
-    >
-        👁️
-    </span>
+		<span
+		id="MOTORISTAPAG_Login_btn_ocultar_ganhos"
+		class="MOTORISTAPAG_Login_icone_ocultar_ganhos"
+		onclick="MOTORISTAPAG_Login_func_alternarVisibilidadeGanhos(event)"
+		aria-label="Ocultar ganhos"
+		title="Ocultar ganhos"
+		role="button"
+	>
+		👁️
+	</span>
 </button>
-  <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS FINAL -->
+
+<!-- TELA 3 MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS FINAL -->
   <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES -->
 
         <button
-            type="button"
-            class="MOTORISTAPAG_Login_home_btn_sino"
-            onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Notificações', 'Aqui ficarão avisos, chamadas, suporte e notificações importantes.')"
-        >
-            🔔
-        </button>
+			type="button"
+			class="MOTORISTAPAG_Login_home_btn_sino"
+			onclick="NOTIFICACOES_func_abrirPainelUniversal('motorista')"
+		>
+			🔔
+			<span id="NOTIFICACOES_badge_motorista" class="NOTIFICACOES_badge" style="display:none;">0</span>
+		</button>
 </div>
 
   <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES FINAL -->
@@ -10695,8 +10928,84 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 <!--// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ========== -->
 
 
+<!-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
+<div id="NOTIFICACOES_overlay" class="NOTIFICACOES_overlay" onclick="NOTIFICACOES_func_fecharPainel(event)">
+    <div id="NOTIFICACOES_modal" class="NOTIFICACOES_modal" onclick="event.stopPropagation()">
 
+		<div
+			class="NOTIFICACOES_puxador"
+			onclick="NOTIFICACOES_func_alternarTamanhoPainel()"
+			ontouchstart="NOTIFICACOES_func_inicioArrastePainel(event)"
+			ontouchmove="NOTIFICACOES_func_movendoPainel(event)"
+			ontouchend="NOTIFICACOES_func_fimArrastePainel()"
+			ontouchcancel="NOTIFICACOES_func_fimArrastePainel()"
+			onmousedown="NOTIFICACOES_func_inicioArrastePainel(event)"
+		></div>
 
+		<div class="NOTIFICACOES_topo">
+			<div>
+				<h3>Notificações</h3>
+				<p id="NOTIFICACOES_subtitulo">Última notificação/mensagem</p>
+			</div>
+
+			<div class="NOTIFICACOES_topo_acoes">
+				<button
+					type="button"
+					class="NOTIFICACOES_btn_rapida"
+					onclick="NOTIFICACOES_func_abrirMensagemRapida()"
+					title="Mensagem rápida"
+				>
+					⚡
+				</button>
+
+				<button
+					type="button"
+					class="NOTIFICACOES_btn_fechar"
+					onclick="NOTIFICACOES_func_fecharPainel()"
+					title="Fechar"
+				>
+					×
+				</button>
+			</div>
+		</div>
+
+        <div id="NOTIFICACOES_conteudo" class="NOTIFICACOES_conteudo">
+            Nenhuma notificação no momento.
+        </div>
+
+        <div class="NOTIFICACOES_acoes">
+            <button type="button" onclick="NOTIFICACOES_func_responderUltima()">
+				Responder
+			</button>
+
+			<button type="button" onclick="NOTIFICACOES_func_verConversa()">
+				Ver conversa
+			</button>
+
+			<button type="button" onclick="NOTIFICACOES_func_mostrarOpcoesIniciar()">
+				Iniciar mensagem
+			</button>
+
+			<button type="button" onclick="NOTIFICACOES_func_irParaMensagens()">
+				Ir para Mensagens
+			</button>
+        </div>
+
+        <div id="NOTIFICACOES_opcoes_iniciar" class="NOTIFICACOES_opcoes_iniciar" style="display:none;">
+            <button type="button" onclick="NOTIFICACOES_func_iniciarMensagemCom('suporte')">
+                Suporte
+            </button>
+
+            <button type="button" onclick="NOTIFICACOES_func_iniciarMensagemCom('motorista')">
+                Motorista
+            </button>
+        </div>
+
+    </div>
+</div>
+<!-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM FINAL -->
+</div>
+</div>
 <!-- ===================================================== -->
 <!--  MODAIS GERAIS / UNIVERSAIS DO APP FINAL -->
 <!-- ===================================================== -->
@@ -15881,15 +16190,21 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
 
         const d = doc.exists ? doc.data() : {};
 		
-		TNP_Login_func_verificarModalFotoPerfilAdmin(d, 'passageiro');
-		
-		await PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(d);
+		if (typeof TNP_Login_func_verificarModalFotoPerfilAdmin === "function") {
+			TNP_Login_func_verificarModalFotoPerfilAdmin(d, 'passageiro');
+		}
 
-        const nome =
-            d.nomeDocumento ||
-            d.nome ||
-            user.displayName ||
-            "Passageiro";
+		if (typeof PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro === "function") {
+			await PASSAGEIROPAG_Login_func_verificarPendenciasAdminPassageiro(d);
+		}
+
+        const nomeBruto =
+			d.nomeDocumento ||
+			d.nome ||
+			user.displayName ||
+			"Passageiro";
+
+		const nome = String(nomeBruto).trim() || "Passageiro";
 
         const email =
             d.email ||
@@ -15901,7 +16216,7 @@ async function PASSAGEIROPAG_Login_func_carregarHomePassageiro() {
             d.selfieUrl ||
             "";
 
-        const primeiroNome = nome.split(" ")[0];
+        const primeiroNome = nome.split(/\s+/)[0] || "Passageiro";
 
         const nomeTopo = document.getElementById('PASSAGEIROPAG_Login_nome_topo');
         const nomeMenu = document.getElementById('PASSAGEIROPAG_Login_nome_menu');
@@ -15950,11 +16265,23 @@ const corridasUsadasSemDocumento = Number(d.corridasUsadasSemDocumento || 0);
 const limiteAvisoDocumento = Number(d.limiteAvisoDocumento || 10);
 const limiteBloqueioDocumento = Number(d.limiteBloqueioDocumento || 20);
 
+const corridasDocumentoFinal = Number.isFinite(corridasUsadasSemDocumento)
+    ? corridasUsadasSemDocumento
+    : 0;
+
+const limiteAvisoDocumentoFinal = Number.isFinite(limiteAvisoDocumento)
+    ? limiteAvisoDocumento
+    : 10;
+
+const limiteBloqueioDocumentoFinal = Number.isFinite(limiteBloqueioDocumento)
+    ? limiteBloqueioDocumento
+    : 20;
+
 
 			if (modalDocumento) {
 				if (
 					selfieDocumentoConcluida !== true &&
-					corridasUsadasSemDocumento >= limiteBloqueioDocumento
+					corridasDocumentoFinal >= limiteBloqueioDocumentoFinal
 				) {
 					modalDocumento.style.display = 'flex';
 
@@ -15973,7 +16300,7 @@ const limiteBloqueioDocumento = Number(d.limiteBloqueioDocumento || 20);
 
 				} else if (
 					selfieDocumentoConcluida !== true &&
-					corridasUsadasSemDocumento >= limiteAvisoDocumento
+					corridasDocumentoFinal >= limiteAvisoDocumentoFinal
 				) {
 					modalDocumento.style.display = 'flex';
 
@@ -16010,7 +16337,8 @@ const limiteBloqueioDocumento = Number(d.limiteBloqueioDocumento || 20);
         PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
     }
 }		
-//-- FUNDO DO MAPA FINAL -->
+ //-- FUNDO DO MAPA -->
+
 
 //-- MENU LATERAL -->
 function PASSAGEIROPAG_Login_func_abrirMenuLateral() {
@@ -23051,7 +23379,7 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
  }
 // ========== TELA MOTORISTA 10: ID TNP DO MOTORISTA FINAL ==========
 
-// ========== TELA MOTORISTA 11: HOME OPERACIONAL DO MOTORISTA  FUNDO MAPA ==========
+// ========== TELA 1 MOTORISTA 9: HOME DO MOTORISTA - FUNDO MAPA ==========
 async function MOTORISTAPAG_Login_func_carregarHomeMotorista() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
 
@@ -23059,14 +23387,21 @@ async function MOTORISTAPAG_Login_func_carregarHomeMotorista() {
         return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
     }
 
+    PRIMEIRAPAG_Login_func_limparErros();
+
+    if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === "function") {
+        MOTORISTAPAG_Login_func_fecharMenuLateral();
+    }
+
     PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_home');
 
-if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
-    MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo();
-}
-	
+    if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
+        MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo();
+    }
 
-    const content = document.querySelector('.Fame_content');
+    const content =
+        document.querySelector('.Fame_content') ||
+        document.getElementById('PRIMEIRAPAG_Login_content_area');
 
     if (content) {
         content.classList.add('MOTORISTAPAG_Login_home_ativa');
@@ -23084,21 +23419,42 @@ if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
             .get();
 
         const u = userDoc.exists ? userDoc.data() : {};
-		const m = motoristaDoc.exists ? motoristaDoc.data() : {};
+        const m = motoristaDoc.exists ? motoristaDoc.data() : {};
 
-		const dadosFotoPerfilMotorista = {
-			...u,
-			...m
-		};
+        const dadosFotoPerfilMotorista = {
+            ...u,
+            ...m
+        };
 
-		TNP_Login_func_verificarModalFotoPerfilAdmin(
-			dadosFotoPerfilMotorista,
-			'motorista'
-		);
+        if (typeof TNP_Login_func_verificarModalFotoPerfilAdmin === "function") {
+            TNP_Login_func_verificarModalFotoPerfilAdmin(
+                dadosFotoPerfilMotorista,
+                'motorista'
+            );
+        }
 
-		const nome = u.nomeDocumento || u.nome || m.nome || "Motorista";
-		const email = u.email || user.email || "-";
-		const foto = u.fotoPerfilUrl || u.selfieUrl || m.fotoPerfilUrl || "";
+        const nomeBruto =
+            u.nomeDocumento ||
+            u.nome ||
+            m.nomeDocumento ||
+            m.nome ||
+            user.displayName ||
+            "Motorista";
+
+        const nome = String(nomeBruto).trim() || "Motorista";
+
+        const email =
+            u.email ||
+            m.email ||
+            user.email ||
+            "-";
+
+        const foto =
+            u.fotoPerfilUrl ||
+            u.selfieUrl ||
+            m.fotoPerfilUrl ||
+            m.selfieUrl ||
+            "";
 
         const nomeMenu = document.getElementById('MOTORISTAPAG_Login_nome_menu');
         const emailMenu = document.getElementById('MOTORISTAPAG_Login_email_menu');
@@ -23108,11 +23464,28 @@ if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
         if (nomeMenu) nomeMenu.innerText = nome;
         if (emailMenu) emailMenu.innerText = email;
 
-        if (foto && fotoMenu) {
-            fotoMenu.src = foto + (foto.includes("?") ? "&v=" : "?v=") + Date.now();
+        if (fotoMenu) {
+            fotoMenu.onerror = null;
+            fotoMenu.removeAttribute('src');
+
+            if (foto) {
+                fotoMenu.onerror = function() {
+                    fotoMenu.onerror = null;
+                    fotoMenu.removeAttribute('src');
+                };
+
+                fotoMenu.src = foto + (foto.includes("?") ? "&v=" : "?v=") + Date.now();
+            }
         }
 
-        const statusAnalise = m.statusAnalise || m.motoristaStatus || u.motoristaStatus || "em_analise";
+        const statusAnalise =
+            m.status?.geral ||
+            m.statusAnalise ||
+            m.motoristaStatus ||
+            u.statusMotorista?.geral ||
+            u.motoristaStatus ||
+            "em_analise";
+
         const podeAceitar = m.podeAceitarCorrida === true;
 
         if (btnConectar) {
@@ -23128,6 +23501,10 @@ if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
                 btnConectar.innerText = "VER PENDÊNCIA";
                 btnConectar.dataset.estado = "pendencia";
                 btnConectar.disabled = false;
+            } else if (statusAnalise === "pendente_pagamento") {
+                btnConectar.innerText = "VER PAGAMENTO";
+                btnConectar.dataset.estado = "pagamento";
+                btnConectar.disabled = false;
             } else {
                 btnConectar.innerText = "EM ANÁLISE";
                 btnConectar.dataset.estado = "analise";
@@ -23136,21 +23513,33 @@ if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
         }
 
         const ganhosOculto = localStorage.getItem("TNP_MOB_MOTORISTA_GANHOS_OCULTO");
+		const valorGanhos = document.getElementById('MOTORISTAPAG_Login_home_ganhos_valor');
+		const btnGanhos = document.getElementById('MOTORISTAPAG_Login_btn_ocultar_ganhos');
 
-        if (ganhosOculto === "sim") {
-            const valor = document.getElementById('MOTORISTAPAG_Login_home_ganhos_valor');
-            const btn = document.getElementById('MOTORISTAPAG_Login_btn_ocultar_ganhos');
+		if (ganhosOculto === "sim") {
+			if (valorGanhos) {
+				valorGanhos.dataset.valorReal = valorGanhos.dataset.valorReal || valorGanhos.innerText || "R$0,00";
+				valorGanhos.innerText = "••••";
+				valorGanhos.dataset.oculto = "true";
+			}
 
-            if (valor) {
-                valor.dataset.valorReal = valor.innerText || "R$0,00";
-                valor.innerText = "••••";
-                valor.dataset.oculto = "true";
-            }
+			if (btnGanhos) {
+				btnGanhos.innerText = "🙈";
+				btnGanhos.setAttribute("aria-label", "Mostrar ganhos");
+				btnGanhos.setAttribute("title", "Mostrar ganhos");
+			}
+		} else {
+			if (valorGanhos) {
+				valorGanhos.innerText = valorGanhos.dataset.valorReal || valorGanhos.innerText || "R$0,00";
+				valorGanhos.dataset.oculto = "false";
+			}
 
-            if (btn) {
-                btn.innerText = "🙈";
-            }
-        }
+			if (btnGanhos) {
+				btnGanhos.innerText = "👁️";
+				btnGanhos.setAttribute("aria-label", "Ocultar ganhos");
+				btnGanhos.setAttribute("title", "Ocultar ganhos");
+			}
+		}
 
     } catch (erro) {
         console.error("Erro ao carregar home do motorista:", erro);
@@ -23159,7 +23548,9 @@ if (typeof MOTORISTAPAG_Login_func_carregarTemaMotoristaSalvo === "function") {
 
 function MOTORISTAPAG_Login_func_fecharModais() {
     document.querySelectorAll('.MOTORISTAPAG_Login_modal_home').forEach(modal => {
-        modal.classList.remove('active');
+        if (modal) {
+            modal.classList.remove('active');
+        }
     });
 }
 
@@ -23167,38 +23558,46 @@ function MOTORISTAPAG_Login_func_abrirPaginaProvisoria(titulo, texto) {
     alert(titulo + "\n\n" + texto);
 }
 
-// ========== TELA MOTORISTA 11: HOME OPERACIONAL DO MOTORISTA  FUNDO MAPA fINAL ==========
+// ========== TELA 1 MOTORISTA 9: HOME DO MOTORISTA - FUNDO MAPA ==========
 
-//-- TELA MOTORISTA 9: HOME DO MOTORISTA - MENU LATERAL -->	
+//-- TELA 2 MOTORISTA 9: HOME DO MOTORISTA - MENU LATERAL -->	
 function MOTORISTAPAG_Login_func_abrirMenuLateral() {
     const overlay = document.getElementById('MOTORISTAPAG_Login_menu_overlay');
     const menu = document.getElementById('MOTORISTAPAG_Login_menu_lateral');
 
-    if (overlay) overlay.classList.add('active');
-    if (menu) menu.classList.add('active');
-} 
+    if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+        MOTORISTAPAG_Login_func_fecharModais();
+    }
 
- function MOTORISTAPAG_Login_func_abrirMenuLateral() {
-    const overlay = document.getElementById('MOTORISTAPAG_Login_menu_overlay');
-    const menu = document.getElementById('MOTORISTAPAG_Login_menu_lateral');
+    if (overlay) {
+        overlay.classList.add('active');
+    }
 
-    if (overlay) overlay.classList.add('active');
-    if (menu) menu.classList.add('active');
+    if (menu) {
+        menu.classList.add('active');
+    }
+
+    document.body.style.overflow = 'hidden';
 }
 
 function MOTORISTAPAG_Login_func_fecharMenuLateral() {
     const overlay = document.getElementById('MOTORISTAPAG_Login_menu_overlay');
     const menu = document.getElementById('MOTORISTAPAG_Login_menu_lateral');
 
-    if (overlay) overlay.classList.remove('active');
-    if (menu) menu.classList.remove('active');
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+
+    if (menu) {
+        menu.classList.remove('active');
+    }
+
+    document.body.style.overflow = '';
 }
 
-//-- TELA MOTORISTA 9: HOME DO MOTORISTA - OVERLAY MENU LATERAL --> 
+//-- TELA 2 MOTORISTA 9: HOME DO MOTORISTA - OVERLAY MENU LATERAL --> 
 
-
-
-// TELA MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS -->
+//-- TELA 3 MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS -->
 
 function MOTORISTAPAG_Login_func_alternarVisibilidadeGanhos(event) {
     if (event) {
@@ -23212,25 +23611,41 @@ function MOTORISTAPAG_Login_func_alternarVisibilidadeGanhos(event) {
 
     const oculto = valor.dataset.oculto === "true";
 
-    if (oculto) {
-        valor.innerText = valor.dataset.valorReal || "R$0,00";
-        valor.dataset.oculto = "false";
-        btn.innerText = "👁️";
-        localStorage.setItem("TNP_MOB_MOTORISTA_GANHOS_OCULTO", "nao");
-    } else {
-        valor.dataset.valorReal = valor.innerText;
-        valor.innerText = "••••";
-        valor.dataset.oculto = "true";
-        btn.innerText = "🙈";
-        localStorage.setItem("TNP_MOB_MOTORISTA_GANHOS_OCULTO", "sim");
-    }
+		if (oculto) {
+		valor.innerText = valor.dataset.valorReal || "R$0,00";
+		valor.dataset.oculto = "false";
+
+		btn.innerText = "👁️";
+		btn.setAttribute("aria-label", "Ocultar ganhos");
+		btn.setAttribute("title", "Ocultar ganhos");
+
+		localStorage.setItem("TNP_MOB_MOTORISTA_GANHOS_OCULTO", "nao");
+	} else {
+		valor.dataset.valorReal = valor.innerText;
+		valor.innerText = "••••";
+		valor.dataset.oculto = "true";
+
+		btn.innerText = "🙈";
+		btn.setAttribute("aria-label", "Mostrar ganhos");
+		btn.setAttribute("title", "Mostrar ganhos");
+
+		localStorage.setItem("TNP_MOB_MOTORISTA_GANHOS_OCULTO", "sim");
+	}
 }
 
 function MOTORISTAPAG_Login_func_abrirGanhos() {
-    MOTORISTAPAG_Login_func_fecharModais();
+    if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === "function") {
+        MOTORISTAPAG_Login_func_fecharMenuLateral();
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+        MOTORISTAPAG_Login_func_fecharModais();
+    }
+
     document.getElementById('MOTORISTAPAG_Login_modal_ganhos')?.classList.add('active');
 }
-// TELA MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS FINAL -->
+
+//-- TELA 3 MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS FINAL -->
 
 // TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÃO -->
 
@@ -30034,16 +30449,229 @@ function TNP_Login_func_irParaCorrecaoFotoPerfilAdmin() {
     PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
 }
 
-
-
-
-
 // ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ==========
 
+// -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
 
-// =====================================================
-//  MODAIS GERAIS / UNIVERSAIS DO APP
-// =====================================================
+	var NOTIFICACOES_usuarioTipoAtual = null;
+	var NOTIFICACOES_ultimaAtual = null;
+
+	let NOTIFICACOES_arrastandoPainel = false;
+	let NOTIFICACOES_inicioY = 0;
+	let NOTIFICACOES_alturaInicial = 0;
+	let NOTIFICACOES_moveuPainel = false;
+
+function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
+    NOTIFICACOES_usuarioTipoAtual = tipoUsuario;
+
+    const overlay = document.getElementById('NOTIFICACOES_overlay');
+    const modal = document.getElementById('NOTIFICACOES_modal');
+    const conteudo = document.getElementById('NOTIFICACOES_conteudo');
+    const opcoes = document.getElementById('NOTIFICACOES_opcoes_iniciar');
+
+    if (modal) {
+        modal.classList.remove('grande');
+        modal.style.height = '300px';
+    }
+
+    if (opcoes) {
+        opcoes.style.display = 'none';
+    }
+
+    // Temporário até ligar no Firestore
+    NOTIFICACOES_ultimaAtual = {
+        id: null,
+        tipo: 'mensagem',
+        texto: 'Nenhuma mensagem nova no momento.'
+    };
+
+    if (conteudo) {
+        conteudo.innerText = NOTIFICACOES_ultimaAtual.texto;
+    }
+
+    if (overlay) {
+        overlay.style.display = 'flex';
+    }
+
+    // Depois aqui vamos marcar somente a última notificação como lida.
+    // Não vai zerar o histórico de mensagens.
+}
+
+function NOTIFICACOES_func_alternarTamanhoPainel() {
+    const modal = document.getElementById('NOTIFICACOES_modal');
+
+    if (!modal) return;
+
+    if (NOTIFICACOES_moveuPainel) {
+        NOTIFICACOES_moveuPainel = false;
+        return;
+    }
+
+    const alturaAtual = modal.offsetHeight;
+    const estaGrande =
+        modal.classList.contains('grande') ||
+        alturaAtual > 400 ||
+        modal.style.height === '78%';
+
+    if (estaGrande) {
+        modal.classList.remove('grande');
+        modal.style.height = '300px';
+    } else {
+        modal.classList.add('grande');
+        modal.style.height = '78%';
+    }
+}
+
+function NOTIFICACOES_func_fecharPainel(event) {
+    if (event && event.target && event.target.id !== 'NOTIFICACOES_overlay') return;
+
+    const overlay = document.getElementById('NOTIFICACOES_overlay');
+
+    NOTIFICACOES_arrastandoPainel = false;
+    NOTIFICACOES_moveuPainel = false;
+
+    document.removeEventListener('mousemove', NOTIFICACOES_func_movendoPainel);
+    document.removeEventListener('mouseup', NOTIFICACOES_func_fimArrastePainel);
+
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+}
+
+function NOTIFICACOES_func_inicioArrastePainel(event) {
+    const modal = document.getElementById('NOTIFICACOES_modal');
+
+    if (!modal) return;
+
+    NOTIFICACOES_arrastandoPainel = true;
+    NOTIFICACOES_moveuPainel = false;
+
+    const toque = event.touches ? event.touches[0] : event;
+
+    NOTIFICACOES_inicioY = toque.clientY;
+    NOTIFICACOES_alturaInicial = modal.offsetHeight;
+
+    document.addEventListener('mousemove', NOTIFICACOES_func_movendoPainel);
+    document.addEventListener('mouseup', NOTIFICACOES_func_fimArrastePainel);
+}
+
+function NOTIFICACOES_func_movendoPainel(event) {
+    if (!NOTIFICACOES_arrastandoPainel) return;
+
+    const modal = document.getElementById('NOTIFICACOES_modal');
+    const moldura = document.getElementById('PRIMEIRAPAG_Login_container_main');
+
+    if (!modal || !moldura) return;
+
+    const toque = event.touches ? event.touches[0] : event;
+    const diferenca = NOTIFICACOES_inicioY - toque.clientY;
+
+    if (Math.abs(diferenca) > 8) {
+        NOTIFICACOES_moveuPainel = true;
+    }
+
+    let novaAltura = NOTIFICACOES_alturaInicial + diferenca;
+
+    const alturaMinima = 260;
+    const alturaMaxima = moldura.offsetHeight * 0.78;
+
+    if (novaAltura < alturaMinima) novaAltura = alturaMinima;
+    if (novaAltura > alturaMaxima) novaAltura = alturaMaxima;
+
+    modal.classList.remove('grande');
+    modal.style.height = novaAltura + 'px';
+
+    event.preventDefault();
+}
+
+function NOTIFICACOES_func_fimArrastePainel() {
+    if (!NOTIFICACOES_arrastandoPainel) return;
+
+    const modal = document.getElementById('NOTIFICACOES_modal');
+    const moldura = document.getElementById('PRIMEIRAPAG_Login_container_main');
+
+    NOTIFICACOES_arrastandoPainel = false;
+
+    document.removeEventListener('mousemove', NOTIFICACOES_func_movendoPainel);
+    document.removeEventListener('mouseup', NOTIFICACOES_func_fimArrastePainel);
+
+    if (!modal || !moldura) return;
+
+    const alturaAtual = modal.offsetHeight;
+    const alturaMinima = 300;
+    const alturaMaxima = moldura.offsetHeight * 0.78;
+
+    if (alturaAtual <= 280) {
+        modal.classList.remove('grande');
+        modal.style.height = alturaMinima + 'px';
+        return;
+    }
+
+    if (alturaAtual >= alturaMaxima - 40) {
+        modal.classList.add('grande');
+        modal.style.height = '78%';
+        return;
+    }
+
+    modal.classList.remove('grande');
+    modal.style.height = alturaAtual + 'px';
+}
+
+function NOTIFICACOES_func_responderUltima() {
+    if (!NOTIFICACOES_ultimaAtual) {
+        alert('Nenhuma mensagem para responder no momento.');
+        return;
+    }
+
+    alert('Próxima etapa: abrir campo para responder esta mensagem.');
+}
+
+function NOTIFICACOES_func_verConversa() {
+    if (!NOTIFICACOES_ultimaAtual) {
+        alert('Nenhuma conversa para abrir no momento.');
+        return;
+    }
+
+    alert('Próxima etapa: abrir histórico completo desta conversa.');
+}
+
+function NOTIFICACOES_func_mostrarOpcoesIniciar() {
+    const opcoes = document.getElementById('NOTIFICACOES_opcoes_iniciar');
+
+    if (!opcoes) return;
+
+    opcoes.style.display = opcoes.style.display === 'grid' ? 'none' : 'grid';
+}
+
+function NOTIFICACOES_func_iniciarMensagemCom(destino) {
+    if (destino === 'suporte') {
+        alert('Próxima etapa: iniciar mensagem com o suporte.');
+        return;
+    }
+
+    if (destino === 'motorista') {
+        alert('Próxima etapa: iniciar mensagem ao motorista.');
+        return;
+    }
+
+    alert('Destino inválido.');
+}
+
+function NOTIFICACOES_func_irParaMensagens() {
+    NOTIFICACOES_func_fecharPainel();
+
+    alert('Próxima etapa: abrir a tela 💬 Mensagens.');
+}
+
+function NOTIFICACOES_func_abrirMensagemRapida() {
+    alert('Próxima etapa: abrir mensagens rápidas cadastradas.');
+}
+
+//-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM FINAL -->
+
+// -- ===================================================== -->
+// --  MODAIS GERAIS / UNIVERSAIS DO APP FINAL -->
+// -- ===================================================== -->
 
 
 
