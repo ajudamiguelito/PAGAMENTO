@@ -6155,7 +6155,371 @@ body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_enviar_redondo {
     padding-bottom: 5px !important;
     display: block !important; /* Garante que o comportamento de bloco não crie espaços extras */
 }
-        
+
+.MOTORISTAMENSAGENS_btn_prontas {
+    margin-left: auto;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    background: rgba(197, 169, 141, 0.10);
+    color: var(--Fame_gold);
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_prontas_modal {
+    position: absolute;
+    inset: 0;
+    z-index: 80;
+    background: rgba(0, 0, 0, 0.62);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+}
+
+.MOTORISTAMENSAGENS_prontas_box {
+    width: 100%;
+    max-height: 92%;
+    overflow-y: auto;
+    background: var(--Fame_card);
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    border-radius: 20px;
+    padding: 14px;
+    color: var(--Fame_text);
+}
+
+.MOTORISTAMENSAGENS_prontas_topo {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(197, 169, 141, 0.18);
+}
+
+.MOTORISTAMENSAGENS_prontas_topo h3 {
+    margin: 0;
+    color: var(--Fame_gold);
+    font-size: 1rem;
+}
+
+.MOTORISTAMENSAGENS_prontas_topo p {
+    margin: 4px 0 0 0;
+    color: var(--Fame_muted);
+    font-size: 0.74rem;
+}
+
+.MOTORISTAMENSAGENS_prontas_fechar {
+    margin-left: auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(197, 169, 141, 0.12);
+    color: var(--Fame_gold);
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_prontas_lista {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 14px;
+}
+
+.MOTORISTAMENSAGENS_pronta_item {
+    display: grid;
+    grid-template-columns: 1fr 34px 34px;
+    gap: 7px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(197, 169, 141, 0.08);
+    border: 1px solid rgba(197, 169, 141, 0.20);
+}
+
+.MOTORISTAMENSAGENS_pronta_texto {
+    color: var(--Fame_text);
+    font-size: 0.78rem;
+    line-height: 1.35;
+    cursor: pointer;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.MOTORISTAMENSAGENS_pronta_btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(197, 169, 141, 0.14);
+    color: var(--Fame_gold);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_prontas_nova {
+    border-top: 1px solid rgba(197, 169, 141, 0.18);
+    padding-top: 12px;
+}
+
+.MOTORISTAMENSAGENS_prontas_nova textarea {
+    width: 100%;
+    min-height: 70px;
+    resize: none;
+    border-radius: 14px;
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    background: var(--Fame_input);
+    color: var(--Fame_text);
+    padding: 10px;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.MOTORISTAMENSAGENS_prontas_nova button {
+    width: 100%;
+    margin-top: 8px;
+    height: 42px;
+    border: none;
+    border-radius: 14px;
+    background: var(--Fame_gold);
+    color: #1f1f1f;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_prontas_modal {
+    background: rgba(31, 31, 31, 0.35);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_prontas_box {
+    background: #ffffff;
+    border-color: rgba(123, 84, 56, 0.28);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_prontas_topo h3,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_prontas {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_pronta_item {
+    background: #f7f2ec;
+    border-color: rgba(123, 84, 56, 0.22);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_pronta_texto {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_pronta_btn,
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_prontas_fechar {
+    background: rgba(123, 84, 56, 0.10);
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_prontas_nova textarea {
+    background: #f3eee8;
+    border-color: rgba(123, 84, 56, 0.30);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_prontas_nova button {
+    background: #c5a98d;
+    color: #1f1f1f;
+}
+
+.NOTIFICACOES_respostas_rapidas {
+    display: none;
+    width: 100%;
+    max-height: 235px;
+    overflow-y: auto;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 14px;
+    background: rgba(20, 20, 20, 0.92);
+    border: 1px solid rgba(139, 94, 52, 0.45);
+}
+
+.NOTIFICACOES_respostas_rapidas.ativo {
+    display: block;
+}
+
+.NOTIFICACOES_respostas_rapidas_titulo {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #8b5e34;
+    margin-bottom: 8px;
+}
+
+.NOTIFICACOES_resposta_item {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 7px;
+    background: rgba(139, 94, 52, 0.18);
+    color: inherit;
+    text-align: left;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    cursor: pointer;
+}
+
+.NOTIFICACOES_resposta_item:last-child {
+    margin-bottom: 0;
+}
+
+.NOTIFICACOES_resposta_item:active {
+    transform: scale(0.98);
+}
+
+.NOTIFICACOES_respostas_rapidas {
+    display: none;
+    width: 100%;
+    max-height: 185px;
+    overflow-y: auto;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 14px;
+    background: rgba(20, 20, 20, 0.92);
+    border: 1px solid rgba(139, 94, 52, 0.45);
+}
+
+.NOTIFICACOES_respostas_rapidas.ativo {
+    display: block;
+}
+
+.NOTIFICACOES_respostas_rapidas_titulo {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #8b5e34;
+    margin-bottom: 8px;
+}
+
+.NOTIFICACOES_resposta_item {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 7px;
+    background: rgba(139, 94, 52, 0.18);
+    color: inherit;
+    text-align: left;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    cursor: pointer;
+}
+
+.NOTIFICACOES_resposta_item:last-child {
+    margin-bottom: 0;
+}
+
+.NOTIFICACOES_resposta_item:active {
+    transform: scale(0.98);
+}
+
+/* TEMA CLARO - RESPOSTAS RÁPIDAS NO MODAL DE NOTIFICAÇÕES */
+body.TNP_TEMA_CLARO .NOTIFICACOES_respostas_rapidas {
+    background: #fffaf3;
+    border: 1px solid rgba(139, 94, 52, 0.28);
+    box-shadow: 0 8px 22px rgba(90, 60, 30, 0.12);
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_respostas_rapidas_titulo {
+    color: #6f431c;
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_resposta_item {
+    background: #f7eadb;
+    color: #2b2118;
+    border: 1px solid rgba(139, 94, 52, 0.22);
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_resposta_item:hover {
+    background: #efd9c1;
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_resposta_item:active {
+    background: #e6c8a7;
+}
+
+/* SCROLL MARROM - RESPOSTAS RÁPIDAS DO SININHO */
+.NOTIFICACOES_respostas_rapidas {
+    scrollbar-width: thin;
+    scrollbar-color: #8b5e34 rgba(255,255,255,0.08);
+}
+
+.NOTIFICACOES_respostas_rapidas::-webkit-scrollbar {
+    width: 8px;
+}
+
+.NOTIFICACOES_respostas_rapidas::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+}
+
+.NOTIFICACOES_respostas_rapidas::-webkit-scrollbar-thumb {
+    background: #8b5e34;
+    border-radius: 20px;
+}
+
+.NOTIFICACOES_respostas_rapidas::-webkit-scrollbar-thumb:hover {
+    background: #a8733e;
+}
+
+/* TEMA CLARO */
+body.TNP_TEMA_CLARO .NOTIFICACOES_respostas_rapidas {
+    scrollbar-color: #8b5e34 #f1dfca;
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_respostas_rapidas::-webkit-scrollbar-track {
+    background: #f1dfca;
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_respostas_rapidas::-webkit-scrollbar-thumb {
+    background: #8b5e34;
+}
+      
+.NOTIFICACOES_conteudo {
+    width: 100%;
+    min-height: 72px;
+    max-height: 95px;
+    resize: none;
+    overflow-y: hidden;
+    border-radius: 14px;
+    padding: 13px 14px;
+    border: 1px solid rgba(139, 94, 52, 0.45);
+    background: rgba(255, 255, 255, 0.04);
+    color: #f7f1eb;
+    font-size: 0.86rem;
+    line-height: 1.4;
+    outline: none;
+}
+
+.NOTIFICACOES_conteudo:focus {
+    border-color: rgba(139, 94, 52, 0.95);
+    box-shadow: 0 0 0 2px rgba(139, 94, 52, 0.18);
+}
+
+.NOTIFICACOES_conteudo_leitura {
+    min-height: 190px;
+    max-height: 230px;
+    cursor: default;
+    overflow-y: auto;
+}
+
+body.TNP_TEMA_CLARO .NOTIFICACOES_conteudo {
+    background: #fffaf4;
+    color: #2b1a10;
+    border-color: rgba(139, 94, 52, 0.45);
+}
+	  
 </style>
 </head>
 
@@ -9490,7 +9854,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 <!-- TELA 3 MOTORISTA 9: HOME DO MOTORISTA - OCULTAR VALOR/ABRIR GANHOS FINAL -->
   <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES -->
 
-        <button
+       <button
 			type="button"
 			class="MOTORISTAPAG_Login_home_btn_sino"
 			onclick="NOTIFICACOES_func_abrirPainelUniversal('motorista')"
@@ -9608,7 +9972,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     onclick="MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista()"
 	>
 		💬 Mensagens
-	</button>
+	</button>  
    	<button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui ficarão orientações e recursos de segurança.')">🛡️ Central de segurança</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirGanhos()">💰 Meus ganhos</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirConfiguracoesMotorista()">⚙️ Configurações</button>
@@ -9742,12 +10106,13 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
         </div>
 
         <button
-            type="button"
-            class="MOTORISTAMENSAGENS_btn_atualizar"
-            onclick="MOTORISTAMENSAGENS_func_carregarListaTeste()"
-        >
-            ⟳
-        </button>
+		type="button"
+		class="MOTORISTAMENSAGENS_btn_prontas"
+		onclick="MOTORISTAMENSAGENS_func_abrirMensagensProntas()"
+		title="Mensagens prontas"
+	>
+		⚡
+	</button>
     </div>
 
     <div class="MOTORISTAMENSAGENS_resumo">
@@ -9812,7 +10177,6 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
             Selecione uma conversa para visualizar as mensagens.
         </div>
     </div>
-
    <div class="MOTORISTAMENSAGENS_conversa_envio">
 
 		<div class="MOTORISTAMENSAGENS_input_box">
@@ -9843,7 +10207,49 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
 </div>
 </div>
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS FINAL--> 
- 
+<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS RAPIDAS -->
+ <div id="MOTORISTAMENSAGENS_prontas_modal" class="MOTORISTAMENSAGENS_prontas_modal" style="display:none;">
+
+    <div class="MOTORISTAMENSAGENS_prontas_box">
+
+        <div class="MOTORISTAMENSAGENS_prontas_topo">
+            <div>
+                <h3>Mensagens prontas</h3>
+                <p>Use, edite ou exclua respostas rápidas.</p>
+            </div>
+
+            <button
+                type="button"
+                class="MOTORISTAMENSAGENS_prontas_fechar"
+                onclick="MOTORISTAMENSAGENS_func_fecharMensagensProntas()"
+            >
+                ×
+            </button>
+        </div>
+
+        <div id="MOTORISTAMENSAGENS_prontas_lista" class="MOTORISTAMENSAGENS_prontas_lista">
+            <!-- JS carrega as mensagens aqui -->
+        </div>
+
+        <div class="MOTORISTAMENSAGENS_prontas_nova">
+            <textarea
+                id="MOTORISTAMENSAGENS_input_nova_pronta"
+                placeholder="Digite uma nova mensagem pronta..."
+                maxlength="300"
+            ></textarea>
+
+            <button
+                type="button"
+                onclick="MOTORISTAMENSAGENS_func_adicionarMensagemPronta()"
+            >
+                ADICIONAR
+            </button>
+        </div>
+
+    </div>
+
+</div>
+<!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS RAPIDAS fINAL -->
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL FERRAMENTAS -->
 
     <div id="MOTORISTAPAG_Login_modal_ferramentas" class="MOTORISTAPAG_Login_modal_home">
@@ -11636,10 +12042,15 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 			</div>
 		</div>
 
-        <div id="NOTIFICACOES_conteudo" class="NOTIFICACOES_conteudo">
-            Nenhuma notificação no momento.
-        </div>
-
+        <textarea
+			id="NOTIFICACOES_conteudo"
+			class="NOTIFICACOES_conteudo"
+			placeholder="Digite uma resposta rápida..."
+			maxlength="500"
+			rows="2"
+			oninput="NOTIFICACOES_func_autoAjustarCampoPrincipal(this)"
+		></textarea>
+	<div id="NOTIFICACOES_respostas_rapidas" class="NOTIFICACOES_respostas_rapidas" style="display:none;"></div>
         <div class="NOTIFICACOES_acoes">
             <button type="button" onclick="NOTIFICACOES_func_responderUltima()">
 				Responder
@@ -24514,9 +24925,11 @@ function MOTORISTAPAG_Login_func_abrirPerfilMotorista() {
 
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS -->
 
-var MOTORISTAMENSAGENS_filtroAtual = 'todos';
-
-var MOTORISTAMENSAGENS_listaTeste = [
+	var MOTORISTAMENSAGENS_filtroAtual = 'todos';
+	var MOTORISTAMENSAGENS_prontasFirebase = [];
+	var MOTORISTAMENSAGENS_prontasListener = null;
+	var MOTORISTAMENSAGENS_prontasListenerUid = null;
+	var MOTORISTAMENSAGENS_listaTeste = [
     {
         id: 'teste_1',
         tipo: 'suporte',
@@ -24602,8 +25015,12 @@ function MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista() {
             modal.classList.remove('active');
         }
     });
-
-    tela.style.display = 'block';
+	
+	tela.style.display = 'block';
+	
+	if (typeof MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase === 'function') {
+		MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase();
+	}
 
     MOTORISTAMENSAGENS_filtroAtual = 'todos';
 
@@ -24628,6 +25045,16 @@ function MOTORISTAMENSAGENS_func_fecharTela() {
     if (tela) {
         tela.style.display = 'none';
     }
+
+    if (typeof MOTORISTAMENSAGENS_func_fecharMensagensProntas === 'function') {
+        MOTORISTAMENSAGENS_func_fecharMensagensProntas();
+    }
+
+    if (MOTORISTAMENSAGENS_prontasListener) {
+		MOTORISTAMENSAGENS_prontasListener();
+		MOTORISTAMENSAGENS_prontasListener = null;
+		MOTORISTAMENSAGENS_prontasListenerUid = null;
+	}
 
     MOTORISTAMENSAGENS_filtroAtual = 'todos';
 }
@@ -24749,12 +25176,12 @@ function MOTORISTAMENSAGENS_func_abrirConversa(id) {
     if (titulo) {
         titulo.innerText = item.titulo;
     }
-
-    if (subtitulo) {
+	
+	if (subtitulo) {
         subtitulo.innerText = MOTORISTAMENSAGENS_func_nomeTipo(item.tipo);
     }
-
-    if (mensagens) {
+	
+	if (mensagens) {
         mensagens.innerHTML = '';
 
         const data = document.createElement('div');
@@ -24848,6 +25275,149 @@ function MOTORISTAMENSAGENS_func_horaAgora() {
     });
 }
 
+function TNP_MENSAGEM_func_obterRotuloPessoa(tipoPessoa, genero) {
+    const tipo = String(tipoPessoa || '').toLowerCase().trim();
+    const generoLimpo = String(genero || '').toLowerCase().trim();
+
+    if (tipo === 'motorista') {
+        if (generoLimpo === 'feminino' || generoLimpo === 'mulher') {
+            return 'A motorista';
+        }
+
+        if (generoLimpo === 'masculino' || generoLimpo === 'homem') {
+            return 'O motorista';
+        }
+
+        return 'O(a) motorista';
+    }
+
+    if (tipo === 'passageiro') {
+        if (generoLimpo === 'feminino' || generoLimpo === 'mulher') {
+            return 'A passageira';
+        }
+
+        if (generoLimpo === 'masculino' || generoLimpo === 'homem') {
+            return 'O passageiro';
+        }
+
+        return 'O(a) passageiro(a)';
+    }
+
+    return 'A pessoa';
+}
+
+function TNP_MENSAGEM_func_montarTextoMediado(dados) {
+    dados = dados || {};
+
+    const nomeDestino = String(dados.nomeDestino || '').trim() || 'Olá';
+    const nomeOrigem = String(dados.nomeOrigem || '').trim() || 'a outra pessoa';
+    const tipoOrigem = String(dados.tipoOrigem || '').trim();
+    const generoOrigem = String(dados.generoOrigem || '').trim();
+    const textoOriginal = String(dados.textoOriginal || '').trim();
+
+    if (!textoOriginal) {
+        return '';
+    }
+
+    const rotuloOrigem = TNP_MENSAGEM_func_obterRotuloPessoa(tipoOrigem, generoOrigem);
+
+    return `${nomeDestino},
+
+${rotuloOrigem} ${nomeOrigem} enviou a mensagem:
+
+${textoOriginal}`;
+}
+
+function TNP_MENSAGEM_func_montarTextoMediado(dados) {
+    dados = dados || {};
+
+    const nomeDestino = String(dados.nomeDestino || '').trim() || 'Olá';
+    const nomeOrigem = String(dados.nomeOrigem || '').trim() || 'a outra pessoa';
+    const tipoOrigem = String(dados.tipoOrigem || '').trim();
+    const generoOrigem = String(dados.generoOrigem || '').trim();
+    const textoOriginal = String(dados.textoOriginal || '').trim();
+
+    if (!textoOriginal) {
+        return '';
+    }
+
+    const rotuloOrigem = TNP_MENSAGEM_func_obterRotuloPessoa(tipoOrigem, generoOrigem);
+
+    return `${nomeDestino},
+
+${rotuloOrigem} ${nomeOrigem} enviou a mensagem:
+
+${textoOriginal}`;
+}
+
+function TNP_MENSAGEM_func_testarTextoMediado() {
+    const testePassageira = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Carlos',
+        nomeOrigem: 'Maria',
+        tipoOrigem: 'passageiro',
+        generoOrigem: 'feminino',
+        textoOriginal: 'vai demorar?'
+    });
+
+    const testeMotorista = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Maria',
+        nomeOrigem: 'Carlos',
+        tipoOrigem: 'motorista',
+        generoOrigem: 'masculino',
+        textoOriginal: 'estou a caminho.'
+    });
+
+    const testeNeutro = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Cliente',
+        nomeOrigem: 'Pessoa',
+        tipoOrigem: 'passageiro',
+        generoOrigem: '',
+        textoOriginal: 'estou aguardando.'
+    });
+
+    console.log('TESTE PASSAGEIRA:\n', testePassageira);
+    console.log('TESTE MOTORISTA:\n', testeMotorista);
+    console.log('TESTE NEUTRO:\n', testeNeutro);
+}
+
+function TNP_MENSAGEM_func_testarConversaMediadaCompleta() {
+    const motoristaParaPassageira = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Maria',
+        nomeOrigem: 'Carlos',
+        tipoOrigem: 'motorista',
+        generoOrigem: 'masculino',
+        textoOriginal: 'Estou chegando no local de embarque.'
+    });
+
+    const passageiraParaMotorista = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Carlos',
+        nomeOrigem: 'Maria',
+        tipoOrigem: 'passageiro',
+        generoOrigem: 'feminino',
+        textoOriginal: 'Estou na esquina esperando.'
+    });
+
+    const motoristaGeneroNaoInformado = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Ana',
+        nomeOrigem: 'Motorista',
+        tipoOrigem: 'motorista',
+        generoOrigem: '',
+        textoOriginal: 'Já estou próximo.'
+    });
+
+    const passageiroGeneroNaoInformado = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Motorista',
+        nomeOrigem: 'Passageiro',
+        tipoOrigem: 'passageiro',
+        generoOrigem: '',
+        textoOriginal: 'Pode me aguardar mais dois minutos?'
+    });
+
+    console.log('MOTORISTA PARA PASSAGEIRA:\n', motoristaParaPassageira);
+    console.log('PASSAGEIRA PARA MOTORISTA:\n', passageiraParaMotorista);
+    console.log('MOTORISTA SEM GÊNERO:\n', motoristaGeneroNaoInformado);
+    console.log('PASSAGEIRO SEM GÊNERO:\n', passageiroGeneroNaoInformado);
+}
 
 function MOTORISTAMENSAGENS_func_enviarMensagemTeste() {
     const input = document.getElementById('MOTORISTAMENSAGENS_input_mensagem');
@@ -24856,9 +25426,9 @@ function MOTORISTAMENSAGENS_func_enviarMensagemTeste() {
     if (!input || !mensagens) return;
 
     const conversaId = input.dataset.conversaId || '';
-    const texto = input.value.trim();
+    const textoOriginal = input.value.trim();
 
-    if (!texto) {
+    if (!textoOriginal) {
         input.focus();
         return;
     }
@@ -24874,14 +25444,28 @@ function MOTORISTAMENSAGENS_func_enviarMensagemTeste() {
 
     const horaAtual = MOTORISTAMENSAGENS_func_horaAgora();
 
+    // TESTE LOCAL:
+    // Aqui estamos simulando que quem envia é o motorista Carlos
+    // e quem recebe é a passageira Maria.
+    // Depois esses dados virão da corrida real no Firebase.
+    const textoMediado = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Maria',
+        nomeOrigem: 'Carlos',
+        tipoOrigem: 'motorista',
+        generoOrigem: 'masculino',
+        textoOriginal: textoOriginal
+    });
+
     const novaMensagem = {
         autor: 'enviada',
-        texto: texto,
+        texto: textoOriginal,
+        textoMediado: textoMediado,
+        mediacaoAutomatica: true,
         horario: horaAtual
     };
 
     item.mensagens.push(novaMensagem);
-    item.ultimaMensagem = texto;
+    item.ultimaMensagem = textoOriginal;
     item.horario = horaAtual;
     item.naoLidas = 0;
 
@@ -24889,7 +25473,7 @@ function MOTORISTAMENSAGENS_func_enviarMensagemTeste() {
     div.className = 'MOTORISTAMENSAGENS_msg enviada';
 
     const textoMensagem = document.createElement('span');
-    textoMensagem.textContent = texto;
+    textoMensagem.textContent = textoOriginal;
 
     const hora = document.createElement('small');
     hora.textContent = horaAtual;
@@ -24898,6 +25482,9 @@ function MOTORISTAMENSAGENS_func_enviarMensagemTeste() {
     div.appendChild(hora);
 
     mensagens.appendChild(div);
+
+    console.log('Texto original enviado:', textoOriginal);
+    console.log('Texto mediado para o destinatário:\n', textoMediado);
 
     input.value = '';
     input.style.height = '28px';
@@ -24921,7 +25508,397 @@ function MOTORISTAMENSAGENS_func_autoAjustarInputMensagem(textarea) {
     textarea.style.overflowY = textarea.scrollHeight > alturaMaxima ? 'auto' : 'hidden';
 }
 
+function MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return;
+    }
+
+    if (
+        MOTORISTAMENSAGENS_prontasListener &&
+        MOTORISTAMENSAGENS_prontasListenerUid === user.uid
+    ) {
+        if (typeof MOTORISTAMENSAGENS_func_renderizarMensagensProntas === 'function') {
+            MOTORISTAMENSAGENS_func_renderizarMensagensProntas();
+        }
+
+        if (
+            typeof NOTIFICACOES_func_renderizarMensagensRapidasAbertas === 'function' &&
+            document.getElementById('NOTIFICACOES_respostas_rapidas')?.classList.contains('ativo')
+        ) {
+            NOTIFICACOES_func_renderizarMensagensRapidasAbertas();
+        }
+
+        return;
+    }
+
+    if (MOTORISTAMENSAGENS_prontasListener) {
+        MOTORISTAMENSAGENS_prontasListener();
+        MOTORISTAMENSAGENS_prontasListener = null;
+        MOTORISTAMENSAGENS_prontasListenerUid = null;
+    }
+
+    MOTORISTAMENSAGENS_prontasListenerUid = user.uid;
+
+    MOTORISTAMENSAGENS_prontasListener = PRIMEIRAPAG_Login_db
+        .collection('motoristas')
+        .doc(user.uid)
+        .collection('mensagensProntas')
+        .onSnapshot(function(snapshot) {
+            const lista = [];
+
+            snapshot.forEach(function(doc) {
+                const dados = doc.data() || {};
+
+                if (dados.ativo !== true) {
+                    return;
+                }
+
+                lista.push({
+                    id: doc.id,
+                    texto: String(dados.texto || '').trim(),
+                    ordem: Number(dados.ordem || 0)
+                });
+            });
+
+            lista.sort(function(a, b) {
+                return a.ordem - b.ordem;
+            });
+
+            MOTORISTAMENSAGENS_prontasFirebase = lista;
+
+            console.log('Mensagens prontas carregadas:', lista);
+
+            if (typeof MOTORISTAMENSAGENS_func_renderizarMensagensProntas === 'function') {
+                MOTORISTAMENSAGENS_func_renderizarMensagensProntas();
+            }
+
+            if (
+                typeof NOTIFICACOES_func_renderizarMensagensRapidasAbertas === 'function' &&
+                document.getElementById('NOTIFICACOES_respostas_rapidas')?.classList.contains('ativo')
+            ) {
+                NOTIFICACOES_func_renderizarMensagensRapidasAbertas();
+            }
+        }, function(error) {
+            console.error('Erro ao carregar mensagens prontas:', error);
+
+            MOTORISTAMENSAGENS_prontasListener = null;
+            MOTORISTAMENSAGENS_prontasListenerUid = null;
+        });
+}
+
+	function NOTIFICACOES_func_renderizarMensagensRapidasAbertas() {
+		const area = document.getElementById('NOTIFICACOES_respostas_rapidas');
+
+		if (!area) return;
+
+		const mensagensRapidas = MOTORISTAMENSAGENS_func_obterMensagensProntasNotificacao();
+
+		area.innerHTML = `
+			<div class="NOTIFICACOES_respostas_rapidas_titulo">
+				Mensagens rápidas
+			</div>
+		`;
+
+		if (!mensagensRapidas.length) {
+			const vazio = document.createElement('div');
+			vazio.className = 'NOTIFICACOES_resposta_item';
+			vazio.textContent = 'Nenhuma mensagem rápida cadastrada.';
+			area.appendChild(vazio);
+			return;
+		}
+
+		mensagensRapidas.forEach(function(texto) {
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'NOTIFICACOES_resposta_item';
+			btn.textContent = texto;
+
+			btn.onclick = function() {
+				NOTIFICACOES_func_usarMensagemRapidaNoChat(texto);
+			};
+
+			area.appendChild(btn);
+		});
+	}
+
+
+function MOTORISTAMENSAGENS_func_obterListaMensagensProntas() {
+    if (
+        Array.isArray(MOTORISTAMENSAGENS_prontasFirebase) &&
+        MOTORISTAMENSAGENS_prontasFirebase.length > 0
+    ) {
+        return MOTORISTAMENSAGENS_prontasFirebase;
+    }
+
+    return MOTORISTAMENSAGENS_prontasTeste.map(function(texto, index) {
+        return {
+            id: null,
+            texto: texto,
+            ordem: index + 1,
+            teste: true
+        };
+    });
+}
+
+
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS FINAL -->
+
+//-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS RAPIDAS -->
+var MOTORISTAMENSAGENS_prontasTeste = [
+    'Estou chegando.',
+    'Estou no local de embarque.',
+    'Pode confirmar o ponto?',
+    'Trânsito intenso, posso atrasar alguns minutos.',
+    'Vou verificar no veículo.',
+    'Encontrei o item.',
+    'Não localizei o item.',
+    'Aguardando orientação do suporte.'
+];
+function MOTORISTAMENSAGENS_func_abrirMensagensProntas() {
+    const modal = document.getElementById('MOTORISTAMENSAGENS_prontas_modal');
+
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+
+    MOTORISTAMENSAGENS_func_renderizarMensagensProntas();
+}
+
+function MOTORISTAMENSAGENS_func_fecharMensagensProntas() {
+    const modal = document.getElementById('MOTORISTAMENSAGENS_prontas_modal');
+
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function MOTORISTAMENSAGENS_func_renderizarMensagensProntas() {
+    const lista = document.getElementById('MOTORISTAMENSAGENS_prontas_lista');
+
+    if (!lista) return;
+
+    lista.innerHTML = '';
+
+    const mensagens = MOTORISTAMENSAGENS_func_obterListaMensagensProntas();
+
+    if (!mensagens.length) {
+        lista.innerHTML = `
+            <div class="MOTORISTAMENSAGENS_vazio">
+                Nenhuma mensagem pronta cadastrada.
+            </div>
+        `;
+        return;
+    }
+
+    mensagens.forEach(function(item, index) {
+        const texto = item.texto || '';
+
+        const linha = document.createElement('div');
+        linha.className = 'MOTORISTAMENSAGENS_pronta_item';
+
+        const textoEl = document.createElement('div');
+        textoEl.className = 'MOTORISTAMENSAGENS_pronta_texto';
+        textoEl.textContent = texto;
+        textoEl.onclick = function() {
+            MOTORISTAMENSAGENS_func_usarMensagemPronta(index);
+        };
+
+        const btnEditar = document.createElement('button');
+        btnEditar.type = 'button';
+        btnEditar.className = 'MOTORISTAMENSAGENS_pronta_btn';
+        btnEditar.innerText = '✏️';
+        btnEditar.onclick = function(event) {
+            event.stopPropagation();
+            MOTORISTAMENSAGENS_func_editarMensagemPronta(index);
+        };
+
+        const btnExcluir = document.createElement('button');
+        btnExcluir.type = 'button';
+        btnExcluir.className = 'MOTORISTAMENSAGENS_pronta_btn';
+        btnExcluir.innerText = '🗑️';
+        btnExcluir.onclick = function(event) {
+            event.stopPropagation();
+            MOTORISTAMENSAGENS_func_excluirMensagemPronta(index);
+        };
+
+        linha.appendChild(textoEl);
+        linha.appendChild(btnEditar);
+        linha.appendChild(btnExcluir);
+
+        lista.appendChild(linha);
+    });
+}
+
+function MOTORISTAMENSAGENS_func_usarMensagemPronta(index) {
+    const input = document.getElementById('MOTORISTAMENSAGENS_input_mensagem');
+    const mensagens = MOTORISTAMENSAGENS_func_obterListaMensagensProntas();
+    const item = mensagens[index];
+    const texto = item ? item.texto : '';
+
+    if (!input || !texto) return;
+
+    input.value = texto;
+
+    if (typeof MOTORISTAMENSAGENS_func_autoAjustarInputMensagem === 'function') {
+        MOTORISTAMENSAGENS_func_autoAjustarInputMensagem(input);
+    }
+
+    MOTORISTAMENSAGENS_func_fecharMensagensProntas();
+    input.focus();
+}
+
+async function MOTORISTAMENSAGENS_func_adicionarMensagemPronta() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const input = document.getElementById('MOTORISTAMENSAGENS_input_nova_pronta');
+
+    if (!input) return;
+
+    const texto = input.value.trim();
+
+	if (!texto) {
+		input.focus();
+		return;
+	}
+
+	const jaExiste = MOTORISTAMENSAGENS_func_obterListaMensagensProntas().some(function(item) {
+		return String(item.texto || '').trim().toLowerCase() === texto.toLowerCase();
+	});
+
+	if (jaExiste) {
+		alert('Essa mensagem pronta já existe.');
+		input.focus();
+		return;
+	}
+
+    if (!user) {
+        alert('Você precisa estar logado para salvar mensagens prontas.');
+        return;
+    }
+
+    const btn = input.parentElement ? input.parentElement.querySelector('button') : null;
+
+    try {
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'SALVANDO...';
+        }
+
+        const maiorOrdem = Array.isArray(MOTORISTAMENSAGENS_prontasFirebase)
+		? MOTORISTAMENSAGENS_prontasFirebase.reduce(function(maior, item) {
+			return Math.max(maior, Number(item.ordem || 0));
+		}, 0)
+		: 0;
+
+	const ordem = maiorOrdem + 1;
+
+        await PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid)
+            .collection('mensagensProntas')
+            .add({
+                texto: texto,
+                ativo: true,
+                ordem: ordem,
+                criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+        input.value = '';
+    } catch (erro) {
+        console.error('Erro ao adicionar mensagem pronta:', erro);
+        alert('Não foi possível salvar a mensagem pronta agora.');
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'ADICIONAR';
+        }
+    }
+}
+
+async function MOTORISTAMENSAGENS_func_editarMensagemPronta(index) {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const mensagens = MOTORISTAMENSAGENS_func_obterListaMensagensProntas();
+    const item = mensagens[index];
+
+    if (!item || !item.texto) return;
+
+    const novoTexto = prompt('Editar mensagem pronta:', item.texto);
+
+    if (novoTexto === null) return;
+
+    const textoLimpo = novoTexto.trim();
+
+    if (!textoLimpo) return;
+
+    if (!user) {
+        alert('Você precisa estar logado para editar mensagens prontas.');
+        return;
+    }
+
+    try {
+        if (item.id) {
+            await PRIMEIRAPAG_Login_db
+                .collection('motoristas')
+                .doc(user.uid)
+                .collection('mensagensProntas')
+                .doc(item.id)
+                .update({
+                    texto: textoLimpo,
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                });
+        } else {
+            MOTORISTAMENSAGENS_prontasTeste[index] = textoLimpo;
+            MOTORISTAMENSAGENS_func_renderizarMensagensProntas();
+        }
+    } catch (erro) {
+        console.error('Erro ao editar mensagem pronta:', erro);
+        alert('Não foi possível editar a mensagem pronta agora.');
+    }
+}
+
+async function MOTORISTAMENSAGENS_func_excluirMensagemPronta(index) {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const mensagens = MOTORISTAMENSAGENS_func_obterListaMensagensProntas();
+    const item = mensagens[index];
+
+    if (!item || !item.texto) return;
+
+    const confirmar = confirm('Excluir esta mensagem pronta?');
+
+    if (!confirmar) return;
+
+    if (!user) {
+        alert('Você precisa estar logado para excluir mensagens prontas.');
+        return;
+    }
+
+    try {
+        if (item.id) {
+            await PRIMEIRAPAG_Login_db
+                .collection('motoristas')
+                .doc(user.uid)
+                .collection('mensagensProntas')
+                .doc(item.id)
+                .update({
+                    ativo: false,
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                });
+        } else {
+            MOTORISTAMENSAGENS_prontasTeste.splice(index, 1);
+            MOTORISTAMENSAGENS_func_renderizarMensagensProntas();
+        }
+    } catch (erro) {
+        console.error('Erro ao excluir mensagem pronta:', erro);
+        alert('Não foi possível excluir a mensagem pronta agora.');
+    }
+}
+
+
+//-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL MENSAGENS RAPIDAS fINAL -->
+
+
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL CONFIGURAÇÕES -->
 
 
@@ -31616,10 +32593,12 @@ function TNP_Login_func_irParaCorrecaoFotoPerfilAdmin() {
 
 // ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ==========
 
-// -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
+ //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
+ // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
 
 	var NOTIFICACOES_usuarioTipoAtual = null;
 	var NOTIFICACOES_ultimaAtual = null;
+	var NOTIFICACOES_modoLeituraAtivo = false;
 
 	let NOTIFICACOES_arrastandoPainel = false;
 	let NOTIFICACOES_inicioY = 0;
@@ -31633,7 +32612,8 @@ function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
     const modal = document.getElementById('NOTIFICACOES_modal');
     const conteudo = document.getElementById('NOTIFICACOES_conteudo');
     const opcoes = document.getElementById('NOTIFICACOES_opcoes_iniciar');
-
+	const areaRapidas = document.getElementById('NOTIFICACOES_respostas_rapidas');
+	
     if (modal) {
         modal.classList.remove('grande');
         modal.style.height = '300px';
@@ -31642,6 +32622,12 @@ function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
     if (opcoes) {
         opcoes.style.display = 'none';
     }
+	
+	if (areaRapidas) {
+		areaRapidas.classList.remove('ativo');
+		areaRapidas.style.display = 'none';
+		areaRapidas.innerHTML = '';
+	}
 
     // Temporário até ligar no Firestore
     NOTIFICACOES_ultimaAtual = {
@@ -31651,8 +32637,24 @@ function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
     };
 
     if (conteudo) {
-        conteudo.innerText = NOTIFICACOES_ultimaAtual.texto;
-    }
+		conteudo.value = '';
+		conteudo.dataset.respostaRascunho = '';
+		conteudo.dataset.respostaRapidaTexto = '';
+		conteudo.readOnly = false;
+		conteudo.placeholder = 'Digite uma resposta rápida...';
+		conteudo.classList.remove('NOTIFICACOES_conteudo_leitura');
+		conteudo.classList.remove('NOTIFICACOES_conteudo_resposta_pronta');
+
+		if (typeof NOTIFICACOES_func_autoAjustarCampoPrincipal === 'function') {
+			NOTIFICACOES_func_autoAjustarCampoPrincipal(conteudo);
+		}
+	}
+
+	NOTIFICACOES_modoLeituraAtivo = false;
+			
+	if (typeof MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase === 'function') {
+		MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase();
+	}
 
     if (overlay) {
         overlay.style.display = 'flex';
@@ -31662,38 +32664,101 @@ function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
     // Não vai zerar o histórico de mensagens.
 }
 
-function NOTIFICACOES_func_alternarTamanhoPainel() {
+function NOTIFICACOES_func_definirModoLeitura(ativo) {
     const modal = document.getElementById('NOTIFICACOES_modal');
+    const campo = document.getElementById('NOTIFICACOES_conteudo');
+    const areaRapidas = document.getElementById('NOTIFICACOES_respostas_rapidas');
 
-    if (!modal) return;
+    NOTIFICACOES_modoLeituraAtivo = ativo === true;
 
+    if (areaRapidas) {
+        areaRapidas.classList.remove('ativo');
+        areaRapidas.style.display = 'none';
+        areaRapidas.innerHTML = '';
+    }
+
+    if (!campo) return;
+
+    if (NOTIFICACOES_modoLeituraAtivo) {
+        campo.dataset.respostaRascunho = campo.value || '';
+
+        campo.readOnly = true;
+        campo.classList.add('NOTIFICACOES_conteudo_leitura');
+        campo.placeholder = 'Mensagem recebida...';
+
+        campo.value =
+            (NOTIFICACOES_ultimaAtual && NOTIFICACOES_ultimaAtual.texto)
+                ? NOTIFICACOES_ultimaAtual.texto
+                : 'Nenhuma mensagem nova no momento.';
+
+        if (modal) {
+            modal.classList.remove('grande');
+            modal.classList.add('modo_leitura');
+            modal.style.height = '430px';
+        }
+
+        NOTIFICACOES_func_autoAjustarCampoPrincipal(campo);
+        campo.blur();
+        return;
+    }
+
+    campo.readOnly = false;
+    campo.classList.remove('NOTIFICACOES_conteudo_leitura');
+    campo.placeholder = 'Digite uma resposta rápida...';
+
+    campo.value = campo.dataset.respostaRascunho || '';
+
+    if (modal) {
+        modal.classList.remove('grande');
+        modal.classList.remove('modo_leitura');
+        modal.style.height = '300px';
+    }
+
+    NOTIFICACOES_func_autoAjustarCampoPrincipal(campo);
+    campo.focus();
+}
+
+function NOTIFICACOES_func_alternarTamanhoPainel() {
     if (NOTIFICACOES_moveuPainel) {
         NOTIFICACOES_moveuPainel = false;
         return;
     }
 
-    const alturaAtual = modal.offsetHeight;
-    const estaGrande =
-        modal.classList.contains('grande') ||
-        alturaAtual > 400 ||
-        modal.style.height === '78%';
+    NOTIFICACOES_func_definirModoLeitura(!NOTIFICACOES_modoLeituraAtivo);
+}
 
-    if (estaGrande) {
-        modal.classList.remove('grande');
-        modal.style.height = '300px';
-    } else {
-        modal.classList.add('grande');
-        modal.style.height = '78%';
-    }
+function NOTIFICACOES_func_autoAjustarCampoPrincipal(textarea) {
+    if (!textarea) return;
+
+    textarea.style.height = 'auto';
+
+    const alturaMaxima = NOTIFICACOES_modoLeituraAtivo ? 220 : 90;
+    const novaAltura = Math.min(textarea.scrollHeight, alturaMaxima);
+
+    textarea.style.height = novaAltura + 'px';
+    textarea.style.overflowY = textarea.scrollHeight > alturaMaxima ? 'auto' : 'hidden';
 }
 
 function NOTIFICACOES_func_fecharPainel(event) {
     if (event && event.target && event.target.id !== 'NOTIFICACOES_overlay') return;
 
-    const overlay = document.getElementById('NOTIFICACOES_overlay');
+   const overlay = document.getElementById('NOTIFICACOES_overlay');
+	const areaRapidas = document.getElementById('NOTIFICACOES_respostas_rapidas');
+	const modal = document.getElementById('NOTIFICACOES_modal');
 
-    NOTIFICACOES_arrastandoPainel = false;
-    NOTIFICACOES_moveuPainel = false;
+	if (areaRapidas) {
+		areaRapidas.classList.remove('ativo');
+		areaRapidas.style.display = 'none';
+		areaRapidas.innerHTML = '';
+	}
+
+	if (modal) {
+		modal.classList.remove('grande');
+		modal.style.height = '300px';
+	}
+
+	NOTIFICACOES_arrastandoPainel = false;
+	NOTIFICACOES_moveuPainel = false;
 
     document.removeEventListener('mousemove', NOTIFICACOES_func_movendoPainel);
     document.removeEventListener('mouseup', NOTIFICACOES_func_fimArrastePainel);
@@ -31738,7 +32803,7 @@ function NOTIFICACOES_func_movendoPainel(event) {
     let novaAltura = NOTIFICACOES_alturaInicial + diferenca;
 
     const alturaMinima = 260;
-    const alturaMaxima = moldura.offsetHeight * 0.78;
+    const alturaMaxima = moldura.offsetHeight * 0.58;
 
     if (novaAltura < alturaMinima) novaAltura = alturaMinima;
     if (novaAltura > alturaMaxima) novaAltura = alturaMaxima;
@@ -31764,31 +32829,72 @@ function NOTIFICACOES_func_fimArrastePainel() {
 
     const alturaAtual = modal.offsetHeight;
     const alturaMinima = 300;
-    const alturaMaxima = moldura.offsetHeight * 0.78;
+    const alturaMaxima = moldura.offsetHeight * 0.58;
 
-    if (alturaAtual <= 280) {
-        modal.classList.remove('grande');
-        modal.style.height = alturaMinima + 'px';
-        return;
-    }
+    if (alturaAtual <= 330) {
+    NOTIFICACOES_func_definirModoLeitura(false);
+    return;
+}
 
-    if (alturaAtual >= alturaMaxima - 40) {
-        modal.classList.add('grande');
-        modal.style.height = '78%';
-        return;
-    }
+if (alturaAtual >= alturaMaxima - 40) {
+    NOTIFICACOES_func_definirModoLeitura(true);
+    return;
+}
 
-    modal.classList.remove('grande');
-    modal.style.height = alturaAtual + 'px';
+if (alturaAtual > 360) {
+    NOTIFICACOES_func_definirModoLeitura(true);
+} else {
+    NOTIFICACOES_func_definirModoLeitura(false);
+}
 }
 
 function NOTIFICACOES_func_responderUltima() {
+    const campo = document.getElementById('NOTIFICACOES_conteudo');
+
     if (!NOTIFICACOES_ultimaAtual) {
         alert('Nenhuma mensagem para responder no momento.');
         return;
     }
 
-    alert('Próxima etapa: abrir campo para responder esta mensagem.');
+    if (NOTIFICACOES_modoLeituraAtivo) {
+        NOTIFICACOES_func_definirModoLeitura(false);
+        return;
+    }
+
+    const textoOriginal = campo
+        ? String(campo.value || '').trim()
+        : '';
+
+    if (!textoOriginal) {
+        alert('Digite uma resposta ou escolha uma mensagem rápida.');
+        if (campo) campo.focus();
+        return;
+    }
+
+    const textoMediado = TNP_MENSAGEM_func_montarTextoMediado({
+        nomeDestino: 'Maria',
+        nomeOrigem: 'Carlos',
+        tipoOrigem: 'motorista',
+        generoOrigem: 'masculino',
+        textoOriginal: textoOriginal
+    });
+
+    console.log('Resposta original pelo sininho:', textoOriginal);
+    console.log('Resposta mediada pelo sininho:\n', textoMediado);
+
+    if (campo) {
+        campo.value = '';
+        campo.dataset.respostaRascunho = '';
+        campo.dataset.respostaRapidaTexto = '';
+
+        if (typeof NOTIFICACOES_func_autoAjustarCampoPrincipal === 'function') {
+            NOTIFICACOES_func_autoAjustarCampoPrincipal(campo);
+        }
+
+        campo.focus();
+    }
+
+    alert('Resposta mediada gerada. Confira no console.');
 }
 
 function NOTIFICACOES_func_verConversa() {
@@ -31825,14 +32931,93 @@ function NOTIFICACOES_func_iniciarMensagemCom(destino) {
 function NOTIFICACOES_func_irParaMensagens() {
     NOTIFICACOES_func_fecharPainel();
 
-    alert('Próxima etapa: abrir a tela 💬 Mensagens.');
+    if (typeof MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista === 'function') {
+        MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista();
+        return;
+    }
+
+    alert('Tela de mensagens ainda não encontrada.');
 }
 
 function NOTIFICACOES_func_abrirMensagemRapida() {
-    alert('Próxima etapa: abrir mensagens rápidas cadastradas.');
+    const area = document.getElementById('NOTIFICACOES_respostas_rapidas');
+    const modal = document.getElementById('NOTIFICACOES_modal');
+
+    if (!area) return;
+
+    const estaAberta = area.classList.contains('ativo');
+
+    if (estaAberta) {
+        area.classList.remove('ativo');
+        area.style.display = 'none';
+        area.innerHTML = '';
+
+        if (modal) {
+            modal.classList.remove('grande');
+            modal.style.height = '300px';
+        }
+
+        return;
+    }
+
+    if (modal) {
+        modal.classList.remove('grande');
+        modal.style.height = '430px';
+    }
+
+    NOTIFICACOES_func_renderizarMensagensRapidasAbertas();
+
+    area.style.display = 'block';
+    area.classList.add('ativo');
+}
+
+
+function MOTORISTAMENSAGENS_func_obterMensagensProntasNotificacao() {
+    const lista = MOTORISTAMENSAGENS_func_obterListaMensagensProntas();
+
+    return lista
+        .map(function(item) {
+            return item.texto || '';
+        })
+        .filter(function(texto) {
+            return texto.trim() !== '';
+        });
+}
+
+function NOTIFICACOES_func_usarMensagemRapidaNoChat(texto) {
+    const campo = document.getElementById('NOTIFICACOES_conteudo');
+    const areaRapidas = document.getElementById('NOTIFICACOES_respostas_rapidas');
+
+    if (!texto) return;
+
+    if (typeof NOTIFICACOES_func_definirModoLeitura === 'function') {
+        NOTIFICACOES_func_definirModoLeitura(false);
+    }
+
+    if (campo) {
+        campo.value = texto;
+        campo.dataset.respostaRascunho = texto;
+        campo.dataset.respostaRapidaTexto = texto;
+
+        if (typeof NOTIFICACOES_func_autoAjustarCampoPrincipal === 'function') {
+            NOTIFICACOES_func_autoAjustarCampoPrincipal(campo);
+        }
+
+        campo.focus();
+    }
+
+    if (areaRapidas) {
+        areaRapidas.classList.remove('ativo');
+        areaRapidas.style.display = 'none';
+    }
+
+    NOTIFICACOES_ultimaAtual = NOTIFICACOES_ultimaAtual || {};
+    NOTIFICACOES_ultimaAtual.respostaRapidaTexto = texto;
 }
 
 //-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM FINAL -->
+ 
+ //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES -->
 
 // -- ===================================================== -->
 // --  MODAIS GERAIS / UNIVERSAIS DO APP FINAL -->
