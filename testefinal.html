@@ -2428,6 +2428,25 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_menu_header span {
     cursor: pointer;
 }
 
+.NOTIFICACOES_btn_rapida {
+    width: 34px !important;
+    min-width: 34px !important;
+    max-width: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50% !important;
+    flex: 0 0 34px;
+
+    font-size: 1rem;
+    line-height: 1;
+}
+
 .MOTORISTAPAG_Login_modal_fechar {
     position: absolute;
     top: 14px;
@@ -31715,7 +31734,75 @@ function TNP_Login_func_irParaCorrecaoFotoPerfilAdmin() {
  //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
  // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
 
-var NOTIFICACOES_usuarioTipoAtual = null;
+// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ==========
+
+//-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
+// -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
+
+function TNP_MOB_func_definirTipoUsuarioAtual(tipo) {
+    tipo = String(tipo || '').toLowerCase().trim();
+
+    if (
+        tipo === 'usuario' ||
+        tipo === 'usuário' ||
+        tipo === 'passageira'
+    ) {
+        tipo = 'passageiro';
+    }
+
+    if (tipo !== 'motorista' && tipo !== 'passageiro') {
+        return false;
+    }
+
+    window.TNP_MOB_tipoUsuarioAtual = tipo;
+
+    try {
+        localStorage.setItem('TNP_MOB_tipoUsuarioAtual', tipo);
+    } catch (erro) {}
+
+    const telaMensagens = document.getElementById('MOTORISTAMENSAGENS_tela');
+
+    if (telaMensagens) {
+        telaMensagens.dataset.origem = tipo;
+    }
+
+    return true;
+}
+
+function TNP_MOB_func_definirTipoUsuarioPelosPerfis(dadosUsuario, modoPreferido) {
+    dadosUsuario = dadosUsuario || {};
+
+    const perfis = dadosUsuario.perfis || {};
+
+    const ehMotorista = perfis.motorista === true;
+    const ehPassageiro = perfis.passageiro === true;
+
+    let modo = String(modoPreferido || '').toLowerCase().trim();
+
+    if (modo === 'usuario' || modo === 'usuário' || modo === 'passageira') {
+        modo = 'passageiro';
+    }
+
+    if (modo === 'motorista' && ehMotorista) {
+        return TNP_MOB_func_definirTipoUsuarioAtual('motorista');
+    }
+
+    if (modo === 'passageiro' && ehPassageiro) {
+        return TNP_MOB_func_definirTipoUsuarioAtual('passageiro');
+    }
+
+    if (ehPassageiro && !ehMotorista) {
+        return TNP_MOB_func_definirTipoUsuarioAtual('passageiro');
+    }
+
+    if (ehMotorista && !ehPassageiro) {
+        return TNP_MOB_func_definirTipoUsuarioAtual('motorista');
+    }
+
+    return false;
+}
+
+	var NOTIFICACOES_usuarioTipoAtual = null;
 	var NOTIFICACOES_ultimaAtual = null;
 	var NOTIFICACOES_modoLeituraAtivo = false;
 
@@ -31802,6 +31889,11 @@ function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
     // Depois aqui vamos marcar somente a última notificação como lida.
     // Não vai zerar o histórico de mensagens.
 }
+
+
+
+
+
 
 function NOTIFICACOES_func_abrirCampoMensagemRapida() {
     const campo = document.getElementById('NOTIFICACOES_campo_mensagem_rapida');
@@ -34091,14 +34183,58 @@ function MENSAGENSPRONTAS_func_obterColecaoAtual() {
 
     if (!user) return null;
 
-    const contexto = TNP_MENSAGENS_contextoAtual || {};
+    const contexto =
+        typeof TNP_MENSAGENS_contextoAtual === 'object' && TNP_MENSAGENS_contextoAtual
+            ? TNP_MENSAGENS_contextoAtual
+            : {};
 
-    const tipoUsuario = String(
+    const telaMensagens = document.getElementById('MOTORISTAMENSAGENS_tela');
+
+    const origemTela =
+        telaMensagens && telaMensagens.dataset
+            ? telaMensagens.dataset.origem
+            : '';
+
+    const origemNotificacao =
+        typeof NOTIFICACOES_usuarioTipoAtual !== 'undefined'
+            ? NOTIFICACOES_usuarioTipoAtual
+            : '';
+
+    let origemSalva = '';
+
+    try {
+        origemSalva = localStorage.getItem('TNP_MOB_tipoUsuarioAtual') || '';
+    } catch (erro) {
+        origemSalva = '';
+    }
+
+    let tipoUsuario = String(
         contexto.origem ||
+        origemNotificacao ||
+        origemTela ||
         window.TNP_MOB_tipoUsuarioAtual ||
-        localStorage.getItem('TNP_MOB_tipoUsuarioAtual') ||
-        'motorista'
+        origemSalva ||
+        ''
     ).toLowerCase().trim();
+
+    if (
+        tipoUsuario === 'usuario' ||
+        tipoUsuario === 'usuário' ||
+        tipoUsuario === 'passageira'
+    ) {
+        tipoUsuario = 'passageiro';
+    }
+
+    if (tipoUsuario !== 'motorista' && tipoUsuario !== 'passageiro') {
+        console.warn('Tipo de usuário não identificado para mensagens prontas.');
+        return null;
+    }
+
+    window.TNP_MOB_tipoUsuarioAtual = tipoUsuario;
+
+    try {
+        localStorage.setItem('TNP_MOB_tipoUsuarioAtual', tipoUsuario);
+    } catch (erro) {}
 
     const colecaoPrincipal = tipoUsuario === 'passageiro'
         ? 'usuarios'
@@ -34129,68 +34265,6 @@ function MENSAGENSPRONTAS_func_fecharModal() {
     if (modal) {
         modal.style.display = 'none';
     }
-}
-
-function MENSAGENSPRONTAS_func_escutarFirebase() {
-    const user = PRIMEIRAPAG_Login_auth.currentUser;
-
-    if (!user) return;
-
-    const mensagensRef = MENSAGENSPRONTAS_func_obterColecaoAtual();
-
-    if (!mensagensRef) return;
-
-    if (
-        MENSAGENSPRONTAS_listener &&
-        MENSAGENSPRONTAS_listenerUid === user.uid
-    ) {
-        return;
-    }
-
-    if (MENSAGENSPRONTAS_listener) {
-        MENSAGENSPRONTAS_listener();
-        MENSAGENSPRONTAS_listener = null;
-    }
-
-    MENSAGENSPRONTAS_listenerUid = user.uid;
-
-    MENSAGENSPRONTAS_listener = mensagensRef.onSnapshot(function(snapshot) {
-        const lista = [];
-
-        snapshot.forEach(function(doc) {
-            const dados = doc.data() || {};
-
-            if (dados.ativo !== true) return;
-
-            lista.push({
-                id: doc.id,
-                texto: String(dados.texto || '').trim(),
-                ordem: Number(dados.ordem || 0)
-            });
-        });
-
-        lista.sort(function(a, b) {
-            return a.ordem - b.ordem;
-        });
-
-        MENSAGENSPRONTAS_listaFirebase = lista;
-
-        MENSAGENSPRONTAS_func_renderizarLista();
-
-        if (
-            typeof NOTIFICACOES_func_abrirCampoMensagemRapida === 'function'
-        ) {
-            const campoRapido = document.getElementById('NOTIFICACOES_campo_mensagem_rapida');
-
-            if (campoRapido && campoRapido.style.display === 'block') {
-                NOTIFICACOES_func_abrirCampoMensagemRapida();
-                NOTIFICACOES_func_abrirCampoMensagemRapida();
-            }
-        }
-
-    }, function(erro) {
-        console.error('Erro ao carregar mensagens prontas:', erro);
-    });
 }
 
 function NOTIFICACOES_func_renderizarCampoMensagemRapida() {
