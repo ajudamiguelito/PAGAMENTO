@@ -13458,14 +13458,17 @@ if (
     PRIMEIRAPAG_etapaMotorista === "cnh"
 ) {
     if (document.getElementById('MOTORISTAPAG_Login_screen_cnh')) {
-        PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
+        if (typeof MOTORISTAPAG_Login_func_abrirTelaCnhMotorista === "function") {
+            MOTORISTAPAG_Login_func_abrirTelaCnhMotorista();
+        } else {
+            PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
+        }
     } else {
         MOTORISTAPAG_Login_func_carregarHomeMotorista();
     }
 
     return;
 }
-
 // 4. Se está na etapa de fotos da CNH
 if (
     PRIMEIRAPAG_etapaUsuario === "motorista_fotos_cnh" ||
@@ -17083,6 +17086,24 @@ DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
 
 // ========== TELA 10: REVISÃO COM PREFIXO DECIMAPRIMEIRAPAG ==========
 
+function DECIMAPRIMEIRAPAG_Login_func_passageiroTemTudoParaPerfil100(dadosUsuario) {
+    dadosUsuario = dadosUsuario || {};
+
+    const temIdTnp =
+        dadosUsuario.idTnpInformado === true ||
+        dadosUsuario.cadastroTnpConcluido === true ||
+        !!dadosUsuario.idTnp ||
+        !!dadosUsuario.tnp?.id;
+
+    return (
+        dadosUsuario.cadastroRapidoConcluido === true &&
+        dadosUsuario.dadosPessoaisConcluidos === true &&
+        dadosUsuario.enderecoConcluido === true &&
+        dadosUsuario.contatoEmergenciaConcluido === true &&
+        temIdTnp
+    );
+}
+
 function DECIMAPRIMEIRAPAG_Login_func_calcularProgressoPerfil(dadosUsuario) {
     let porcentagem = 0;
     let texto = "Cadastro não iniciado";
@@ -17114,17 +17135,93 @@ function DECIMAPRIMEIRAPAG_Login_func_calcularProgressoPerfil(dadosUsuario) {
 	}
 
 	if (
-		dadosUsuario.cadastroCompleto === true &&
-		dadosUsuario.idTnpInformado === true
+		dadosUsuario.cadastroCompleto === true ||
+		DECIMAPRIMEIRAPAG_Login_func_passageiroTemTudoParaPerfil100(dadosUsuario)
 	) {
 		porcentagem = 100;
 		texto = "Perfil completo";
 	}
-
-    return {
+   
+   return {
         porcentagem,
         texto
     };
+}
+
+async function DECIMAPRIMEIRAPAG_Login_func_finalizarPassageiro100SePossivel(dadosUsuario) {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) return false;
+
+    dadosUsuario = dadosUsuario || {};
+
+    if (!DECIMAPRIMEIRAPAG_Login_func_passageiroTemTudoParaPerfil100(dadosUsuario)) {
+        return false;
+    }
+
+    await PRIMEIRAPAG_Login_db
+        .collection('usuarios')
+        .doc(user.uid)
+        .set({
+            cadastroCompleto: true,
+            cadastroPrincipalConcluido: true,
+            cadastroRapidoConcluido: true,
+            cadastroTnpConcluido: true,
+
+            perfil100: true,
+            passageiroLiberado: true,
+            cashbackLiberado: true,
+
+            bloqueadoPorCadastro: false,
+            bloqueadoPorPagamento: false,
+            bloqueadoPorTnp: false,
+            bloqueadoPorSelfieDocumentoExtra: false,
+
+            etapaCadastro: "home_passageiro",
+            etapaCadastroCompleto: "completo",
+
+            perfilAtual: "passageiro",
+            ultimoPerfilUsado: "passageiro",
+            usandoComoPassageiro: true,
+            usandoComoMotorista: false,
+
+            perfis: {
+                ...(dadosUsuario.perfis || {}),
+                passageiro: true,
+                motorista: dadosUsuario.perfis?.motorista === true
+            },
+
+            status: {
+                geral: "ativo_com_cashback",
+                etapa: "home_passageiro",
+                tipo: "passageiro",
+                mensagem: "Cadastro completo e cashback liberado.",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            statusPassageiro: {
+                geral: "ativo_com_cashback",
+                etapa: "home_passageiro",
+                tipo: "passageiro",
+                mensagem: "Cadastro completo e cashback liberado.",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            },
+
+            statusCadastroPassageiro: {
+                ...(dadosUsuario.statusCadastroPassageiro || {}),
+                dadosPessoais: "concluido",
+                endereco: "concluido",
+                contatoEmergencia: "concluido",
+                documentos: "pendente_ate_10_corridas",
+                comprovanteEndereco: "pendente_ate_10_corridas",
+                idTnp: "concluido",
+                cashback: "liberado"
+            },
+
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+    return true;
 }
 
 function DECIMAPRIMEIRAPAG_Login_func_atualizarCardsPerfil(dadosUsuario) {
@@ -17420,7 +17517,20 @@ async function DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal() {
         }
 
 
-        const d = DECIMAPRIMEIRAPAG_Login_doc.data();
+        let d = DECIMAPRIMEIRAPAG_Login_doc.data();
+
+		if (DECIMAPRIMEIRAPAG_Login_func_passageiroTemTudoParaPerfil100(d)) {
+			await DECIMAPRIMEIRAPAG_Login_func_finalizarPassageiro100SePossivel(d);
+
+			const DECIMAPRIMEIRAPAG_Login_docAtualizado = await PRIMEIRAPAG_Login_db
+				.collection('usuarios')
+				.doc(DECIMAPRIMEIRAPAG_Login_user.uid)
+				.get();
+
+			d = DECIMAPRIMEIRAPAG_Login_docAtualizado.exists
+				? DECIMAPRIMEIRAPAG_Login_docAtualizado.data()
+				: d;
+		}
 
 		DECIMAPRIMEIRAPAG_Login_func_atualizarMensagemRevisao(d);     
 		DECIMAPRIMEIRAPAG_Login_func_atualizarCardsPerfil(d);
@@ -17646,16 +17756,18 @@ async function DECIMAPRIMEIRAPAG_Login_func_finalizarCadastroPrincipal() {
             return PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
         }
 
-        if (dAtual.idTnpInformado === true && dAtual.idTnp) {
-            if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
-                return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
-            }
+        if (DECIMAPRIMEIRAPAG_Login_func_passageiroTemTudoParaPerfil100(dAtual)) {
+			await DECIMAPRIMEIRAPAG_Login_func_finalizarPassageiro100SePossivel(dAtual);
 
-            return PRIMEIRAPAG_Login_func_mostrarErro(
-                'DECIMAPRIMEIRAPAG_Login_error_revisao',
-                'A página inicial do passageiro ainda não foi carregada.'
-            );
-        }
+			if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+				return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+			}
+
+			return PRIMEIRAPAG_Login_func_mostrarErro(
+				'DECIMAPRIMEIRAPAG_Login_error_revisao',
+				'A página inicial do passageiro ainda não foi carregada.'
+			);
+		}
 
         if (document.getElementById('DECIMASEGUNDAPAG_Login_screen_tnp')) {
             return PRIMEIRAPAG_Login_func_irPara('DECIMASEGUNDAPAG_Login_screen_tnp');
@@ -20902,7 +21014,32 @@ async function MOTORISTAPAG_Login_func_carregarAndamentoCadastroMotorista() {
     }
 }
 
+function MOTORISTAPAG_Login_func_passageiroEstaCompletoParaVirarMotorista(dadosUsuario) {
+    dadosUsuario = dadosUsuario || {};
 
+    return (
+        dadosUsuario.cadastroCompleto === true &&
+        dadosUsuario.cadastroPrincipalConcluido === true &&
+        dadosUsuario.cadastroTnpConcluido === true &&
+        dadosUsuario.perfil100 === true
+    );
+}
+
+function MOTORISTAPAG_Login_func_bloquearMotoristaAteCompletarPassageiro(dadosUsuario) {
+    alert(
+        'Você começou seu cadastro como passageiro.\n\n' +
+        'Para se tornar motorista, primeiro complete seu perfil de passageiro.\n\n' +
+        'Vamos te levar para a revisão final do passageiro.'
+    );
+
+    if (typeof DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal === 'function') {
+        DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+        return true;
+    }
+
+    PRIMEIRAPAG_Login_func_irPara('DECIMAPRIMEIRAPAG_Login_screen_revisao_final');
+    return true;
+}
 
 async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
@@ -20943,6 +21080,15 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
             usuario.perfil100 === true ||
             usuario.cadastroCompleto === true ||
             usuario.cadastroPrincipalConcluido === true;
+
+// Se já começou como passageiro, só deixa virar motorista depois do passageiro 100%.
+		if (
+			usuarioTemPassageiro &&
+			!MOTORISTAPAG_Login_func_passageiroEstaCompletoParaVirarMotorista(usuario)
+		) {
+			await MOTORISTAPAG_Login_func_bloquearMotoristaAteCompletarPassageiro(usuario);
+			return;
+		}
 
         const motoristaJaCompleto =
 			motorista.perfil100Motorista === true ||
@@ -21970,7 +22116,6 @@ async function MOTORISTAPAG_Login_func_aplicarCpfDoreiNaTelaCnh() {
         return false;
     }
 
-    // Estado padrão: livre e vazio
     inputCpf.value = '';
     inputCpf.readOnly = false;
     inputCpf.removeAttribute('readonly');
@@ -21984,50 +22129,47 @@ async function MOTORISTAPAG_Login_func_aplicarCpfDoreiNaTelaCnh() {
     }
 
     try {
-        const motoristaSnap = await PRIMEIRAPAG_Login_db
-            .collection('motoristas')
-            .doc(user.uid)
-            .get();
-
-        const motorista = motoristaSnap.exists ? motoristaSnap.data() : {};
-
-        // Se não tem Jesusteama ok, não bloqueia e não coloca CPF
-        if (motorista.Jesusteama !== 'ok') {
-            return true;
-        }
-
-        const usuarioSnap = await PRIMEIRAPAG_Login_db
+        const usuarioRef = PRIMEIRAPAG_Login_db
             .collection('usuarios')
-            .doc(user.uid)
-            .get();
+            .doc(user.uid);
+
+        const motoristaRef = PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid);
+
+        const usuarioSnap = await usuarioRef.get();
+        const motoristaSnap = await motoristaRef.get();
 
         const usuario = usuarioSnap.exists ? usuarioSnap.data() : {};
+        const motorista = motoristaSnap.exists ? motoristaSnap.data() : {};
 
-        const cpf = String(
+        const cpfUsuario = String(
             usuario.cpf ||
             usuario.documentoNumero ||
+            motorista.cpf ||
+            motorista.cnhCpfTitular ||
             ''
         ).replace(/\D/g, '');
 
-        if (!cpf) {
+        if (cpfUsuario.length !== 11) {
             return true;
         }
 
         let cpfFormatado =
             usuario.cpfFormatado ||
             usuario.documentoFormatado ||
+            motorista.cpfFormatado ||
+            motorista.cnhCpfTitularFormatado ||
             '';
 
-        if (!cpfFormatado && cpf.length === 11) {
-            cpfFormatado = cpf.replace(
+        if (!cpfFormatado) {
+            cpfFormatado = cpfUsuario.replace(
                 /(\d{3})(\d{3})(\d{3})(\d{2})/,
                 '$1.$2.$3-$4'
             );
         }
 
-        inputCpf.value = cpfFormatado || cpf;
-
-        // Bloqueia o campo
+        inputCpf.value = cpfFormatado;
         inputCpf.readOnly = true;
         inputCpf.setAttribute('readonly', 'readonly');
         inputCpf.classList.add('PRIMEIRAPAG_Login_input_bloqueado');
@@ -22035,10 +22177,20 @@ async function MOTORISTAPAG_Login_func_aplicarCpfDoreiNaTelaCnh() {
         inputCpf.style.cursor = 'not-allowed';
         inputCpf.dataset.Jesusteama = 'ok';
 
+        await motoristaRef.set({
+            Jesusteama: 'ok',
+            cpf: cpfUsuario,
+            cpfFormatado: cpfFormatado,
+            cpfOrigemMotorista: usuario.cpf || usuario.documentoNumero
+                ? 'usuarios_uid'
+                : 'motoristas_uid',
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
         return true;
 
     } catch (erro) {
-        console.error('Erro ao aplicar CPF DOREI na tela CNH:', erro);
+        console.error('Erro ao aplicar CPF do usuário na tela CNH:', erro);
         return true;
     }
 }
@@ -25962,6 +26114,31 @@ let MOTORISTAPAG_Login_timerPixConfirmacao = null;
 let MOTORISTAPAG_Login_segundosPixConfirmacao = 120;
 let MOTORISTAPAG_Login_pixConfirmadoProcessando = false;
 
+function MOTORISTAPAG_Login_func_obterEtapaPassageiroPreservada(dadosUsuario) {
+    dadosUsuario = dadosUsuario || {};
+
+    const passageiroJaCompleto =
+        dadosUsuario.perfil100 === true ||
+        dadosUsuario.cadastroCompleto === true ||
+        dadosUsuario.cadastroPrincipalConcluido === true ||
+        dadosUsuario.cadastroTnpConcluido === true ||
+        dadosUsuario.etapaCadastroCompleto === "completo" ||
+        dadosUsuario.statusPassageiro?.etapa === "home_passageiro";
+
+    if (passageiroJaCompleto) {
+        return "home_passageiro";
+    }
+
+    if (
+        dadosUsuario.etapaCadastro &&
+        !String(dadosUsuario.etapaCadastro).startsWith("motorista_")
+    ) {
+        return dadosUsuario.etapaCadastro;
+    }
+
+    return "revisao_final";
+}
+
 function MOTORISTAPAG_Login_func_carregarTelaPixConfirmacao() {
     PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_pix_confirmacao');
 
@@ -26424,10 +26601,7 @@ async function MOTORISTAPAG_Login_func_mostrarPixConfirmado() {
 			);
 
 		const MOTORISTAPAG_Login_etapaPassageiroPreservadaPix =
-			usuarioAtualPixMotorista.etapaCadastro &&
-			!String(usuarioAtualPixMotorista.etapaCadastro).startsWith("motorista_")
-				? usuarioAtualPixMotorista.etapaCadastro
-				: "revisao_final";
+			  MOTORISTAPAG_Login_func_obterEtapaPassageiroPreservada(usuarioAtualPixMotorista);
 
 		const payloadBaseUsuarioPixMotorista = {
 			bloqueadoPorPagamentoMotorista: false,
@@ -26586,10 +26760,7 @@ async function MOTORISTAPAG_Login_func_verificarPagamentoPixMotorista() {
 			);
 
 		const MOTORISTAPAG_Login_etapaPassageiroPreservadaPixPendente =
-			usuarioAtualPixPendente.etapaCadastro &&
-			!String(usuarioAtualPixPendente.etapaCadastro).startsWith("motorista_")
-				? usuarioAtualPixPendente.etapaCadastro
-				: "revisao_final";
+			  MOTORISTAPAG_Login_func_obterEtapaPassageiroPreservada(usuarioAtualPixPendente);
 
 		const payloadBaseUsuarioPixPendente = {
 			bloqueadoPorPagamentoMotorista: true,
@@ -26732,10 +26903,7 @@ async function MOTORISTAPAG_Login_func_continuarParaTermosMotorista() {
 		);
 
 	const MOTORISTAPAG_Login_etapaPassageiroPreservadaTermos =
-		dadosUsuario.etapaCadastro &&
-		!String(dadosUsuario.etapaCadastro).startsWith("motorista_")
-			? dadosUsuario.etapaCadastro
-			: "revisao_final";
+		  MOTORISTAPAG_Login_func_obterEtapaPassageiroPreservada(dadosUsuario);
 
     const payloadBaseUsuarioTermosMotorista = {
         bloqueadoPorPagamentoMotorista: pixPago ? false : true,
@@ -27257,6 +27425,8 @@ async function MOTORISTAPAG_Login_func_prepararTelaIdTnpMotorista() {
     }
 }
 
+
+
 async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
     const input = document.getElementById('MOTORISTAPAG_Login_input_id_tnp');
@@ -27505,30 +27675,35 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
 			);
 
 		const MOTORISTAPAG_Login_etapaPassageiroPreservadaFinal =
-			usuarioDados.etapaCadastro &&
-			!String(usuarioDados.etapaCadastro).startsWith("motorista_")
-				? usuarioDados.etapaCadastro
-				: "revisao_final";
+			MOTORISTAPAG_Login_func_obterEtapaPassageiroPreservada(usuarioDados);
 
 		const payloadUsuarioMotoristaFinal = {
-		...payloadBaseUsuarioMotoristaFinal,
+			...payloadBaseUsuarioMotoristaFinal,
 
-		// Mantém o app no contexto do MOTORISTA
-		perfilAtual: 'motorista',
-		tipo: 'motorista',
+			// Mantém o app no contexto do MOTORISTA
+			perfilAtual: 'motorista',
+			ultimoPerfilUsado: 'motorista',
+			usandoComoMotorista: true,
+			usandoComoPassageiro: false,
 
-		// Garante os dois perfis, mas sem tirar o motorista do fluxo atual
-		perfis: {
-			...(usuarioDados.perfis || {}),
-			motorista: true,
-			passageiro: true
-		},
+			// tipo é a origem/base da conta.
+			// Passageiro que virou motorista continua tipo passageiro.
+			tipo: MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal
+				? 'passageiro'
+				: 'motorista',
 
-		// Preserva a origem original da conta, mas não força passageiro aqui
-		tipoContaOriginal:
-		usuarioDados.origemCadastro === 'tipo_conta_motorista'
-			? 'motorista'
-			: (usuarioDados.tipoContaOriginal || 'motorista'),
+			// Garante os dois perfis
+			perfis: {
+				...(usuarioDados.perfis || {}),
+				motorista: true,
+				passageiro: MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal
+					? true
+					: ((usuarioDados.perfis || {}).passageiro === true)
+			},
+
+			tipoContaOriginal: MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal
+				? 'passageiro'
+				: (usuarioDados.tipoContaOriginal || 'motorista'),
 
 		// Marca que o passageiro foi criado/liberado a partir da finalização do motorista
 		origemCadastroPassageiro:
@@ -32405,41 +32580,51 @@ function PRIMEIRAPAG_Login_func_continuarCadastroMotoristaPendente() {
     PRIMEIRAPAG_Login_func_fecharCardMotoristaPendente();
 
     if (
-    dadosUsuario.selfieEnviada !== true ||
-    etapa === "selfie" ||
-    etapa === "motorista_selfie" ||
-    etapaMotorista === "selfie"
-) {
-    window.PRIMEIRAPAG_Login_fluxoSelfieAtual = "motorista";
-    sessionStorage.setItem("TNP_MOB_FLUXO_SELFIE_ATUAL", "motorista");
+		dadosUsuario.selfieEnviada !== true ||
+		etapa === "selfie" ||
+		etapa === "motorista_selfie" ||
+		etapaMotorista === "selfie"
+	) {
+		window.PRIMEIRAPAG_Login_fluxoSelfieAtual = "motorista";
+		sessionStorage.setItem("TNP_MOB_FLUXO_SELFIE_ATUAL", "motorista");
 
-    PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
-    return;
-}
+		PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
+		return;
+	}
 
-    if (etapa === "motorista_categoria" || etapaMotorista === "categoria") {
-        PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_categoria');
-        return;
-    }
+		if (etapa === "motorista_categoria" || etapaMotorista === "categoria") {
+			PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_categoria');
+			return;
+		}
 
-    if (etapa === "motorista_cnh" || etapaMotorista === "cnh") {
-        PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
-        return;
-    }
+		if (etapa === "motorista_cnh" || etapaMotorista === "cnh") {
+		if (typeof MOTORISTAPAG_Login_func_abrirTelaCnhMotorista === "function") {
+			MOTORISTAPAG_Login_func_abrirTelaCnhMotorista();
+		} else {
+			PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
+		}
 
-    if (
-        etapa === "motorista_fotos_cnh" ||
-        etapaMotorista === "fotos_cnh" ||
-        etapa === "motorista_foto_cnh" ||
-        etapaMotorista === "foto_cnh"
-    ) {
-        if (typeof MOTORISTAPAG_Login_func_carregarTelaFotosCnh === "function") {
-            MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
-        } else {
-            PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
-        }
-        return;
-    }
+		return;
+	}
+
+	if (
+		etapa === "motorista_fotos_cnh" ||
+		etapaMotorista === "fotos_cnh" ||
+		etapa === "motorista_foto_cnh" ||
+		etapaMotorista === "foto_cnh"
+	) {
+		if (typeof MOTORISTAPAG_Login_func_carregarTelaFotosCnh === "function") {
+			MOTORISTAPAG_Login_func_carregarTelaFotosCnh();
+		} else {
+			if (typeof MOTORISTAPAG_Login_func_abrirTelaCnhMotorista === "function") {
+				MOTORISTAPAG_Login_func_abrirTelaCnhMotorista();
+			} else {
+				PRIMEIRAPAG_Login_func_irPara('MOTORISTAPAG_Login_screen_cnh');
+			}
+		}
+
+		return;
+	}
 
     if (
         etapa === "motorista_dados_veiculo" ||
