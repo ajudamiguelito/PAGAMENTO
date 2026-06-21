@@ -9296,11 +9296,21 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
     <br><br>
 
+    Se você digitou o CPF errado, toque em <strong>Corrigir CPF</strong> e tente novamente.
     Se você reconhece esse CPF, volte ao início e entre com a conta correta.
     Se você não reconhece ou precisa continuar, o cadastro poderá seguir,
     mas ficará marcado com alerta para análise do suporte antes da aprovação.
 
     <button
+        type="button"
+        class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+        onclick="MOTORISTAPAG_Login_func_corrigirCpfConflitoCnh()"
+    >
+        CORRIGIR CPF
+    </button>
+
+    <button
+        type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
         onclick="MOTORISTAPAG_Login_func_voltarInicioCpfConflito()"
     >
@@ -9308,13 +9318,13 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     </button>
 
     <button
+        type="button"
         class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
         onclick="MOTORISTAPAG_Login_func_continuarComAlertaCpf()"
     >
         CONTINUAR COM ALERTA PARA SUPORTE
     </button>
 </div>
-
     <div style="padding-bottom:120px;">
         <button
             id="MOTORISTAPAG_Login_btn_salvar_cnh"
@@ -10330,7 +10340,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
    	<button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui ficarão orientações e recursos de segurança.')">🛡️ Central de segurança</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirGanhos()">💰 Meus ganhos</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirConfiguracoesMotorista()">⚙️ Configurações</button>
-    <button onclick="PASSAGEIROPAG_Login_func_carregarHomePassageiro()">🙋 Usar como passageiro</button>
+    <button onclick="PASSAGEIROPAG_Login_func_usarComoPassageiro()">🙋 Usar como passageiro</button>
     <button onclick="TESTEMOTORISTA_func_sair()">🚪 Sair</button>
 </div>	
 
@@ -12691,17 +12701,70 @@ function PRIMEIRAPAG_Login_func_irPara(telaId) {
     }
 }
 
- // Quando abrir a tela de selfie, deixa os botões no estado correto:
-    // TROCAR FOTO destacado e ENVIAR FOTO travado.
-    if (telaId === 'QUINTAPAG_Login_screen_selfie') {
-        setTimeout(function() {
-            if (typeof QUINTAPAG_Login_func_prepararTelaSelfie === 'function') {
-                QUINTAPAG_Login_func_prepararTelaSelfie();
-            }
-        }, 100);
+	 // Quando abrir a tela de selfie, deixa os botões no estado correto:
+	// TROCAR FOTO destacado e ENVIAR FOTO travado.
+	if (telaId === 'QUINTAPAG_Login_screen_selfie') {
+		setTimeout(function() {
+			if (typeof QUINTAPAG_Login_func_prepararTelaSelfie === 'function') {
+				QUINTAPAG_Login_func_prepararTelaSelfie();
+			}
+		}, 100);
+	}
+
+	// Quando abrir a tela de ID TNP do motorista,
+	// verifica se já existe ID TNP no CPF.
+	// Se existir, preenche e trava o campo.
+	if (telaId === 'MOTORISTAPAG_Login_screen_id_tnp_motorista') {
+		setTimeout(function() {
+			if (typeof MOTORISTAPAG_Login_func_prepararTelaIdTnpMotorista === 'function') {
+				MOTORISTAPAG_Login_func_prepararTelaIdTnpMotorista();
+			}
+		}, 100);
+	}
+	
+	// A home aberta define qual perfil está ativo agora.
+	if (typeof TNP_MOB_func_marcarPerfilAtivoPelaTela === 'function') {
+		TNP_MOB_func_marcarPerfilAtivoPelaTela(telaId);
+	}
+
+	PRIMEIRAPAG_Login_func_limparErros();  
+}
+
+async function TNP_MOB_func_marcarPerfilAtivoPelaTela(telaId) {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) return;
+
+    let perfilAtivo = "";
+
+    if (telaId === 'PASSAGEIROPAG_Login_screen_home') {
+        perfilAtivo = "passageiro";
     }
 
-    PRIMEIRAPAG_Login_func_limparErros();
+    if (telaId === 'MOTORISTAPAG_Login_screen_home') {
+        perfilAtivo = "motorista";
+    }
+
+    if (!perfilAtivo) return;
+
+    try {
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                perfilAtual: perfilAtivo,
+                tipo: perfilAtivo,
+                ultimoPerfilUsado: perfilAtivo,
+
+                usandoComoPassageiro: perfilAtivo === "passageiro",
+                usandoComoMotorista: perfilAtivo === "motorista",
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+    } catch (erro) {
+        console.error("Erro ao marcar perfil ativo pela tela:", erro);
+    }
 }
 
 function PRIMEIRAPAG_Login_func_aplicarTemaSalvo() {
@@ -13212,6 +13275,40 @@ function PRIMEIRAPAG_Login_func_logar() {
 
 			if (PRIMEIRAPAG_passageiroEmCadastro) {
 				PRIMEIRAPAG_Login_func_retornarEtapaCadastro(PRIMEIRAPAG_user);
+				return;
+			}
+			
+			const PRIMEIRAPAG_passageiro100 =
+				PRIMEIRAPAG_dadosUsuario.perfis &&
+				PRIMEIRAPAG_dadosUsuario.perfis.passageiro === true &&
+				(
+					PRIMEIRAPAG_dadosUsuario.cadastroCompleto === true ||
+					PRIMEIRAPAG_dadosUsuario.perfil100 === true ||
+					PRIMEIRAPAG_dadosUsuario.passageiroLiberado === true ||
+					(
+						PRIMEIRAPAG_dadosUsuario.statusPassageiro &&
+						PRIMEIRAPAG_dadosUsuario.statusPassageiro.geral === "ativo_com_cashback"
+					)
+				);
+
+			if (PRIMEIRAPAG_passageiro100) {
+				await PRIMEIRAPAG_Login_db
+					.collection('usuarios')
+					.doc(PRIMEIRAPAG_uid)
+					.set({
+						perfilAtual: "passageiro",
+						ultimoPerfilUsado: "passageiro",
+						usandoComoPassageiro: true,
+						usandoComoMotorista: false,
+						atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+					}, { merge: true });
+
+				if (typeof PASSAGEIROPAG_Login_func_carregarHomePassageiro === "function") {
+					PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+				} else {
+					PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
+				}
+
 				return;
 			}
 
@@ -15064,6 +15161,7 @@ try {
 
 	const QUINTAPAG_Login_origemCorrecaoFotoPerfil =
 		sessionStorage.getItem("TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL") || "";
+		
 		const QUINTAPAG_Login_fluxoSelfieAtual =
 		window.PRIMEIRAPAG_Login_fluxoSelfieAtual ||
 		localStorage.getItem('TNP_MOB_FLUXO_SELFIE_ATUAL') ||
@@ -15164,25 +15262,19 @@ try {
 			// Motorista puro usa o fluxo geral.
 			// Passageiro virando motorista mantém o fluxo principal do passageiro.
 			if (QUINTAPAG_Login_veioDePassageiroTornouMotorista) {
-				const QUINTAPAG_Login_etapaPassageiroPreservada =
-					QUINTAPAG_Login_dadosUsuarioAntes.etapaCadastro &&
-					!String(QUINTAPAG_Login_dadosUsuarioAntes.etapaCadastro).startsWith("motorista_")
-						? QUINTAPAG_Login_dadosUsuarioAntes.etapaCadastro
-						: "revisao_final";
+			const QUINTAPAG_Login_etapaPassageiroPreservada =
+				QUINTAPAG_Login_dadosUsuarioAntes.etapaCadastro &&
+				!String(QUINTAPAG_Login_dadosUsuarioAntes.etapaCadastro).startsWith("motorista_")
+					? QUINTAPAG_Login_dadosUsuarioAntes.etapaCadastro
+					: "revisao_final";
 
-				Object.assign(QUINTAPAG_Login_payloadFoto, {
-					etapaCadastro: QUINTAPAG_Login_etapaPassageiroPreservada,
+			Object.assign(QUINTAPAG_Login_payloadFoto, {
+				// Preserva o andamento/home do passageiro.
+				// Não altera o status geral do passageiro aqui.
+				etapaCadastro: QUINTAPAG_Login_etapaPassageiroPreservada
+			});
 
-					status: {
-						geral: "liberado_com_limite",
-						etapa: QUINTAPAG_Login_etapaPassageiroPreservada,
-						tipo: "passageiro",
-						mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
-						atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-					}
-				});
-
-			} else if (!QUINTAPAG_Login_usuarioJaCompleto) {
+		} else if (!QUINTAPAG_Login_usuarioJaCompleto) {
 				Object.assign(QUINTAPAG_Login_payloadFoto, {
 					etapaCadastro: "motorista_categoria",
 
@@ -15318,6 +15410,10 @@ try {
 	sessionStorage.removeItem("TNP_MOB_EDITANDO_FOTO_PERFIL");
 	sessionStorage.removeItem("TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN");
 	sessionStorage.removeItem("TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL");
+
+	window.PRIMEIRAPAG_Login_fluxoSelfieAtual = "";
+	localStorage.removeItem("TNP_MOB_FLUXO_SELFIE_ATUAL");
+	sessionStorage.removeItem("TNP_MOB_FLUXO_SELFIE_ATUAL");
 
 	if (QUINTAPAG_Login_corrigindoFotoPerfilAdmin) {
 		if (QUINTAPAG_Login_origemCorrecaoFotoPerfil === "motorista") {
@@ -18427,6 +18523,37 @@ const limiteBloqueioDocumentoFinal = Number.isFinite(limiteBloqueioDocumento)
 }		
  //-- FUNDO DO MAPA -->
 
+async function PASSAGEIROPAG_Login_func_usarComoPassageiro() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    PRIMEIRAPAG_Login_func_limparErros();
+
+    if (!user) {
+        return PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+    }
+
+    try {
+        await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .set({
+                perfilAtual: 'passageiro',
+                tipo: 'passageiro',
+                ultimoPerfilUsado: 'passageiro',
+
+                usandoComoPassageiro: true,
+                usandoComoMotorista: false,
+
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+        return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+
+    } catch (erro) {
+        console.error('Erro ao trocar para passageiro:', erro);
+        return PASSAGEIROPAG_Login_func_carregarHomePassageiro();
+    }
+}
 
 //-- MENU LATERAL -->
 function PASSAGEIROPAG_Login_func_abrirMenuLateral() {
@@ -18561,7 +18688,151 @@ function PASSAGEIROPAG_Login_func_fimArrastePainel() {
 }
 //-- PAINEL DE CORRIDA FINAL -->
 
- 
+async function PASSAGEIROPAG_Login_func_verificarLiberacaoInicialPassageiro() {
+	const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+	if (!user) {
+		PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+		return false;
+	}
+
+	const usuarioRef = PRIMEIRAPAG_Login_db
+		.collection('usuarios')
+		.doc(user.uid);
+
+	const snap = await usuarioRef.get();
+
+	if (!snap.exists) {
+		return false;
+	}
+
+	const dados = snap.data();
+
+	const corridasIniciaisLiberadas = dados.corridasIniciaisLiberadas || 3;
+	const corridasUsadasSemCadastro = dados.corridasUsadasSemCadastro || 0;
+
+	const deveTravarCadastro =
+		dados.bloqueadoPorCadastro === true ||
+		(
+			corridasUsadasSemCadastro >= corridasIniciaisLiberadas &&
+			dados.cadastroPrincipalConcluido !== true
+		);
+
+	// Ainda está dentro das 3 corridas liberadas.
+	// Não trava.
+	if (!deveTravarCadastro) {
+		return true;
+	}
+
+	// A partir daqui travou.
+	// Agora confere exatamente qual etapa está pendente.
+
+	if (dados.dadosPessoaisConcluidos !== true) {
+		await usuarioRef.set({
+			bloqueadoPorCadastro: true,
+			etapaCadastro: "dados_pessoais",
+			etapaCadastroCompleto: "dados_pessoais",
+
+			status: {
+				...(dados.status || {}),
+				geral: "bloqueado_por_cadastro",
+				etapa: "dados_pessoais",
+				tipo: "passageiro",
+				mensagem: "Você usou as corridas iniciais. Complete seus dados pessoais para continuar.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}, { merge: true });
+
+		PRIMEIRAPAG_Login_func_irPara('SETIMAPAG_Login_screen_dados_pessoais');
+		return false;
+	}
+
+	if (dados.enderecoConcluido !== true) {
+		await usuarioRef.set({
+			bloqueadoPorCadastro: true,
+			etapaCadastro: "endereco",
+			etapaCadastroCompleto: "endereco",
+
+			status: {
+				...(dados.status || {}),
+				geral: "bloqueado_por_cadastro",
+				etapa: "endereco",
+				tipo: "passageiro",
+				mensagem: "Você usou as corridas iniciais. Complete seu endereço para continuar.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}, { merge: true });
+
+		PRIMEIRAPAG_Login_func_irPara('OITAVAPAG_Login_screen_endereco');
+		return false;
+	}
+
+	if (dados.contatoEmergenciaConcluido !== true) {
+		await usuarioRef.set({
+			bloqueadoPorCadastro: true,
+			etapaCadastro: "contato_emergencia",
+			etapaCadastroCompleto: "contato_emergencia",
+
+			status: {
+				...(dados.status || {}),
+				geral: "bloqueado_por_cadastro",
+				etapa: "contato_emergencia",
+				tipo: "passageiro",
+				mensagem: "Você usou as corridas iniciais. Informe o contato de emergência para continuar.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			},
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}, { merge: true });
+
+		PRIMEIRAPAG_Login_func_irPara('NONAPAG_Login_screen_contato_emergencia');
+		return false;
+	}
+
+	// Chegou aqui: dados, endereço e contato estão ok.
+	// Então o que falta para liberar é o ID TNP.
+	await usuarioRef.set({
+		bloqueadoPorCadastro: true,
+		bloqueadoPorTnp: true,
+		etapaCadastro: "revisao_final",
+		etapaCadastroCompleto: "revisao_final",
+
+		status: {
+			...(dados.status || {}),
+			geral: "bloqueado_por_cadastro",
+			etapa: "revisao_final",
+			tipo: "passageiro",
+			mensagem: "Você usou as corridas iniciais. Informe seu ID TNP para continuar.",
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	}, { merge: true });
+
+	DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+	return false;
+}
+
+// Aí antes de chamar corrida, usa:
+// const podeContinuar =
+//	await PASSAGEIROPAG_Login_func_verificarLiberacaoInicialPassageiro();
+
+// if (!podeContinuar) return;
+
+// Conclusão:
+
+// Menos de 3 corridas -> deixa passar ✅
+
+// Depois de 3 corridas:
+// dados pendente -> manda dados_pessoais ✅
+// endereço pendente -> manda endereco ✅
+// contato pendente -> manda contato_emergencia ✅
+// só ID TNP pendente -> manda revisão_final / ID TNP ✅
+// Essa trava fecha a brecha sem mexer no fluxo que já está funcionando. 
 //-- COMANDO DE CHAMADAS -->
 // Futuras funções de pedir corrida entram aqui.
 //-- COMANDO DE CHAMADAS FINAL -->
@@ -20312,6 +20583,7 @@ async function PASSAGEIROPAG_Login_func_carregarDadosConviteTnp() {
 
 //--========== TELA 25 PASSAGEIRO: CONVIDAR PESSOAS FINAL ========== //
 
+
 //--========== TELA 26 PASSAGEIRO: Quero ser motorista ========== // -->	
 var MOTORISTAPAG_Login_andamentoCadastroCache = {
     usuario: null,
@@ -20673,18 +20945,53 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
             usuario.cadastroPrincipalConcluido === true;
 
         const motoristaJaCompleto =
-            motorista.perfil100Motorista === true ||
-            motorista.cadastroCompletoMotorista === true ||
-            motorista.cadastroCompleto === true ||
-            motorista.status?.geral === "aprovado" ||
-            motorista.statusMotorista?.geral === "aprovado" ||
-            motorista.podeAceitarCorrida === true;
+			motorista.perfil100Motorista === true ||
+			motorista.cadastroCompletoMotorista === true ||
+			motorista.cadastroCompleto === true ||
+			motorista.status?.geral === "aprovado" ||
+			motorista.statusMotorista?.geral === "aprovado" ||
+			motorista.podeAceitarCorrida === true ||
+
+			usuario.perfil100Motorista === true ||
+			usuario.cadastroCompletoMotorista === true ||
+			usuario.statusMotorista?.geral === "aprovado" ||
+			usuario.podeAceitarCorrida === true;
+
+		const motoristaEmAnaliseAdmin =
+			motorista.etapaCadastroMotorista === "analise_final_motorista" ||
+			motorista.motoristaStatus === "pendente_analise_admin" ||
+			motorista.statusAnalise === "pendente_analise_admin" ||
+			motorista.status?.geral === "pendente_analise_admin" ||
+			motorista.status?.etapa === "analise_final_motorista" ||
+			motorista.statusMotorista?.geral === "pendente_analise_admin" ||
+			motorista.statusMotorista?.etapa === "analise_final_motorista" ||
+
+			usuario.etapaCadastroMotorista === "analise_final_motorista" ||
+			usuario.motoristaStatus === "pendente_analise_admin" ||
+			usuario.statusAnaliseMotorista === "pendente_analise_admin" ||
+			usuario.statusMotorista?.geral === "pendente_analise_admin" ||
+			usuario.statusMotorista?.etapa === "analise_final_motorista";
+
+		// Se o motorista já está 100% OU em análise,
+		// não altera cadastro neste fluxo.
+		// Apenas abre a home do motorista.
+		if (motoristaJaCompleto || motoristaEmAnaliseAdmin) {
+			if (typeof MOTORISTAPAG_Login_func_carregarHomeMotorista === "function") {
+				return MOTORISTAPAG_Login_func_carregarHomeMotorista();
+			}
+
+			return PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_home");
+		}
 
         // Como essa função é "pelo passageiro", a conta principal deve continuar passageiro.
         // Mesmo que algum teste antigo tenha salvo usuario.tipo = "motorista", corrigimos aqui.
         const tipoContaOriginal = usuarioTemPassageiro
             ? "passageiro"
             : (usuario.tipoContaOriginal || usuario.tipo || "passageiro");
+			
+		const tipoPrincipalUsuario = usuarioTemPassageiro
+			? "passageiro"
+			: "motorista";	
 
         const etapaMotoristaAtual = motoristaExiste
             ? MOTORISTAPAG_Login_func_normalizarEtapaAndamentoMotorista(
@@ -20715,22 +21022,48 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
             usuario.nome ||
             user.displayName ||
             "";
+		
+		const cpfUsuarioLimpo = String(
+			usuario.cpf ||
+			usuario.documentoNumero ||
+			""
+		).replace(/\D/g, "");
+
+		const usuarioJaTemCpfNoUid = cpfUsuarioLimpo.length === 11;
+
+		const origemCadastroMotoristaFinal = usuarioJaTemCpfNoUid
+			? "passageiro_tornou_motorista"
+			: "tipo_conta_motorista";
+
+		const dadosCpfMotorista = usuarioJaTemCpfNoUid
+			? {
+				Jesusteama: "ok",
+				cpf: cpfUsuarioLimpo,
+				cpfFormatado: usuario.cpfFormatado || usuario.documentoFormatado || "",
+				cpfOrigemMotorista: "usuarios_uid"
+			}
+			: {};
 
         const MOTORISTAPAG_Login_payloadUsuarioMotorista = {
-			// Mantém a origem/base da conta. Não transforma o usuário principal em motorista.
-			tipo: tipoContaOriginal,
+			// Identidade principal preservada.
+			// Se nasceu passageiro, continua tipo passageiro.
+			tipo: tipoPrincipalUsuario,
+
+			// Modo atual do app
+			perfilAtual: "motorista",
+			ultimoPerfilUsado: "motorista",
+
+			usandoComoPassageiro: false,
+			usandoComoMotorista: true,
+
+			// Origem/base da conta continua preservada aqui
 			tipoContaOriginal: tipoContaOriginal,
 
 			tipoContaEscolhido: true,
 
-			// Mantém a origem original do passageiro e cria uma origem separada para motorista.
 			origemCadastro: usuario.origemCadastro || "tipo_conta_passageiro",
-			origemCadastroMotorista: usuario.origemCadastroMotorista || "passageiro_tornou_motorista",
+			origemCadastroMotorista: origemCadastroMotoristaFinal,
 
-			perfilAtual: "motorista",
-
-			// Mapa limpo e oficial.
-			// Não usar "perfis.motorista" como texto.
 			perfis: {
 				passageiro: true,
 				motorista: true
@@ -20797,32 +21130,31 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
 		);
 
         const MOTORISTAPAG_Login_payloadMotoristas = {
-		uid: user.uid,
-		email: usuario.email || user.email || '',
-		nome: nomeMotorista,
+			uid: user.uid,
+			email: usuario.email || user.email || '',
+			nome: nomeMotorista,
 
-		tipo: "motorista",
-		tipoContaOriginal: tipoContaOriginal,
-		origemCadastro: motorista.origemCadastro || "passageiro_tornou_motorista",
+			tipo: "motorista",
+			tipoContaOriginal: tipoContaOriginal,
+			origemCadastro: origemCadastroMotoristaFinal,
 
-		telefonePrincipal: usuario.telefonePrincipal || "",
-		telefonePrincipalFormatado: usuario.telefonePrincipalFormatado || "",
-		whatsapp: usuario.whatsapp || "",
-		whatsappFormatado: usuario.whatsappFormatado || "",
+			telefonePrincipal: usuario.telefonePrincipal || "",
+			telefonePrincipalFormatado: usuario.telefonePrincipalFormatado || "",
+			whatsapp: usuario.whatsapp || "",
+			whatsappFormatado: usuario.whatsappFormatado || "",
 
-		// Mantém por enquanto porque sua trava de CPF usa esse campo.
-		Jesusteama: 'ok',
+			...dadosCpfMotorista,
 
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-	};
-
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		};
 	if (!motoristaExiste) {
 		MOTORISTAPAG_Login_payloadMotoristas.criadoEm =
         firebase.firestore.FieldValue.serverTimestamp();
 
     MOTORISTAPAG_Login_payloadMotoristas.etapaCadastroMotorista = "selfie";
     MOTORISTAPAG_Login_payloadMotoristas.motoristaStatus = "cadastro_iniciado";
-
+	MOTORISTAPAG_Login_payloadMotoristas.statusAnalise = "cadastro_iniciado";
+	
     MOTORISTAPAG_Login_payloadMotoristas.cadastroCompleto = false;
     MOTORISTAPAG_Login_payloadMotoristas.cadastroCompletoMotorista = false;
     MOTORISTAPAG_Login_payloadMotoristas.perfil100Motorista = false;
@@ -20839,16 +21171,6 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
 
 	await motoristaRef.set(MOTORISTAPAG_Login_payloadMotoristas, { merge: true });
 
-	if (motoristaJaCompleto) {
-		if (typeof MOTORISTAPAG_Login_func_carregarHomeMotorista === "function") {
-			await MOTORISTAPAG_Login_func_carregarHomeMotorista();
-		} else {
-			PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_home");
-		}
-
-		return;
-	}
-
 	PRIMEIRAPAG_Login_var_usuarioMotoristaPendente = {
 		...usuario,
 		...motorista,
@@ -20858,16 +21180,16 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
 		uid: user.uid,
 		email: usuario.email || user.email || '',
 
-		// Aqui é variável local do fluxo de motorista.
-		// Não significa que usuarios/{uid}.tipo virou motorista.
+		// Aqui também força o modo atual como motorista,
+		// sem apagar o perfil passageiro.
 		tipo: "motorista",
 		tipoContaOriginal: tipoContaOriginal,
 		perfilAtual: "motorista",
 
-		origemCadastro: "passageiro_tornou_motorista",
-		origemCadastroMotorista: "passageiro_tornou_motorista",
+		origemCadastro: origemCadastroMotoristaFinal,
+		origemCadastroMotorista: origemCadastroMotoristaFinal,
 
-		Jesusteama: 'ok',
+		...dadosCpfMotorista,
 
 		etapaCadastroMotorista: etapaMotoristaAtual,
 		etapaCadastro: etapaCadastroGeral,
@@ -20898,12 +21220,44 @@ async function MOTORISTAPAG_Login_func_iniciarCadastroMotoristaPeloPassageiro() 
 		window.PRIMEIRAPAG_Login_fluxoSelfieAtual = "motorista";
 		sessionStorage.setItem("TNP_MOB_FLUXO_SELFIE_ATUAL", "motorista");
 	}
+	
+	// REFORÇO FINAL ANTES DE ABRIR A SELFIE / CONTINUAR CADASTRO
+		await usuarioRef.set({
+		// Identidade principal preservada
+		tipo: tipoPrincipalUsuario,
+
+		// Modo atual do app
+		perfilAtual: "motorista",
+		ultimoPerfilUsado: "motorista",
+
+		usandoComoMotorista: true,
+		usandoComoPassageiro: false,
+
+		perfis: {
+			passageiro: true,
+			motorista: true
+		},
+
+		origemCadastroMotorista: origemCadastroMotoristaFinal,
+		etapaCadastroMotorista: etapaMotoristaAtual,
+
+		...(usuarioTemPassageiro ? {
+			statusPassageiro: usuario.statusPassageiro || {
+				geral: "ativo_com_cashback",
+				etapa: "home_passageiro",
+				tipo: "passageiro",
+				mensagem: "ID TNP cadastrado. Cadastro completo e cashback liberado.",
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			}
+		} : {}),
+
+		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+	}, { merge: true });
 
 	if (typeof PRIMEIRAPAG_Login_func_continuarCadastroMotoristaPendente === 'function') {
 		await PRIMEIRAPAG_Login_func_continuarCadastroMotoristaPendente();
 		return;
 	}
-
 	alert('Cadastro de motorista iniciado, mas não foi possível continuar automaticamente.');
 	return;
 
@@ -21515,30 +21869,64 @@ async function MOTORISTAPAG_Login_func_salvarCategoriaPrincipal() {
 				? dadosUsuario.etapaCadastro
 				: "revisao_final";
 
+		// Se veio de passageiro, a identidade principal continua passageiro.
+		// Se é motorista puro, a identidade principal é motorista.
+		const MOTORISTAPAG_Login_tipoPrincipalUsuarioCategoria =
+			MOTORISTAPAG_Login_veioDePassageiroTornouMotorista
+				? "passageiro"
+				: "motorista";
+
+		// Mantém os perfis já existentes e garante motorista ativo.
+		// Só força passageiro true quando realmente veio de passageiro.
+		const MOTORISTAPAG_Login_perfisUsuarioCategoria = {
+			...(dadosUsuario.perfis || {}),
+			motorista: true
+		};
+
+		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotorista) {
+			MOTORISTAPAG_Login_perfisUsuarioCategoria.passageiro = true;
+		}
+
 		const payloadUsuarioCategoria = {
-			perfilAtual: 'motorista',
+			// Identidade principal do usuário.
+			// Passageiro que virou motorista continua tipo "passageiro".
+			tipo: MOTORISTAPAG_Login_tipoPrincipalUsuarioCategoria,
+
+			// Modo atual do app.
+			perfilAtual: "motorista",
+			ultimoPerfilUsado: "motorista",
+
+			usandoComoMotorista: true,
+			usandoComoPassageiro: false,
+
+			perfis: MOTORISTAPAG_Login_perfisUsuarioCategoria,
 
 			categoriaPrincipal: categoria,
-			etapaCadastroMotorista: 'cnh',
+			etapaCadastroMotorista: "cnh",
 
-			motoristaStatus: 'cadastro_iniciado',
 			statusMotorista: statusCnhMotorista,
 
 			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 		};
 
 		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotorista) {
+			// Passageiro virando motorista:
+			// mantém a etapa principal do passageiro.
 			payloadUsuarioCategoria.etapaCadastro = MOTORISTAPAG_Login_etapaPassageiroPreservada;
 
-			payloadUsuarioCategoria.status = {
-				geral: "liberado_com_limite",
-				etapa: MOTORISTAPAG_Login_etapaPassageiroPreservada,
+			// Protege o status do passageiro separado do status do motorista.
+			payloadUsuarioCategoria.statusPassageiro = dadosUsuario.statusPassageiro || {
+				geral: "ativo_com_cashback",
+				etapa: "home_passageiro",
 				tipo: "passageiro",
-				mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
+				mensagem: "ID TNP cadastrado. Cadastro completo e cashback liberado.",
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
+
 		} else {
-			payloadUsuarioCategoria.etapaCadastro = 'motorista_cnh';
+			// Motorista puro:
+			// pode usar o status geral como motorista.
+			payloadUsuarioCategoria.etapaCadastro = "motorista_cnh";
 			payloadUsuarioCategoria.status = statusCnhMotorista;
 		}
 
@@ -22239,24 +22627,36 @@ async function MOTORISTAPAG_Login_func_salvarDadosCnh() {
 		payloadBaseUsuarioCnh.motivoAnaliseAdmin = 'cnh_vencida_fora_da_tolerancia';
 	}
 
-	const payloadUsuarioCnh = {
-		...payloadBaseUsuarioCnh,
-		perfilAtual: 'motorista'
-	};
+	let payloadUsuarioCnh;
 
 	if (MOTORISTAPAG_Login_veioDePassageiroTornouMotorista) {
-		payloadUsuarioCnh.etapaCadastro = MOTORISTAPAG_Login_etapaPassageiroPreservada;
+		payloadUsuarioCnh = {
+			perfilAtual: 'motorista',
 
-		payloadUsuarioCnh.status = {
-			geral: "liberado_com_limite",
-			etapa: MOTORISTAPAG_Login_etapaPassageiroPreservada,
-			tipo: "passageiro",
-			mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
+			etapaCadastro: MOTORISTAPAG_Login_etapaPassageiroPreservada,
+			etapaCadastroMotorista: 'fotos_cnh',
+			motoristaStatus: statusGeralCnh,
+
+			etapaCnhConcluida: true,
+			etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+			requerAnaliseAdmin: statusCnhValidade.bloqueado === true,
+			motivoAnaliseAdmin: statusCnhValidade.bloqueado
+				? 'cnh_vencida_fora_da_tolerancia'
+				: '',
+
+			statusMotorista: statusMotoristaCnh,
+
 			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 		};
+
 	} else {
-		payloadUsuarioCnh.etapaCadastro = 'motorista_fotos_cnh';
-		payloadUsuarioCnh.status = statusMotoristaCnh;
+		payloadUsuarioCnh = {
+			...payloadBaseUsuarioCnh,
+			perfilAtual: 'motorista',
+			etapaCadastro: 'motorista_fotos_cnh',
+			status: statusMotoristaCnh
+		};
 	}
 
 	await usuarioRef.set(payloadUsuarioCnh, { merge: true });
@@ -22497,6 +22897,8 @@ function MOTORISTAPAG_Login_func_maskCpfCnh(input) {
 }
 
 // 1. Função para mostrar o card de conflito e mascarar o e-mail
+
+
 function MOTORISTAPAG_Login_func_mostrarCardCpfConflito() {
     const card = document.getElementById('MOTORISTAPAG_Login_card_cpf_conflito');
     const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cnh');
@@ -22518,6 +22920,47 @@ function MOTORISTAPAG_Login_func_mostrarCardCpfConflito() {
             behavior: 'smooth',
             block: 'center'
         });
+    }
+}
+
+function MOTORISTAPAG_Login_func_corrigirCpfConflitoCnh() {
+    const card = document.getElementById('MOTORISTAPAG_Login_card_cpf_conflito');
+    const erroBox = document.getElementById('MOTORISTAPAG_Login_error_cnh');
+    const btnContinuar = document.getElementById('MOTORISTAPAG_Login_btn_salvar_cnh');
+    const inputCpf = document.getElementById('MOTORISTAPAG_Login_input_cnh_cpf');
+
+    if (card) {
+        card.style.display = 'none';
+    }
+
+    if (erroBox) {
+        erroBox.innerText = '';
+        erroBox.style.display = 'none';
+    }
+
+    if (btnContinuar) {
+        btnContinuar.style.display = 'block';
+        btnContinuar.disabled = false;
+        btnContinuar.innerText = 'CONTINUAR';
+        btnContinuar.dataset.processando = 'nao';
+    }
+
+    if (inputCpf) {
+        if (inputCpf.dataset.Jesusteama === 'ok') {
+            PRIMEIRAPAG_Login_func_mostrarErro(
+                'MOTORISTAPAG_Login_error_cnh',
+                'Este CPF veio do seu cadastro de passageiro e está bloqueado para edição. Para usar outro CPF, fale com o suporte.'
+            );
+            return;
+        }
+
+        inputCpf.readOnly = false;
+        inputCpf.removeAttribute('readonly');
+        inputCpf.classList.remove('PRIMEIRAPAG_Login_input_bloqueado');
+        inputCpf.style.opacity = '';
+        inputCpf.style.cursor = '';
+        inputCpf.focus();
+        inputCpf.select();
     }
 }
 
@@ -22667,7 +23110,8 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
 
                 etapaCadastroMotorista: 'fotos_cnh',
                 motoristaStatus: 'pendente_analise_suporte',
-
+				statusAnalise: 'pendente_analise_suporte',
+				
                 status: statusMotoristaCnh,
 
                 atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
@@ -22738,26 +23182,41 @@ async function MOTORISTAPAG_Login_func_continuarComAlertaCpf() {
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         };
 
-        const payloadUsuarioCnh = {
-			...payloadBaseUsuarioCnh,
-			perfilAtual: 'motorista'
-		};
+       let payloadUsuarioCnh;
 
 		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotorista) {
-			payloadUsuarioCnh.etapaCadastro = MOTORISTAPAG_Login_etapaPassageiroPreservada;
+			payloadUsuarioCnh = {
+				perfilAtual: 'motorista',
 
-			payloadUsuarioCnh.status = {
-				geral: "liberado_com_limite",
-				etapa: MOTORISTAPAG_Login_etapaPassageiroPreservada,
-				tipo: "passageiro",
-				mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
+				etapaCadastro: MOTORISTAPAG_Login_etapaPassageiroPreservada,
+				etapaCadastroMotorista: 'fotos_cnh',
+				motoristaStatus: 'pendente_analise_suporte',
+
+				cpfConflito: true,
+				cpfConflitoStatus: 'pendente_analise_suporte',
+				cpfConflitoMensagem: 'Usuário continuou o cadastro usando CPF já existente em outro cadastro.',
+				cpfConflitoEm: firebase.firestore.FieldValue.serverTimestamp(),
+				cpfConflitoOrigem: 'cadastro_motorista_cnh',
+
+				etapaCnhConcluida: true,
+				etapaCnhConcluidaEm: firebase.firestore.FieldValue.serverTimestamp(),
+
+				requerAnaliseAdmin: true,
+				motivoAnaliseAdmin: 'cpf_ja_usado_em_outra_conta',
+
+				statusMotorista: statusMotoristaCnh,
+
 				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 			};
-		} else {
-			payloadUsuarioCnh.etapaCadastro = 'motorista_fotos_cnh';
-			payloadUsuarioCnh.status = statusMotoristaCnh;
-		}
 
+		} else {
+			payloadUsuarioCnh = {
+				...payloadBaseUsuarioCnh,
+				perfilAtual: 'motorista',
+				etapaCadastro: 'motorista_fotos_cnh',
+				status: statusMotoristaCnh
+			};
+		}
         await usuarioRef.set(payloadUsuarioCnh, { merge: true });
 
         if (btn) {
@@ -23512,33 +23971,38 @@ if (motoristaTemCpfConflito) {
     mensagemStatusMotorista = 'Fotos da CNH enviadas. Cadastro segue com alerta para análise do suporte.';
 }
 
-const payloadMotoristaFotosCnh = {
-    fotosCnhConcluidas: true,
-    fotosCnhStatus: 'pendente_analise',
-    etapaCadastroMotorista: 'dados_veiculo',
+	const payloadMotoristaFotosCnh = {
+		fotosCnhConcluidas: true,
+		fotosCnhStatus: 'pendente_analise',
+		etapaCadastroMotorista: 'dados_veiculo',
 
-    motoristaStatus: statusGeralMotorista,
+		motoristaStatus: statusGeralMotorista,
+		statusAnalise: statusGeralMotorista,
 
-    status: {
-        geral: statusGeralMotorista,
-        etapa: 'dados_veiculo',
-        motivo: motivoStatusMotorista,
-        tipo: 'motorista',
-        uid: user.uid,
+		status: {
+			geral: statusGeralMotorista,
+			etapa: 'dados_veiculo',
+			motivo: motivoStatusMotorista,
+			tipo: 'motorista',
+			uid: user.uid,
 
-        mensagem: mensagemStatusMotorista,
+			mensagem: mensagemStatusMotorista,
 
-        cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
-        cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+			cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+			cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
 
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    },
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
 
 		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
 	};
 
 	if (motivoStatusMotorista) {
+		payloadMotoristaFotosCnh.requerAnaliseAdmin = true;
 		payloadMotoristaFotosCnh.motivoAnaliseAdmin = motivoStatusMotorista;
+	} else {
+		payloadMotoristaFotosCnh.requerAnaliseAdmin = false;
+		payloadMotoristaFotosCnh.motivoAnaliseAdmin = '';
 	}
 
 	await PRIMEIRAPAG_Login_db
@@ -23610,18 +24074,10 @@ const payloadMotoristaFotosCnh = {
 		payloadUsuarioFotosCnh.etapaCadastro =
 			MOTORISTAPAG_Login_etapaPassageiroPreservadaFotosCnh;
 
-		payloadUsuarioFotosCnh.status = {
-			geral: "liberado_com_limite",
-			etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaFotosCnh,
-			tipo: "passageiro",
-			mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		};
 	} else {
 		payloadUsuarioFotosCnh.etapaCadastro = 'motorista_dados_veiculo';
 		payloadUsuarioFotosCnh.status = statusMotoristaFotosCnh;
 	}
-
 	await usuarioRefFotosCnh.set(payloadUsuarioFotosCnh, { merge: true });
 
 	MOTORISTAPAG_Login_func_carregarTelaDadosVeiculo();
@@ -23971,24 +24427,28 @@ async function MOTORISTAPAG_Login_func_salvarDadosVeiculo() {
         veiculoAtualId: dadosMotoristaAtual.veiculoAtualId || '',
 
         dadosVeiculoConcluidos: true,
-        etapaCadastroMotorista: 'documentos_veiculo',
+		etapaCadastroMotorista: 'documentos_veiculo',
 
-        motoristaStatus: statusGeralMotorista,
-        
-        status: {
-            geral: statusGeralMotorista,
-            etapa: 'documentos_veiculo',
-            motivo: motivoStatusMotorista,
-            tipo: 'motorista',
-            uid: user.uid,
+		motoristaStatus: statusGeralMotorista,
+		statusAnalise: statusGeralMotorista,
 
-            mensagem: mensagemStatusMotorista,
+		requerAnaliseAdmin: motivoStatusMotorista ? true : false,
+		motivoAnaliseAdmin: motivoStatusMotorista,
 
-            cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
-            cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+		status: {
+			geral: statusGeralMotorista,
+			etapa: 'documentos_veiculo',
+			motivo: motivoStatusMotorista,
+			tipo: 'motorista',
+			uid: user.uid,
 
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        },
+			mensagem: mensagemStatusMotorista,
+
+			cnhValidadeStatus: dadosMotoristaAtual.cnhValidadeStatus || 'valida',
+			cnhBloqueioPorVencimento: dadosMotoristaAtual.cnhBloqueioPorVencimento === true,
+
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		},
 
         atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
@@ -24057,13 +24517,6 @@ async function MOTORISTAPAG_Login_func_salvarDadosVeiculo() {
 		payloadUsuarioDadosVeiculo.etapaCadastro =
 			MOTORISTAPAG_Login_etapaPassageiroPreservadaDadosVeiculo;
 
-		payloadUsuarioDadosVeiculo.status = {
-			geral: "liberado_com_limite",
-			etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaDadosVeiculo,
-			tipo: "passageiro",
-			mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		};
 	} else {
 		payloadUsuarioDadosVeiculo.etapaCadastro = 'motorista_documentos_veiculo';
 		payloadUsuarioDadosVeiculo.status = statusMotoristaDadosVeiculo;
@@ -24672,6 +25125,7 @@ async function MOTORISTAPAG_Login_func_continuarDepoisDocumentosVeiculo() {
                 etapaCadastroMotorista: 'endereco_motorista',
 
                 motoristaStatus: statusGeralMotorista,
+				statusAnalise: statusGeralMotorista,
 
 				requerAnaliseAdmin: motivoStatusMotorista ? true : false,
 				motivoAnaliseAdmin: motivoStatusMotorista || '',
@@ -24755,20 +25209,13 @@ async function MOTORISTAPAG_Login_func_continuarDepoisDocumentosVeiculo() {
 		};
 
 		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaDocsVeiculo) {
-			payloadUsuarioDocsVeiculo.etapaCadastro =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaDocsVeiculo;
+		payloadUsuarioDocsVeiculo.etapaCadastro =
+			MOTORISTAPAG_Login_etapaPassageiroPreservadaDocsVeiculo;
 
-			payloadUsuarioDocsVeiculo.status = {
-				geral: "liberado_com_limite",
-				etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaDocsVeiculo,
-				tipo: "passageiro",
-				mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
-		} else {
-			payloadUsuarioDocsVeiculo.etapaCadastro = 'motorista_endereco';
-			payloadUsuarioDocsVeiculo.status = statusMotoristaDocsVeiculo;
-		}
+	} else {
+		payloadUsuarioDocsVeiculo.etapaCadastro = 'motorista_endereco';
+		payloadUsuarioDocsVeiculo.status = statusMotoristaDocsVeiculo;
+	}
 
 		await usuarioRefDocsVeiculo.set(payloadUsuarioDocsVeiculo, { merge: true });
 
@@ -25039,6 +25486,7 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 				etapaCadastroMotorista: 'contato_emergencia_motorista',
 
 				motoristaStatus: statusGeralMotorista,
+				statusAnalise: statusGeralMotorista,
 
 				requerAnaliseAdmin: motivoStatusMotorista ? true : false,
 				motivoAnaliseAdmin: motivoStatusMotorista || '',
@@ -25126,20 +25574,13 @@ async function MOTORISTAPAG_Login_func_salvarEnderecoCadastroMotorista() {
 		};
 
 		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaEndereco) {
-			payloadUsuarioEnderecoMotorista.etapaCadastro =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaEndereco;
+		payloadUsuarioEnderecoMotorista.etapaCadastro =
+			MOTORISTAPAG_Login_etapaPassageiroPreservadaEndereco;
 
-			payloadUsuarioEnderecoMotorista.status = {
-				geral: "liberado_com_limite",
-				etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaEndereco,
-				tipo: "passageiro",
-				mensagem: "Foto de perfil enviada. Usuário liberado com limite inicial.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
-		} else {
-			payloadUsuarioEnderecoMotorista.etapaCadastro = 'motorista_contato_emergencia';
-			payloadUsuarioEnderecoMotorista.status = statusMotoristaEndereco;
-		}
+	} else {
+		payloadUsuarioEnderecoMotorista.etapaCadastro = 'motorista_contato_emergencia';
+		payloadUsuarioEnderecoMotorista.status = statusMotoristaEndereco;
+	}
 
 	await usuarioRefEnderecoMotorista.set(payloadUsuarioEnderecoMotorista, { merge: true });
 
@@ -25396,6 +25837,7 @@ async function MOTORISTAPAG_Login_func_salvarContatoEmergenciaMotoristatop() {
                 etapaCadastroMotorista: 'pix_motorista',
 
                 motoristaStatus: statusGeralMotorista,
+				statusAnalise: statusGeralMotorista,
 
                 requerAnaliseAdmin: motivoStatusMotorista ? true : false,
                 motivoAnaliseAdmin: motivoStatusMotorista || '',
@@ -25462,21 +25904,11 @@ async function MOTORISTAPAG_Login_func_salvarContatoEmergenciaMotoristatop() {
 		payloadUsuarioContatoMotorista.etapaCadastro =
 			MOTORISTAPAG_Login_proximaEtapaPassageiroContato;
 
-		payloadUsuarioContatoMotorista.etapaCadastroCompleto =
-			MOTORISTAPAG_Login_proximaEtapaPassageiroContato;
-
 		payloadUsuarioContatoMotorista.statusCadastroPassageiro = {
 			...(usuarioAtualContatoMotorista.statusCadastroPassageiro || {}),
 			contatoEmergencia: "concluido"
 		};
 
-		payloadUsuarioContatoMotorista.status = {
-			geral: "liberado_com_limite",
-			etapa: MOTORISTAPAG_Login_proximaEtapaPassageiroContato,
-			tipo: "passageiro",
-			mensagem: "Contato de emergência salvo. Cadastro do passageiro atualizado.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		};
 	} else {
 		payloadUsuarioContatoMotorista.etapaCadastro = 'motorista_pix';
 		payloadUsuarioContatoMotorista.status = statusMotoristaContato;
@@ -25953,11 +26385,12 @@ async function MOTORISTAPAG_Login_func_mostrarPixConfirmado() {
             .doc(user.uid)
             .set({
                 bloqueadoPorPagamentoMotorista: false,
-                contaRecebimentoConfirmada: true,
+				contaRecebimentoConfirmada: true,
 
-                etapaCadastroMotorista: 'termos_motorista',
+				etapaCadastroMotorista: 'termos_motorista',
 
-                motoristaStatus: statusGeralMotorista,
+				motoristaStatus: statusGeralMotorista,
+				statusAnalise: statusGeralMotorista,
 
 				requerAnaliseAdmin: motivoStatusMotorista ? true : false,
 				motivoAnaliseAdmin: motivoStatusMotorista || '',
@@ -26022,19 +26455,9 @@ async function MOTORISTAPAG_Login_func_mostrarPixConfirmado() {
 	};
 
 	if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaPix) {
-			payloadUsuarioPixMotorista.etapaCadastro =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaPix;
+		payloadUsuarioPixMotorista.etapaCadastro =
+			MOTORISTAPAG_Login_etapaPassageiroPreservadaPix;
 
-			payloadUsuarioPixMotorista.etapaCadastroCompleto =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaPix;
-
-			payloadUsuarioPixMotorista.status = {
-			geral: "liberado_com_limite",
-			etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaPix,
-			tipo: "passageiro",
-			mensagem: "Cadastro do motorista avançou para termos. Cadastro do passageiro preservado.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		};
 	} else {
 		payloadUsuarioPixMotorista.etapaCadastro = 'motorista_termos';
 		payloadUsuarioPixMotorista.status = statusPixMotorista;
@@ -26127,6 +26550,7 @@ async function MOTORISTAPAG_Login_func_verificarPagamentoPixMotorista() {
 
                 etapaCadastroMotorista: 'termos_motorista',
                 motoristaStatus: 'pendente_pagamento',
+				statusAnalise: 'pendente_pagamento',
 
 				requerAnaliseAdmin: true,
 				motivoAnaliseAdmin: 'pix_confirmacao_pendente',
@@ -26188,23 +26612,13 @@ async function MOTORISTAPAG_Login_func_verificarPagamentoPixMotorista() {
 		};
 
 		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaPixPendente) {
-			payloadUsuarioPixPendente.etapaCadastro =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaPixPendente;
+		payloadUsuarioPixPendente.etapaCadastro =
+			MOTORISTAPAG_Login_etapaPassageiroPreservadaPixPendente;
 
-			payloadUsuarioPixPendente.etapaCadastroCompleto =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaPixPendente;
-
-			payloadUsuarioPixPendente.status = {
-				geral: "liberado_com_limite",
-				etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaPixPendente,
-				tipo: "passageiro",
-				mensagem: "Cadastro do motorista avançou com Pix pendente. Cadastro do passageiro preservado.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
-		} else {
-			payloadUsuarioPixPendente.etapaCadastro = 'motorista_termos';
-			payloadUsuarioPixPendente.status = statusPixPendente;
-		}
+	} else {
+		payloadUsuarioPixPendente.etapaCadastro = 'motorista_termos';
+		payloadUsuarioPixPendente.status = statusPixPendente;
+	}
 
 		await usuarioRefPixPendente.set(payloadUsuarioPixPendente, { merge: true });
 
@@ -26298,6 +26712,7 @@ async function MOTORISTAPAG_Login_func_continuarParaTermosMotorista() {
         etapaCadastroMotorista: 'termos_motorista',
 
         motoristaStatus: statusGeralMotorista,
+		statusAnalise: statusGeralMotorista,
 
         requerAnaliseAdmin: motivoStatusMotorista ? true : false,
         motivoAnaliseAdmin: motivoStatusMotorista || '',
@@ -26346,16 +26761,6 @@ async function MOTORISTAPAG_Login_func_continuarParaTermosMotorista() {
 		payloadUsuarioTermosMotorista.etapaCadastro =
 			MOTORISTAPAG_Login_etapaPassageiroPreservadaTermos;
 
-		payloadUsuarioTermosMotorista.etapaCadastroCompleto =
-			MOTORISTAPAG_Login_etapaPassageiroPreservadaTermos;
-
-		payloadUsuarioTermosMotorista.status = {
-			geral: "liberado_com_limite",
-			etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaTermos,
-			tipo: "passageiro",
-			mensagem: "Cadastro do motorista avançou para termos. Cadastro do passageiro preservado.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		};
 	} else {
 		payloadUsuarioTermosMotorista.etapaCadastro = 'motorista_termos';
 		payloadUsuarioTermosMotorista.status = statusTermosMotorista;
@@ -26663,6 +27068,7 @@ async function MOTORISTAPAG_Login_func_aceitarTermosMotorista() {
             etapaCadastroMotorista: 'id_tnp_motorista',
 
             motoristaStatus: statusGeralMotorista,
+			statusAnalise: statusGeralMotorista,
 
             requerAnaliseAdmin: motivoStatusMotorista ? true : false,
             motivoAnaliseAdmin: motivoStatusMotorista || '',
@@ -26715,21 +27121,7 @@ async function MOTORISTAPAG_Login_func_aceitarTermosMotorista() {
 			perfilAtual: 'motorista'
 		};
 
-		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaTermosAceitos) {
-			payloadUsuarioTermos.etapaCadastro =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaTermosAceitos;
-
-			payloadUsuarioTermos.etapaCadastroCompleto =
-				MOTORISTAPAG_Login_etapaPassageiroPreservadaTermosAceitos;
-
-			payloadUsuarioTermos.status = {
-				geral: "liberado_com_limite",
-				etapa: MOTORISTAPAG_Login_etapaPassageiroPreservadaTermosAceitos,
-				tipo: "passageiro",
-				mensagem: "Termos do motorista aceitos. Cadastro do passageiro preservado.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			};
-		} else {
+		if (!MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaTermosAceitos) {
 			payloadUsuarioTermos.etapaCadastro = 'motorista_id_tnp';
 			payloadUsuarioTermos.status = statusMotoristaTermos;
 		}
@@ -26779,7 +27171,91 @@ function MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp) {
     return true;
 }
 
+function MOTORISTAPAG_Login_func_obterIdTnpExistente(usuarioDados, motoristaDados) {
+    return String(
+        usuarioDados.idTnp ||
+        usuarioDados.tnp?.id ||
+        usuarioDados.idTnpMotorista ||
+        usuarioDados.tnpMotorista?.id ||
+        motoristaDados.idTnp ||
+        motoristaDados.idTnpMotorista ||
+        motoristaDados.tnp?.id ||
+        ""
+    ).replace(/\D/g, "").slice(0, 10);
+}
 
+async function MOTORISTAPAG_Login_func_prepararTelaIdTnpMotorista() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const input = document.getElementById('MOTORISTAPAG_Login_input_id_tnp');
+    const check = document.getElementById('MOTORISTAPAG_Login_check_confirmar_id_tnp');
+    const erroId = 'MOTORISTAPAG_Login_error_id_tnp';
+
+    if (!user || !input) return;
+
+    // Estado padrão da tela
+    input.readOnly = false;
+    input.disabled = false;
+    input.dataset.idTnpTravado = 'nao';
+
+    try {
+        const motoristaRef = PRIMEIRAPAG_Login_db
+            .collection('motoristas')
+            .doc(user.uid);
+
+        const usuarioRef = PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid);
+
+        const [motoristaDoc, usuarioDoc] = await Promise.all([
+            motoristaRef.get(),
+            usuarioRef.get()
+        ]);
+
+        const motoristaDados = motoristaDoc.exists ? motoristaDoc.data() : {};
+        const usuarioDados = usuarioDoc.exists ? usuarioDoc.data() : {};
+
+        const idTnpExistente = MOTORISTAPAG_Login_func_obterIdTnpExistente(
+            usuarioDados,
+            motoristaDados
+        );
+
+        if (idTnpExistente) {
+            input.value = idTnpExistente;
+            input.readOnly = true;
+            input.dataset.idTnpTravado = 'sim';
+            input.title = 'ID TNP já vinculado a este CPF. A TNP permite apenas um ID por CPF.';
+
+            if (check) {
+                check.checked = true;
+            }
+
+            if (typeof PRIMEIRAPAG_Login_func_mostrarErro === 'function') {
+                PRIMEIRAPAG_Login_func_mostrarErro(
+                    erroId,
+                    'Este CPF já possui o ID TNP ' + idTnpExistente + '. O campo foi travado porque a TNP permite apenas um ID por CPF.'
+                );
+            }
+        } else {
+            input.value = '';
+            input.readOnly = false;
+            input.dataset.idTnpTravado = 'nao';
+
+            if (check) {
+                check.checked = false;
+            }
+        }
+
+    } catch (erro) {
+        console.error('Erro ao preparar tela de ID TNP do motorista:', erro);
+
+        if (typeof PRIMEIRAPAG_Login_func_mostrarErro === 'function') {
+            PRIMEIRAPAG_Login_func_mostrarErro(
+                erroId,
+                'Não foi possível verificar se este CPF já possui ID TNP.'
+            );
+        }
+    }
+}
 
 async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
     const user = PRIMEIRAPAG_Login_auth.currentUser;
@@ -26805,20 +27281,13 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
         );
     }
 
-    const idTnp = String(input.value || "")
-        .replace(/\D/g, "")
-        .slice(0, 10);
+    let idTnp = String(input.value || "")
+			.replace(/\D/g, "")
+			.slice(0, 10);
 
-    input.value = idTnp;
+		input.value = idTnp;
 
-    if (!MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp)) {
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'MOTORISTAPAG_Login_error_id_tnp',
-            'Informe um ID TNP válido usando apenas números, sem espaços, com no máximo 10 dígitos.'
-        );
-    }
-
-    if (!check || !check.checked) {
+		if (!check || !check.checked) {
         return PRIMEIRAPAG_Login_func_mostrarErro(
             'MOTORISTAPAG_Login_error_id_tnp',
             'Você precisa confirmar que autoriza o uso desse ID TNP no cadastro de motorista e nos pagamentos.'
@@ -26844,9 +27313,45 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
         const usuarioDoc = await usuarioRef.get();
 
         const motoristaDados = motoristaDoc.exists ? motoristaDoc.data() : {};
-        const usuarioDados = usuarioDoc.exists ? usuarioDoc.data() : {};
+		const usuarioDados = usuarioDoc.exists ? usuarioDoc.data() : {};
 
-        const pixMotorista = motoristaDados.pixConfirmacaoRecebimento || {};
+		const idTnpExistente = MOTORISTAPAG_Login_func_obterIdTnpExistente(
+			usuarioDados,
+			motoristaDados
+		);
+
+		const idTnpDigitado = idTnp;
+
+		// Se já existe ID TNP nesse CPF, não permite trocar.
+		if (
+			idTnpExistente &&
+			idTnpDigitado &&
+			idTnpDigitado !== idTnpExistente
+		) {
+			return PRIMEIRAPAG_Login_func_mostrarErro(
+				'MOTORISTAPAG_Login_error_id_tnp',
+				'Este CPF já possui o ID TNP ' + idTnpExistente + '. A TNP permite apenas um ID por CPF. Confirme o ID já cadastrado.'
+			);
+		}
+
+		// Se já existe ID TNP, usa ele automaticamente.
+		if (idTnpExistente) {
+			idTnp = idTnpExistente;
+			input.value = idTnp;
+			input.readOnly = true;
+			input.dataset.idTnpTravado = 'sim';
+		} else {
+			idTnp = idTnpDigitado;
+		}
+
+		if (!MOTORISTAPAG_Login_func_validarIdTnpMotorista(idTnp)) {
+			return PRIMEIRAPAG_Login_func_mostrarErro(
+				'MOTORISTAPAG_Login_error_id_tnp',
+				'Informe um ID TNP válido usando apenas números, sem espaços, com no máximo 10 dígitos.'
+			);
+		}
+
+		const pixMotorista = motoristaDados.pixConfirmacaoRecebimento || {};
 
         const pixJaPago =
             pixMotorista.pago === true ||
@@ -26958,36 +27463,95 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
         }, { merge: true });
 
-        const MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal =
-		usuarioDados.origemCadastroMotorista === "passageiro_tornou_motorista" ||
-		usuarioDados.tipoContaOriginal === "passageiro" ||
-		(
-			usuarioDados.tipo === "passageiro" &&
-			usuarioDados.perfis?.passageiro === true &&
-			usuarioDados.perfis?.motorista === true
-		);
+        const payloadBaseUsuarioMotoristaFinal = {
+				idTnpMotorista: idTnp,
+				idTnpMotoristaInformado: true,
 
-	const payloadBaseUsuarioMotoristaFinal = {
-		idTnpMotorista: idTnp,
-		idTnpMotoristaInformado: true,
+				idTnpUsoMotoristaConfirmado: true,
+				idTnpConfirmadoParaPagamentosMotorista: true,
+				idTnpConfirmadoPeloMotoristaEm: firebase.firestore.FieldValue.serverTimestamp(),
 
-		idTnpUsoMotoristaConfirmado: true,
-		idTnpConfirmadoParaPagamentosMotorista: true,
-		idTnpConfirmadoPeloMotoristaEm: firebase.firestore.FieldValue.serverTimestamp(),
+				bloqueadoPorPagamentoMotorista: pagamentoPendente,
 
-		bloqueadoPorPagamentoMotorista: pagamentoPendente,
+				etapaCadastroMotorista: 'analise_final_motorista',
 
-		etapaCadastroMotorista: 'analise_final_motorista',
+				motoristaStatus: statusGeralFinal,
 
-		motoristaStatus: statusGeralFinal,
+				prontoParaAnaliseAdminMotorista: statusGeralFinal === 'pendente_analise_admin',
+				statusAnaliseMotorista: statusAnaliseFinal,
 
-		prontoParaAnaliseAdminMotorista: statusGeralFinal === 'pendente_analise_admin',
-		statusAnaliseMotorista: statusAnaliseFinal,
+				requerAnaliseAdmin: true,
+				motivoAnaliseAdmin: statusMotivoFinal,
 
-		requerAnaliseAdmin: true,
-		motivoAnaliseAdmin: statusMotivoFinal,
+				tnpMotorista: {
+					id: idTnp,
+					informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+					origem: 'cadastro_motorista',
+					confirmadoPeloMotorista: true,
+					uid: user.uid
+				},
 
-		tnpMotorista: {
+				statusMotorista: statusFinalMotorista,
+
+				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			};
+
+		const MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal =
+			usuarioDados.origemCadastroMotorista === "passageiro_tornou_motorista" ||
+			usuarioDados.tipoContaOriginal === "passageiro" ||
+			(
+				usuarioDados.perfis?.passageiro === true &&
+				usuarioDados.perfis?.motorista === true
+			);
+
+		const MOTORISTAPAG_Login_etapaPassageiroPreservadaFinal =
+			usuarioDados.etapaCadastro &&
+			!String(usuarioDados.etapaCadastro).startsWith("motorista_")
+				? usuarioDados.etapaCadastro
+				: "revisao_final";
+
+		const payloadUsuarioMotoristaFinal = {
+		...payloadBaseUsuarioMotoristaFinal,
+
+		// Mantém o app no contexto do MOTORISTA
+		perfilAtual: 'motorista',
+		tipo: 'motorista',
+
+		// Garante os dois perfis, mas sem tirar o motorista do fluxo atual
+		perfis: {
+			...(usuarioDados.perfis || {}),
+			motorista: true,
+			passageiro: true
+		},
+
+		// Preserva a origem original da conta, mas não força passageiro aqui
+		tipoContaOriginal:
+		usuarioDados.origemCadastro === 'tipo_conta_motorista'
+			? 'motorista'
+			: (usuarioDados.tipoContaOriginal || 'motorista'),
+
+		// Marca que o passageiro foi criado/liberado a partir da finalização do motorista
+		origemCadastroPassageiro:
+			usuarioDados.origemCadastroPassageiro || 'motorista_finalizou_cadastro',
+
+		// Guarda histórico antes de apagar Jesusteama
+		historicoOrigemCadastroMotorista:
+			usuarioDados.origemCadastroMotorista || '',
+
+		marcadorJesusteamaRemovido:
+			usuarioDados.Jesusteama === 'ok',
+
+		// Limpa marcas antigas que estavam confundindo o fluxo
+		Jesusteama: firebase.firestore.FieldValue.delete(),
+		origemCadastroMotorista: firebase.firestore.FieldValue.delete(),
+
+		// ID TNP também libera o perfil passageiro
+		idTnp: idTnp,
+		idTnpInformado: true,
+		cadastroTnpConcluido: true,
+
+		tnp: {
+			...(usuarioDados.tnp || {}),
 			id: idTnp,
 			informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
 			origem: 'cadastro_motorista',
@@ -26995,108 +27559,127 @@ async function MOTORISTAPAG_Login_func_salvarIdTnpMotorista() {
 			uid: user.uid
 		},
 
-		statusMotorista: statusFinalMotorista,
+		// Passageiro 100%
+		cadastroRapidoConcluido: true,
+		cadastroCompleto: true,
+		cadastroPrincipalConcluido: true,
+		perfil100: true,
+		passageiroLiberado: true,
+		cashbackLiberado: true,
 
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-	};
+		bloqueadoPorCadastro: false,
+		bloqueadoPorTnp: false,
+		bloqueadoPorPagamento: false,
+		bloqueadoPorSelfieDocumentoExtra: false,
 
-	const payloadUsuarioMotoristaFinal = {
-		...payloadBaseUsuarioMotoristaFinal,
-		perfilAtual: 'motorista'
-	};
+		// Mantém a regra dos documentos futuros, igual ao passageiro 100%
+		documentoIdentidadePendente: true,
+		comprovanteEnderecoPendente: true,
+		fotoEnderecoPendente: true,
+		selfieComDocumentoPendente: true,
 
-	if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal) {
-		Object.assign(payloadUsuarioMotoristaFinal, {
-			// ID TNP também completa o passageiro
-			idTnp: idTnp,
-			idTnpInformado: true,
-			cadastroTnpConcluido: true,
+		// Termos do passageiro também ficam aceitos
+		termosPassageiroAceitos: true,
+		termosPassageiroVersao: '2026.05',
 
-			tnp: {
-				...(usuarioDados.tnp || {}),
-				id: idTnp,
-				informadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-				origem: 'cadastro_motorista',
-				confirmadoPeloMotorista: true,
-				uid: user.uid
+		aceites: {
+			...(usuarioDados.aceites || {}),
+
+			termosGerais: {
+				...((usuarioDados.aceites || {}).termosGerais || {}),
+				aceito: true,
+				aceitoEm:
+					((usuarioDados.aceites || {}).termosGerais || {}).aceitoEm ||
+					firebase.firestore.FieldValue.serverTimestamp(),
+				versao: '2026.05'
 			},
 
-			// Liberação 100% do passageiro
-			cadastroCompleto: true,
-			cadastroPrincipalConcluido: true,
-			perfil100: true,
-			passageiroLiberado: true,
-
-			bloqueadoPorCadastro: false,
-			bloqueadoPorTnp: false,
-			bloqueadoPorPagamento: false,
-			bloqueadoPorSelfieDocumentoExtra: false,
-
-			documentoIdentidadePendente: false,
-			comprovanteEnderecoPendente: false,
-			fotoEnderecoPendente: false,
-			selfieComDocumentoPendente: false,
-
-			etapaCadastro: 'home_passageiro',
-			etapaCadastroCompleto: 'home_passageiro',
-
-			statusCadastroPassageiro: {
-				...(usuarioDados.statusCadastroPassageiro || {}),
-				dadosPessoais: 'concluido',
-				endereco: 'concluido',
-				contatoEmergencia: 'concluido',
-				documentos: 'concluido',
-				comprovanteEndereco: 'concluido',
-				idTnp: 'concluido'
+			motorista: {
+				...((usuarioDados.aceites || {}).motorista || {}),
+				aceito: true,
+				aceitoEm:
+					((usuarioDados.aceites || {}).motorista || {}).aceitoEm ||
+					firebase.firestore.FieldValue.serverTimestamp(),
+				versao: '2026.05'
 			},
 
-			status: {
-				geral: "cadastro_completo",
-				etapa: "home_passageiro",
-				tipo: "passageiro",
-				mensagem: "ID TNP informado. Passageiro liberado 100%.",
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+			passageiro: {
+				...((usuarioDados.aceites || {}).passageiro || {}),
+				aceito: true,
+				aceitoEm:
+					((usuarioDados.aceites || {}).passageiro || {}).aceitoEm ||
+					firebase.firestore.FieldValue.serverTimestamp(),
+				versao: '2026.05'
 			}
-		});
-	} else {
-		payloadUsuarioMotoristaFinal.etapaCadastro = 'motorista_analise_final';
-		payloadUsuarioMotoristaFinal.status = statusFinalMotorista;
-	}
+		},
 
-	await usuarioRef.set(payloadUsuarioMotoristaFinal, { merge: true });
+		// Passageiro completo, mas sem jogar a rota atual para home_passageiro
+		etapaCadastroCompleto: 'completo',
+
+		statusCadastroPassageiro: {
+			...(usuarioDados.statusCadastroPassageiro || {}),
+			dadosPessoais: 'concluido',
+			endereco: 'concluido',
+			contatoEmergencia: 'concluido',
+			documentos: 'pendente_ate_10_corridas',
+			comprovanteEndereco: 'pendente_ate_10_corridas',
+			idTnp: 'concluido',
+			cashback: 'liberado'
+		},
+
+		// Status separado do passageiro
+		statusPassageiro: {
+			geral: 'ativo_com_cashback',
+			etapa: 'home_passageiro',
+			tipo: 'passageiro',
+			mensagem: 'ID TNP cadastrado. Passageiro liberado 100%.',
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}
+		};
+
+		if (MOTORISTAPAG_Login_veioDePassageiroTornouMotoristaFinal) {
+			payloadUsuarioMotoristaFinal.etapaCadastro =
+				MOTORISTAPAG_Login_etapaPassageiroPreservadaFinal;
+
+		} else {
+			payloadUsuarioMotoristaFinal.etapaCadastro = 'motorista_analise_final';
+			payloadUsuarioMotoristaFinal.status = statusFinalMotorista;
+		}
+
+		await usuarioRef.set(payloadUsuarioMotoristaFinal, { merge: true });
 
         if (input) {
-            input.disabled = true;
-        }
+    input.disabled = true;
+}
 
-        if (typeof MOTORISTAPAG_Login_func_carregarTelaAnaliseMotorista === "function") {
-            return MOTORISTAPAG_Login_func_carregarTelaAnaliseMotorista();
-        }
+if (typeof MOTORISTAPAG_Login_func_abrirAndamentoCadastroMotorista === "function") {
+    return MOTORISTAPAG_Login_func_abrirAndamentoCadastroMotorista();
+}
 
-        if (typeof MOTORISTAPAG_Login_func_abrirAndamentoCadastroMotorista === "function") {
-            return MOTORISTAPAG_Login_func_abrirAndamentoCadastroMotorista();
-        }
+if (typeof MOTORISTAPAG_Login_func_carregarHomeMotorista === "function") {
+    return MOTORISTAPAG_Login_func_carregarHomeMotorista();
+}
 
-        return PRIMEIRAPAG_Login_func_mostrarErro(
-            'MOTORISTAPAG_Login_error_id_tnp',
-            'Cadastro enviado para análise. A tela de análise do motorista ainda será criada.'
-        );
+return PRIMEIRAPAG_Login_func_mostrarErro(
+    'MOTORISTAPAG_Login_error_id_tnp',
+    'Cadastro enviado para análise. A tela de análise do motorista ainda será criada.'
+);
 
-    } catch (erro) {
-        console.error('Erro ao salvar ID TNP do motorista:', erro);
+} catch (erro) {
+    console.error('Erro ao salvar ID TNP do motorista:', erro);
 
-        PRIMEIRAPAG_Login_func_mostrarErro(
-            'MOTORISTAPAG_Login_error_id_tnp',
-            'Erro ao salvar ID TNP: ' + (erro.message || erro.code || 'erro desconhecido')
-        );
+    PRIMEIRAPAG_Login_func_mostrarErro(
+        'MOTORISTAPAG_Login_error_id_tnp',
+        'Erro ao salvar ID TNP: ' + (erro.message || erro.code || 'erro desconhecido')
+    );
 
-    } finally {
-        if (btn) {
-            btn.dataset.processando = 'nao';
-            btn.disabled = false;
-            btn.innerText = 'SALVAR ID TNP';
-        }
+} finally {
+    if (btn) {
+        btn.dataset.processando = 'nao';
+        btn.disabled = false;
+        btn.innerText = 'SALVAR ID TNP';
     }
+}
 }
 // ========== TELA MOTORISTA 10: ID TNP DO MOTORISTA FINAL ==========
 
@@ -36984,8 +37567,125 @@ if (document.readyState === 'loading') {
 }
 //Pra deixar o tema definido do app final
 
+
+
+
+
+
+
+//Testa tipo de conta 
+async function TNP_MOB_func_identificarPerfilAtivo() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        return {
+            logado: false,
+            perfilAtual: "",
+            tipo: "",
+            usandoComoPassageiro: false,
+            usandoComoMotorista: false
+        };
+    }
+
+    try {
+        const doc = await PRIMEIRAPAG_Login_db
+            .collection('usuarios')
+            .doc(user.uid)
+            .get();
+
+        const d = doc.exists ? doc.data() : {};
+
+        let perfilAtual = d.perfilAtual || d.tipo || "";
+
+        if (d.usandoComoPassageiro === true && d.usandoComoMotorista !== true) {
+            perfilAtual = "passageiro";
+        }
+
+        if (d.usandoComoMotorista === true && d.usandoComoPassageiro !== true) {
+            perfilAtual = "motorista";
+        }
+
+        if (perfilAtual !== "passageiro" && perfilAtual !== "motorista") {
+            if (d.tipo === "passageiro" || d.tipo === "motorista") {
+                perfilAtual = d.tipo;
+            }
+        }
+
+        return {
+            logado: true,
+            uid: user.uid,
+            perfilAtual: perfilAtual,
+            tipo: perfilAtual,
+
+            usandoComoPassageiro: perfilAtual === "passageiro",
+            usandoComoMotorista: perfilAtual === "motorista",
+
+            temPerfilPassageiro: d.perfis && d.perfis.passageiro === true,
+            temPerfilMotorista: d.perfis && d.perfis.motorista === true,
+
+            dadosUsuario: d
+        };
+
+    } catch (erro) {
+        console.error("Erro ao identificar perfil ativo:", erro);
+
+        return {
+            logado: true,
+            uid: user.uid,
+            perfilAtual: "",
+            tipo: "",
+            usandoComoPassageiro: false,
+            usandoComoMotorista: false,
+            erro: erro
+        };
+    }
+}
+
+async function TNP_MOB_func_testarPerfilAtivo() {
+    const perfil = await TNP_MOB_func_identificarPerfilAtivo();
+
+    if (!perfil.logado) {
+        alert("Nenhum usuário logado.");
+        return;
+    }
+
+    alert(
+        "PERFIL ATIVO: " + (perfil.perfilAtual || "não identificado") + "\n\n" +
+        "UID: " + perfil.uid + "\n\n" +
+        "Usando como passageiro: " + perfil.usandoComoPassageiro + "\n" +
+        "Usando como motorista: " + perfil.usandoComoMotorista + "\n\n" +
+        "Tem perfil passageiro: " + perfil.temPerfilPassageiro + "\n" +
+        "Tem perfil motorista: " + perfil.temPerfilMotorista
+    );
+}
+//Testa tipo de conta final
+
+
 </script>
 <!-- BOTÕES TEMPORÁRIOS DE TESTE - APAGAR ANTES DE PUBLICAR -->
+
+<button
+    style="
+        position: fixed;
+        right: 14px;
+        bottom: 180px;
+        z-index: 99999;
+        width: auto;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(197, 169, 141, 0.45);
+        background: rgba(30, 27, 25, 0.85);
+        color: #c5a98d;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        opacity: 0.75;
+        display: block;
+    "
+    onclick="TNP_MOB_func_testarPerfilAtivo()"
+>
+    VER PERFIL
+</button>
 
 <button
     style="
