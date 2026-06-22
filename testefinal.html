@@ -6807,6 +6807,260 @@ body.TNP_TEMA_CLARO #MOTORISTAPAG_Login_andamento_barra_interna {
     cursor: not-allowed !important;
     pointer-events: none;
 }	  
+
+.MOTORISTAPAG_Login_modal_ajuda {
+    position: absolute;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.35);
+    align-items: stretch;
+    justify-content: center;
+    padding: 0;
+}
+
+.MOTORISTAPAG_Login_modal_ajuda_box {
+    width: 100%;
+    max-width: 430px;
+    height: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    border-radius: 0;
+    overflow-y: auto;
+    padding: 0 14px 24px;
+}
+/* MODAL MOTORISTA: CENTRAL DE AJUDA */
+
+.MOTORISTAPAG_Login_modal_ajuda {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 99999;
+    padding: 0;
+    margin: 0;
+    background: #1d1713;
+    overflow: hidden;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.MOTORISTAPAG_Login_modal_ajuda_box {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 14px 14px 28px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background:
+        radial-gradient(circle at top, rgba(112, 64, 32, 0.22), transparent 38%),
+        linear-gradient(180deg, #201a16 0%, #191512 100%);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.MOTORISTAPAG_Login_ajuda_topo_modal {
+    width: 100%;
+    min-height: 86px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    gap: 8px;
+    align-items: start;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.MOTORISTAPAG_Login_ajuda_topo_btn {
+    width: 52px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.MOTORISTAPAG_Login_ajuda_topo_centro {
+    min-width: 0;
+    text-align: center;
+}
+
+.MOTORISTAPAG_Login_ajuda_topo_centro h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.35rem;
+    line-height: 1.15;
+    font-weight: 900;
+}
+
+.MOTORISTAPAG_Login_ajuda_topo_centro p {
+    margin: 6px 0 0;
+    color: #d8b28b;
+    font-size: 0.78rem;
+    line-height: 1.25;
+}
+
+/* MODAL MOTORISTA: CENTRAL DE AJUDA FINAL */
+/* MODAL MOTORISTA: CENTRAL DE AJUDA - TEMA CLARO */
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_modal_ajuda {
+    background: #f4eee6;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_modal_ajuda_box {
+    background:
+        radial-gradient(circle at top, rgba(190, 132, 82, 0.16), transparent 42%),
+        linear-gradient(180deg, #f7f1e9 0%, #efe4d8 100%);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_ajuda_topo_centro h2 {
+    color: #2b1d15;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_ajuda_topo_centro p {
+    color: #7a4a2a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_ajuda_topo_btn {
+    background: rgba(61, 38, 25, 0.10);
+    color: #3a2418;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_modal_ajuda .PASSAGEIROPAG_Login_ajuda_bloco_titulo {
+    color: #7a3f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_modal_ajuda .PASSAGEIROPAG_Login_ajuda_busca_box {
+    background: #ffffff;
+    border-color: rgba(92, 54, 32, 0.20);
+    box-shadow: 0 10px 24px rgba(62, 39, 25, 0.10);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_modal_ajuda .PASSAGEIROPAG_Login_ajuda_busca_box input {
+    color: #3a2418;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_modal_ajuda .PASSAGEIROPAG_Login_ajuda_busca_box input::placeholder {
+    color: #8a6a56;
+}
+
+/* MODAL MOTORISTA: CENTRAL DE AJUDA - TEMA CLARO FINAL */
+
+/* ========== MODALSUPERCORREÇÃO ========== */
+
+.MODALSUPERCORRECAO_overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    background: rgba(0, 0, 0, 0.78);
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
+
+.MODALSUPERCORRECAO_overlay.active {
+    display: flex;
+}
+
+.MODALSUPERCORRECAO_box {
+    width: 100%;
+    max-width: 390px;
+    background: #1e1b19;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    border-radius: 24px;
+    padding: 20px 18px;
+    color: var(--Fame_text);
+    text-align: center;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+}
+
+.MODALSUPERCORRECAO_icone {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px auto;
+    border-radius: 50%;
+    background: rgba(197, 169, 141, 0.12);
+    border: 1px solid rgba(197, 169, 141, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.MODALSUPERCORRECAO_box h3 {
+    color: var(--Fame_gold);
+    font-size: 1.12rem;
+    margin-bottom: 10px;
+}
+
+.MODALSUPERCORRECAO_box p {
+    color: var(--Fame_text);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+}
+
+.MODALSUPERCORRECAO_motivo,
+.MODALSUPERCORRECAO_info {
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(197, 169, 141, 0.08);
+    border: 1px solid rgba(197, 169, 141, 0.20);
+    color: var(--Fame_text);
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.MODALSUPERCORRECAO_info {
+    display: none;
+    color: #50dc82;
+    text-align: center;
+    font-weight: 700;
+}
+
+.MODALSUPERCORRECAO_select {
+    width: 100%;
+    padding: 11px;
+    border-radius: 12px;
+    background: var(--Fame_input);
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    color: var(--Fame_text);
+    margin-bottom: 12px;
+}
+
+.MODALSUPERCORRECAO_preview_area {
+    display: none;
+    margin: 10px 0 12px;
+}
+
+.MODALSUPERCORRECAO_preview {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid var(--Fame_gold);
+}
+
+body.TNP_TEMA_CLARO .MODALSUPERCORRECAO_box {
+    background: #ffffff;
+    color: #1f1f1f;
+    border-color: rgba(123, 84, 56, 0.35);
+}
+
+body.TNP_TEMA_CLARO .MODALSUPERCORRECAO_box p,
+body.TNP_TEMA_CLARO .MODALSUPERCORRECAO_motivo {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MODALSUPERCORRECAO_select {
+    background: #ffffff;
+    color: #1f1f1f;
+}
 	  
 </style>
 </head>
@@ -10330,8 +10584,19 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
     <button onclick="MOTORISTAPAG_Login_func_abrirPerfilMotorista()">👤 Meu perfil</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Histórico', 'Aqui ficarão as corridas aceitas, concluídas e canceladas.')">🕘 Histórico</button>
-    <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Solicitar ajuda', 'Aqui o motorista poderá pedir suporte.')">❓ Solicitar ajuda</button>
-    <button
+      
+	<button
+    type="button"
+    onclick="MOTORISTAPAG_Login_func_carregarCentralAjudaMotorista()"
+	>
+		❓ Solicitar ajuda
+	</button> 
+	
+	
+	
+	
+	
+	<button
     type="button"
     onclick="MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista()"
 	>
@@ -10441,14 +10706,62 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
                 🛡️ Central de segurança
             </button>
 
-            <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Suporte', 'Aqui o motorista poderá falar com o suporte.')">
-                ❓ Suporte
-            </button>
+            <button type="button" onclick="MOTORISTAPAG_Login_func_abrirSuporteMotorista()">
+				❓ Suporte
+			</button>
         </div>
 
     </div>
 </div>
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL PERFIL DO MOTORISTA FINAL -->
+
+<!-- //--========== MODAL MOTORISTA: CENTRAL DE AJUDA ========== // -->
+<div id="MOTORISTAPAG_Login_screen_ajuda"
+     class="MOTORISTAPAG_Login_modal_home MOTORISTAPAG_Login_modal_ajuda">
+
+    <div class="MOTORISTAPAG_Login_modal_ajuda_box">
+
+        <div class="MOTORISTAPAG_Login_ajuda_topo_modal">
+
+            <button type="button"
+                    class="MOTORISTAPAG_Login_ajuda_topo_btn"
+                    onclick="MOTORISTAPAG_Login_func_ajudaVoltarMotorista()">
+                ←
+            </button>
+
+            <div class="MOTORISTAPAG_Login_ajuda_topo_centro">
+                <h2 id="MOTORISTAPAG_Login_ajuda_titulo_topo">Central de Ajuda</h2>
+                <p id="MOTORISTAPAG_Login_ajuda_subtitulo_topo">Olá motorista, como podemos ajudar?</p>
+            </div>
+
+            <button type="button"
+                    class="MOTORISTAPAG_Login_ajuda_topo_btn"
+                    onclick="MOTORISTAPAG_Login_func_fecharCentralAjudaMotorista()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="PASSAGEIROPAG_Login_ajuda_busca_box">
+            <span>🔍</span>
+            <input type="text"
+                   id="MOTORISTAPAG_Login_ajuda_input_busca"
+                   placeholder="Pesquisar artigos de ajuda"
+                   oninput="MOTORISTAPAG_Login_func_pesquisarAjudaMotoristaComEspera()">
+        </div>
+
+        <div id="MOTORISTAPAG_Login_ajuda_conteudo"
+             class="PASSAGEIROPAG_Login_ajuda_conteudo">
+            <!-- CONTEÚDO GERADO PELO JAVASCRIPT -->
+        </div>
+
+    </div>
+</div>
+<!-- //--========== MODAL MOTORISTA: CENTRAL DE AJUDA FINAL ========== // -->
+
+ 
+
+
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL FERRAMENTAS -->
 
     <div id="MOTORISTAPAG_Login_modal_ferramentas" class="MOTORISTAPAG_Login_modal_home">
@@ -10574,6 +10887,7 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
         </div>
     </div>
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL GANHOS FINAL -->
+
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL CONFIGURAÇÕES -->	
 
 <div id="MOTORISTAPAG_Login_modal_configuracoes" class="MOTORISTAPAG_Login_modal_home">
@@ -10720,7 +11034,8 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS DA HOME
 	</div>
 <!-- TELA MOTORISTA 15: MODAL VEÍCULO EM USO FINAL ---->
 
-<!-- TELA MOTORISTA 16: MODAL DADOS PESSOAIS ---->
+
+<!-- TELA MOTORISTAPAG_Login_func_pesquisarAjudaMotoristaComEspera: MODAL DADOS PESSOAIS ---->
 <div id="MOTORISTAPAG_Login_modal_perfil_02_dados_pessoais" class="MOTORISTAPAG_Login_modal_home MOTORISTAPAG_Login_modal_perfil_grande">
     <div class="MOTORISTAPAG_Login_modal_home_box MOTORISTAPAG_Login_perfil_box">
 
@@ -10859,6 +11174,7 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS DA HOME fINAL
 <!-- ===================================================== 
 TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME 
  ===================================================== -->
+  
 <!-- MODAL PERFIL 02.1: EDITAR NOME DO MOTORISTA -->
 <div id="MOTORISTAPAG_Login_modal_perfil_02_editar_nome" class="MOTORISTAPAG_Login_modal_home">
     <div class="MOTORISTAPAG_Login_modal_home_box">
@@ -11634,76 +11950,6 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 <!-- MODAIS GERAIS / UNIVERSAIS DO APP -->
 <!-- ===================================================== -->
 
-<!-- MODAL UNIVERSAL: CORRIGIR PENDÊNCIA -->
-<div id="TNP_Login_modal_corrigir_pendencia" class="MOTORISTAPAG_Login_modal_home">
-    <div class="MOTORISTAPAG_Login_modal_home_box TNP_Login_corrigir_pendencia_box">
-
-        <button
-            class="MOTORISTAPAG_Login_modal_fechar"
-            onclick="TNP_Login_func_fecharModalCorrigirPendencia()"
-        >
-            ×
-        </button>
-
-        <div class="TNP_Login_corrigir_pendencia_icone" id="TNP_Login_corrigir_pendencia_icone">
-            ⚠️
-        </div>
-
-        <h3 id="TNP_Login_corrigir_pendencia_titulo">
-            Corrigir pendência
-        </h3>
-
-        <p id="TNP_Login_corrigir_pendencia_texto">
-            O administrador solicitou correção de uma informação.
-        </p>
-
-        <div class="TNP_Login_corrigir_pendencia_motivo_box">
-            <strong>Motivo da correção</strong>
-            <p id="TNP_Login_corrigir_pendencia_motivo">
-                Aguardando motivo informado pelo administrador.
-            </p>
-        </div>
-
-        <div id="TNP_Login_corrigir_pendencia_preview_area" class="TNP_Login_corrigir_pendencia_preview_area">
-            <img id="TNP_Login_corrigir_pendencia_preview" src="" alt="Prévia do novo arquivo">
-        </div>
-		<div
-			id="TNP_Login_corrigir_pendencia_info_compressao"
-			class="TNP_Login_corrigir_pendencia_info_compressao"
-		></div>
-       <input
-    type="file"
-    id="TNP_Login_corrigir_pendencia_input"
-    class="TNP_Login_corrigir_pendencia_file_input"
-    accept="image/*"
-    capture="environment"
-    onchange="TNP_Login_func_prepararArquivoCorrigirPendencia(event)"
-	>
-
-	<button
-    type="button"
-    id="TNP_Login_corrigir_pendencia_btn_camera"
-    class="TNP_Login_corrigir_pendencia_file_label"
-    onclick="TNP_Login_func_abrirCameraCorrigirPendencia()"
-	>
-    TIRAR NOVA FOTO
-	</button>
-
-        <div id="TNP_Login_corrigir_pendencia_error" class="PRIMEIRAPAG_Login_error"></div>
-
-        <button
-            id="TNP_Login_corrigir_pendencia_btn_enviar"
-            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-            onclick="TNP_Login_func_enviarCorrecaoPendencia()"
-            disabled
-        >
-            ENVIAR CORREÇÃO
-        </button>
-
-    </div>
-</div>
-
-<!-- MODAL UNIVERSAL: CORRIGIR PENDÊNCIA final -->
 
 <!--========== MODAL: CADASTRO DE MOTORISTA PENDENTE ========== -->
 
@@ -11744,6 +11990,130 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 </div>
 <!--========== MODAL: CADASTRO DE MOTORISTA PENDENTE FINAL ========== -->
 
+<!--// ========== MODAL UNIVERSAL: PENDÊNCIA DO ADMIN ========== -->
+
+<div id="TNP_Login_modal_pendencia_admin" class="TNP_Login_modal_foto_perfil_overlay">
+    <div class="TNP_Login_modal_foto_perfil_box">
+
+        <div id="TNP_Login_modal_pendencia_admin_icone" class="TNP_Login_modal_foto_perfil_icone">
+            ⚠️
+        </div>
+
+        <h3 id="TNP_Login_modal_pendencia_admin_titulo">
+            Pendência no cadastro
+        </h3>
+
+        <p id="TNP_Login_modal_pendencia_admin_texto">
+            O administrador solicitou uma correção no seu cadastro.
+        </p>
+
+        <div
+            id="TNP_Login_modal_pendencia_admin_lista"
+            class="TNP_Login_modal_foto_perfil_motivo"
+        ></div>
+
+        <div
+            id="TNP_Login_modal_pendencia_admin_motivo"
+            class="TNP_Login_modal_foto_perfil_motivo"
+        ></div>
+
+        <button
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="TNP_Login_func_irParaPendenciaAdminUniversal()"
+        >
+            CORRIGIR AGORA
+        </button>
+
+        <button
+            id="TNP_Login_btn_fechar_modal_pendencia_admin"
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="TNP_Login_func_fecharModalPendenciaAdminUniversal()"
+            style="display:none;"
+        >
+            FECHAR
+        </button>
+
+    </div>
+</div>
+
+<!--// ========== MODAL UNIVERSAL: PENDÊNCIA DO ADMIN FINAL ========== -->
+
+
+<!-- ========== MODALSUPERCORREÇÃO: CORREÇÃO ISOLADA ADM/SUPORTE ========== -->
+<div id="MODALSUPERCORRECAO_overlay" class="MODALSUPERCORRECAO_overlay">
+    <div class="MODALSUPERCORRECAO_box">
+
+        <div id="MODALSUPERCORRECAO_icone" class="MODALSUPERCORRECAO_icone">
+            🛠️
+        </div>
+
+        <h3 id="MODALSUPERCORRECAO_titulo">
+            Corrigir pendência
+        </h3>
+
+        <p id="MODALSUPERCORRECAO_texto">
+            Envie novamente o documento solicitado pelo suporte.
+        </p>
+
+        <div id="MODALSUPERCORRECAO_motivo" class="MODALSUPERCORRECAO_motivo"></div>
+
+        <select
+            id="MODALSUPERCORRECAO_select"
+            class="MODALSUPERCORRECAO_select"
+            onchange="MODALSUPERCORRECAO_func_trocarPendenciaSelecionada()"
+            style="display:none;"
+        ></select>
+
+        <input
+            id="MODALSUPERCORRECAO_input"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onchange="MODALSUPERCORRECAO_func_prepararArquivo(event)"
+            style="display:none;"
+        >
+
+        <div id="MODALSUPERCORRECAO_preview_area" class="MODALSUPERCORRECAO_preview_area">
+            <img id="MODALSUPERCORRECAO_preview" class="MODALSUPERCORRECAO_preview" alt="Prévia da correção">
+        </div>
+
+        <div id="MODALSUPERCORRECAO_info" class="MODALSUPERCORRECAO_info"></div>
+
+        <div id="MODALSUPERCORRECAO_error" class="PRIMEIRAPAG_Login_error"></div>
+
+        <button
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="MODALSUPERCORRECAO_func_abrirCamera()"
+        >
+            TIRAR NOVA FOTO
+        </button>
+
+        <button
+            id="MODALSUPERCORRECAO_btn_enviar"
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
+            onclick="MODALSUPERCORRECAO_func_enviar()"
+            disabled
+        >
+            ENVIAR CORREÇÃO
+        </button>
+
+        <button
+            type="button"
+            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
+            onclick="MODALSUPERCORRECAO_func_fechar()"
+        >
+            FECHAR
+        </button>
+
+    </div>
+</div>
+<!-- ========== MODALSUPERCORREÇÃO FINAL ========== -->
+
+<!--// ========== MODAL UNIVERSAL PIX TNP ========== -->
 <div id="TNPPIX_modal" class="TNPPIX_modal_overlay">
 
     <div class="TNPPIX_modal_box">
@@ -12214,45 +12584,6 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 
 
 <!-- MODAL ESCOLHER FORMA DE PAGAMENTO DA CORRIDA FINAL -->
-<!--// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL ========== -->
-
-<div id="TNP_Login_modal_revisao_foto_perfil" class="TNP_Login_modal_foto_perfil_overlay">
-    <div class="TNP_Login_modal_foto_perfil_box">
-
-        <div class="TNP_Login_modal_foto_perfil_icone">📸</div>
-
-        <h3>Foto de perfil precisa de revisão</h3>
-
-        <p id="TNP_Login_modal_revisao_foto_perfil_texto">
-            O administrador solicitou uma nova foto de perfil.
-        </p>
-
-        <div 
-            id="TNP_Login_modal_revisao_foto_perfil_motivo"
-            class="TNP_Login_modal_foto_perfil_motivo"
-        ></div>
-
-        <button
-            type="button"
-            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-            onclick="TNP_Login_func_irParaCorrecaoFotoPerfilAdmin()"
-        >
-            CORRIGIR FOTO DE PERFIL
-        </button>
-
-        <button
-            id="TNP_Login_btn_fechar_modal_foto_perfil"
-            type="button"
-            class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary"
-            onclick="TNP_Login_func_fecharModalRevisaoFotoPerfil()"
-            style="display:none;"
-        >
-            FECHAR
-        </button>
-
-    </div>
-</div>
-<!--// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ========== -->
 
 
 <!-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
@@ -18632,6 +18963,12 @@ const limiteBloqueioDocumentoFinal = Number.isFinite(limiteBloqueioDocumento)
         console.error("Erro ao carregar home do passageiro:", erro);
         PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_home');
     }
+	
+	if (typeof NOTIFICACOES_func_atualizarBadgePendenciaAdmin === "function") {
+		setTimeout(function() {
+			NOTIFICACOES_func_atualizarBadgePendenciaAdmin("passageiro");
+		}, 400);
+	}
 }		
  //-- FUNDO DO MAPA -->
 
@@ -28080,6 +28417,12 @@ async function MOTORISTAPAG_Login_func_carregarHomeMotorista() {
     } catch (erro) {
         console.error("Erro ao carregar home do motorista:", erro);
     }
+	
+	if (typeof NOTIFICACOES_func_atualizarBadgePendenciaAdmin === "function") {
+		setTimeout(function() {
+			NOTIFICACOES_func_atualizarBadgePendenciaAdmin("motorista");
+		}, 400);
+	}
 }
 
 function MOTORISTAPAG_Login_func_fecharModais() {
@@ -28299,6 +28642,683 @@ function MOTORISTAPAG_Login_func_abrirPerfilMotorista() {
     }
 }
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL PERFIL DO MOTORISTA FINAL -->
+
+//--========== TELA MOTORISTA: CENTRAL DE AJUDA ========== //
+
+const MOTORISTAPAG_Login_ajudaWhatsappSuporte = "5531996645814";
+
+let MOTORISTAPAG_Login_ajudaTelaAtual = "inicio";
+let MOTORISTAPAG_Login_ajudaHistorico = [];
+let MOTORISTAPAG_Login_ajudaArtigoAtual = null;
+let MOTORISTAPAG_Login_ajudaTimerBusca = null;
+
+const MOTORISTAPAG_Login_ajudaDados = [
+    {
+        id: "seguranca_emergencia_motorista",
+        nivel: 3,
+        icone: "🚨",
+        titulo: "Segurança e emergência",
+        descricao: "Risco, ameaça, agressão ou situação perigosa.",
+        subtopicos: [
+            {
+                id: "problema_durante_corrida",
+                titulo: "Problema durante a corrida",
+                descricao: "Situações graves com passageiro ou risco real.",
+                itens: [
+                    {
+                        id: "situacao_risco_passageiro",
+                        emoji: "🛡️",
+                        titulo: "Estou em uma situação de risco com o passageiro",
+                        texto: "Sua segurança vem primeiro.\n\nSe você estiver em perigo imediato, procure um local seguro e acione as autoridades da sua região.\n\nEvite discutir ou reagir de forma que aumente o risco. Quando estiver seguro, toque em “Preciso de ajuda” e informe o que aconteceu, horário, local, corrida e detalhes do passageiro.\n\nNossa equipe poderá analisar a corrida e tomar as medidas necessárias dentro da plataforma."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "pagamentos_ganhos_motorista",
+        nivel: 3,
+        icone: "💰",
+        titulo: "Pagamentos e ganhos",
+        descricao: "Corrida não paga, valor menor ou pagamento pendente.",
+        subtopicos: [
+            {
+                id: "corrida_nao_paga",
+                titulo: "Corrida não paga",
+                descricao: "Passageiro não pagou ou pagou valor menor.",
+                itens: [
+                    {
+                        id: "passageiro_nao_pagou",
+                        emoji: "💵",
+                        titulo: "O passageiro não pagou a corrida",
+                        texto: "Se a corrida era em dinheiro, PIX direto ou outro pagamento combinado no app e o passageiro não pagou, registre o problema o quanto antes.\n\nNão entre em discussão com o passageiro. Anote o valor, o horário e a corrida relacionada.\n\nToque em “Preciso de ajuda” para enviar o caso ao suporte. Nossa equipe poderá analisar o histórico da corrida, forma de pagamento e informações registradas no aplicativo."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "suporte_corridas_motorista",
+        nivel: 3,
+        icone: "🚗",
+        titulo: "Suporte com minhas corridas",
+        descricao: "Problemas com passageiro, embarque ou comportamento.",
+        subtopicos: [
+            {
+                id: "passageiro_motorista",
+                titulo: "Passageiro",
+                descricao: "Comportamento inadequado ou desrespeitoso.",
+                itens: [
+                    {
+                        id: "passageiro_comportamento_inadequado",
+                        emoji: "😟",
+                        titulo: "O passageiro foi ofensivo ou teve mau comportamento",
+                        texto: "O TNP MoB busca manter respeito entre motoristas e passageiros.\n\nSe o passageiro foi ofensivo, agressivo, desrespeitoso ou causou desconforto durante a corrida, relate o ocorrido ao suporte.\n\nAo finalizar a viagem, avalie corretamente o passageiro. Se existir opção de bloqueio no app, use apenas quando tiver certeza, pois essa ação pode impedir novas corridas com esse passageiro.\n\nToque em “Preciso de ajuda” e informe os detalhes para análise."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "veiculo_limpeza_motorista",
+        nivel: 3,
+        icone: "🧽",
+        titulo: "Veículo e limpeza",
+        descricao: "Sujeira, dano ou problema causado no veículo.",
+        subtopicos: [
+            {
+                id: "limpeza_dano_veiculo",
+                titulo: "Limpeza ou dano no veículo",
+                descricao: "Passageiro sujou ou danificou o veículo.",
+                itens: [
+                    {
+                        id: "taxa_limpeza_motorista",
+                        emoji: "🧼",
+                        titulo: "Precisei limpar meu carro depois da corrida",
+                        texto: "Se o passageiro sujou o veículo ou causou algum dano durante a corrida, registre o caso antes que as informações se percam.\n\nSempre que possível, tire fotos claras do problema, guarde comprovantes de limpeza ou reparo e informe a corrida relacionada.\n\nToque em “Preciso de ajuda” para enviar o caso ao suporte. A equipe poderá analisar as evidências e orientar os próximos passos."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: "app_gps_viagem_motorista",
+        nivel: 3,
+        icone: "📍",
+        titulo: "App, GPS e viagem",
+        descricao: "Problema para iniciar, seguir rota ou finalizar corrida.",
+        subtopicos: [
+            {
+                id: "iniciar_finalizar_viagem",
+                titulo: "Iniciar ou finalizar viagem",
+                descricao: "Erro no app, GPS ou finalização no local errado.",
+                itens: [
+                    {
+                        id: "nao_consigo_finalizar_viagem",
+                        emoji: "🧭",
+                        titulo: "Não consigo finalizar a viagem ou finalizei no local errado",
+                        texto: "Se o aplicativo travou, o GPS falhou ou a viagem foi encerrada no local errado, tente primeiro verificar sua internet e atualizar a tela.\n\nSe a corrida ainda estiver ativa e você não conseguir finalizar, não force informações erradas. Toque em “Preciso de ajuda” e explique o que aconteceu.\n\nInforme o ponto correto, o horário, o passageiro e se houve erro de rota, mapa ou conexão. Isso ajuda o suporte a revisar a viagem e o pagamento."
+                    }
+                ]
+            }
+        ]
+    }
+];
+
+function MOTORISTAPAG_Login_func_carregarCentralAjudaMotorista() {
+    const tela = document.getElementById("MOTORISTAPAG_Login_screen_ajuda");
+    const inputBusca = document.getElementById("MOTORISTAPAG_Login_ajuda_input_busca");
+
+    if (!tela) {
+        alert("Modal Central de Ajuda do motorista não encontrado no HTML.");
+        return;
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === "function") {
+        MOTORISTAPAG_Login_func_fecharMenuLateral();
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+        MOTORISTAPAG_Login_func_fecharModais();
+    }
+
+    if (inputBusca) {
+        inputBusca.value = "";
+    }
+
+    MOTORISTAPAG_Login_ajudaTelaAtual = "inicio";
+    MOTORISTAPAG_Login_ajudaHistorico = [];
+    MOTORISTAPAG_Login_ajudaArtigoAtual = null;
+
+    tela.style.display = "flex";
+    tela.classList.add("active");
+
+    MOTORISTAPAG_Login_func_renderizarAjudaInicioMotorista(false);
+}
+
+function MOTORISTAPAG_Login_func_fecharCentralAjudaMotorista() {
+    const tela = document.getElementById("MOTORISTAPAG_Login_screen_ajuda");
+    const inputBusca = document.getElementById("MOTORISTAPAG_Login_ajuda_input_busca");
+
+    if (inputBusca) {
+        inputBusca.value = "";
+    }
+
+    MOTORISTAPAG_Login_ajudaTelaAtual = "inicio";
+    MOTORISTAPAG_Login_ajudaHistorico = [];
+    MOTORISTAPAG_Login_ajudaArtigoAtual = null;
+
+    if (tela) {
+        tela.style.display = "none";
+        tela.classList.remove("active");
+    }
+}
+
+function MOTORISTAPAG_Login_func_ajudaVoltarMotorista() {
+    const inputBusca = document.getElementById("MOTORISTAPAG_Login_ajuda_input_busca");
+
+    if (inputBusca && inputBusca.value.trim()) {
+        inputBusca.value = "";
+        MOTORISTAPAG_Login_func_renderizarAjudaInicioMotorista(false);
+        return;
+    }
+
+    if (!MOTORISTAPAG_Login_ajudaHistorico.length) {
+        MOTORISTAPAG_Login_func_fecharCentralAjudaMotorista();
+        return;
+    }
+
+    const ultimaTela = MOTORISTAPAG_Login_ajudaHistorico.pop();
+
+    if (ultimaTela.tipo === "inicio") {
+        MOTORISTAPAG_Login_func_renderizarAjudaInicioMotorista(false);
+        return;
+    }
+
+    if (ultimaTela.tipo === "topico") {
+        MOTORISTAPAG_Login_func_renderizarTopicoMotorista(ultimaTela.topicoId, false);
+        return;
+    }
+
+    if (ultimaTela.tipo === "subtopico") {
+        MOTORISTAPAG_Login_func_renderizarSubtopicoMotorista(
+            ultimaTela.topicoId,
+            ultimaTela.subtopicoId,
+            false
+        );
+    }
+}
+
+function MOTORISTAPAG_Login_func_ajudaAtualizarTopoMotorista(titulo, subtitulo) {
+    const tituloTopo = document.getElementById("MOTORISTAPAG_Login_ajuda_titulo_topo");
+    const subtituloTopo = document.getElementById("MOTORISTAPAG_Login_ajuda_subtitulo_topo");
+
+    if (tituloTopo) {
+        tituloTopo.innerText = titulo || "Central de Ajuda";
+    }
+
+    if (subtituloTopo) {
+        subtituloTopo.innerText = subtitulo || "Olá motorista, como podemos ajudar?";
+    }
+}
+
+function MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista() {
+    const tela = document.getElementById("MOTORISTAPAG_Login_screen_ajuda");
+    const box = tela ? tela.querySelector(".MOTORISTAPAG_Login_modal_ajuda_box") : null;
+
+    if (box) {
+        box.scrollTop = 0;
+        return;
+    }
+
+    if (tela) {
+        tela.scrollTop = 0;
+    }
+}
+
+function MOTORISTAPAG_Login_func_renderizarAjudaInicioMotorista(salvarHistorico) {
+    const conteudo = document.getElementById("MOTORISTAPAG_Login_ajuda_conteudo");
+
+    if (!conteudo) return;
+
+    MOTORISTAPAG_Login_ajudaTelaAtual = "inicio";
+    MOTORISTAPAG_Login_ajudaArtigoAtual = null;
+
+    MOTORISTAPAG_Login_func_ajudaAtualizarTopoMotorista(
+        "Central de Ajuda",
+        "Olá motorista, como podemos ajudar?"
+    );
+
+    let html = "";
+
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_bloco_titulo">Todos os tópicos</div>';
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    MOTORISTAPAG_Login_ajudaDados.forEach(function(topico) {
+        html += `
+            <button type="button"
+                    class="PASSAGEIROPAG_Login_ajuda_item"
+                    onclick="MOTORISTAPAG_Login_func_renderizarTopicoMotorista('${topico.id}', true)">
+                <span class="PASSAGEIROPAG_Login_ajuda_item_icone">${topico.icone}</span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                    <strong>${topico.titulo}</strong>
+                    <small>${topico.descricao}</small>
+                </span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+            </button>
+        `;
+    });
+
+    html += '</div>';
+
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_bloco_titulo">Andamento</div>';
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+    html += `
+        <button type="button"
+                class="PASSAGEIROPAG_Login_ajuda_item"
+                onclick="MOTORISTAPAG_Login_func_abrirHistoricoMensagensAjudaMotorista()">
+            <span class="PASSAGEIROPAG_Login_ajuda_item_icone">💬</span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                <strong>Histórico de mensagens</strong>
+                <small>Acompanhe conversas e chamados com o suporte.</small>
+            </span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+        </button>
+    `;
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+
+    MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista();
+}
+
+function MOTORISTAPAG_Login_func_renderizarTopicoMotorista(topicoId, salvarHistorico) {
+    const conteudo = document.getElementById("MOTORISTAPAG_Login_ajuda_conteudo");
+
+    const topico = MOTORISTAPAG_Login_ajudaDados.find(function(item) {
+        return item.id === topicoId;
+    });
+
+    if (!conteudo || !topico) return;
+
+    if (salvarHistorico) {
+        MOTORISTAPAG_Login_ajudaHistorico.push({ tipo: "inicio" });
+    }
+
+    MOTORISTAPAG_Login_ajudaTelaAtual = "topico";
+    MOTORISTAPAG_Login_ajudaArtigoAtual = null;
+
+    MOTORISTAPAG_Login_func_ajudaAtualizarTopoMotorista(topico.titulo, topico.descricao);
+
+    let html = "";
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    if (topico.nivel === 2 && Array.isArray(topico.itens)) {
+        topico.itens.forEach(function(artigo) {
+            html += MOTORISTAPAG_Login_func_montarBotaoArtigoMotorista(topico.id, null, artigo);
+        });
+    }
+
+    if (topico.nivel === 3 && Array.isArray(topico.subtopicos)) {
+        topico.subtopicos.forEach(function(subtopico) {
+            html += `
+                <button type="button"
+                        class="PASSAGEIROPAG_Login_ajuda_item"
+                        onclick="MOTORISTAPAG_Login_func_renderizarSubtopicoMotorista('${topico.id}', '${subtopico.id}', true)">
+                    <span class="PASSAGEIROPAG_Login_ajuda_item_icone">📌</span>
+                    <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                        <strong>${subtopico.titulo}</strong>
+                        <small>${subtopico.descricao}</small>
+                    </span>
+                    <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+                </button>
+            `;
+        });
+    }
+
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+
+    MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista();
+}
+
+function MOTORISTAPAG_Login_func_renderizarSubtopicoMotorista(topicoId, subtopicoId, salvarHistorico) {
+    const conteudo = document.getElementById("MOTORISTAPAG_Login_ajuda_conteudo");
+
+    const topico = MOTORISTAPAG_Login_ajudaDados.find(function(item) {
+        return item.id === topicoId;
+    });
+
+    if (!conteudo || !topico || !Array.isArray(topico.subtopicos)) return;
+
+    const subtopico = topico.subtopicos.find(function(item) {
+        return item.id === subtopicoId;
+    });
+
+    if (!subtopico) return;
+
+    if (salvarHistorico) {
+        MOTORISTAPAG_Login_ajudaHistorico.push({
+            tipo: "topico",
+            topicoId: topicoId
+        });
+    }
+
+    MOTORISTAPAG_Login_ajudaTelaAtual = "subtopico";
+    MOTORISTAPAG_Login_ajudaArtigoAtual = null;
+
+    MOTORISTAPAG_Login_func_ajudaAtualizarTopoMotorista(subtopico.titulo, topico.titulo);
+
+    let html = "";
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    subtopico.itens.forEach(function(artigo) {
+        html += MOTORISTAPAG_Login_func_montarBotaoArtigoMotorista(topico.id, subtopico.id, artigo);
+    });
+
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+
+    MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista();
+}
+
+function MOTORISTAPAG_Login_func_montarBotaoArtigoMotorista(topicoId, subtopicoId, artigo) {
+    const subtopicoParam = subtopicoId ? "'" + subtopicoId + "'" : "null";
+
+    return `
+        <button type="button"
+                class="PASSAGEIROPAG_Login_ajuda_item"
+                onclick="MOTORISTAPAG_Login_func_renderizarArtigoMotorista('${topicoId}', ${subtopicoParam}, '${artigo.id}', true)">
+            <span class="PASSAGEIROPAG_Login_ajuda_item_icone">${artigo.emoji || "ℹ️"}</span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                <strong>${artigo.titulo}</strong>
+                <small>Toque para ver a explicação.</small>
+            </span>
+            <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+        </button>
+    `;
+}
+
+function MOTORISTAPAG_Login_func_renderizarArtigoMotorista(topicoId, subtopicoId, artigoId, salvarHistorico) {
+    const conteudo = document.getElementById("MOTORISTAPAG_Login_ajuda_conteudo");
+
+    const topico = MOTORISTAPAG_Login_ajudaDados.find(function(item) {
+        return item.id === topicoId;
+    });
+
+    if (!conteudo || !topico) return;
+
+    let artigo = null;
+
+    if (subtopicoId && Array.isArray(topico.subtopicos)) {
+        const subtopico = topico.subtopicos.find(function(item) {
+            return item.id === subtopicoId;
+        });
+
+        if (subtopico && Array.isArray(subtopico.itens)) {
+            artigo = subtopico.itens.find(function(item) {
+                return item.id === artigoId;
+            });
+        }
+    } else if (Array.isArray(topico.itens)) {
+        artigo = topico.itens.find(function(item) {
+            return item.id === artigoId;
+        });
+    }
+
+    if (!artigo) return;
+
+    if (salvarHistorico) {
+        if (subtopicoId) {
+            MOTORISTAPAG_Login_ajudaHistorico.push({
+                tipo: "subtopico",
+                topicoId: topicoId,
+                subtopicoId: subtopicoId
+            });
+        } else {
+            MOTORISTAPAG_Login_ajudaHistorico.push({
+                tipo: "topico",
+                topicoId: topicoId
+            });
+        }
+    }
+
+    MOTORISTAPAG_Login_ajudaTelaAtual = "artigo";
+    MOTORISTAPAG_Login_ajudaArtigoAtual = artigo;
+
+    MOTORISTAPAG_Login_func_ajudaAtualizarTopoMotorista("Descrição do problema", topico.titulo);
+
+    conteudo.innerHTML = `
+        <div class="PASSAGEIROPAG_Login_ajuda_artigo">
+            <div class="PASSAGEIROPAG_Login_ajuda_artigo_emoji">${artigo.emoji || "ℹ️"}</div>
+
+            <h3>${artigo.titulo}</h3>
+
+            <div class="PASSAGEIROPAG_Login_ajuda_artigo_texto">${artigo.texto}</div>
+
+            <div class="PASSAGEIROPAG_Login_ajuda_feedback">
+                <p>Esse conteúdo te ajudou?</p>
+
+                <div class="PASSAGEIROPAG_Login_ajuda_feedback_botoes">
+                    <button type="button" onclick="MOTORISTAPAG_Login_func_feedbackAjudaMotorista('nao')">😟 Não</button>
+                    <button type="button" onclick="MOTORISTAPAG_Login_func_feedbackAjudaMotorista('sim')">😊 Sim</button>
+                </div>
+            </div>
+
+            <button type="button"
+                    class="PASSAGEIROPAG_Login_ajuda_btn_whatsapp"
+                    onclick="MOTORISTAPAG_Login_func_abrirWhatsappAjudaMotorista()">
+                Preciso de ajuda
+            </button>
+        </div>
+    `;
+
+    MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista();
+}
+
+function MOTORISTAPAG_Login_func_normalizarTextoAjudaMotorista(texto) {
+    return String(texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ç/g, "c")
+        .replace(/[^a-z0-9 ]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function MOTORISTAPAG_Login_func_pesquisarAjudaMotoristaComEspera() {
+    clearTimeout(MOTORISTAPAG_Login_ajudaTimerBusca);
+
+    MOTORISTAPAG_Login_ajudaTimerBusca = setTimeout(function() {
+        MOTORISTAPAG_Login_func_pesquisarAjudaMotorista();
+    }, 180);
+}
+
+function MOTORISTAPAG_Login_func_pesquisarAjudaMotorista() {
+    const inputBusca = document.getElementById("MOTORISTAPAG_Login_ajuda_input_busca");
+    const conteudo = document.getElementById("MOTORISTAPAG_Login_ajuda_conteudo");
+
+    if (!inputBusca || !conteudo) return;
+
+    const termo = MOTORISTAPAG_Login_func_normalizarTextoAjudaMotorista(inputBusca.value);
+
+    if (!termo) {
+        MOTORISTAPAG_Login_ajudaHistorico = [];
+        MOTORISTAPAG_Login_func_renderizarAjudaInicioMotorista(false);
+        return;
+    }
+
+    const resultados = [];
+
+    MOTORISTAPAG_Login_ajudaDados.forEach(function(topico) {
+        if (topico.nivel === 2 && Array.isArray(topico.itens)) {
+            topico.itens.forEach(function(artigo) {
+                const textoBusca = [
+                    topico.titulo,
+                    topico.descricao,
+                    artigo.titulo,
+                    artigo.texto
+                ].map(MOTORISTAPAG_Login_func_normalizarTextoAjudaMotorista).join(" ");
+
+                if (textoBusca.includes(termo)) {
+                    resultados.push({
+                        topicoId: topico.id,
+                        subtopicoId: null,
+                        artigo: artigo,
+                        caminho: topico.titulo
+                    });
+                }
+            });
+        }
+
+        if (topico.nivel === 3 && Array.isArray(topico.subtopicos)) {
+            topico.subtopicos.forEach(function(subtopico) {
+                subtopico.itens.forEach(function(artigo) {
+                    const textoBusca = [
+                        topico.titulo,
+                        topico.descricao,
+                        subtopico.titulo,
+                        subtopico.descricao,
+                        artigo.titulo,
+                        artigo.texto
+                    ].map(MOTORISTAPAG_Login_func_normalizarTextoAjudaMotorista).join(" ");
+
+                    if (textoBusca.includes(termo)) {
+                        resultados.push({
+                            topicoId: topico.id,
+                            subtopicoId: subtopico.id,
+                            artigo: artigo,
+                            caminho: topico.titulo + " > " + subtopico.titulo
+                        });
+                    }
+                });
+            });
+        }
+    });
+
+    MOTORISTAPAG_Login_func_ajudaAtualizarTopoMotorista(
+        "Resultado da busca",
+        resultados.length + " resultado(s) encontrado(s)"
+    );
+
+    let html = "";
+
+    if (!resultados.length) {
+        html += `
+            <div class="PASSAGEIROPAG_Login_ajuda_artigo">
+                <div class="PASSAGEIROPAG_Login_ajuda_artigo_emoji">🔎</div>
+                <h3>Nenhum resultado encontrado</h3>
+                <div class="PASSAGEIROPAG_Login_ajuda_artigo_texto">
+                    Não encontramos um artigo com esse termo.\n\nTente pesquisar por palavras como pagamento, passageiro, limpeza, GPS, finalizar ou segurança.
+                </div>
+
+                <button type="button"
+                        class="PASSAGEIROPAG_Login_ajuda_btn_whatsapp"
+                        onclick="MOTORISTAPAG_Login_func_abrirWhatsappAjudaMotorista()">
+                    Preciso de ajuda
+                </button>
+            </div>
+        `;
+
+        conteudo.innerHTML = html;
+        MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista();
+        return;
+    }
+
+    html += '<div class="PASSAGEIROPAG_Login_ajuda_card">';
+
+    resultados.forEach(function(resultado) {
+        html += `
+            <button type="button"
+                    class="PASSAGEIROPAG_Login_ajuda_item"
+                    onclick="MOTORISTAPAG_Login_func_abrirResultadoBuscaMotorista('${resultado.topicoId}', ${resultado.subtopicoId ? "'" + resultado.subtopicoId + "'" : "null"}, '${resultado.artigo.id}')">
+                <span class="PASSAGEIROPAG_Login_ajuda_item_icone">${resultado.artigo.emoji || "ℹ️"}</span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_texto">
+                    <strong>${resultado.artigo.titulo}</strong>
+                    <small>${resultado.caminho}</small>
+                </span>
+                <span class="PASSAGEIROPAG_Login_ajuda_item_seta">›</span>
+            </button>
+        `;
+    });
+
+    html += '</div>';
+
+    conteudo.innerHTML = html;
+
+    MOTORISTAPAG_Login_func_ajudaScrollTopoMotorista();
+}
+
+function MOTORISTAPAG_Login_func_abrirResultadoBuscaMotorista(topicoId, subtopicoId, artigoId) {
+    const inputBusca = document.getElementById("MOTORISTAPAG_Login_ajuda_input_busca");
+
+    if (inputBusca) {
+        inputBusca.value = "";
+    }
+
+    MOTORISTAPAG_Login_ajudaHistorico = [{ tipo: "inicio" }];
+
+    MOTORISTAPAG_Login_func_renderizarArtigoMotorista(topicoId, subtopicoId, artigoId, false);
+}
+
+function MOTORISTAPAG_Login_func_feedbackAjudaMotorista(tipo) {
+    if (tipo === "sim") {
+        alert("Obrigado pela resposta! Que bom que conseguimos ajudar.");
+        return;
+    }
+
+    const confirmar = confirm("Esse conteúdo não resolveu sua dúvida. Deseja falar com o suporte agora?");
+
+    if (confirmar) {
+        MOTORISTAPAG_Login_func_abrirWhatsappAjudaMotorista();
+    }
+}
+
+function MOTORISTAPAG_Login_func_abrirWhatsappAjudaMotorista() {
+    const tituloAjuda = MOTORISTAPAG_Login_ajudaArtigoAtual
+        ? MOTORISTAPAG_Login_ajudaArtigoAtual.titulo
+        : "Central de Ajuda do Motorista";
+
+    const user = typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+        ? PRIMEIRAPAG_Login_auth.currentUser
+        : null;
+
+    const emailUsuario = user && user.email ? user.email : "não informado";
+    const uidUsuario = user && user.uid ? user.uid : "não informado";
+
+    const mensagem = encodeURIComponent(
+        "Olá, preciso de ajuda no TNP MoB.\n\n" +
+        "Perfil: Motorista\n" +
+        "Assunto: " + tituloAjuda + "\n" +
+        "E-mail: " + emailUsuario + "\n" +
+        "UID: " + uidUsuario
+    );
+
+    const url = "https://wa.me/" + MOTORISTAPAG_Login_ajudaWhatsappSuporte + "?text=" + mensagem;
+
+    window.open(url, "_blank");
+}
+
+function MOTORISTAPAG_Login_func_abrirHistoricoMensagensAjudaMotorista() {
+    alert("Histórico de mensagens do motorista ainda será ligado depois. Por enquanto, use o botão “Preciso de ajuda” dentro de um artigo.");
+}
+
+window.MOTORISTAPAG_Login_func_carregarCentralAjudaMotorista = MOTORISTAPAG_Login_func_carregarCentralAjudaMotorista;
+window.MOTORISTAPAG_Login_func_fecharCentralAjudaMotorista = MOTORISTAPAG_Login_func_fecharCentralAjudaMotorista;
+window.MOTORISTAPAG_Login_func_ajudaVoltarMotorista = MOTORISTAPAG_Login_func_ajudaVoltarMotorista;
+window.MOTORISTAPAG_Login_func_pesquisarAjudaMotoristaComEspera = MOTORISTAPAG_Login_func_pesquisarAjudaMotoristaComEspera;
+window.MOTORISTAPAG_Login_func_pesquisarAjudaMotorista = MOTORISTAPAG_Login_func_pesquisarAjudaMotorista;
+window.MOTORISTAPAG_Login_func_renderizarTopicoMotorista = MOTORISTAPAG_Login_func_renderizarTopicoMotorista;
+window.MOTORISTAPAG_Login_func_renderizarSubtopicoMotorista = MOTORISTAPAG_Login_func_renderizarSubtopicoMotorista;
+window.MOTORISTAPAG_Login_func_renderizarArtigoMotorista = MOTORISTAPAG_Login_func_renderizarArtigoMotorista;
+window.MOTORISTAPAG_Login_func_feedbackAjudaMotorista = MOTORISTAPAG_Login_func_feedbackAjudaMotorista;
+window.MOTORISTAPAG_Login_func_abrirWhatsappAjudaMotorista = MOTORISTAPAG_Login_func_abrirWhatsappAjudaMotorista;
+window.MOTORISTAPAG_Login_func_abrirHistoricoMensagensAjudaMotorista = MOTORISTAPAG_Login_func_abrirHistoricoMensagensAjudaMotorista;
+
+//--========== TELA MOTORISTA: CENTRAL DE AJUDA FINAL ========== //
  
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL CONFIGURAÇÕES -->
 
@@ -30104,6 +31124,13 @@ async function MOTORISTAPAG_Login_func_excluirVeiculoGerenciado(veiculoId) {
 
 
 //-- TELA MOTORISTA 15: MODAL VEÍCULO EM USO FINAL ---->
+
+
+
+
+
+
+
 //-- TELA MOTORISTA 16: MODAL DADOS PESSOAIS ---->
 async function MOTORISTAPAG_Login_func_abrirModalDadosPessoaisMotorista() {
     MOTORISTAPAG_Login_func_fecharModais();
@@ -31442,10 +32469,61 @@ async function MOTORISTAPAG_Login_func_salvarContatosReferenciaMotorista() {
  
  
  
+ // → Suporte → abre Mensagens
+function MOTORISTAPAG_Login_func_abrirSuporteMotorista() {
+    if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+        MOTORISTAPAG_Login_func_fecharModais();
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === "function") {
+        MOTORISTAPAG_Login_func_fecharMenuLateral();
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista !== "function") {
+        return MOTORISTAPAG_Login_func_abrirPaginaProvisoria(
+            "Suporte",
+            "A tela de mensagens do suporte ainda não foi carregada."
+        );
+    }
+
+    MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista();
+
+    setTimeout(function() {
+        const botoes = document.querySelectorAll(
+            "#MOTORISTAMENSAGENS_tela .MOTORISTAMENSAGENS_filtros button"
+        );
+
+        let btnSuporte = null;
+
+        botoes.forEach(function(btn) {
+            if ((btn.innerText || "").trim().toLowerCase() === "suporte") {
+                btnSuporte = btn;
+            }
+        });
+
+        if (
+            btnSuporte &&
+            typeof MOTORISTAMENSAGENS_func_filtrar === "function"
+        ) {
+            MOTORISTAMENSAGENS_func_filtrar("suporte", btnSuporte);
+        } else if (btnSuporte) {
+            btnSuporte.click();
+        }
+
+        MOTORISTAMENSAGENS_filtroAtual = "suporte";
+        MOTORISTAMENSAGENS_destinoAtual = "suporte";
+        MOTORISTAMENSAGENS_conversaSelecionadaAtual = null;
+
+        const campo = document.getElementById("MOTORISTAMENSAGENS_input_nova_conversa");
+
+        if (campo) {
+            campo.placeholder = "Digite uma mensagem para o suporte...";
+            campo.focus();
+        }
+    }, 200);
+}
  
- 
- 
- 
+  // → Suporte → abre Mensagens FINAL
  
  
  
@@ -31454,803 +32532,7 @@ async function MOTORISTAPAG_Login_func_salvarContatosReferenciaMotorista() {
 //  MODAIS GERAIS / UNIVERSAIS DO APP
 // =====================================================
 
-	//	MODAL UNIVERSAL: CORRIGIR PENDÊNCIA FINAL
-
-let TNP_Login_pendenciaAtual = null;
-let TNP_Login_arquivoCorrecaoPendente = null;
-let TNP_Login_pendenciaObrigatoria = false;
-
-function TNP_Login_func_fecharModalCorrigirPendencia() {
-	if (TNP_Login_pendenciaObrigatoria === true) {
-		return TNP_Login_func_abrirMensagemProvisoria(
-			'Correção obrigatória',
-			'Você atingiu o limite de avisos. Para continuar, envie a correção solicitada.'
-		);
-	}
-
-	const modal = document.getElementById('TNP_Login_modal_corrigir_pendencia');
-    const input = document.getElementById('TNP_Login_corrigir_pendencia_input');
-    const previewArea = document.getElementById('TNP_Login_corrigir_pendencia_preview_area');
-    const preview = document.getElementById('TNP_Login_corrigir_pendencia_preview');
-    const infoCompressao = document.getElementById('TNP_Login_corrigir_pendencia_info_compressao');
-    const erro = document.getElementById('TNP_Login_corrigir_pendencia_error');
-    const btnEnviar = document.getElementById('TNP_Login_corrigir_pendencia_btn_enviar');
-
-    if (modal) modal.classList.remove('active');
-
-    TNP_Login_pendenciaAtual = null;
-    TNP_Login_arquivoCorrecaoPendente = null;
-	TNP_Login_pendenciaObrigatoria = false;
-
-    if (input) input.value = '';
-
-    if (preview) {
-        preview.removeAttribute('src');
-    }
-
-    if (previewArea) {
-        previewArea.style.display = 'none';
-    }
-
-    if (infoCompressao) {
-        infoCompressao.innerText = '';
-        infoCompressao.style.display = 'none';
-    }
-
-    if (erro) {
-        erro.innerText = '';
-        erro.style.display = 'none';
-    }
-
-    if (btnEnviar) {
-        btnEnviar.disabled = true;
-        btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-    }
-}
-
-function TNP_Login_func_abrirMensagemProvisoria(titulo, texto) {
-	if (typeof MOTORISTAPAG_Login_func_abrirPaginaProvisoria === "function") {
-		MOTORISTAPAG_Login_func_abrirPaginaProvisoria(titulo, texto);
-		return;
-	}
-
-	alert(titulo + "\n\n" + texto);
-}
-
-async function TNP_Login_func_abrirModalCorrigirPendencia(origem, tipoPendencia) {
-	if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
-		MOTORISTAPAG_Login_func_fecharModais();
-	}
-
-	const user = PRIMEIRAPAG_Login_auth.currentUser;
-
-	if (!user) {
-		return TNP_Login_func_abrirMensagemProvisoria(
-			'Login necessário',
-			'Faça login novamente para corrigir essa pendência.'
-		);
-	}
 	
-	if (origem !== 'motorista' && origem !== 'passageiro') {
-	return TNP_Login_func_abrirMensagemProvisoria(
-		'Origem inválida',
-		'Não foi possível identificar se a correção é de passageiro ou motorista.'
-	);
-}
-
-    const modal = document.getElementById('TNP_Login_modal_corrigir_pendencia');
-    const titulo = document.getElementById('TNP_Login_corrigir_pendencia_titulo');
-    const texto = document.getElementById('TNP_Login_corrigir_pendencia_texto');
-    const motivoEl = document.getElementById('TNP_Login_corrigir_pendencia_motivo');
-
-    if (!modal) {
-	return TNP_Login_func_abrirMensagemProvisoria(
-		'Modal não encontrado',
-		'Não foi possível abrir a tela de correção agora.'
-	);
-}
-
-    TNP_Login_func_fecharModalCorrigirPendencia();
-
-    const config = TNP_Login_func_configPendencia(origem, tipoPendencia);
-
-    if (!config) {
-        return TNP_Login_func_abrirMensagemProvisoria(
-            'Pendência não configurada',
-            'Essa pendência ainda não foi configurada no sistema.'
-        );
-    }
-
-    try {
-        const docRef = origem === 'motorista'
-            ? PRIMEIRAPAG_Login_db.collection('motoristas').doc(user.uid)
-            : PRIMEIRAPAG_Login_db.collection('usuarios').doc(user.uid);
-
-        const snap = await docRef.get();
-        const dados = snap.exists ? snap.data() : {};
-
-        const status = TNP_Login_func_lerCampoAninhado(dados, config.campoStatus) || '';
-        const motivo = TNP_Login_func_lerCampoAninhado(dados, config.campoMotivo) || '';
-
-        const podeCorrigir =
-            status === 'reprovado' ||
-            status === 'pendente_correcao' ||
-            status === 'corrigir';
-
-        if (!podeCorrigir) {
-            return TNP_Login_func_abrirMensagemProvisoria(
-                'Correção indisponível',
-                'Essa etapa não está liberada para reenvio. Se estiver em análise, aguarde a conferência do administrador.'
-            );
-        }
-
-        TNP_Login_pendenciaAtual = {
-            origem: origem,
-            tipoPendencia: tipoPendencia,
-            config: config
-        };
-
-        if (titulo) titulo.innerText = config.titulo;
-        if (texto) texto.innerText = config.texto;
-        if (motivoEl) motivoEl.innerText = motivo || 'O administrador solicitou uma correção nesta etapa.';
-
-        modal.classList.add('active');
-
-		} catch (erro) {
-		console.error('Erro ao abrir modal de correção:', erro);
-
-		TNP_Login_func_abrirMensagemProvisoria(
-			'Erro ao carregar pendência',
-			'Não foi possível carregar os dados da pendência agora.'
-		);
-	}
-}
-
-function TNP_Login_func_configPendencia(origem, tipoPendencia) {
-    const configs = {
-        motorista: {
-		
-			fotoPerfil: {
-				titulo: 'Reenviar foto de perfil',
-				texto: 'Envie uma nova selfie/foto de perfil conforme a orientação do administrador.',
-				pastaStorage: 'documentos',
-				campoFirestore: 'fotoPerfilCorrecao',
-				campoStatus: 'fotoPerfilStatus',
-				campoMotivo: 'fotoPerfilMotivoReprovacao'
-			},
-		
-            fotoCnh: {
-                titulo: 'Reenviar foto da CNH',
-                texto: 'Envie uma nova foto da CNH conforme a orientação do administrador.',
-                pastaStorage: 'documentos',
-                campoFirestore: 'documentosMotorista.fotoCnh',
-                campoStatus: 'documentosMotorista.fotoCnh.status',
-                campoMotivo: 'documentosMotorista.fotoCnh.motivoReprovacao'
-            },
-
-            selfieComCnh: {
-                titulo: 'Reenviar selfie com CNH',
-                texto: 'Envie uma nova selfie com a CNH conforme a orientação do administrador.',
-                pastaStorage: 'documentos',
-                campoFirestore: 'documentosMotorista.selfieComCnh',
-                campoStatus: 'documentosMotorista.selfieComCnh.status',
-                campoMotivo: 'documentosMotorista.selfieComCnh.motivoReprovacao'
-            },
-
-            crlv: {
-                titulo: 'Reenviar CRLV',
-                texto: 'Envie uma nova foto do documento do veículo conforme a orientação do administrador.',
-                pastaStorage: 'documentos-veiculo',
-                campoFirestore: 'documentosVeiculo.crlv',
-                campoStatus: 'documentosVeiculo.crlv.status',
-                campoMotivo: 'documentosVeiculo.crlv.motivoReprovacao'
-            },
-
-            fotoVeiculoPlaca: {
-                titulo: 'Reenviar foto do veículo',
-                texto: 'Envie uma nova foto mostrando o veículo e a placa com nitidez.',
-                pastaStorage: 'documentos-veiculo',
-                campoFirestore: 'documentosVeiculo.fotoVeiculoPlaca',
-                campoStatus: 'documentosVeiculo.fotoVeiculoPlaca.status',
-                campoMotivo: 'documentosVeiculo.fotoVeiculoPlaca.motivoReprovacao'
-            }
-        },
-
-        passageiro: {
-            
-			fotoPerfil: {
-				titulo: 'Reenviar foto de perfil',
-				texto: 'Envie uma nova selfie/foto de perfil conforme a orientação do administrador.',
-				pastaStorage: 'documentos',
-				campoFirestore: 'fotoPerfilCorrecao',
-				campoStatus: 'fotoPerfilStatus',
-				campoMotivo: 'fotoPerfilMotivoReprovacao'
-			},
-			
-			
-			selfieDocumento: {
-                titulo: 'Reenviar selfie com documento',
-                texto: 'Envie uma nova selfie segurando o documento conforme a orientação do administrador.',
-                pastaStorage: 'documentos',
-                campoFirestore: 'selfieDocumentoExtra',
-                campoStatus: 'selfieDocumentoExtra.status',
-                campoMotivo: 'selfieDocumentoExtra.motivoReprovacao'
-            },
-
-            comprovanteEndereco: {
-                titulo: 'Reenviar comprovante de endereço',
-                texto: 'Envie uma nova foto legível do comprovante de endereço.',
-                pastaStorage: 'documentos',
-                campoFirestore: 'comprovanteEndereco',
-                campoStatus: 'comprovanteEndereco.status',
-                campoMotivo: 'comprovanteEndereco.motivoReprovacao'
-            },
-
-            documentoIdentidade: {
-                titulo: 'Reenviar documento de identidade',
-                texto: 'Envie uma nova foto legível do seu documento de identidade.',
-                pastaStorage: 'documentos',
-                campoFirestore: 'documentoIdentidade',
-                campoStatus: 'documentoIdentidade.status',
-                campoMotivo: 'documentoIdentidade.motivoReprovacao'
-            }
-        }
-    };
-
-    return configs?.[origem]?.[tipoPendencia] || null;
-}
-
-function TNP_Login_func_lerCampoAninhado(obj, caminho) {
-    return caminho.split('.').reduce((atual, chave) => {
-        return atual && atual[chave] !== undefined ? atual[chave] : undefined;
-    }, obj);
-}
-
-function TNP_Login_func_montarAtualizacaoCampo(caminhoBase, dados) {
-    const update = {};
-
-    Object.keys(dados).forEach(chave => {
-        update[`${caminhoBase}.${chave}`] = dados[chave];
-    });
-
-    return update;
-}
-
-function TNP_Login_func_abrirCameraCorrigirPendencia() {
-    const input = document.getElementById('TNP_Login_corrigir_pendencia_input');
-
-    if (!input) {
-        alert('Câmera não encontrada.');
-        return;
-    }
-
-    if (!TNP_Login_pendenciaAtual) {
-        alert('Nenhuma pendência selecionada.');
-        return;
-    }
-
-    input.value = '';
-    input.setAttribute('accept', 'image/*');
-    input.setAttribute('capture', 'environment');
-
-    setTimeout(() => {
-        input.click();
-    }, 80);
-}
-
-function TNP_Login_func_formatarTamanhoArquivo(bytes) {
-    if (!bytes || bytes <= 0) return '0 KB';
-
-    if (bytes < 1024 * 1024) {
-        return Math.round(bytes / 1024) + ' KB';
-    }
-
-    return (bytes / (1024 * 1024)).toFixed(1).replace('.', ',') + ' MB';
-}
-
-function TNP_Login_func_comprimirImagem(arquivo, larguraMaxima = 900, qualidade = 0.7) {
-    return new Promise((resolve, reject) => {
-        if (!arquivo || !arquivo.type.startsWith('image/')) {
-            return resolve(arquivo);
-        }
-
-        const leitor = new FileReader();
-
-        leitor.onload = function(event) {
-            const img = new Image();
-
-            img.onload = function() {
-                let largura = img.width;
-                let altura = img.height;
-
-                if (largura > altura) {
-                    if (largura > larguraMaxima) {
-                        altura = Math.round(altura * (larguraMaxima / largura));
-                        largura = larguraMaxima;
-                    }
-                } else {
-                    if (altura > larguraMaxima) {
-                        largura = Math.round(largura * (larguraMaxima / altura));
-                        altura = larguraMaxima;
-                    }
-                }
-
-                const canvas = document.createElement('canvas');
-                canvas.width = largura;
-                canvas.height = altura;
-
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, largura, altura);
-
-                canvas.toBlob(
-                    function(blob) {
-                        if (!blob) {
-                            return reject(new Error('Erro ao comprimir imagem.'));
-                        }
-
-                        const arquivoFinal = new File(
-                            [blob],
-                            'correcao-pendencia-tnp-mob.jpg',
-                            {
-                                type: 'image/jpeg',
-                                lastModified: Date.now()
-                            }
-                        );
-
-                        resolve(arquivoFinal);
-                    },
-                    'image/jpeg',
-                    qualidade
-                );
-            };
-
-            img.onerror = function() {
-                reject(new Error('Erro ao carregar imagem.'));
-            };
-
-            img.src = event.target.result;
-        };
-
-        leitor.onerror = function() {
-            reject(new Error('Erro ao ler arquivo.'));
-        };
-
-        leitor.readAsDataURL(arquivo);
-    });
-}
-
-async function TNP_Login_func_prepararArquivoCorrigirPendencia(event) {
-    const arquivoOriginal = event.target.files && event.target.files[0];
-
-    const previewArea = document.getElementById('TNP_Login_corrigir_pendencia_preview_area');
-    const preview = document.getElementById('TNP_Login_corrigir_pendencia_preview');
-    const infoCompressao = document.getElementById('TNP_Login_corrigir_pendencia_info_compressao');
-    const erro = document.getElementById('TNP_Login_corrigir_pendencia_error');
-    const btnEnviar = document.getElementById('TNP_Login_corrigir_pendencia_btn_enviar');
-
-    if (erro) {
-        erro.innerText = '';
-        erro.style.display = 'none';
-    }
-
-    if (infoCompressao) {
-        infoCompressao.innerText = '';
-        infoCompressao.style.display = 'none';
-    }
-	
-	if (!arquivoOriginal) {
-	if (btnEnviar) {
-		btnEnviar.disabled = true;
-		btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-	}
-
-	TNP_Login_arquivoCorrecaoPendente = null;
-	return;
-}
-
-    if (arquivoOriginal.size > 8 * 1024 * 1024) {
-	if (erro) {
-		erro.innerText = 'A foto é muito grande. Tire uma nova foto de até 8 MB.';
-		erro.style.display = 'block';
-	}
-
-	if (btnEnviar) {
-		btnEnviar.disabled = true;
-		btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-	}
-
-	TNP_Login_arquivoCorrecaoPendente = null;
-	event.target.value = '';
-	return;
-}
-
-    if (!arquivoOriginal.type.startsWith('image/')) {
-	if (erro) {
-		erro.innerText = 'Tire uma nova foto válida pelo celular.';
-		erro.style.display = 'block';
-	}
-
-	if (btnEnviar) {
-		btnEnviar.disabled = true;
-		btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-	}
-
-	TNP_Login_arquivoCorrecaoPendente = null;
-	event.target.value = '';
-	return;
-}
-
-    try {
-        if (btnEnviar) {
-            btnEnviar.disabled = true;
-            btnEnviar.innerText = 'PREPARANDO FOTO...';
-        }
-
-        const arquivoCompactado = await TNP_Login_func_comprimirImagem(
-            arquivoOriginal,
-            900,
-            0.7
-        );
-
-        const tamanhoOriginal = arquivoOriginal.size;
-        const tamanhoFinal = arquivoCompactado.size;
-        const economia = tamanhoOriginal - tamanhoFinal;
-
-        TNP_Login_arquivoCorrecaoPendente = {
-            arquivoOriginal: arquivoOriginal,
-            arquivoCompactado: arquivoCompactado,
-            tamanhoOriginal: tamanhoOriginal,
-            tamanhoFinal: tamanhoFinal,
-            economia: economia
-        };
-
-        if (preview) {
-            preview.src = URL.createObjectURL(arquivoCompactado);
-        }
-
-        if (previewArea) {
-            previewArea.style.display = 'block';
-        }
-
-        if (infoCompressao) {
-            infoCompressao.style.display = 'block';
-            infoCompressao.innerText =
-                'Compressão: ' +
-                TNP_Login_func_formatarTamanhoArquivo(tamanhoOriginal) +
-                ' → ' +
-                TNP_Login_func_formatarTamanhoArquivo(tamanhoFinal) +
-                ' | economizou ' +
-                TNP_Login_func_formatarTamanhoArquivo(economia);
-        }
-
-        if (btnEnviar) {
-            btnEnviar.disabled = false;
-            btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-        }
-
-    } catch (erroPreparar) {
-        console.error('Erro ao preparar imagem de correção:', erroPreparar);
-
-        if (erro) {
-            erro.innerText = 'Erro ao preparar a foto. Tire outra foto e tente novamente.';
-            erro.style.display = 'block';
-        }
-
-        if (btnEnviar) {
-            btnEnviar.disabled = true;
-            btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-        }
-
-    } finally {
-        event.target.value = '';
-    }
-}
-
-async function TNP_Login_func_enviarCorrecaoPendencia() {
-    const user = PRIMEIRAPAG_Login_auth.currentUser;
-    const erro = document.getElementById('TNP_Login_corrigir_pendencia_error');
-    const btnEnviar = document.getElementById('TNP_Login_corrigir_pendencia_btn_enviar');
-
-    if (erro) {
-        erro.innerText = '';
-        erro.style.display = 'none';
-    }
-
-    if (!user) {
-        if (erro) {
-            erro.innerText = 'Faça login novamente para enviar a correção.';
-            erro.style.display = 'block';
-        }
-        return;
-    }
-
-    if (!TNP_Login_pendenciaAtual || !TNP_Login_arquivoCorrecaoPendente) {
-        if (erro) {
-            erro.innerText = 'Tire uma nova foto antes de enviar a correção.';
-            erro.style.display = 'block';
-        }
-        return;
-    }
-
-    try {
-    if (btnEnviar) {
-        btnEnviar.disabled = true;
-        btnEnviar.innerText = 'ENVIANDO...';
-    }
-
-    const origem = TNP_Login_pendenciaAtual.origem;
-    const tipoPendencia = TNP_Login_pendenciaAtual.tipoPendencia;
-    const config = TNP_Login_pendenciaAtual.config;
-
-    const nomeArquivo = `${tipoPendencia}_${Date.now()}.jpg`;
-
-    const caminhoStorage = origem === 'motorista'
-        ? `motoristas/${user.uid}/${config.pastaStorage}/${nomeArquivo}`
-        : `usuarios/${user.uid}/${config.pastaStorage}/${nomeArquivo}`;
-
-    const storageRef = PRIMEIRAPAG_Login_storage
-        .ref()
-        .child(caminhoStorage);
-
-    const arquivoCompactado = TNP_Login_arquivoCorrecaoPendente.arquivoCompactado;
-
-    await storageRef.put(arquivoCompactado, {
-        contentType: 'image/jpeg'
-    });
-
-    const url = await storageRef.getDownloadURL();
-
-    const dadosAtualizados = {
-        enviado: true,
-        url: url,
-        caminho: caminhoStorage,
-        status: 'pendente_analise',
-        motivoReprovacao: '',
-        tamanhoOriginal: TNP_Login_arquivoCorrecaoPendente.tamanhoOriginal,
-        tamanhoFinal: TNP_Login_arquivoCorrecaoPendente.tamanhoFinal,
-        economiaBytes: TNP_Login_arquivoCorrecaoPendente.economia,
-        reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    let update = TNP_Login_func_montarAtualizacaoCampo(
-        config.campoFirestore,
-        dadosAtualizados
-    );
-
-    update.requerAnaliseAdmin = true;
-    update.motivoAnaliseAdmin = '';
-
-    update.bloqueadoPorPendenciaAdmin = false;
-    update.pendenciaAdminObrigatoria = false;
-    update.pendenciaAdminOrigem = '';
-    update.pendenciaAdminTipo = '';
-    update.pendenciaAdminCampo = '';
-
-    update.atualizadoEm = firebase.firestore.FieldValue.serverTimestamp();
-
-    if (tipoPendencia === 'fotoPerfil') {
-        update = {
-            fotoPerfilUrl: url,
-            selfieUrl: url,
-
-            fotoPerfilEnviada: true,
-            selfieEnviada: true,
-
-            fotoPerfilStatus: 'pendente_analise',
-            selfieStatus: 'pendente_analise',
-            fotoPerfilMotivoReprovacao: '',
-
-            fotoPerfilCorrecao: {
-                enviado: true,
-                url: url,
-                caminho: caminhoStorage,
-                status: 'pendente_analise',
-                motivoReprovacao: '',
-                tamanhoOriginal: TNP_Login_arquivoCorrecaoPendente.tamanhoOriginal,
-                tamanhoFinal: TNP_Login_arquivoCorrecaoPendente.tamanhoFinal,
-                economiaBytes: TNP_Login_arquivoCorrecaoPendente.economia,
-                reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            },
-
-            requerAnaliseAdmin: true,
-            motivoAnaliseAdmin: '',
-
-            bloqueadoPorCadastro: false,
-            bloqueadoPorPendenciaAdmin: false,
-            bloqueadoPorSelfieInadequada: false,
-
-            pendenciaAdminObrigatoria: false,
-            pendenciaAdminOrigem: '',
-            pendenciaAdminTipo: '',
-            pendenciaAdminCampo: '',
-
-            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        };
-    }
-
-    if (origem === 'motorista') {
-        if (tipoPendencia === 'fotoPerfil') {
-            update.motoristaStatus = 'pendente_analise_admin';
-            update.statusAnalise = 'pendente_analise_admin';
-            update.podeAceitarCorrida = false;
-            update.disponivelParaCorridas = false;
-            update.etapaCadastroMotorista = 'analise_final_motorista';
-
-            update.statusMotorista = {
-                geral: 'pendente_analise_admin',
-                etapa: 'analise_final_motorista',
-                mensagem: 'Foto de perfil reenviada. Aguardando análise do administrador.',
-                motivo: '',
-                tipo: 'motorista',
-                uid: user.uid,
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            };
-        }
-
-        if (
-            tipoPendencia === 'fotoCnh' ||
-            tipoPendencia === 'selfieComCnh'
-        ) {
-            update.fotosCnhStatus = 'pendente_analise';
-        }
-
-        if (
-            tipoPendencia === 'crlv' ||
-            tipoPendencia === 'fotoVeiculoPlaca'
-        ) {
-            update.documentosVeiculoStatus = 'pendente_analise';
-        }
-
-        update.etapaCadastroMotorista = 'analise_final_motorista';
-    }
-
-    if (origem === 'passageiro') {
-        if (tipoPendencia === 'fotoPerfil') {
-            update.status = {
-                geral: 'pendente_analise_selfie',
-                etapa: 'home_passageiro',
-                mensagem: 'Foto de perfil reenviada. Aguardando análise do administrador.',
-                motivo: '',
-                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-            };
-        }
-
-        if (tipoPendencia === 'selfieDocumento') {
-            update.selfieDocumentoExtraPendente = true;
-            update.selfieDocumentoExtraConcluida = false;
-            update.bloqueadoPorSelfieDocumentoExtra = false;
-            update.ultimaPendenciaCorrigida = 'selfieDocumento';
-            update['statusCadastroPassageiro.documentos'] = 'pendente_analise';
-        }
-
-        if (tipoPendencia === 'comprovanteEndereco') {
-            update.comprovanteEnderecoPendente = true;
-            update.fotoEnderecoPendente = true;
-            update.ultimaPendenciaCorrigida = 'comprovanteEndereco';
-            update['statusCadastroPassageiro.comprovanteEndereco'] = 'pendente_analise';
-        }
-    }
-
-    if (origem === 'motorista') {
-		const motoristaRef = PRIMEIRAPAG_Login_db
-			.collection('motoristas')
-			.doc(user.uid);
-
-		if (tipoPendencia === 'fotoPerfil') {
-			await motoristaRef.set(update, { merge: true });
-		} else {
-			await motoristaRef.update(update);
-		}
-
-		const updateUsuarioMotorista = {
-			requerAnaliseAdmin: true,
-			motivoAnaliseAdmin: '',
-
-			bloqueadoPorCadastro: false,
-			bloqueadoPorPendenciaAdmin: false,
-
-			pendenciaAdminObrigatoria: false,
-			pendenciaAdminOrigem: '',
-			pendenciaAdminTipo: '',
-			pendenciaAdminCampo: '',
-
-			motoristaStatus: 'pendente_analise_admin',
-			statusAnalise: 'pendente_analise_admin',
-			podeAceitarCorrida: false,
-			disponivelParaCorridas: false,
-
-			etapaCadastro: 'motorista_analise_final',
-			etapaCadastroMotorista: 'analise_final_motorista',
-
-			statusMotorista: {
-				geral: 'pendente_analise_admin',
-				etapa: 'analise_final_motorista',
-				mensagem: 'Correção reenviada. Aguardando análise do administrador.',
-				motivo: '',
-				tipo: 'motorista',
-				uid: user.uid,
-				atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-			},
-
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		};
-
-		if (tipoPendencia === 'fotoPerfil') {
-			updateUsuarioMotorista.fotoPerfilUrl = url;
-			updateUsuarioMotorista.selfieUrl = url;
-			updateUsuarioMotorista.fotoPerfilEnviada = true;
-			updateUsuarioMotorista.selfieEnviada = true;
-			updateUsuarioMotorista.fotoPerfilStatus = 'pendente_analise';
-			updateUsuarioMotorista.selfieStatus = 'pendente_analise';
-			updateUsuarioMotorista.fotoPerfilMotivoReprovacao = '';
-			updateUsuarioMotorista.bloqueadoPorSelfieInadequada = false;
-			updateUsuarioMotorista.fotoPerfilCorrecao = update.fotoPerfilCorrecao;
-		}
-
-		await PRIMEIRAPAG_Login_db
-			.collection('usuarios')
-			.doc(user.uid)
-			.set(updateUsuarioMotorista, { merge: true });
-
-	} else {
-		const usuarioRef = PRIMEIRAPAG_Login_db
-			.collection('usuarios')
-			.doc(user.uid);
-
-		if (tipoPendencia === 'fotoPerfil') {
-			await usuarioRef.set(update, { merge: true });
-		} else {
-			await usuarioRef.update(update);
-		}
-	}
-
-    TNP_Login_pendenciaObrigatoria = false;
-    TNP_Login_func_fecharModalCorrigirPendencia();
-
-    if (origem === 'motorista') {
-        if (typeof MOTORISTAPAG_Login_func_abrirModalStatusCadastro === "function") {
-            MOTORISTAPAG_Login_func_abrirModalStatusCadastro();
-        } else {
-            TNP_Login_func_abrirMensagemProvisoria(
-                'Correção enviada',
-                'Sua correção foi enviada e ficará aguardando análise do administrador.'
-            );
-        }
-
-        return;
-    }
-
-    if (origem === 'passageiro') {
-        TNP_Login_func_abrirMensagemProvisoria(
-            'Correção enviada',
-            'Sua correção foi enviada e ficará aguardando análise do administrador.'
-        );
-
-        return;
-    }
-
-} catch (e) {
-    console.error('Erro ao enviar correção de pendência:', e);
-
-    if (erro) {
-        erro.innerText =
-            'Erro ao enviar: ' +
-            (e.code || e.message || 'erro desconhecido');
-
-        erro.style.display = 'block';
-    }
-
-} finally {
-    if (btnEnviar) {
-        btnEnviar.disabled = false;
-        btnEnviar.innerText = 'ENVIAR CORREÇÃO';
-    }
-}
-}
-// MODAL UNIVERSAL: CORRIGIR PENDÊNCIA FINAL
-		
 
 // ========== MODAL: CADASTRO DE MOTORISTA PENDENTE ========== 
 let PRIMEIRAPAG_Login_var_usuarioMotoristaPendente = null;
@@ -32857,6 +33139,1609 @@ async function PRIMEIRAPAG_Login_func_desistirCadastroMotorista() {
 }
 // ========== MODAL: CADASTRO DE MOTORISTA PENDENTE FINAL ========== 
 
+
+// ========== MODAL UNIVERSAL: PENDÊNCIA DO ADMIN  ========== 
+let TNP_Login_pendenciaAdminAtual = null;
+
+function TNP_Login_func_statusPendenteAdmin(status) {
+    return (
+        status === "pendente_envio" ||
+        status === "pendente_correcao" ||
+        status === "reprovado" ||
+        status === "recusado"
+    );
+}
+
+function TNP_Login_func_adicionarPendenciaAdmin(lista, tipo, titulo, motivo, destino) {
+    lista.push({
+        tipo: tipo,
+        titulo: titulo,
+        motivo: motivo || "",
+        destino: destino || tipo
+    });
+}
+
+function TNP_Login_func_verificarModalPendenciaAdminUniversal(dadosUsuario, dadosMotorista, origem, abrirModal) {
+    if (abrirModal === undefined) {
+        abrirModal = true;
+    }
+    const modal = document.getElementById("TNP_Login_modal_pendencia_admin");
+    const icone = document.getElementById("TNP_Login_modal_pendencia_admin_icone");
+    const titulo = document.getElementById("TNP_Login_modal_pendencia_admin_titulo");
+    const texto = document.getElementById("TNP_Login_modal_pendencia_admin_texto");
+    const listaEl = document.getElementById("TNP_Login_modal_pendencia_admin_lista");
+    const motivoEl = document.getElementById("TNP_Login_modal_pendencia_admin_motivo");
+    const btnFechar = document.getElementById("TNP_Login_btn_fechar_modal_pendencia_admin");
+
+    if (!modal) return false;
+
+    dadosUsuario = dadosUsuario || {};
+    dadosMotorista = dadosMotorista || {};
+
+    const pendencias = [];
+
+    const origemFinal = origem || dadosUsuario.perfilAtual || "passageiro";
+
+    const documentosUsuario = dadosUsuario.documentosMotorista || {};
+    const documentosMotorista = dadosMotorista.documentosMotorista || {};
+
+    const fotoCnh =
+        documentosMotorista.fotoCnh ||
+        documentosUsuario.fotoCnh ||
+        {};
+
+    const selfieComCnh =
+        documentosMotorista.selfieComCnh ||
+        documentosUsuario.selfieComCnh ||
+        {};
+
+    const documentosVeiculoUsuario = dadosUsuario.documentosVeiculo || {};
+    const documentosVeiculoMotorista = dadosMotorista.documentosVeiculo || {};
+
+    const crlvAntigo =
+        documentosVeiculoMotorista.crlv ||
+        documentosVeiculoUsuario.crlv ||
+        {};
+
+    const fotoVeiculoAntigo =
+        documentosVeiculoMotorista.fotoVeiculoPlaca ||
+        documentosVeiculoUsuario.fotoVeiculoPlaca ||
+        {};
+
+    const fotoPerfilPendente =
+        dadosUsuario.pendenciaAdminTipo === "fotoPerfil" &&
+        (
+            dadosUsuario.fotoPerfilStatus === "pendente_correcao" ||
+            dadosUsuario.selfieStatus === "pendente_correcao"
+        );
+
+    if (fotoPerfilPendente) {
+        TNP_Login_func_adicionarPendenciaAdmin(
+            pendencias,
+            "fotoPerfil",
+            "Foto de perfil",
+            dadosUsuario.fotoPerfilMotivoReprovacao ||
+            dadosUsuario.motivoAnaliseAdmin ||
+            "Envie uma nova foto de perfil nítida.",
+            "fotoPerfil"
+        );
+    }
+	
+	const documentosPassageiro = dadosUsuario.documentosPassageiro || {};
+
+	const selfieDocumentoPassageiro =
+		dadosUsuario.selfieDocumentoExtra ||
+		dadosUsuario.selfieComDocumento ||
+		documentosPassageiro.selfieComDocumento ||
+		documentosPassageiro.selfieDocumentoExtra ||
+		{};
+
+	const selfieDocumentoPassageiroStatus =
+		selfieDocumentoPassageiro.status ||
+		dadosUsuario.selfieDocumentoExtraStatus ||
+		dadosUsuario.selfieComDocumentoStatus ||
+		"";
+
+	const selfieDocumentoPassageiroMotivo =
+		selfieDocumentoPassageiro.motivoReprovacao ||
+		dadosUsuario.selfieDocumentoExtraMotivoReprovacao ||
+		dadosUsuario.selfieComDocumentoMotivoReprovacao ||
+		dadosUsuario.motivoAnaliseAdmin ||
+		"Envie novamente a selfie segurando o documento.";
+
+	const selfieDocumentoPassageiroPendente =
+		dadosUsuario.pendenciaAdminTipo === "selfieDocumentoPassageiro" ||
+		dadosUsuario.pendenciaAdminTipo === "selfieDocumentoExtra" ||
+		dadosUsuario.pendenciaAdminTipo === "selfieComDocumento" ||
+		TNP_Login_func_statusPendenteAdmin(selfieDocumentoPassageiroStatus);
+
+	if (selfieDocumentoPassageiroPendente) {
+		TNP_Login_func_adicionarPendenciaAdmin(
+			pendencias,
+			"selfieDocumentoPassageiro",
+			"Selfie com documento",
+			selfieDocumentoPassageiroMotivo,
+			"selfieDocumentoPassageiro"
+		);
+	}
+
+    if (TNP_Login_func_statusPendenteAdmin(fotoCnh.status)) {
+        TNP_Login_func_adicionarPendenciaAdmin(
+            pendencias,
+            "fotoCnh",
+            "Foto da CNH",
+            fotoCnh.motivoReprovacao ||
+            dadosMotorista.motivoAnaliseAdmin ||
+            dadosUsuario.motivoAnaliseAdmin ||
+            "Envie novamente a foto da CNH.",
+            "cnh"
+        );
+    }
+
+    if (TNP_Login_func_statusPendenteAdmin(selfieComCnh.status)) {
+        TNP_Login_func_adicionarPendenciaAdmin(
+            pendencias,
+            "selfieComCnh",
+            "Selfie com CNH",
+            selfieComCnh.motivoReprovacao ||
+            dadosMotorista.motivoAnaliseAdmin ||
+            dadosUsuario.motivoAnaliseAdmin ||
+            "Envie novamente a selfie segurando a CNH.",
+            "cnh"
+        );
+    }
+
+    if (TNP_Login_func_statusPendenteAdmin(crlvAntigo.status)) {
+        TNP_Login_func_adicionarPendenciaAdmin(
+            pendencias,
+            "crlv",
+            "CRLV",
+            crlvAntigo.motivoReprovacao ||
+            dadosMotorista.motivoAnaliseAdmin ||
+            "Envie novamente o CRLV do veículo.",
+            "veiculo"
+        );
+    }
+
+    if (TNP_Login_func_statusPendenteAdmin(fotoVeiculoAntigo.status)) {
+        TNP_Login_func_adicionarPendenciaAdmin(
+            pendencias,
+            "fotoVeiculoPlaca",
+            "Foto do veículo com placa",
+            fotoVeiculoAntigo.motivoReprovacao ||
+            dadosMotorista.motivoAnaliseAdmin ||
+            "Envie novamente a foto do veículo mostrando a placa.",
+            "veiculo"
+        );
+    }
+
+    const veiculos = Array.isArray(dadosMotorista.veiculos)
+        ? dadosMotorista.veiculos
+        : [];
+
+    veiculos.forEach(function(veiculo, index) {
+        const docs = veiculo && veiculo.documentos ? veiculo.documentos : {};
+        const placa = veiculo && veiculo.placa ? " - " + veiculo.placa : "";
+
+        if (docs.crlv && TNP_Login_func_statusPendenteAdmin(docs.crlv.status)) {
+            TNP_Login_func_adicionarPendenciaAdmin(
+                pendencias,
+                "crlv",
+                "CRLV veículo " + (index + 1) + placa,
+                docs.crlv.motivoReprovacao || "Envie novamente o CRLV do veículo.",
+                "veiculo"
+            );
+        }
+
+        if (docs.fotoVeiculoPlaca && TNP_Login_func_statusPendenteAdmin(docs.fotoVeiculoPlaca.status)) {
+            TNP_Login_func_adicionarPendenciaAdmin(
+                pendencias,
+                "fotoVeiculoPlaca",
+                "Foto do veículo com placa " + (index + 1) + placa,
+                docs.fotoVeiculoPlaca.motivoReprovacao || "Envie novamente a foto do veículo com placa.",
+                "veiculo"
+            );
+        }
+    });
+
+    const fotosCnhStatus =
+        dadosMotorista.fotosCnhStatus ||
+        dadosUsuario.fotosCnhStatus ||
+        "";
+
+    const motoristaStatus =
+        dadosMotorista.motoristaStatus ||
+        dadosUsuario.motoristaStatus ||
+        "";
+
+    const pendenciasDocumentosMotorista =
+        dadosMotorista.pendenciasDocumentosMotorista ||
+        dadosUsuario.pendenciasDocumentosMotorista ||
+        [];
+
+    if (
+        pendencias.length === 0 &&
+        (
+            fotosCnhStatus === "pendente_envio" ||
+            fotosCnhStatus === "pendente_correcao" ||
+            motoristaStatus === "pendente_documentos"
+        ) &&
+        Array.isArray(pendenciasDocumentosMotorista) &&
+        pendenciasDocumentosMotorista.length > 0
+    ) {
+        pendenciasDocumentosMotorista.forEach(function(item) {
+            TNP_Login_func_adicionarPendenciaAdmin(
+                pendencias,
+                "documentoMotorista",
+                item,
+                dadosMotorista.motivoAnaliseAdmin ||
+                dadosUsuario.motivoAnaliseAdmin ||
+                "Envie novamente o documento solicitado.",
+                "cnh"
+            );
+        });
+    }
+
+    if (!pendencias.length) {
+        modal.classList.remove("active");
+        TNP_Login_pendenciaAdminAtual = null;
+        return false;
+    }
+
+    const temPendenciaAdminObrigatoria = pendencias.some(function(item) {
+		return (
+			item.destino === "fotoPerfil" ||
+			item.destino === "selfieDocumentoPassageiro" ||
+			item.destino === "cnh" ||
+			item.destino === "veiculo"
+		);
+	});
+
+	const obrigatoria =
+		dadosUsuario.pendenciaAdminObrigatoria === true ||
+		dadosMotorista.pendenciaAdminObrigatoria === true ||
+		temPendenciaAdminObrigatoria === true ||
+		motoristaStatus === "pendente_documentos" ||
+		fotosCnhStatus === "pendente_envio" ||
+		fotosCnhStatus === "pendente_correcao";
+
+    TNP_Login_pendenciaAdminAtual = {
+        origem: origemFinal,
+        obrigatoria: obrigatoria,
+        pendencias: pendencias,
+        destino: pendencias[0].destino
+    };
+
+    if (icone) {
+		if (pendencias[0].destino === "fotoPerfil") {
+			icone.innerText = "📸";
+		} else if (pendencias[0].destino === "selfieDocumentoPassageiro") {
+			icone.innerText = "🪪";
+		} else if (pendencias[0].destino === "cnh") {
+			icone.innerText = "🪪";
+		} else if (pendencias[0].destino === "veiculo") {
+			icone.innerText = "🚗";
+		} else {
+			icone.innerText = "⚠️";
+		}
+	}
+
+    if (titulo) {
+		if (pendencias[0].destino === "fotoPerfil") {
+			titulo.innerText = "Foto de perfil precisa de revisão";
+		} else if (pendencias[0].destino === "selfieDocumentoPassageiro") {
+			titulo.innerText = "Selfie com documento precisa de revisão";
+		} else if (pendencias[0].destino === "cnh") {
+			titulo.innerText = "Documentos do motorista precisam de revisão";
+		} else if (pendencias[0].destino === "veiculo") {
+			titulo.innerText = "Documento do veículo precisa de revisão";
+		} else {
+			titulo.innerText = "Pendência no cadastro";
+		}
+	}
+
+    if (texto) {
+        texto.innerText =
+            "O administrador solicitou uma correção. Para continuar, envie novamente o que está pendente.";
+    }
+
+    if (listaEl) {
+        listaEl.innerHTML =
+            "<strong>Pendência(s):</strong><br>" +
+            pendencias.map(function(item) {
+                return "• " + item.titulo;
+            }).join("<br>");
+    }
+
+    if (motivoEl) {
+        motivoEl.innerHTML =
+            "<strong>Motivo:</strong><br>" +
+            pendencias.map(function(item) {
+                return "• " + (item.motivo || "Envie novamente o documento solicitado.");
+            }).join("<br>");
+    }
+
+    if (btnFechar) {
+        btnFechar.style.display = obrigatoria ? "none" : "block";
+    }
+
+    if (abrirModal === true) {
+		modal.classList.add("active");
+	}
+
+	return true;
+}
+
+function TNP_Login_func_fecharModalPendenciaAdminUniversal() {
+    if (
+        TNP_Login_pendenciaAdminAtual &&
+        TNP_Login_pendenciaAdminAtual.obrigatoria === true
+    ) {
+        return TNP_Login_func_abrirMensagemProvisoria(
+            "Correção obrigatória",
+            "Para continuar, envie a correção solicitada pelo administrador."
+        );
+    }
+
+    const modal = document.getElementById("TNP_Login_modal_pendencia_admin");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+
+    TNP_Login_pendenciaAdminAtual = null;
+}
+
+function TNP_Login_func_irParaPendenciaAdminUniversal() {
+    const pendencia = TNP_Login_pendenciaAdminAtual || {};
+    const destino = pendencia.destino || "fotoPerfil";
+
+    sessionStorage.setItem("TNP_MOB_CORRIGINDO_PENDENCIA_ADMIN", "true");
+    sessionStorage.setItem("TNP_MOB_DESTINO_PENDENCIA_ADMIN", destino);
+
+    const modal = document.getElementById("TNP_Login_modal_pendencia_admin");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+
+    if (destino === "fotoPerfil") {
+        sessionStorage.setItem("TNP_MOB_EDITANDO_FOTO_PERFIL", "true");
+        sessionStorage.setItem("TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN", "true");
+
+        PRIMEIRAPAG_Login_func_irPara("QUINTAPAG_Login_screen_selfie");
+        return;
+    }
+
+    if (destino === "cnh") {
+        sessionStorage.setItem("TNP_MOB_CORRIGINDO_DOCUMENTOS_MOTORISTA_ADMIN", "true");
+        sessionStorage.setItem("TNP_MOB_CORRIGINDO_CNH_ADMIN", "true");
+
+        if (document.getElementById("MOTORISTAPAG_Login_screen_fotos_cnh")) {
+            PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_fotos_cnh");
+            return;
+        }
+
+        if (document.getElementById("MOTORISTAPAG_Login_screen_cnh_fotos")) {
+            PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_cnh_fotos");
+            return;
+        }
+
+        if (document.getElementById("MOTORISTAPAG_Login_screen_motorista_cnh")) {
+            PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_motorista_cnh");
+            return;
+        }
+
+        if (typeof MOTORISTAPAG_Login_func_prosseguirAndamentoCadastroMotorista === "function") {
+            MOTORISTAPAG_Login_func_prosseguirAndamentoCadastroMotorista();
+            return;
+        }
+    }
+
+    if (destino === "veiculo") {
+        sessionStorage.setItem("TNP_MOB_CORRIGINDO_DOCUMENTOS_VEICULO_ADMIN", "true");
+
+        if (document.getElementById("MOTORISTAPAG_Login_screen_documentos_veiculo")) {
+            PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_documentos_veiculo");
+            return;
+        }
+
+        if (document.getElementById("MOTORISTAPAG_Login_screen_documentos_novo_veiculo")) {
+            PRIMEIRAPAG_Login_func_irPara("MOTORISTAPAG_Login_screen_documentos_novo_veiculo");
+            return;
+        }
+
+        if (typeof MOTORISTAPAG_Login_func_prosseguirAndamentoCadastroMotorista === "function") {
+            MOTORISTAPAG_Login_func_prosseguirAndamentoCadastroMotorista();
+            return;
+        }
+    }
+	
+	if (destino === "selfieDocumentoPassageiro") {
+    sessionStorage.setItem("TNP_MOB_CORRIGINDO_PENDENCIA_ADMIN", "true");
+    sessionStorage.setItem("TNP_MOB_CORRIGINDO_SELFIE_DOCUMENTO_PASSAGEIRO_ADMIN", "true");
+    sessionStorage.setItem("TNP_MOB_DESTINO_PENDENCIA_ADMIN", "selfieDocumentoPassageiro");
+
+    const telasPassageiro = [
+        "PASSAGEIROPAG_Login_screen_selfie_documento",
+        "PASSAGEIROPAG_Login_screen_documentos",
+        "PASSAGEIROPAG_Login_screen_documentos_passageiro",
+        "PASSAGEIROPAG_Login_screen_selfie_com_documento",
+        "PRIMEIRAPAG_Login_screen_documentos_passageiro"
+    ];
+
+    for (let i = 0; i < telasPassageiro.length; i++) {
+        if (document.getElementById(telasPassageiro[i])) {
+            PRIMEIRAPAG_Login_func_irPara(telasPassageiro[i]);
+            return;
+        }
+    }
+
+    if (typeof PASSAGEIROPAG_Login_func_abrirPendenciasPassageiro === "function") {
+        PASSAGEIROPAG_Login_func_abrirPendenciasPassageiro();
+        return;
+    }
+
+    if (typeof PASSAGEIROPAG_Login_func_irParaDocumentosPassageiro === "function") {
+        PASSAGEIROPAG_Login_func_irParaDocumentosPassageiro();
+        return;
+    }
+}
+	
+    TNP_Login_func_abrirMensagemProvisoria(
+        "Pendência encontrada",
+        "Abra seu cadastro para corrigir a pendência solicitada pelo administrador."
+    );
+}
+
+let NOTIFICACOES_pendenciaAdminSininhoAtual = null;
+let NOTIFICACOES_acoesPadraoHtml = "";
+
+async function NOTIFICACOES_func_buscarPendenciaAdminParaSininho(tipoUsuario) {
+    const user = PRIMEIRAPAG_Login_auth && PRIMEIRAPAG_Login_auth.currentUser
+        ? PRIMEIRAPAG_Login_auth.currentUser
+        : null;
+
+    if (!user) {
+        NOTIFICACOES_pendenciaAdminSininhoAtual = null;
+        return false;
+    }
+
+    const dbRef = typeof PRIMEIRAPAG_Login_db !== "undefined"
+        ? PRIMEIRAPAG_Login_db
+        : firebase.firestore();
+
+    const usuarioSnap = await dbRef.collection("usuarios").doc(user.uid).get();
+    const motoristaSnap = await dbRef.collection("motoristas").doc(user.uid).get();
+
+    const dadosUsuario = usuarioSnap.exists ? usuarioSnap.data() : {};
+    const dadosMotorista = motoristaSnap.exists ? motoristaSnap.data() : {};
+
+    const origem =
+        tipoUsuario ||
+        dadosUsuario.perfilAtual ||
+        dadosUsuario.ultimoPerfilUsado ||
+        dadosUsuario.tipo ||
+        "passageiro";
+
+    if (typeof TNP_Login_func_verificarModalPendenciaAdminUniversal !== "function") {
+        NOTIFICACOES_pendenciaAdminSininhoAtual = null;
+        return false;
+    }
+
+    const temPendencia = TNP_Login_func_verificarModalPendenciaAdminUniversal(
+        dadosUsuario,
+        dadosMotorista,
+        origem,
+        false
+    );
+
+    if (!temPendencia || !TNP_Login_pendenciaAdminAtual) {
+        NOTIFICACOES_pendenciaAdminSininhoAtual = null;
+        return false;
+    }
+
+    NOTIFICACOES_pendenciaAdminSininhoAtual = {
+        dadosUsuario: dadosUsuario,
+        dadosMotorista: dadosMotorista,
+        origem: origem,
+        pendencia: TNP_Login_pendenciaAdminAtual
+    };
+
+    return true;
+}
+
+function NOTIFICACOES_func_salvarAcoesPadraoSePreciso() {
+    const acoes = document.querySelector("#NOTIFICACOES_modal .NOTIFICACOES_acoes");
+
+    if (acoes && !NOTIFICACOES_acoesPadraoHtml) {
+        NOTIFICACOES_acoesPadraoHtml = acoes.innerHTML;
+    }
+}
+
+function NOTIFICACOES_func_restaurarAcoesPadrao() {
+    const acoes = document.querySelector("#NOTIFICACOES_modal .NOTIFICACOES_acoes");
+
+    if (acoes && NOTIFICACOES_acoesPadraoHtml) {
+        acoes.innerHTML = NOTIFICACOES_acoesPadraoHtml;
+        acoes.style.gridTemplateColumns = "1fr 1fr";
+    }
+}
+
+function NOTIFICACOES_func_renderizarPendenciaAdminNoSininho() {
+    const conteudo = document.getElementById("NOTIFICACOES_conteudo");
+    const subtitulo = document.getElementById("NOTIFICACOES_subtitulo");
+    const acoes = document.querySelector("#NOTIFICACOES_modal .NOTIFICACOES_acoes");
+
+    const dados = NOTIFICACOES_pendenciaAdminSininhoAtual || {};
+    const pendencia = dados.pendencia || {};
+    const pendencias = Array.isArray(pendencia.pendencias) ? pendencia.pendencias : [];
+
+    if (!pendencias.length) return false;
+
+    const nomesPendencias = pendencias.map(function(item) {
+        return item.titulo || "Pendência no cadastro";
+    });
+
+    const motivosPendencias = pendencias.map(function(item) {
+        return item.motivo || "Envie novamente o documento solicitado.";
+    });
+
+    if (subtitulo) {
+        subtitulo.innerText = "Suporte TNP MoB";
+    }
+
+    if (conteudo) {
+        conteudo.value =
+            "🔔 Suporte TNP MoB\n\n" +
+            "Existe uma pendência no seu cadastro.\n\n" +
+            "Pendência(s):\n" +
+            "• " + nomesPendencias.join("\n• ") + "\n\n" +
+            "Motivo:\n" +
+            "• " + motivosPendencias.join("\n• ") + "\n\n" +
+            "Toque em RESOLVER PENDÊNCIA para corrigir agora.";
+
+        conteudo.readOnly = true;
+        conteudo.placeholder = "";
+        conteudo.classList.add("NOTIFICACOES_conteudo_leitura");
+        conteudo.classList.remove("NOTIFICACOES_conteudo_resposta_pronta");
+
+        if (typeof NOTIFICACOES_func_autoAjustarCampoPrincipal === "function") {
+            NOTIFICACOES_func_autoAjustarCampoPrincipal(conteudo);
+        }
+    }
+
+    if (acoes) {
+        acoes.style.gridTemplateColumns = "1fr";
+        acoes.innerHTML =
+            '<button type="button" onclick="NOTIFICACOES_func_resolverPendenciaAdminPeloSininho()">' +
+                'RESOLVER PENDÊNCIA' +
+            '</button>';
+    }
+
+    NOTIFICACOES_ultimaAtual = {
+        id: "pendencia_admin",
+        tipo: "pendencia_admin",
+        texto: "Pendência do suporte TNP MoB"
+    };
+
+    return true;
+}
+
+function NOTIFICACOES_func_resolverPendenciaAdminPeloSininho() {
+    if (NOTIFICACOES_pendenciaAdminSininhoAtual) {
+        TNP_Login_func_verificarModalPendenciaAdminUniversal(
+            NOTIFICACOES_pendenciaAdminSininhoAtual.dadosUsuario,
+            NOTIFICACOES_pendenciaAdminSininhoAtual.dadosMotorista,
+            NOTIFICACOES_pendenciaAdminSininhoAtual.origem,
+            false
+        );
+
+        NOTIFICACOES_pendenciaAdminSininhoAtual.pendencia =
+            TNP_Login_pendenciaAdminAtual;
+    }
+
+    if (typeof NOTIFICACOES_func_fecharPainel === "function") {
+        NOTIFICACOES_func_fecharPainel();
+    }
+
+    if (typeof MODALSUPERCORRECAO_func_abrirPeloSininho === "function") {
+        MODALSUPERCORRECAO_func_abrirPeloSininho();
+        return;
+    }
+
+    TNP_Login_func_abrirMensagemProvisoria(
+        "Correção indisponível",
+        "O modal de correção ainda não foi carregado."
+    );
+}
+
+async function NOTIFICACOES_func_atualizarBadgePendenciaAdmin(tipoUsuario) {
+    const temPendencia = await NOTIFICACOES_func_buscarPendenciaAdminParaSininho(tipoUsuario);
+
+    const badgeId = tipoUsuario === "motorista"
+        ? "NOTIFICACOES_badge_motorista"
+        : "NOTIFICACOES_badge_passageiro";
+
+    const badge = document.getElementById(badgeId);
+
+    if (!badge) return;
+
+    if (temPendencia) {
+        badge.style.display = "inline-flex";
+        badge.innerText = "!";
+        return;
+    }
+
+    if (badge.innerText === "!") {
+        badge.style.display = "none";
+        badge.innerText = "0";
+    }
+}
+// ========== MODAL UNIVERSAL: PENDÊNCIA DO ADMIN FINAL ========== 
+
+
+// ========== MODALSUPERCORREÇÃO: CORREÇÃO ISOLADA ADM/SUPORTE ==========
+
+let MODALSUPERCORRECAO_estado = {
+    origem: "",
+    pendencias: [],
+    indice: 0,
+    arquivo: null,
+    dadosUsuario: {},
+    dadosMotorista: {}
+};
+
+
+let TNP_Login_fotoPerfilAdminAtual = null;
+
+function TNP_Login_func_abrirMensagemProvisoria(titulo, texto) {
+    if (typeof MOTORISTAPAG_Login_func_abrirPaginaProvisoria === "function") {
+        MOTORISTAPAG_Login_func_abrirPaginaProvisoria(titulo, texto);
+        return;
+    }
+
+    alert(titulo + "\n\n" + texto);
+}
+
+function TNP_Login_func_formatarTamanhoArquivo(bytes) {
+    if (!bytes || bytes <= 0) return "0 KB";
+
+    if (bytes < 1024 * 1024) {
+        return Math.round(bytes / 1024) + " KB";
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(1).replace(".", ",") + " MB";
+}
+
+function TNP_Login_func_comprimirImagem(arquivo, larguraMaxima = 900, qualidade = 0.7) {
+    return new Promise((resolve, reject) => {
+        if (!arquivo || !arquivo.type || !arquivo.type.startsWith("image/")) {
+            return resolve(arquivo);
+        }
+
+        const leitor = new FileReader();
+
+        leitor.onload = function(event) {
+            const img = new Image();
+
+            img.onload = function() {
+                let largura = img.width;
+                let altura = img.height;
+
+                if (largura > altura) {
+                    if (largura > larguraMaxima) {
+                        altura = Math.round(altura * (larguraMaxima / largura));
+                        largura = larguraMaxima;
+                    }
+                } else {
+                    if (altura > larguraMaxima) {
+                        largura = Math.round(largura * (larguraMaxima / altura));
+                        altura = larguraMaxima;
+                    }
+                }
+
+                const canvas = document.createElement("canvas");
+                canvas.width = largura;
+                canvas.height = altura;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, largura, altura);
+
+                canvas.toBlob(
+                    function(blob) {
+                        if (!blob) {
+                            return reject(new Error("Erro ao comprimir imagem."));
+                        }
+
+                        const arquivoFinal = new File(
+                            [blob],
+                            "correcao-pendencia-tnp-mob.jpg",
+                            {
+                                type: "image/jpeg",
+                                lastModified: Date.now()
+                            }
+                        );
+
+                        resolve(arquivoFinal);
+                    },
+                    "image/jpeg",
+                    qualidade
+                );
+            };
+
+            img.onerror = function() {
+                reject(new Error("Erro ao carregar imagem."));
+            };
+
+            img.src = event.target.result;
+        };
+
+        leitor.onerror = function() {
+            reject(new Error("Erro ao ler arquivo."));
+        };
+
+        leitor.readAsDataURL(arquivo);
+    });
+}
+
+function TNP_Login_func_verificarModalFotoPerfilAdmin(dadosUsuario, origem) {
+    if (!dadosUsuario) return false;
+
+    origem = origem || dadosUsuario.perfilAtual || "passageiro";
+
+    const statusFoto =
+        dadosUsuario.fotoPerfilStatus ||
+        dadosUsuario.selfieStatus ||
+        "";
+
+    const statusPermite =
+        statusFoto === "pendente_envio" ||
+        statusFoto === "pendente_correcao" ||
+        statusFoto === "reprovado" ||
+        statusFoto === "recusado" ||
+        statusFoto === "corrigir";
+
+    const estaAguardandoAnalise =
+		statusFoto === "pendente_analise" ||
+		statusFoto === "em_analise" ||
+		statusFoto === "enviada";
+
+	if (estaAguardandoAnalise) {
+		TNP_Login_fotoPerfilAdminAtual = null;
+		return false;
+	}
+
+	const precisaCorrigir =
+		dadosUsuario.pendenciaAdminTipo === "fotoPerfil" &&
+		statusPermite === true;
+
+    if (!precisaCorrigir) {
+        TNP_Login_fotoPerfilAdminAtual = null;
+        return false;
+    }
+
+    const motivo =
+        dadosUsuario.fotoPerfilMotivoReprovacao ||
+        dadosUsuario.motivoAnaliseAdmin ||
+        "Foto inadequada, imprópria ou sem nitidez.";
+
+    const obrigatoria = dadosUsuario.pendenciaAdminObrigatoria === true;
+
+    TNP_Login_fotoPerfilAdminAtual = {
+        origem: origem,
+        obrigatoria: obrigatoria
+    };
+
+    TNP_Login_pendenciaAdminAtual = {
+        origem: origem,
+        obrigatoria: obrigatoria,
+        destino: "fotoPerfil",
+        pendencias: [
+            {
+                tipo: "fotoPerfil",
+                titulo: "Foto de perfil",
+                motivo: motivo,
+                destino: "fotoPerfil"
+            }
+        ]
+    };
+
+    if (typeof NOTIFICACOES_pendenciaAdminSininhoAtual !== "undefined") {
+        NOTIFICACOES_pendenciaAdminSininhoAtual = {
+            dadosUsuario: dadosUsuario || {},
+            dadosMotorista: {},
+            origem: origem,
+            pendencia: TNP_Login_pendenciaAdminAtual
+        };
+    }
+
+    if (typeof MODALSUPERCORRECAO_func_abrirPeloSininho === "function") {
+        MODALSUPERCORRECAO_func_abrirPeloSininho();
+        return true;
+    }
+
+    return TNP_Login_func_abrirMensagemProvisoria(
+        "Correção necessária",
+        "O suporte solicitou uma nova foto de perfil, mas o MODALSUPERCORREÇÃO ainda não foi carregado."
+    );
+}
+
+function TNP_Login_func_fecharModalRevisaoFotoPerfil() {
+    const modal = document.getElementById("TNP_Login_modal_revisao_foto_perfil");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+
+    TNP_Login_fotoPerfilAdminAtual = null;
+}
+
+function TNP_Login_func_irParaCorrecaoFotoPerfilAdmin() {
+    if (!TNP_Login_fotoPerfilAdminAtual) {
+        return TNP_Login_func_abrirMensagemProvisoria(
+            "Correção não encontrada",
+            "Não foi possível identificar a origem da foto de perfil."
+        );
+    }
+
+    TNP_Login_pendenciaAdminAtual = {
+        origem: TNP_Login_fotoPerfilAdminAtual.origem || "passageiro",
+        obrigatoria: TNP_Login_fotoPerfilAdminAtual.obrigatoria === true,
+        destino: "fotoPerfil",
+        pendencias: [
+            {
+                tipo: "fotoPerfil",
+                titulo: "Foto de perfil",
+                motivo: "O suporte solicitou uma nova foto de perfil.",
+                destino: "fotoPerfil"
+            }
+        ]
+    };
+
+    const modal = document.getElementById("TNP_Login_modal_revisao_foto_perfil");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+
+    if (typeof NOTIFICACOES_pendenciaAdminSininhoAtual !== "undefined") {
+        NOTIFICACOES_pendenciaAdminSininhoAtual = {
+            dadosUsuario: {},
+            dadosMotorista: {},
+            origem: TNP_Login_pendenciaAdminAtual.origem,
+            pendencia: TNP_Login_pendenciaAdminAtual
+        };
+    }
+
+    if (typeof MODALSUPERCORRECAO_func_abrirPeloSininho === "function") {
+        MODALSUPERCORRECAO_func_abrirPeloSininho();
+        return;
+    }
+
+    TNP_Login_func_abrirMensagemProvisoria(
+        "Correção indisponível",
+        "O MODALSUPERCORREÇÃO ainda não foi carregado."
+    );
+}
+
+function MODALSUPERCORRECAO_func_statusPermiteCorrecao(status) {
+    return (
+        status === "pendente_envio" ||
+        status === "pendente_correcao" ||
+        status === "reprovado" ||
+        status === "recusado" ||
+        status === "corrigir"
+    );
+}
+
+function MODALSUPERCORRECAO_func_tipoReal(pendencia) {
+    const tipo = pendencia && pendencia.tipo ? pendencia.tipo : "";
+
+    if (tipo === "selfieDocumentoPassageiro") {
+        return "selfieDocumento";
+    }
+
+    return tipo;
+}
+
+function MODALSUPERCORRECAO_func_config(origem, tipoPendencia) {
+    const configs = {
+        motorista: {
+            fotoPerfil: {
+                titulo: "Reenviar foto de perfil",
+                texto: "Envie uma nova foto de perfil conforme a orientação do suporte.",
+                icone: "📸",
+                pastaStorage: "documentos",
+                campoFirestore: "fotoPerfilCorrecao"
+            },
+
+            fotoCnh: {
+                titulo: "Reenviar foto da CNH",
+                texto: "Envie uma nova foto da CNH com nitidez.",
+                icone: "🪪",
+                pastaStorage: "documentos",
+                campoFirestore: "documentosMotorista.fotoCnh",
+                grupo: "cnh"
+            },
+
+            selfieComCnh: {
+                titulo: "Reenviar selfie com CNH",
+                texto: "Envie uma nova selfie segurando a CNH.",
+                icone: "🪪",
+                pastaStorage: "documentos",
+                campoFirestore: "documentosMotorista.selfieComCnh",
+                grupo: "cnh"
+            },
+
+            crlv: {
+                titulo: "Reenviar CRLV",
+                texto: "Envie uma nova foto do documento do veículo.",
+                icone: "🚗",
+                pastaStorage: "documentos-veiculo",
+                campoFirestore: "documentosVeiculo.crlv",
+                grupo: "veiculo"
+            },
+
+            fotoVeiculoPlaca: {
+                titulo: "Reenviar foto do veículo",
+                texto: "Envie uma nova foto mostrando o veículo e a placa.",
+                icone: "🚗",
+                pastaStorage: "documentos-veiculo",
+                campoFirestore: "documentosVeiculo.fotoVeiculoPlaca",
+                grupo: "veiculo"
+            }
+        },
+
+        passageiro: {
+            fotoPerfil: {
+                titulo: "Reenviar foto de perfil",
+                texto: "Envie uma nova foto de perfil conforme a orientação do suporte.",
+                icone: "📸",
+                pastaStorage: "documentos",
+                campoFirestore: "fotoPerfilCorrecao"
+            },
+
+            selfieDocumento: {
+                titulo: "Reenviar selfie com documento",
+                texto: "Envie uma nova selfie segurando o documento.",
+                icone: "🪪",
+                pastaStorage: "verificacoes",
+                campoFirestore: "selfieDocumentoExtra",
+                grupo: "documentos"
+            },
+
+            comprovanteEndereco: {
+                titulo: "Reenviar comprovante de endereço",
+                texto: "Envie uma nova foto legível do comprovante de endereço.",
+                icone: "🏠",
+                pastaStorage: "documentos",
+                campoFirestore: "comprovanteEndereco",
+                grupo: "endereco"
+            },
+
+            documentoIdentidade: {
+                titulo: "Reenviar documento de identidade",
+                texto: "Envie uma nova foto legível do seu documento.",
+                icone: "🪪",
+                pastaStorage: "documentos",
+                campoFirestore: "documentoIdentidade",
+                grupo: "documentos"
+            }
+        }
+    };
+
+    return configs[origem] && configs[origem][tipoPendencia]
+        ? configs[origem][tipoPendencia]
+        : null;
+}
+
+function MODALSUPERCORRECAO_func_obterPendenciaAtual() {
+    return MODALSUPERCORRECAO_estado.pendencias[MODALSUPERCORRECAO_estado.indice] || null;
+}
+
+function MODALSUPERCORRECAO_func_limparArquivo() {
+    const input = document.getElementById("MODALSUPERCORRECAO_input");
+    const previewArea = document.getElementById("MODALSUPERCORRECAO_preview_area");
+    const preview = document.getElementById("MODALSUPERCORRECAO_preview");
+    const info = document.getElementById("MODALSUPERCORRECAO_info");
+    const erro = document.getElementById("MODALSUPERCORRECAO_error");
+    const btnEnviar = document.getElementById("MODALSUPERCORRECAO_btn_enviar");
+
+    MODALSUPERCORRECAO_estado.arquivo = null;
+
+    if (input) input.value = "";
+
+    if (preview) {
+        preview.removeAttribute("src");
+    }
+
+    if (previewArea) {
+        previewArea.style.display = "none";
+    }
+
+    if (info) {
+        info.innerText = "";
+        info.style.display = "none";
+    }
+
+    if (erro) {
+        erro.innerText = "";
+        erro.style.display = "none";
+    }
+
+    if (btnEnviar) {
+        btnEnviar.disabled = true;
+        btnEnviar.innerText = "ENVIAR CORREÇÃO";
+    }
+}
+
+function MODALSUPERCORRECAO_func_fechar() {
+    const modal = document.getElementById("MODALSUPERCORRECAO_overlay");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+
+    MODALSUPERCORRECAO_estado = {
+        origem: "",
+        pendencias: [],
+        indice: 0,
+        arquivo: null,
+        dadosUsuario: {},
+        dadosMotorista: {}
+    };
+
+    MODALSUPERCORRECAO_func_limparArquivo();
+}
+
+function MODALSUPERCORRECAO_func_renderizar() {
+    const pendencia = MODALSUPERCORRECAO_func_obterPendenciaAtual();
+
+    if (!pendencia) return;
+
+    const tipoReal = MODALSUPERCORRECAO_func_tipoReal(pendencia);
+    const config = MODALSUPERCORRECAO_func_config(
+        MODALSUPERCORRECAO_estado.origem,
+        tipoReal
+    );
+
+    if (!config) return;
+
+    const icone = document.getElementById("MODALSUPERCORRECAO_icone");
+    const titulo = document.getElementById("MODALSUPERCORRECAO_titulo");
+    const texto = document.getElementById("MODALSUPERCORRECAO_texto");
+    const motivo = document.getElementById("MODALSUPERCORRECAO_motivo");
+
+    if (icone) icone.innerText = config.icone || "🛠️";
+    if (titulo) titulo.innerText = config.titulo;
+    if (texto) texto.innerText = config.texto;
+
+    if (motivo) {
+        motivo.innerHTML =
+            "<strong>Motivo do suporte:</strong><br>" +
+            (pendencia.motivo || "O suporte solicitou o reenvio deste item.");
+    }
+
+    MODALSUPERCORRECAO_func_limparArquivo();
+}
+
+function MODALSUPERCORRECAO_func_trocarPendenciaSelecionada() {
+    const select = document.getElementById("MODALSUPERCORRECAO_select");
+
+    if (!select) return;
+
+    MODALSUPERCORRECAO_estado.indice = Number(select.value || 0);
+    MODALSUPERCORRECAO_func_renderizar();
+}
+
+function MODALSUPERCORRECAO_func_abrirPeloSininho() {
+    const dadosSininho = NOTIFICACOES_pendenciaAdminSininhoAtual || {};
+    const pendenciaAdmin = dadosSininho.pendencia || TNP_Login_pendenciaAdminAtual || {};
+    const pendenciasOriginais = Array.isArray(pendenciaAdmin.pendencias)
+        ? pendenciaAdmin.pendencias
+        : [];
+
+    const origem =
+        dadosSininho.origem ||
+        pendenciaAdmin.origem ||
+        "passageiro";
+
+    const pendenciasValidas = pendenciasOriginais.filter(function(item) {
+        const tipoReal = MODALSUPERCORRECAO_func_tipoReal(item);
+        return !!MODALSUPERCORRECAO_func_config(origem, tipoReal);
+    });
+
+    if (!pendenciasValidas.length) {
+        return TNP_Login_func_abrirMensagemProvisoria(
+            "Pendência não identificada",
+            "Não foi possível identificar qual correção precisa ser enviada."
+        );
+    }
+
+    MODALSUPERCORRECAO_estado = {
+        origem: origem,
+        pendencias: pendenciasValidas,
+        indice: 0,
+        arquivo: null,
+        dadosUsuario: dadosSininho.dadosUsuario || {},
+        dadosMotorista: dadosSininho.dadosMotorista || {}
+    };
+
+    const select = document.getElementById("MODALSUPERCORRECAO_select");
+
+    if (select) {
+        select.innerHTML = "";
+
+        pendenciasValidas.forEach(function(item, index) {
+            const option = document.createElement("option");
+            option.value = String(index);
+            option.textContent = item.titulo || "Pendência " + (index + 1);
+            select.appendChild(option);
+        });
+
+        select.style.display = pendenciasValidas.length > 1 ? "block" : "none";
+        select.value = "0";
+    }
+
+    MODALSUPERCORRECAO_func_renderizar();
+
+    const modal = document.getElementById("MODALSUPERCORRECAO_overlay");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+}
+
+function MODALSUPERCORRECAO_func_abrirCamera() {
+    const input = document.getElementById("MODALSUPERCORRECAO_input");
+
+    if (!MODALSUPERCORRECAO_func_obterPendenciaAtual()) {
+        return alert("Nenhuma pendência selecionada.");
+    }
+
+    if (!input) {
+        return alert("Campo de foto não encontrado.");
+    }
+
+    input.value = "";
+    input.click();
+}
+
+async function MODALSUPERCORRECAO_func_prepararArquivo(event) {
+    const arquivoOriginal = event.target.files && event.target.files[0];
+
+    const previewArea = document.getElementById("MODALSUPERCORRECAO_preview_area");
+    const preview = document.getElementById("MODALSUPERCORRECAO_preview");
+    const info = document.getElementById("MODALSUPERCORRECAO_info");
+    const erro = document.getElementById("MODALSUPERCORRECAO_error");
+    const btnEnviar = document.getElementById("MODALSUPERCORRECAO_btn_enviar");
+
+    if (erro) {
+        erro.innerText = "";
+        erro.style.display = "none";
+    }
+
+    if (!arquivoOriginal) {
+        MODALSUPERCORRECAO_func_limparArquivo();
+        return;
+    }
+
+    if (!arquivoOriginal.type.startsWith("image/")) {
+        if (erro) {
+            erro.innerText = "Envie uma imagem válida.";
+            erro.style.display = "block";
+        }
+
+        MODALSUPERCORRECAO_func_limparArquivo();
+        return;
+    }
+
+    if (arquivoOriginal.size > 8 * 1024 * 1024) {
+        if (erro) {
+            erro.innerText = "A foto é muito grande. Tire uma nova foto de até 8 MB.";
+            erro.style.display = "block";
+        }
+
+        MODALSUPERCORRECAO_func_limparArquivo();
+        return;
+    }
+
+    try {
+        if (btnEnviar) {
+            btnEnviar.disabled = true;
+            btnEnviar.innerText = "PREPARANDO...";
+        }
+
+        const arquivoCompactado =
+            typeof TNP_Login_func_comprimirImagem === "function"
+                ? await TNP_Login_func_comprimirImagem(arquivoOriginal, 900, 0.7)
+                : arquivoOriginal;
+
+        const tamanhoOriginal = arquivoOriginal.size;
+        const tamanhoFinal = arquivoCompactado.size;
+        const economia = tamanhoOriginal - tamanhoFinal;
+
+        MODALSUPERCORRECAO_estado.arquivo = {
+            arquivoOriginal: arquivoOriginal,
+            arquivoCompactado: arquivoCompactado,
+            tamanhoOriginal: tamanhoOriginal,
+            tamanhoFinal: tamanhoFinal,
+            economia: economia
+        };
+
+        if (preview) {
+            preview.src = URL.createObjectURL(arquivoCompactado);
+        }
+
+        if (previewArea) {
+            previewArea.style.display = "block";
+        }
+
+        if (info) {
+            const formatar =
+                typeof TNP_Login_func_formatarTamanhoArquivo === "function"
+                    ? TNP_Login_func_formatarTamanhoArquivo
+                    : function(bytes) {
+                        return Math.round((bytes || 0) / 1024) + " KB";
+                    };
+
+            info.innerText =
+                "Foto pronta: " +
+                formatar(tamanhoOriginal) +
+                " → " +
+                formatar(tamanhoFinal);
+
+            info.style.display = "block";
+        }
+
+        if (btnEnviar) {
+            btnEnviar.disabled = false;
+            btnEnviar.innerText = "ENVIAR CORREÇÃO";
+        }
+
+    } catch (erroPreparar) {
+        console.error("Erro ao preparar correção:", erroPreparar);
+
+        if (erro) {
+            erro.innerText = "Erro ao preparar a foto. Tire outra foto e tente novamente.";
+            erro.style.display = "block";
+        }
+
+        if (btnEnviar) {
+            btnEnviar.disabled = true;
+            btnEnviar.innerText = "ENVIAR CORREÇÃO";
+        }
+    }
+}
+
+function MODALSUPERCORRECAO_func_atualizarVeiculoArray(veiculos, pendencia, tipoPendencia, dadosDocArray) {
+    if (!Array.isArray(veiculos)) return null;
+
+    let indice = -1;
+
+    if (pendencia.veiculoId) {
+        indice = veiculos.findIndex(function(veiculo) {
+            return veiculo && veiculo.id === pendencia.veiculoId;
+        });
+    }
+
+    if (indice < 0) {
+        indice = veiculos.findIndex(function(veiculo) {
+            const docs = veiculo && veiculo.documentos ? veiculo.documentos : {};
+            const doc = docs[tipoPendencia] || {};
+
+            return MODALSUPERCORRECAO_func_statusPermiteCorrecao(doc.status);
+        });
+    }
+
+    if (indice < 0) return null;
+
+    const veiculosAtualizados = veiculos.map(function(veiculo) {
+        return Object.assign({}, veiculo);
+    });
+
+    const veiculoAtual = Object.assign({}, veiculosAtualizados[indice]);
+    const documentos = Object.assign({}, veiculoAtual.documentos || {});
+
+    documentos[tipoPendencia] = dadosDocArray;
+
+    veiculoAtual.documentos = documentos;
+    veiculoAtual.documentosEnviados = true;
+    veiculoAtual.status = "pendente_analise";
+    veiculoAtual.atualizadoEm = new Date().toISOString();
+
+    veiculosAtualizados[indice] = veiculoAtual;
+
+    return veiculosAtualizados;
+}
+
+async function MODALSUPERCORRECAO_func_enviar() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+    const erro = document.getElementById("MODALSUPERCORRECAO_error");
+    const btnEnviar = document.getElementById("MODALSUPERCORRECAO_btn_enviar");
+
+    if (erro) {
+        erro.innerText = "";
+        erro.style.display = "none";
+    }
+
+    if (!user) {
+        if (erro) {
+            erro.innerText = "Faça login novamente para enviar a correção.";
+            erro.style.display = "block";
+        }
+        return;
+    }
+
+    const pendencia = MODALSUPERCORRECAO_func_obterPendenciaAtual();
+    const arquivoInfo = MODALSUPERCORRECAO_estado.arquivo;
+
+    if (!pendencia || !arquivoInfo) {
+        if (erro) {
+            erro.innerText = "Tire uma nova foto antes de enviar.";
+            erro.style.display = "block";
+        }
+        return;
+    }
+
+    const origem = MODALSUPERCORRECAO_estado.origem;
+    const tipoPendencia = MODALSUPERCORRECAO_func_tipoReal(pendencia);
+    const config = MODALSUPERCORRECAO_func_config(origem, tipoPendencia);
+
+    if (!config) {
+        if (erro) {
+            erro.innerText = "Essa pendência não está configurada.";
+            erro.style.display = "block";
+        }
+        return;
+    }
+
+    try {
+        if (btnEnviar) {
+            btnEnviar.disabled = true;
+            btnEnviar.innerText = "ENVIANDO...";
+        }
+
+        const nomeArquivo = tipoPendencia + "_" + Date.now() + ".jpg";
+
+        const caminhoStorage = origem === "motorista"
+            ? "motoristas/" + user.uid + "/" + config.pastaStorage + "/" + nomeArquivo
+            : "usuarios/" + user.uid + "/" + config.pastaStorage + "/" + nomeArquivo;
+
+        const storageRef = PRIMEIRAPAG_Login_storage
+            .ref()
+            .child(caminhoStorage);
+
+        await storageRef.put(arquivoInfo.arquivoCompactado, {
+            contentType: "image/jpeg"
+        });
+
+        const url = await storageRef.getDownloadURL();
+
+        const agoraIso = new Date().toISOString();
+
+        const dadosDocFirestore = {
+            enviado: true,
+            url: url,
+            caminho: caminhoStorage,
+            status: "pendente_analise",
+            motivoReprovacao: "",
+            tamanhoOriginal: arquivoInfo.tamanhoOriginal,
+            tamanhoFinal: arquivoInfo.tamanhoFinal,
+            economiaBytes: arquivoInfo.economia,
+            reenviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        const dadosDocArray = {
+            enviado: true,
+            url: url,
+            caminho: caminhoStorage,
+            status: "pendente_analise",
+            motivoReprovacao: "",
+            tamanhoOriginal: arquivoInfo.tamanhoOriginal,
+            tamanhoFinal: arquivoInfo.tamanhoFinal,
+            economiaBytes: arquivoInfo.economia,
+            reenviadoEm: agoraIso,
+            atualizadoEm: agoraIso
+        };
+
+        if (origem === "motorista") {
+            const motoristaRef = PRIMEIRAPAG_Login_db
+                .collection("motoristas")
+                .doc(user.uid);
+
+            const motoristaSnap = await motoristaRef.get();
+            const dadosMotorista = motoristaSnap.exists ? motoristaSnap.data() : {};
+
+            const updateMotorista = {
+					requerAnaliseAdmin: true,
+					motivoAnaliseAdmin: "",
+
+					bloqueadoPorPendenciaAdmin: false,
+					pendenciaAdminObrigatoria: false,
+					pendenciaAdminOrigem: "",
+					pendenciaAdminTipo: "",
+					pendenciaAdminCampo: "",
+
+					podeAceitarCorrida: false,
+					disponivelParaCorridas: false,
+
+					motoristaStatus: "pendente_analise_admin",
+					statusAnalise: "pendente_analise_admin",
+					statusAnaliseMotorista: "pendente_analise_admin",
+
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				};
+
+            if (tipoPendencia === "fotoPerfil") {
+                updateMotorista.fotoPerfilUrl = url;
+                updateMotorista.selfieUrl = url;
+                updateMotorista.fotoPerfilEnviada = true;
+                updateMotorista.selfieEnviada = true;
+                updateMotorista.fotoPerfilStatus = "pendente_analise";
+                updateMotorista.selfieStatus = "pendente_analise";
+                updateMotorista.fotoPerfilMotivoReprovacao = "";
+                updateMotorista.fotoPerfilCorrecao = dadosDocFirestore;
+            } else {
+                updateMotorista[config.campoFirestore] = dadosDocFirestore;
+            }
+
+            if (config.grupo === "cnh") {
+                updateMotorista.fotosCnhStatus = "pendente_analise";
+            }
+
+            if (config.grupo === "veiculo") {
+                updateMotorista.documentosVeiculoStatus = "pendente_analise";
+
+                const veiculosAtualizados = MODALSUPERCORRECAO_func_atualizarVeiculoArray(
+                    dadosMotorista.veiculos || [],
+                    pendencia,
+                    tipoPendencia,
+                    dadosDocArray
+                );
+
+                if (veiculosAtualizados) {
+                    updateMotorista.veiculos = veiculosAtualizados;
+                    updateMotorista.veiculosAtualizadoEm = firebase.firestore.FieldValue.serverTimestamp();
+                }
+            }
+
+            await motoristaRef.update(updateMotorista);
+
+            const updateUsuarioResumo = {
+                requerAnaliseAdmin: true,
+                motivoAnaliseAdmin: "",
+                bloqueadoPorPendenciaAdmin: false,
+                pendenciaAdminObrigatoria: false,
+                pendenciaAdminOrigem: "",
+                pendenciaAdminTipo: "",
+                pendenciaAdminCampo: "",
+                motoristaStatus: "pendente_analise_admin",
+                statusAnaliseMotorista: "pendente_analise_admin",
+                podeAceitarCorrida: false,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            if (config.grupo === "cnh") {
+                updateUsuarioResumo.fotosCnhStatus = "pendente_analise";
+            }
+
+            if (config.grupo === "veiculo") {
+                updateUsuarioResumo.documentosVeiculoStatus = "pendente_analise";
+            }
+
+            if (tipoPendencia === "fotoPerfil") {
+                updateUsuarioResumo.fotoPerfilUrl = url;
+                updateUsuarioResumo.selfieUrl = url;
+                updateUsuarioResumo.fotoPerfilEnviada = true;
+                updateUsuarioResumo.selfieEnviada = true;
+                updateUsuarioResumo.fotoPerfilStatus = "pendente_analise";
+                updateUsuarioResumo.selfieStatus = "pendente_analise";
+                updateUsuarioResumo.fotoPerfilMotivoReprovacao = "";
+                updateUsuarioResumo.fotoPerfilCorrecao = dadosDocFirestore;
+            }
+
+            await PRIMEIRAPAG_Login_db
+                .collection("usuarios")
+                .doc(user.uid)
+                .set(updateUsuarioResumo, { merge: true });
+        }
+
+        if (origem === "passageiro") {
+            const usuarioRef = PRIMEIRAPAG_Login_db
+                .collection("usuarios")
+                .doc(user.uid);
+
+            const updateUsuario = {
+                requerAnaliseAdmin: true,
+                motivoAnaliseAdmin: "",
+                bloqueadoPorPendenciaAdmin: false,
+                pendenciaAdminObrigatoria: false,
+                pendenciaAdminOrigem: "",
+                pendenciaAdminTipo: "",
+                pendenciaAdminCampo: "",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            if (tipoPendencia === "fotoPerfil") {
+                updateUsuario.fotoPerfilUrl = url;
+                updateUsuario.selfieUrl = url;
+                updateUsuario.fotoPerfilEnviada = true;
+                updateUsuario.selfieEnviada = true;
+                updateUsuario.fotoPerfilStatus = "pendente_analise";
+                updateUsuario.selfieStatus = "pendente_analise";
+                updateUsuario.fotoPerfilMotivoReprovacao = "";
+                updateUsuario.fotoPerfilCorrecao = dadosDocFirestore;
+            } else {
+                updateUsuario[config.campoFirestore] = dadosDocFirestore;
+            }
+
+            if (tipoPendencia === "selfieDocumento") {
+				updateUsuario.selfieDocumentoExtraPendente = false;
+				updateUsuario.selfieDocumentoExtraConcluida = false;
+
+				updateUsuario.bloqueadoPorSelfieDocumentoExtra = false;
+
+				updateUsuario.selfieDocumentoExtraStatus = "pendente_analise";
+				updateUsuario.selfieComDocumentoStatus = "pendente_analise";
+
+				updateUsuario.selfieDocumentoExtraMotivoReprovacao = "";
+				updateUsuario.selfieComDocumentoMotivoReprovacao = "";
+
+				updateUsuario["statusCadastroPassageiro.documentos"] = "pendente_analise";
+			}
+
+            if (tipoPendencia === "comprovanteEndereco") {
+                updateUsuario.comprovanteEnderecoPendente = true;
+                updateUsuario.fotoEnderecoPendente = true;
+                updateUsuario["statusCadastroPassageiro.comprovanteEndereco"] = "pendente_analise";
+            }
+
+            if (tipoPendencia === "documentoIdentidade") {
+                updateUsuario.documentoIdentidadePendente = true;
+                updateUsuario["statusCadastroPassageiro.documentos"] = "pendente_analise";
+            }
+
+            await usuarioRef.update(updateUsuario);
+        }
+
+        MODALSUPERCORRECAO_func_fechar();
+
+        TNP_Login_func_abrirMensagemProvisoria(
+            "Correção enviada",
+            "Sua correção foi enviada e ficará aguardando análise do suporte."
+        );
+
+        if (typeof NOTIFICACOES_func_atualizarBadgePendenciaAdmin === "function") {
+            setTimeout(function() {
+                NOTIFICACOES_func_atualizarBadgePendenciaAdmin(origem);
+            }, 500);
+        }
+
+    } catch (e) {
+        console.error("Erro no MODALSUPERCORRECAO:", e);
+
+        if (erro) {
+            erro.innerText =
+                "Erro ao enviar correção: " +
+                (e.code || e.message || "erro desconhecido");
+
+            erro.style.display = "block";
+        }
+    } finally {
+        if (btnEnviar) {
+            btnEnviar.disabled = MODALSUPERCORRECAO_estado.arquivo ? false : true;
+            btnEnviar.innerText = "ENVIAR CORREÇÃO";
+        }
+    }
+}
+
+// ========== MODALSUPERCORREÇÃO FINAL ==========
+
+
+//-- ========== MODALSUPERCORREÇÃO: CORREÇÃO ISOLADA ADM/SUPORTE FINAL ========== -->
 // ========== MODAL UNIVERSAL PIX TNP ==========-->
 var TNPPIX_configAtual = {};
 var TNPPIX_codigoAtual = '';
@@ -34748,108 +36633,10 @@ function PASSAGEIROPAG_Login_func_salvarPreferenciaPagamento() {
 // ========== MODAL ESCOLHER FORMA DE PAGAMENTO DA CORRIDA FINAL ========== 
 
 
- // ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL ========== 
-let TNP_Login_fotoPerfilAdminAtual = null;
-
-function TNP_Login_func_verificarModalFotoPerfilAdmin(dadosUsuario, origem) {
-    const modal = document.getElementById('TNP_Login_modal_revisao_foto_perfil');
-    const texto = document.getElementById('TNP_Login_modal_revisao_foto_perfil_texto');
-    const motivoEl = document.getElementById('TNP_Login_modal_revisao_foto_perfil_motivo');
-    const btnFechar = document.getElementById('TNP_Login_btn_fechar_modal_foto_perfil');
-
-    if (!modal || !dadosUsuario) return false;
-
-    const precisaCorrigir =
-        dadosUsuario.pendenciaAdminTipo === 'fotoPerfil' &&
-        (
-            dadosUsuario.fotoPerfilStatus === 'pendente_correcao' ||
-            dadosUsuario.selfieStatus === 'pendente_correcao'
-        );
-
-    if (!precisaCorrigir) {
-        modal.classList.remove('active');
-        TNP_Login_fotoPerfilAdminAtual = null;
-        return false;
-    }
-
-    const obrigatoria = dadosUsuario.pendenciaAdminObrigatoria === true;
-
-    TNP_Login_fotoPerfilAdminAtual = {
-        origem: origem,
-        obrigatoria: obrigatoria
-    };
-
-    if (texto) {
-        texto.innerText = origem === 'motorista'
-            ? 'O administrador solicitou uma nova foto de perfil do motorista. Para continuar, envie uma nova selfie nítida.'
-            : 'O administrador solicitou uma nova foto de perfil. Para continuar, envie uma nova selfie nítida.';
-    }
-
-    if (motivoEl) {
-        motivoEl.innerText =
-            'Motivo: ' +
-            (
-                dadosUsuario.fotoPerfilMotivoReprovacao ||
-                dadosUsuario.motivoAnaliseAdmin ||
-                'Foto inadequada, imprópria ou sem nitidez.'
-            );
-    }
-
-    if (btnFechar) {
-        btnFechar.style.display = obrigatoria ? 'none' : 'block';
-    }
-
-    modal.classList.add('active');
-
-    return true;
-}
-
-function TNP_Login_func_fecharModalRevisaoFotoPerfil() {
-    if (
-        TNP_Login_fotoPerfilAdminAtual &&
-        TNP_Login_fotoPerfilAdminAtual.obrigatoria === true
-    ) {
-        return TNP_Login_func_abrirMensagemProvisoria(
-            'Correção obrigatória',
-            'Para continuar, envie a nova foto de perfil solicitada pelo administrador.'
-        );
-    }
-
-    const modal = document.getElementById('TNP_Login_modal_revisao_foto_perfil');
-
-    if (modal) {
-        modal.classList.remove('active');
-    }
-
-    TNP_Login_fotoPerfilAdminAtual = null;
-}
-
-function TNP_Login_func_irParaCorrecaoFotoPerfilAdmin() {
-    const origem =
-        TNP_Login_fotoPerfilAdminAtual &&
-        TNP_Login_fotoPerfilAdminAtual.origem
-            ? TNP_Login_fotoPerfilAdminAtual.origem
-            : 'passageiro';
-
-    sessionStorage.setItem('TNP_MOB_EDITANDO_FOTO_PERFIL', 'true');
-    sessionStorage.setItem('TNP_MOB_CORRIGINDO_FOTO_PERFIL_ADMIN', 'true');
-    sessionStorage.setItem('TNP_MOB_ORIGEM_CORRECAO_FOTO_PERFIL', origem);
-
-    const modal = document.getElementById('TNP_Login_modal_revisao_foto_perfil');
-
-    if (modal) {
-        modal.classList.remove('active');
-    }
-
-    PRIMEIRAPAG_Login_func_irPara('QUINTAPAG_Login_screen_selfie');
-}
-
-// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ==========
+ 
 
  //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
  // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
-
-// ========== MODAL UNIVERSAL: REVISÃO DA FOTO DE PERFIL FINAL ==========
 
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
 // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
@@ -34926,85 +36713,109 @@ function TNP_MOB_func_definirTipoUsuarioPelosPerfis(dadosUsuario, modoPreferido)
 	let NOTIFICACOES_alturaInicial = 0;
 	let NOTIFICACOES_moveuPainel = false;
 
-function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
-    const modalProntas = document.getElementById('MENSAGENSPRONTAS_modal');
+async function NOTIFICACOES_func_abrirPainelUniversal(tipoUsuario) {
+    const modalProntas = document.getElementById("MENSAGENSPRONTAS_modal");
 
     if (modalProntas) {
-        modalProntas.style.display = 'none';
+        modalProntas.style.display = "none";
     }
 
-    if (typeof MENSAGENSPRONTAS_func_fecharModal === 'function') {
+    if (typeof MENSAGENSPRONTAS_func_fecharModal === "function") {
         MENSAGENSPRONTAS_func_fecharModal();
     }
 
     NOTIFICACOES_usuarioTipoAtual = tipoUsuario;
 
-    const overlay = document.getElementById('NOTIFICACOES_overlay');
-    const modal = document.getElementById('NOTIFICACOES_modal');
-    const conteudo = document.getElementById('NOTIFICACOES_conteudo');
-    const opcoes = document.getElementById('NOTIFICACOES_opcoes_iniciar');
-	const areaRapidas = document.getElementById('NOTIFICACOES_respostas_rapidas');
-	
+    NOTIFICACOES_func_salvarAcoesPadraoSePreciso();
+
+    const overlay = document.getElementById("NOTIFICACOES_overlay");
+    const modal = document.getElementById("NOTIFICACOES_modal");
+    const conteudo = document.getElementById("NOTIFICACOES_conteudo");
+    const opcoes = document.getElementById("NOTIFICACOES_opcoes_iniciar");
+    const areaRapidas = document.getElementById("NOTIFICACOES_respostas_rapidas");
+    const subtitulo = document.getElementById("NOTIFICACOES_subtitulo");
+
     if (modal) {
-        modal.classList.remove('grande');
-        modal.style.height = '300px';
+        modal.classList.remove("grande");
+        modal.style.height = "300px";
     }
 
     if (opcoes) {
-        opcoes.style.display = 'none';
+        opcoes.style.display = "none";
     }
-	
-	if (areaRapidas) {
-		areaRapidas.classList.remove('ativo');
-		areaRapidas.style.display = 'none';
-		areaRapidas.innerHTML = '';
-	}
 
-    // Temporário até ligar no Firestore
-    NOTIFICACOES_ultimaAtual = {
-        id: null,
-        tipo: 'mensagem',
-        texto: 'Nenhuma mensagem nova no momento.'
-    };
+    if (areaRapidas) {
+        areaRapidas.classList.remove("ativo");
+        areaRapidas.style.display = "none";
+        areaRapidas.innerHTML = "";
+    }
+
+    NOTIFICACOES_func_restaurarAcoesPadrao();
 
     if (conteudo) {
-		conteudo.value = '';
-		conteudo.dataset.respostaRascunho = '';
-		conteudo.dataset.respostaRapidaTexto = '';
-		conteudo.readOnly = false;
-		conteudo.placeholder = 'Digite uma resposta rápida...';
-		conteudo.classList.remove('NOTIFICACOES_conteudo_leitura');
-		conteudo.classList.remove('NOTIFICACOES_conteudo_resposta_pronta');
+        conteudo.value = "";
+        conteudo.dataset.respostaRascunho = "";
+        conteudo.dataset.respostaRapidaTexto = "";
+        conteudo.readOnly = false;
+        conteudo.placeholder = "Digite uma resposta rápida...";
+        conteudo.classList.remove("NOTIFICACOES_conteudo_leitura");
+        conteudo.classList.remove("NOTIFICACOES_conteudo_resposta_pronta");
 
-		if (typeof NOTIFICACOES_func_autoAjustarCampoPrincipal === 'function') {
-			NOTIFICACOES_func_autoAjustarCampoPrincipal(conteudo);
-		}
-	}
-
-	NOTIFICACOES_modoLeituraAtivo = false;
-			
-	if (
-    NOTIFICACOES_usuarioTipoAtual === 'motorista' &&
-		typeof MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase === 'function'
-	) {
-		MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase();
-	}
-
-	if (
-		NOTIFICACOES_usuarioTipoAtual === 'passageiro' &&
-		typeof PASSAGEIROMENSAGENS_func_escutarMensagensProntasFirebase === 'function'
-	) {
-		PASSAGEIROMENSAGENS_func_escutarMensagensProntasFirebase();
-	}
-
-    if (overlay) {
-        overlay.style.display = 'flex';
+        if (typeof NOTIFICACOES_func_autoAjustarCampoPrincipal === "function") {
+            NOTIFICACOES_func_autoAjustarCampoPrincipal(conteudo);
+        }
     }
 
-    // Depois aqui vamos marcar somente a última notificação como lida.
-    // Não vai zerar o histórico de mensagens.
-}
+    if (subtitulo) {
+        subtitulo.innerText = "Última notificação/mensagem";
+    }
 
+    NOTIFICACOES_modoLeituraAtivo = false;
+
+    let pendenciaRenderizada = false;
+
+    try {
+        const temPendencia = await NOTIFICACOES_func_buscarPendenciaAdminParaSininho(tipoUsuario);
+
+        if (temPendencia) {
+            pendenciaRenderizada = NOTIFICACOES_func_renderizarPendenciaAdminNoSininho();
+        }
+    } catch (erroPendencia) {
+        console.warn("Erro ao verificar pendência admin no sininho:", erroPendencia);
+    }
+
+    if (!pendenciaRenderizada) {
+        NOTIFICACOES_ultimaAtual = {
+            id: null,
+            tipo: "mensagem",
+            texto: "Nenhuma mensagem nova no momento."
+        };
+
+        if (conteudo) {
+            conteudo.value = "Nenhuma mensagem nova no momento.";
+            conteudo.readOnly = true;
+            conteudo.classList.add("NOTIFICACOES_conteudo_leitura");
+        }
+    }
+
+    if (
+        NOTIFICACOES_usuarioTipoAtual === "motorista" &&
+        typeof MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase === "function"
+    ) {
+        MOTORISTAMENSAGENS_func_escutarMensagensProntasFirebase();
+    }
+
+    if (
+        NOTIFICACOES_usuarioTipoAtual === "passageiro" &&
+        typeof PASSAGEIROMENSAGENS_func_escutarMensagensProntasFirebase === "function"
+    ) {
+        PASSAGEIROMENSAGENS_func_escutarMensagensProntasFirebase();
+    }
+
+    if (overlay) {
+        overlay.style.display = "flex";
+    }
+}
 
 
 
