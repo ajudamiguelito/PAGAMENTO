@@ -21433,21 +21433,19 @@ async function PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca() {
 
         const chamadoRef = db.collection("suporteChamados").doc();
 
-        const textoMensagem =
-            "Gravação de segurança enviada pelo passageiro.\n\n" +
-            "Tipo: " + tipoArquivo + "\n" +
-            "Arquivo: " + arquivoUrl;
+        const textoCurto = "Gravação de segurança enviada pelo passageiro.";
 
         await chamadoRef.set({
             origem: "passageiro",
             origemPerfil: "passageiro",
             destinoPerfil: "suporte",
 
-            tipo: "seguranca",
-            categoria: "seguranca",
+            categoria: "suporte_passageiro",
+            tipo: "chat_suporte_passageiro",
+            tipoAtendimento: "seguranca",
             titulo: "Gravação de segurança do passageiro",
 
-            status: "aberto",
+            status: "em_atendimento",
             suporteMediando: true,
             chatDiretoLiberado: false,
 
@@ -21462,8 +21460,8 @@ async function PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca() {
                 storagePath: caminhoStorage
             },
 
-            ultimaMensagem: textoMensagem,
-            ultimaMensagemTexto: "Gravação de segurança enviada pelo passageiro.",
+            ultimaMensagem: textoCurto,
+            ultimaMensagemTexto: textoCurto,
             ultimaMensagemOrigem: "passageiro",
             ultimaMensagemDestino: "suporte",
 
@@ -21474,25 +21472,36 @@ async function PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca() {
         await chamadoRef.collection("mensagens").add({
             origem: "passageiro",
             origemReal: "passageiro",
+            origemUid: user.uid,
+            exibidoComo: "Passageiro",
+
             destinoReal: "suporte",
+            encaminhadoPara: "suporte",
 
             tipo: "arquivo_seguranca",
             categoria: "seguranca",
-            texto: textoMensagem,
+
+            texto: textoCurto,
+            textoOriginal: textoCurto,
+            textoExibido: textoCurto,
 
             arquivoUrl: arquivoUrl,
             arquivoNome: nomeArquivoSeguro,
             arquivoTipo: tipoArquivo,
             arquivoContentType: arquivo.type || "",
+            arquivoStoragePath: caminhoStorage,
 
+            visivelParaMotorista: false,
             visivelParaPassageiro: true,
             visivelParaSuporte: true,
+
             visibilidades: {
+                motorista: false,
                 passageiro: true,
-                suporte: true,
-                motorista: false
+                suporte: true
             },
 
+            lidaAdmin: false,
             criadoEm: firebase.firestore.FieldValue.serverTimestamp()
         });
 
@@ -21501,8 +21510,7 @@ async function PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca() {
             "Enviei uma gravação de segurança para análise.\n\n" +
             "UID: " + user.uid + "\n" +
             "E-mail: " + (user.email || "não informado") + "\n" +
-            "Chamado: " + chamadoRef.id + "\n" +
-            "Arquivo: " + arquivoUrl
+            "Chamado: " + chamadoRef.id
         );
 
         window.open(
@@ -29979,6 +29987,7 @@ async function MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca() {
 
     try {
         const db = PRIMEIRAPAG_Login_db;
+
         const storage = typeof PRIMEIRAPAG_Login_storage !== "undefined"
             ? PRIMEIRAPAG_Login_storage
             : firebase.storage();
@@ -30017,21 +30026,19 @@ async function MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca() {
 
         const chamadoRef = db.collection("suporteChamados").doc();
 
-        const textoMensagem =
-            "Gravação de segurança enviada pelo motorista.\n\n" +
-            "Tipo: " + tipoArquivo + "\n" +
-            "Arquivo: " + arquivoUrl;
+        const textoCurto = "Gravação de segurança enviada pelo motorista.";
 
         await chamadoRef.set({
             origem: "motorista",
             origemPerfil: "motorista",
             destinoPerfil: "suporte",
 
-            tipo: "seguranca",
-            categoria: "seguranca",
+            categoria: "suporte_motorista",
+            tipo: "chat_suporte_motorista",
+            tipoAtendimento: "seguranca",
             titulo: "Gravação de segurança do motorista",
 
-            status: "aberto",
+            status: "em_atendimento",
             suporteMediando: true,
             chatDiretoLiberado: false,
 
@@ -30046,8 +30053,8 @@ async function MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca() {
                 storagePath: caminhoStorage
             },
 
-            ultimaMensagem: textoMensagem,
-            ultimaMensagemTexto: "Gravação de segurança enviada pelo motorista.",
+            ultimaMensagem: textoCurto,
+            ultimaMensagemTexto: textoCurto,
             ultimaMensagemOrigem: "motorista",
             ultimaMensagemDestino: "suporte",
 
@@ -30058,25 +30065,36 @@ async function MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca() {
         await chamadoRef.collection("mensagens").add({
             origem: "motorista",
             origemReal: "motorista",
+            origemUid: user.uid,
+            exibidoComo: "Motorista",
+
             destinoReal: "suporte",
+            encaminhadoPara: "suporte",
 
             tipo: "arquivo_seguranca",
             categoria: "seguranca",
-            texto: textoMensagem,
+
+            texto: textoCurto,
+            textoOriginal: textoCurto,
+            textoExibido: textoCurto,
 
             arquivoUrl: arquivoUrl,
             arquivoNome: nomeArquivoSeguro,
             arquivoTipo: tipoArquivo,
             arquivoContentType: arquivo.type || "",
+            arquivoStoragePath: caminhoStorage,
 
             visivelParaMotorista: true,
+            visivelParaPassageiro: false,
             visivelParaSuporte: true,
+
             visibilidades: {
                 motorista: true,
-                suporte: true,
-                passageiro: false
+                passageiro: false,
+                suporte: true
             },
 
+            lidaAdmin: false,
             criadoEm: firebase.firestore.FieldValue.serverTimestamp()
         });
 
@@ -30085,8 +30103,7 @@ async function MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca() {
             "Enviei uma gravação de segurança para análise.\n\n" +
             "UID: " + user.uid + "\n" +
             "E-mail: " + (user.email || "não informado") + "\n" +
-            "Chamado: " + chamadoRef.id + "\n" +
-            "Arquivo: " + arquivoUrl
+            "Chamado: " + chamadoRef.id
         );
 
         window.open(
