@@ -38429,6 +38429,13 @@ let MOTORISTAPAG_Login_sosUltimoAcionadoMs = 0;
 let MOTORISTAPAG_Login_sosWatchId = null;
 let MOTORISTAPAG_Login_sosAlertaAtivoId = "";
 
+let MOTORISTAPAG_Login_sosEncerramentoListener = null;
+
+let MOTORISTAPAG_Login_sosVideoGravando = false;
+let MOTORISTAPAG_Login_sosVideoRecorder = null;
+let MOTORISTAPAG_Login_sosVideoStreamGravacao = null;
+let MOTORISTAPAG_Login_sosVideoChunks = [];
+
 function MOTORISTAPAG_Login_func_toqueSosDiscreto() {
     MOTORISTAPAG_Login_sosToques++;
 
@@ -38586,6 +38593,333 @@ function MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista() {
     MOTORISTAPAG_Login_sosAlertaAtivoId = "";
 }
 
+async function MOTORISTAPAG_Login_func_gravarVideoSosUmMinutoParaSuporte(alertaId, chamadoId) {
+    alertaId = String(alertaId || "").trim();
+    chamadoId = String(chamadoId || "").trim();
+
+    if (!alertaId || !chamadoId) return;
+    if (MOTORISTAPAG_Login_sosVideoGravando) return;
+
+    const user =
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+            ? PRIMEIRAPAG_Login_auth.currentUser
+            : firebase.auth().currentUser;
+
+    if (!user) return;
+
+    MOTORISTAPAG_Login_sosVideoGravando = true;
+    MOTORISTAPAG_Login_sosVideoChunks = [];
+
+    try {
+        const db =
+            typeof PRIMEIRAPAG_Login_db !== "undefined"
+                ? PRIMEIRAPAG_Login_db
+                : firebase.firestore();
+
+        const storage =
+            typeof PRIMEIRAPAG_Login_storage !== "undefined"
+                ? PRIMEIRAPAG_Login_storage
+                : firebase.storage();
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            await db.collection("alertasSeguranca").doc(alertaId).set({
+                videoGravadoSosStatus: "navegador_sem_camera",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+
+            return;
+        }
+
+        MOTORISTAPAG_Login_sosVideoStreamGravacao =
+            await navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: {
+                    facingMode: "environment"
+                }
+            });
+
+        let opcoesRecorder = {};
+
+        if (MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")) {
+            opcoesRecorder = {
+                mimeType: "video/webm;codecs=vp8,opus"
+            };
+        } else if (MediaRecorder.isTypeSupported("video/webm")) {
+            opcoesRecorder = {
+                mimeType: "video/webm"
+            };
+        }
+
+        MOTORISTAPAG_Login_sosVideoRecorder =
+            new MediaRecorder(MOTORISTAPAG_Login_sosVideoStreamGravacao, opcoesRecorder);
+
+        MOTORISTAPAG_Login_sosVideoRecorder.ondataavailable = function(event) {
+            if (event.data && event.data.size > 0) {
+                MOTORISTAPAG_Login_sosVideoChunks.push(event.data);
+            }
+        };
+
+        MOTORISTAPAG_Login_sosVideoRecorder.onstop = async function() {
+            try {
+                const mimeType =
+                    MOTORISTAPAG_Login_sosVideoRecorder &&
+                    MOTORISTAPAG_Login_sosVideoRecorder.mimeType
+                        ? MOTORISTAPAG_Login_sosVideoRecorder.mimeType
+                        : "video/webm";
+
+                if (!MOTORISTAPAG_Login_sosVideoChunks.length) {
+                    await db.collection("alertasSeguranca").doc(alertaId).set({
+                        videoGravadoSosStatus: "sem_dados_gravados",
+                        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+
+                    return;
+                }
+
+                const blob = new Blob(MOTORISTAPAG_Login_sosVideoChunks, {
+                    type: mimeType
+                });
+
+                const dataArquivo = Date.now();
+                const nomeArquivo =
+                    "tnp-mob-sos-motorista-video-" +
+                    alertaId +
+                    "-" +
+                    dataArquivo +
+                    ".webm";
+
+                const caminhoStorage =
+                    "segurancaMotoristas/" +
+                    user.uid +
+                    "/sos/" +
+                    alertaId +
+                    "/" +
+                    nomeArquivo;
+
+                const arquivoRef = storage.ref().child(caminhoStorage);
+
+                await arquivoRef.put(blob, {
+                    contentType: mimeType,
+                    customMetadata: {
+                        origem: "sos_silencioso_motorista",
+                        motoristaUid: user.uid,
+                        alertaSegurancaId: alertaId,
+                        chamadoId: chamadoId,
+                        duracaoSegundos: "60"
+                    }
+                });
+
+                const videoUrl = await arquivoRef.getDownloadURL();
+
+                const textoVideo =
+                    "Vídeo de 1 minuto do SOS silencioso enviado pelo motorista.";
+
+                await db.collection("alertasSeguranca").doc(alertaId).set({
+                    videoGravadoSosStatus: "enviado",
+                    videoGravadoSosUrl: videoUrl,
+                    videoGravadoSosStoragePath: caminhoStorage,
+                    videoGravadoSosNome: nomeArquivo,
+                    videoGravadoSosContentType: mimeType,
+                    videoGravadoSosEnviadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                await db.collection("suporteChamados").doc(chamadoId).set({
+                    videoGravadoSosStatus: "enviado",
+                    videoGravadoSosUrl: videoUrl,
+                    videoGravadoSosStoragePath: caminhoStorage,
+                    videoGravadoSosNome: nomeArquivo,
+                    videoGravadoSosContentType: mimeType,
+
+                    ultimaMensagem: textoVideo,
+                    ultimaMensagemTexto: textoVideo,
+                    ultimaMensagemOrigem: "motorista",
+                    ultimaMensagemDestino: "suporte",
+
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                await db.collection("suporteChamados")
+                    .doc(chamadoId)
+                    .collection("mensagens")
+                    .add({
+                        origem: "motorista",
+                        origemReal: "motorista",
+                        origemUid: user.uid,
+                        exibidoComo: user.displayName || "Motorista",
+
+                        destinoReal: "suporte",
+                        encaminhadoPara: "suporte",
+
+                        tipo: "video_sos",
+                        categoria: "seguranca",
+
+                        texto: textoVideo,
+                        textoOriginal: textoVideo,
+                        textoExibido: textoVideo,
+
+                        alertaSegurancaId: alertaId,
+
+                        arquivoUrl: videoUrl,
+                        arquivoNome: nomeArquivo,
+                        arquivoTipo: "video_sos",
+                        arquivoContentType: mimeType,
+                        arquivoStoragePath: caminhoStorage,
+
+                        visivelParaMotorista: true,
+                        visivelParaPassageiro: false,
+                        visivelParaSuporte: true,
+
+                        visibilidades: {
+                            motorista: true,
+                            passageiro: false,
+                            suporte: true
+                        },
+
+                        lidaAdmin: false,
+                        criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+            } catch (erroFinalizar) {
+                console.error("SOS vídeo: erro ao enviar vídeo gravado:", erroFinalizar);
+
+                try {
+                    await db.collection("alertasSeguranca").doc(alertaId).set({
+                        videoGravadoSosStatus: "erro_ao_enviar",
+                        videoGravadoSosErro:
+                            erroFinalizar && erroFinalizar.message
+                                ? erroFinalizar.message
+                                : String(erroFinalizar),
+                        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                } catch (erroSalvar) {
+                    console.warn("SOS vídeo: erro ao salvar falha:", erroSalvar);
+                }
+
+            } finally {
+                MOTORISTAPAG_Login_func_pararGravacaoVideoSos();
+            }
+        };
+
+        await db.collection("alertasSeguranca").doc(alertaId).set({
+            videoGravadoSosStatus: "gravando_1_minuto",
+            videoGravadoSosIniciadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+        await db.collection("suporteChamados").doc(chamadoId).set({
+            videoGravadoSosStatus: "gravando_1_minuto",
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+        MOTORISTAPAG_Login_sosVideoRecorder.start();
+
+        setTimeout(function() {
+            if (
+                MOTORISTAPAG_Login_sosVideoRecorder &&
+                MOTORISTAPAG_Login_sosVideoRecorder.state === "recording"
+            ) {
+                MOTORISTAPAG_Login_sosVideoRecorder.stop();
+            }
+        }, 60 * 1000);
+
+    } catch (erro) {
+        console.error("SOS vídeo: erro ao iniciar gravação de 1 minuto:", erro);
+
+        try {
+            const db =
+                typeof PRIMEIRAPAG_Login_db !== "undefined"
+                    ? PRIMEIRAPAG_Login_db
+                    : firebase.firestore();
+
+            await db.collection("alertasSeguranca").doc(alertaId).set({
+                videoGravadoSosStatus: "erro_ao_iniciar",
+                videoGravadoSosErro: erro && erro.message ? erro.message : String(erro),
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+        } catch (erroSalvar) {
+            console.warn("SOS vídeo: erro ao salvar falha inicial:", erroSalvar);
+        }
+
+        MOTORISTAPAG_Login_func_pararGravacaoVideoSos();
+    }
+}
+
+function MOTORISTAPAG_Login_func_pararGravacaoVideoSos() {
+    if (
+        MOTORISTAPAG_Login_sosVideoRecorder &&
+        MOTORISTAPAG_Login_sosVideoRecorder.state === "recording"
+    ) {
+        try {
+            MOTORISTAPAG_Login_sosVideoRecorder.stop();
+        } catch (erro) {}
+    }
+
+    if (MOTORISTAPAG_Login_sosVideoStreamGravacao) {
+        MOTORISTAPAG_Login_sosVideoStreamGravacao.getTracks().forEach(function(track) {
+            track.stop();
+        });
+    }
+
+    MOTORISTAPAG_Login_sosVideoRecorder = null;
+    MOTORISTAPAG_Login_sosVideoStreamGravacao = null;
+    MOTORISTAPAG_Login_sosVideoChunks = [];
+    MOTORISTAPAG_Login_sosVideoGravando = false;
+}
+
+function MOTORISTAPAG_Login_func_pararOuvinteEncerramentoSosMotorista() {
+    if (MOTORISTAPAG_Login_sosEncerramentoListener) {
+        MOTORISTAPAG_Login_sosEncerramentoListener();
+        MOTORISTAPAG_Login_sosEncerramentoListener = null;
+    }
+}
+
+function MOTORISTAPAG_Login_func_ouvirEncerramentoSosMotorista(alertaId) {
+    alertaId = String(alertaId || "").trim();
+
+    if (!alertaId) return;
+
+    MOTORISTAPAG_Login_func_pararOuvinteEncerramentoSosMotorista();
+
+    const db =
+        typeof PRIMEIRAPAG_Login_db !== "undefined"
+            ? PRIMEIRAPAG_Login_db
+            : firebase.firestore();
+
+    MOTORISTAPAG_Login_sosAlertaAtivoId = alertaId;
+
+    MOTORISTAPAG_Login_sosEncerramentoListener = db
+        .collection("alertasSeguranca")
+        .doc(alertaId)
+        .onSnapshot(function(doc) {
+            if (!doc.exists) return;
+
+            const dados = doc.data() || {};
+            const status = String(dados.status || "").toLowerCase();
+
+            const foiEncerrado =
+                status === "finalizado" ||
+                status === "encerrado" ||
+                status === "cancelado" ||
+                dados.sosEncerrado === true;
+
+            if (!foiEncerrado) return;
+
+            if (typeof MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista === "function") {
+                MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista();
+            }
+
+            MOTORISTAPAG_Login_func_pararOuvinteEncerramentoSosMotorista();
+
+            MOTORISTAPAG_Login_sosAlertaAtivoId = "";
+            MOTORISTAPAG_Login_sosEmAndamento = false;
+
+            console.log("SOS silencioso encerrado pelo suporte:", alertaId);
+        }, function(erro) {
+            console.warn("Erro ao ouvir encerramento do SOS:", erro);
+        });
+}
+
 async function MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista() {
     if (MOTORISTAPAG_Login_sosEmAndamento) return;
 
@@ -38738,8 +39072,15 @@ async function MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista() {
 		alertaRef.id,
 		chamadoRef.id
 	);
+	
+			MOTORISTAPAG_Login_func_gravarVideoSosUmMinutoParaSuporte(
+		alertaRef.id,
+		chamadoRef.id
+	);
 
-        console.log("SOS silencioso enviado para o suporte:", alertaRef.id);
+        MOTORISTAPAG_Login_func_ouvirEncerramentoSosMotorista(alertaRef.id);
+
+		console.log("SOS silencioso enviado para o suporte:", alertaRef.id);
 
        } catch (erro) {
         console.error("Erro ao acionar SOS silencioso do motorista:", erro);
@@ -38759,7 +39100,17 @@ window.MOTORISTAPAG_Login_func_iniciarLocalizacaoTempoRealSosMotorista =
 
 window.MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista =
     MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista;
+window.MOTORISTAPAG_Login_func_gravarVideoSosUmMinutoParaSuporte =
+    MOTORISTAPAG_Login_func_gravarVideoSosUmMinutoParaSuporte;
 
+window.MOTORISTAPAG_Login_func_pararGravacaoVideoSos =
+    MOTORISTAPAG_Login_func_pararGravacaoVideoSos;
+
+window.MOTORISTAPAG_Login_func_ouvirEncerramentoSosMotorista =
+    MOTORISTAPAG_Login_func_ouvirEncerramentoSosMotorista;
+
+window.MOTORISTAPAG_Login_func_pararOuvinteEncerramentoSosMotorista =
+    MOTORISTAPAG_Login_func_pararOuvinteEncerramentoSosMotorista;
  
  // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
 
