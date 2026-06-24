@@ -9185,6 +9185,14 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 			<button type="button" onclick="PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca()">
 				📤 Compartilhar por minha conta
 			</button>
+			
+			<button
+				type="button"
+				id="PASSAGEIROPAG_Login_seg_btn_compartilhar_suporte"
+				onclick="PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca()"
+			>
+				💬 Compartilhar com suporte TNP MoB
+			</button>
 
 			<button type="button" onclick="PASSAGEIROPAG_Login_func_descartarArquivoSeguranca()">
 				🗑️ Descartar
@@ -11355,6 +11363,13 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
             <button type="button" onclick="MOTORISTAPAG_Login_func_compartilharArquivoSeguranca()">
                 📤 Compartilhar por minha conta
             </button>
+			<button
+				type="button"
+				id="MOTORISTAPAG_Login_seg_btn_compartilhar_suporte"
+				onclick="MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca()"
+			>
+				💬 Compartilhar com suporte TNP MoB
+			</button>
 
             <button type="button" onclick="MOTORISTAPAG_Login_func_descartarArquivoSeguranca()">
                 🗑️ Descartar
@@ -21339,6 +21354,178 @@ async function PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca() {
     }
 }
 
+async function PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca() {
+    if (PASSAGEIROPAG_Login_segAcaoEmAndamento) return;
+
+    if (!PASSAGEIROPAG_Login_segArquivoBlobAtual) {
+        alert("Nenhuma gravação disponível para enviar ao suporte.");
+        return;
+    }
+
+    const user =
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+            ? PRIMEIRAPAG_Login_auth.currentUser
+            : firebase.auth().currentUser;
+
+    if (!user) {
+        alert("Você precisa estar logado para compartilhar com o suporte.");
+        return;
+    }
+
+    const confirmar = confirm(
+        "Deseja enviar esta gravação para o suporte TNP MoB?\n\n" +
+        "Uma cópia será salva com segurança no sistema e um chamado será aberto na Central de Ajuda."
+    );
+
+    if (!confirmar) return;
+
+    PASSAGEIROPAG_Login_segAcaoEmAndamento = true;
+
+    const btnSuporte = document.getElementById("PASSAGEIROPAG_Login_seg_btn_compartilhar_suporte");
+
+    if (btnSuporte) {
+        btnSuporte.disabled = true;
+        btnSuporte.innerText = "Enviando para suporte...";
+    }
+
+    try {
+        const db =
+            typeof PRIMEIRAPAG_Login_db !== "undefined"
+                ? PRIMEIRAPAG_Login_db
+                : firebase.firestore();
+
+        const storage =
+            typeof PRIMEIRAPAG_Login_storage !== "undefined"
+                ? PRIMEIRAPAG_Login_storage
+                : firebase.storage();
+
+        const arquivo = PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca();
+
+        if (!arquivo) {
+            alert("Não foi possível preparar a gravação para envio.");
+            return;
+        }
+
+        const tipoArquivo = PASSAGEIROPAG_Login_segTipoGravacao || "arquivo";
+        const dataArquivo = Date.now();
+        const nomeArquivoSeguro = arquivo.name || ("seguranca-" + dataArquivo + ".webm");
+
+        const caminhoStorage =
+            "segurancaPassageiros/" +
+            user.uid +
+            "/" +
+            dataArquivo +
+            "-" +
+            nomeArquivoSeguro;
+
+        const arquivoRef = storage.ref().child(caminhoStorage);
+
+        await arquivoRef.put(arquivo, {
+            contentType: arquivo.type || "application/octet-stream",
+            customMetadata: {
+                origem: "central_seguranca_passageiro",
+                passageiroUid: user.uid,
+                tipoArquivo: tipoArquivo
+            }
+        });
+
+        const arquivoUrl = await arquivoRef.getDownloadURL();
+
+        const chamadoRef = db.collection("suporteChamados").doc();
+
+        const textoMensagem =
+            "Gravação de segurança enviada pelo passageiro.\n\n" +
+            "Tipo: " + tipoArquivo + "\n" +
+            "Arquivo: " + arquivoUrl;
+
+        await chamadoRef.set({
+            origem: "passageiro",
+            origemPerfil: "passageiro",
+            destinoPerfil: "suporte",
+
+            tipo: "seguranca",
+            categoria: "seguranca",
+            titulo: "Gravação de segurança do passageiro",
+
+            status: "aberto",
+            suporteMediando: true,
+            chatDiretoLiberado: false,
+
+            passageiroUid: user.uid,
+            passageiroEmail: user.email || "",
+
+            arquivoSeguranca: {
+                url: arquivoUrl,
+                nome: nomeArquivoSeguro,
+                tipo: tipoArquivo,
+                contentType: arquivo.type || "",
+                storagePath: caminhoStorage
+            },
+
+            ultimaMensagem: textoMensagem,
+            ultimaMensagemTexto: "Gravação de segurança enviada pelo passageiro.",
+            ultimaMensagemOrigem: "passageiro",
+            ultimaMensagemDestino: "suporte",
+
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        await chamadoRef.collection("mensagens").add({
+            origem: "passageiro",
+            origemReal: "passageiro",
+            destinoReal: "suporte",
+
+            tipo: "arquivo_seguranca",
+            categoria: "seguranca",
+            texto: textoMensagem,
+
+            arquivoUrl: arquivoUrl,
+            arquivoNome: nomeArquivoSeguro,
+            arquivoTipo: tipoArquivo,
+            arquivoContentType: arquivo.type || "",
+
+            visivelParaPassageiro: true,
+            visivelParaSuporte: true,
+            visibilidades: {
+                passageiro: true,
+                suporte: true,
+                motorista: false
+            },
+
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        const mensagemWhatsapp = encodeURIComponent(
+            "Olá, preciso de ajuda na Central de Segurança do Passageiro TNP MoB.\n\n" +
+            "Enviei uma gravação de segurança para análise.\n\n" +
+            "UID: " + user.uid + "\n" +
+            "E-mail: " + (user.email || "não informado") + "\n" +
+            "Chamado: " + chamadoRef.id + "\n" +
+            "Arquivo: " + arquivoUrl
+        );
+
+        window.open(
+            "https://wa.me/" + PASSAGEIROPAG_Login_segWhatsappSuporte + "?text=" + mensagemWhatsapp,
+            "_blank"
+        );
+
+        alert("Gravação enviada ao suporte e chamado criado na Central de Ajuda.");
+
+    } catch (erro) {
+        console.error("Erro ao compartilhar gravação do passageiro com suporte:", erro);
+        alert("Não foi possível enviar a gravação ao suporte. Tente novamente.");
+
+    } finally {
+        PASSAGEIROPAG_Login_segAcaoEmAndamento = false;
+
+        if (btnSuporte) {
+            btnSuporte.disabled = false;
+            btnSuporte.innerText = "💬 Compartilhar com suporte TNP MoB";
+        }
+    }
+}
+
 function PASSAGEIROPAG_Login_func_descartarArquivoSeguranca() {
     if (
         PASSAGEIROPAG_Login_segMediaRecorder &&
@@ -21383,7 +21570,7 @@ window.PASSAGEIROPAG_Login_func_baixarArquivoSeguranca = PASSAGEIROPAG_Login_fun
 window.PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca = PASSAGEIROPAG_Login_func_compartilharArquivoSeguranca;
 window.PASSAGEIROPAG_Login_func_descartarArquivoSeguranca = PASSAGEIROPAG_Login_func_descartarArquivoSeguranca;
 window.PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca = PASSAGEIROPAG_Login_func_criarArquivoCompartilhamentoSeguranca;
-
+window.PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca = PASSAGEIROPAG_Login_func_compartilharArquivoSuporteSeguranca;
 
 
 // //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA FINAL ========== //
@@ -29757,6 +29944,172 @@ async function MOTORISTAPAG_Login_func_compartilharArquivoSeguranca() {
     }
 }
 
+async function MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca() {
+    if (MOTORISTAPAG_Login_segAcaoEmAndamento) return;
+
+    if (!MOTORISTAPAG_Login_segArquivoBlobAtual) {
+        alert("Nenhuma gravação disponível para enviar ao suporte.");
+        return;
+    }
+
+    const user = PRIMEIRAPAG_Login_auth && PRIMEIRAPAG_Login_auth.currentUser
+        ? PRIMEIRAPAG_Login_auth.currentUser
+        : null;
+
+    if (!user) {
+        alert("Você precisa estar logado para compartilhar com o suporte.");
+        return;
+    }
+
+    const confirmar = confirm(
+        "Deseja enviar esta gravação para o suporte TNP MoB?\n\n" +
+        "Uma cópia será salva com segurança no sistema e um chamado será aberto na Central de Ajuda."
+    );
+
+    if (!confirmar) return;
+
+    MOTORISTAPAG_Login_segAcaoEmAndamento = true;
+
+    const btnSuporte = document.getElementById("MOTORISTAPAG_Login_seg_btn_compartilhar_suporte");
+
+    if (btnSuporte) {
+        btnSuporte.disabled = true;
+        btnSuporte.innerText = "Enviando para suporte...";
+    }
+
+    try {
+        const db = PRIMEIRAPAG_Login_db;
+        const storage = typeof PRIMEIRAPAG_Login_storage !== "undefined"
+            ? PRIMEIRAPAG_Login_storage
+            : firebase.storage();
+
+        const arquivo = MOTORISTAPAG_Login_func_criarArquivoCompartilhamentoSeguranca();
+
+        if (!arquivo) {
+            alert("Não foi possível preparar a gravação para envio.");
+            return;
+        }
+
+        const tipoArquivo = MOTORISTAPAG_Login_segTipoGravacao || "arquivo";
+        const dataArquivo = Date.now();
+        const nomeArquivoSeguro = arquivo.name || ("seguranca-" + dataArquivo + ".webm");
+
+        const caminhoStorage =
+            "segurancaMotoristas/" +
+            user.uid +
+            "/" +
+            dataArquivo +
+            "-" +
+            nomeArquivoSeguro;
+
+        const arquivoRef = storage.ref().child(caminhoStorage);
+
+        await arquivoRef.put(arquivo, {
+            contentType: arquivo.type || "application/octet-stream",
+            customMetadata: {
+                origem: "central_seguranca_motorista",
+                motoristaUid: user.uid,
+                tipoArquivo: tipoArquivo
+            }
+        });
+
+        const arquivoUrl = await arquivoRef.getDownloadURL();
+
+        const chamadoRef = db.collection("suporteChamados").doc();
+
+        const textoMensagem =
+            "Gravação de segurança enviada pelo motorista.\n\n" +
+            "Tipo: " + tipoArquivo + "\n" +
+            "Arquivo: " + arquivoUrl;
+
+        await chamadoRef.set({
+            origem: "motorista",
+            origemPerfil: "motorista",
+            destinoPerfil: "suporte",
+
+            tipo: "seguranca",
+            categoria: "seguranca",
+            titulo: "Gravação de segurança do motorista",
+
+            status: "aberto",
+            suporteMediando: true,
+            chatDiretoLiberado: false,
+
+            motoristaUid: user.uid,
+            motoristaEmail: user.email || "",
+
+            arquivoSeguranca: {
+                url: arquivoUrl,
+                nome: nomeArquivoSeguro,
+                tipo: tipoArquivo,
+                contentType: arquivo.type || "",
+                storagePath: caminhoStorage
+            },
+
+            ultimaMensagem: textoMensagem,
+            ultimaMensagemTexto: "Gravação de segurança enviada pelo motorista.",
+            ultimaMensagemOrigem: "motorista",
+            ultimaMensagemDestino: "suporte",
+
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        await chamadoRef.collection("mensagens").add({
+            origem: "motorista",
+            origemReal: "motorista",
+            destinoReal: "suporte",
+
+            tipo: "arquivo_seguranca",
+            categoria: "seguranca",
+            texto: textoMensagem,
+
+            arquivoUrl: arquivoUrl,
+            arquivoNome: nomeArquivoSeguro,
+            arquivoTipo: tipoArquivo,
+            arquivoContentType: arquivo.type || "",
+
+            visivelParaMotorista: true,
+            visivelParaSuporte: true,
+            visibilidades: {
+                motorista: true,
+                suporte: true,
+                passageiro: false
+            },
+
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        const mensagemWhatsapp = encodeURIComponent(
+            "Olá, preciso de ajuda na Central de Segurança do Motorista TNP MoB.\n\n" +
+            "Enviei uma gravação de segurança para análise.\n\n" +
+            "UID: " + user.uid + "\n" +
+            "E-mail: " + (user.email || "não informado") + "\n" +
+            "Chamado: " + chamadoRef.id + "\n" +
+            "Arquivo: " + arquivoUrl
+        );
+
+        window.open(
+            "https://wa.me/" + MOTORISTAPAG_Login_segWhatsappSuporte + "?text=" + mensagemWhatsapp,
+            "_blank"
+        );
+
+        alert("Gravação enviada ao suporte e chamado criado na Central de Ajuda.");
+
+    } catch (erro) {
+        console.error("Erro ao compartilhar gravação com suporte:", erro);
+        alert("Não foi possível enviar a gravação ao suporte. Tente novamente.");
+
+    } finally {
+        MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+
+        if (btnSuporte) {
+            btnSuporte.disabled = false;
+            btnSuporte.innerText = "💬 Compartilhar com suporte TNP MoB";
+        }
+    }
+}
+
 function MOTORISTAPAG_Login_func_descartarArquivoSeguranca() {
     if (
         MOTORISTAPAG_Login_segMediaRecorder &&
@@ -29788,7 +30141,7 @@ window.MOTORISTAPAG_Login_func_fotoSegurancaSelecionada = MOTORISTAPAG_Login_fun
 window.MOTORISTAPAG_Login_func_baixarArquivoSeguranca = MOTORISTAPAG_Login_func_baixarArquivoSeguranca;
 window.MOTORISTAPAG_Login_func_compartilharArquivoSeguranca = MOTORISTAPAG_Login_func_compartilharArquivoSeguranca;
 window.MOTORISTAPAG_Login_func_descartarArquivoSeguranca = MOTORISTAPAG_Login_func_descartarArquivoSeguranca;
-
+window.MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca = MOTORISTAPAG_Login_func_compartilharArquivoSuporteSeguranca;
 
 
 
