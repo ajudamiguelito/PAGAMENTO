@@ -7467,6 +7467,93 @@ body.TNP_TEMA_CLARO #MOTORISTAPAG_Login_screen_central_seguranca.MOTORISTAPAG_Lo
     background: #f7f2ec;
 }
 
+.MOTORISTAMENSAGENS_btn_localizacao_sos {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    background: rgba(197, 169, 141, 0.12);
+    color: var(--Fame_gold);
+    font-size: 0.74rem;
+    font-weight: 800;
+    cursor: pointer;
+    text-align: center;
+}
+
+.MOTORISTAMENSAGENS_btn_localizacao_sos:active {
+    transform: scale(0.98);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_btn_localizacao_sos {
+    background: rgba(123, 84, 56, 0.10);
+    border-color: rgba(123, 84, 56, 0.28);
+    color: #7b5438;
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_box {
+    margin: 10px 12px 8px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: var(--Fame_text);
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_topo strong {
+    display: block;
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_topo span {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--Fame_text);
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_info {
+    margin-top: 8px;
+    display: grid;
+    gap: 4px;
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_info small {
+    color: var(--Fame_muted);
+    font-size: 0.7rem;
+    word-break: break-word;
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_box button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(239, 68, 68, 0.38);
+    background: rgba(239, 68, 68, 0.18);
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.MOTORISTAMENSAGENS_sos_resumo_box p {
+    margin-top: 8px;
+    font-size: 0.74rem;
+    color: var(--Fame_muted);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_sos_resumo_box {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.30);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_sos_resumo_box button {
+    background: #dc2626;
+    color: #ffffff;
+}
+
 	  
 </style>
 </head>
@@ -38339,6 +38426,9 @@ let MOTORISTAPAG_Login_sosTimerToques = null;
 let MOTORISTAPAG_Login_sosEmAndamento = false;
 let MOTORISTAPAG_Login_sosUltimoAcionadoMs = 0;
 
+let MOTORISTAPAG_Login_sosWatchId = null;
+let MOTORISTAPAG_Login_sosAlertaAtivoId = "";
+
 function MOTORISTAPAG_Login_func_toqueSosDiscreto() {
     MOTORISTAPAG_Login_sosToques++;
 
@@ -38388,6 +38478,112 @@ function MOTORISTAPAG_Login_func_obterLocalizacaoSosMotorista() {
             }
         );
     });
+}
+
+function MOTORISTAPAG_Login_func_iniciarLocalizacaoTempoRealSosMotorista(alertaId, chamadoId) {
+    if (!navigator.geolocation || !alertaId) return;
+
+    if (MOTORISTAPAG_Login_sosWatchId !== null) {
+        navigator.geolocation.clearWatch(MOTORISTAPAG_Login_sosWatchId);
+        MOTORISTAPAG_Login_sosWatchId = null;
+    }
+
+    MOTORISTAPAG_Login_sosAlertaAtivoId = alertaId;
+
+    MOTORISTAPAG_Login_sosWatchId = navigator.geolocation.watchPosition(
+        async function(posicao) {
+            try {
+                const db =
+                    typeof PRIMEIRAPAG_Login_db !== "undefined"
+                        ? PRIMEIRAPAG_Login_db
+                        : firebase.firestore();
+
+                const localizacaoAtualizada = {
+                    latitude: posicao.coords.latitude,
+                    longitude: posicao.coords.longitude,
+                    accuracy: posicao.coords.accuracy || null,
+                    altitude: posicao.coords.altitude || null,
+                    heading: posicao.coords.heading || null,
+                    speed: posicao.coords.speed || null,
+                    coletadoEmMs: Date.now()
+                };
+
+                const payload = {
+                    latitudeAtual: localizacaoAtualizada.latitude,
+                    longitudeAtual: localizacaoAtualizada.longitude,
+                    localizacaoAtual: localizacaoAtualizada,
+                    localizacaoDisponivel: true,
+                    atualizadoLocalizacaoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection("alertasSeguranca").doc(alertaId).update(payload);
+
+                if (chamadoId) {
+                    await db.collection("suporteChamados").doc(chamadoId).update(payload);
+                }
+
+            } catch (erro) {
+                console.warn("SOS silencioso: erro ao atualizar localização em tempo real:", erro);
+            }
+        },
+        async function(erro) {
+			console.warn("SOS silencioso: localização em tempo real indisponível:", erro);
+
+			try {
+				const db =
+					typeof PRIMEIRAPAG_Login_db !== "undefined"
+						? PRIMEIRAPAG_Login_db
+						: firebase.firestore();
+
+				let motivo = "indisponivel";
+
+				if (erro && erro.code === 1) {
+					motivo = "permissao_negada";
+				} else if (erro && erro.code === 2) {
+					motivo = "posicao_indisponivel";
+				} else if (erro && erro.code === 3) {
+					motivo = "tempo_esgotado";
+				}
+
+				const payloadErroLocalizacao = {
+					localizacaoTempoRealAtiva: false,
+					localizacaoTempoRealStatus: motivo,
+					localizacaoTempoRealErro: erro && erro.message ? erro.message : "",
+					atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+				};
+
+				await db
+					.collection("alertasSeguranca")
+					.doc(alertaId)
+					.update(payloadErroLocalizacao);
+
+				if (chamadoId) {
+					await db
+						.collection("suporteChamados")
+						.doc(chamadoId)
+						.update(payloadErroLocalizacao);
+				}
+
+			} catch (erroFirebase) {
+				console.warn("SOS silencioso: erro ao salvar falha de localização:", erroFirebase);
+			}
+		},
+        {
+            enableHighAccuracy: true,
+            maximumAge: 3000,
+            timeout: 10000
+        }
+    );
+}
+
+function MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista() {
+    if (MOTORISTAPAG_Login_sosWatchId !== null && navigator.geolocation) {
+        navigator.geolocation.clearWatch(MOTORISTAPAG_Login_sosWatchId);
+    }
+
+    MOTORISTAPAG_Login_sosWatchId = null;
+    MOTORISTAPAG_Login_sosAlertaAtivoId = "";
 }
 
 async function MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista() {
@@ -38537,6 +38733,11 @@ async function MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista() {
             lidaAdmin: false,
             criadoEm: firebase.firestore.FieldValue.serverTimestamp()
         });
+		
+			MOTORISTAPAG_Login_func_iniciarLocalizacaoTempoRealSosMotorista(
+		alertaRef.id,
+		chamadoRef.id
+	);
 
         console.log("SOS silencioso enviado para o suporte:", alertaRef.id);
 
@@ -38553,7 +38754,11 @@ window.MOTORISTAPAG_Login_func_toqueSosDiscreto =
 
 window.MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista =
     MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista;
+window.MOTORISTAPAG_Login_func_iniciarLocalizacaoTempoRealSosMotorista =
+    MOTORISTAPAG_Login_func_iniciarLocalizacaoTempoRealSosMotorista;
 
+window.MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista =
+    MOTORISTAPAG_Login_func_pararLocalizacaoTempoRealSosMotorista;
 
  
  // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
@@ -39223,6 +39428,7 @@ var MOTORISTAMENSAGENS_chamadosSuporteFirebase = [];
 	var MOTORISTAMENSAGENS_prontasFirebase = [];
 	var MOTORISTAMENSAGENS_prontasListener = null;
 	var MOTORISTAMENSAGENS_prontasListenerUid = null;
+	var MOTORISTAMENSAGENS_chamadoSosResumoListener = null;
 	var TNP_MENSAGENS_contextoAtual = {
 		origem: '',
 		uid: null,
@@ -39402,6 +39608,7 @@ function PASSAGEIROPAG_Login_func_carregarTelaMensagensPassageiro() {
 }
 
 function MOTORISTAMENSAGENS_func_fecharTela() {
+	MOTORISTAMENSAGENS_func_pararResumoSosConversa();
     const tela = document.getElementById('MOTORISTAMENSAGENS_tela');
 
     if (tela) {
@@ -39850,6 +40057,10 @@ function MOTORISTAMENSAGENS_func_abrirConversa(id) {
         input.style.overflowY = 'hidden';
         input.focus();
     }
+	
+	if (typeof MOTORISTAMENSAGENS_func_escutarResumoSosConversa === "function") {
+		MOTORISTAMENSAGENS_func_escutarResumoSosConversa(chamadoId);
+	}
 
     if (typeof MOTORISTAMENSAGENS_func_escutarMensagensConversaUniversal === 'function') {
         MOTORISTAMENSAGENS_func_escutarMensagensConversaUniversal(chamadoId, tipoConversa);
@@ -39859,6 +40070,142 @@ function MOTORISTAMENSAGENS_func_abrirConversa(id) {
     if (typeof MOTORISTAMENSAGENS_func_escutarMensagensSuporteFirebase === 'function') {
         MOTORISTAMENSAGENS_func_escutarMensagensSuporteFirebase(chamadoId);
     }
+}
+
+function MOTORISTAMENSAGENS_func_pararResumoSosConversa() {
+    if (MOTORISTAMENSAGENS_chamadoSosResumoListener) {
+        MOTORISTAMENSAGENS_chamadoSosResumoListener();
+        MOTORISTAMENSAGENS_chamadoSosResumoListener = null;
+    }
+
+    const box = document.getElementById("MOTORISTAMENSAGENS_sos_resumo_box");
+
+    if (box) {
+        box.style.display = "none";
+        box.innerHTML = "";
+    }
+}
+
+function MOTORISTAMENSAGENS_func_escutarResumoSosConversa(chamadoId) {
+    chamadoId = String(chamadoId || "").trim();
+
+    if (!chamadoId) return;
+
+    MOTORISTAMENSAGENS_func_pararResumoSosConversa();
+
+    const conversaArea = document.getElementById("MOTORISTAMENSAGENS_conversa_area");
+    const mensagensArea = document.getElementById("MOTORISTAMENSAGENS_conversa_mensagens");
+
+    if (!conversaArea || !mensagensArea) return;
+
+    let box = document.getElementById("MOTORISTAMENSAGENS_sos_resumo_box");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "MOTORISTAMENSAGENS_sos_resumo_box";
+        box.className = "MOTORISTAMENSAGENS_sos_resumo_box";
+        box.style.display = "none";
+
+        conversaArea.insertBefore(box, mensagensArea);
+    }
+
+    MOTORISTAMENSAGENS_chamadoSosResumoListener = PRIMEIRAPAG_Login_db
+        .collection("suporteChamados")
+        .doc(chamadoId)
+        .onSnapshot(function(doc) {
+            if (!doc.exists) {
+                box.style.display = "none";
+                box.innerHTML = "";
+                return;
+            }
+
+            const dados = doc.data() || {};
+
+            const ehSos =
+                dados.tipoAtendimento === "sos_silencioso" ||
+                dados.alertaSegurancaId;
+
+            if (!ehSos) {
+                box.style.display = "none";
+                box.innerHTML = "";
+                return;
+            }
+
+            const latitude = Number(dados.latitudeAtual || 0);
+            const longitude = Number(dados.longitudeAtual || 0);
+            const temLocalizacao = latitude && longitude;
+
+            const statusLocalizacao = dados.localizacaoTempoRealStatus || (
+                dados.localizacaoDisponivel ? "localizacao_recebida" : "sem_localizacao"
+            );
+
+            let textoStatus = "Aguardando localização";
+
+            if (statusLocalizacao === "ativa") {
+                textoStatus = "Localização em tempo real ativa";
+            } else if (statusLocalizacao === "permissao_negada") {
+				textoStatus = "GPS bloqueado ou sem permissão no aparelho do motorista";
+            } else if (temLocalizacao) {
+                textoStatus = "Última localização recebida";
+            }
+
+            box.innerHTML = "";
+            box.style.display = "block";
+
+            const topo = document.createElement("div");
+            topo.className = "MOTORISTAMENSAGENS_sos_resumo_topo";
+
+            const titulo = document.createElement("strong");
+            titulo.textContent = "🚨 SOS silencioso ativo";
+
+            const status = document.createElement("span");
+            status.textContent = textoStatus;
+
+            topo.appendChild(titulo);
+            topo.appendChild(status);
+
+            const info = document.createElement("div");
+            info.className = "MOTORISTAMENSAGENS_sos_resumo_info";
+
+            const motorista = document.createElement("small");
+            motorista.textContent =
+                "Motorista: " + (dados.nomeMotorista || dados.motoristaEmail || "Motorista");
+
+            const alerta = document.createElement("small");
+            alerta.textContent =
+                "Alerta: " + (dados.alertaSegurancaId || chamadoId);
+
+            info.appendChild(motorista);
+            info.appendChild(alerta);
+
+            box.appendChild(topo);
+            box.appendChild(info);
+
+            if (temLocalizacao) {
+                const botao = document.createElement("button");
+
+                botao.type = "button";
+                botao.textContent = "📍 Abrir localização atual";
+
+                botao.onclick = function(event) {
+                    event.stopPropagation();
+
+                    window.open(
+                        "https://www.google.com/maps?q=" + latitude + "," + longitude,
+                        "_blank"
+                    );
+                };
+
+                box.appendChild(botao);
+            } else {
+                const aviso = document.createElement("p");
+                aviso.textContent = "Localização ainda não disponível.";
+
+                box.appendChild(aviso);
+            }
+        }, function(erro) {
+            console.warn("Erro ao escutar resumo SOS da conversa:", erro);
+        });
 }
 
 function MOTORISTAMENSAGENS_func_escutarMensagensConversaUniversal(chamadoId, tipoConversa) {
@@ -39965,15 +40312,39 @@ function MOTORISTAMENSAGENS_func_renderizarMensagensSuporteFirebase(lista) {
             : 'MOTORISTAMENSAGENS_msg recebida';
 
         const textoMensagem = document.createElement('span');
-        textoMensagem.textContent = String(msg.texto || '');
+		textoMensagem.textContent = String(msg.texto || '');
 
-        const hora = document.createElement('small');
-        hora.textContent = MOTORISTAMENSAGENS_func_formatarHoraFirebase(msg.criadoEm);
+		div.appendChild(textoMensagem);
 
-        div.appendChild(textoMensagem);
-        div.appendChild(hora);
+		const dadosMsg = msg.dadosFirebase || {};
+		const latitude = Number(dadosMsg.latitudeAtual || 0);
+		const longitude = Number(dadosMsg.longitudeAtual || 0);
 
-        area.appendChild(div);
+		if (latitude && longitude) {
+			const linkMapa = document.createElement('button');
+
+			linkMapa.type = 'button';
+			linkMapa.className = 'MOTORISTAMENSAGENS_btn_localizacao_sos';
+			linkMapa.textContent = '📍 Abrir localização do SOS';
+
+			linkMapa.onclick = function(event) {
+				event.stopPropagation();
+
+				window.open(
+					'https://www.google.com/maps?q=' + latitude + ',' + longitude,
+					'_blank'
+				);
+			};
+
+			div.appendChild(linkMapa);
+		}
+
+		const hora = document.createElement('small');
+		hora.textContent = MOTORISTAMENSAGENS_func_formatarHoraFirebase(msg.criadoEm);
+
+		div.appendChild(hora);
+
+		area.appendChild(div);
     });
 
     area.scrollTop = area.scrollHeight;
@@ -40030,6 +40401,7 @@ function MOTORISTAMENSAGENS_func_formatarDataFirebase(timestamp) {
 }
 
 function MOTORISTAMENSAGENS_func_voltarLista() {
+	MOTORISTAMENSAGENS_func_pararResumoSosConversa();
     const listaArea = document.getElementById('MOTORISTAMENSAGENS_lista_area');
     const conversaArea = document.getElementById('MOTORISTAMENSAGENS_conversa_area');
     const input = document.getElementById('MOTORISTAMENSAGENS_input_mensagem');
