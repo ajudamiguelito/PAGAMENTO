@@ -8860,15 +8860,19 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
     <div id="PASSAGEIROPAG_Login_menu_overlay" class="PASSAGEIROPAG_Login_menu_overlay" onclick="PASSAGEIROPAG_Login_func_fecharMenuLateral()"></div>
 
     <div id="PASSAGEIROPAG_Login_menu_lateral" class="PASSAGEIROPAG_Login_menu_lateral">
-        <div class="PASSAGEIROPAG_Login_menu_header">
-            <img
-                id="PASSAGEIROPAG_Login_foto_menu"
-                src=""
-                alt="Perfil"
-            >
+        <div class="MOTORISTAPAG_Login_menu_header">
+        <div class="menu_icon_hamburguer">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+		
             <strong id="PASSAGEIROPAG_Login_nome_menu">Passageiro</strong>
             <span id="PASSAGEIROPAG_Login_email_menu">-</span>
         </div>
+
+
+
 
 <button
     type="button"
@@ -11345,6 +11349,12 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
                controls
                playsinline
                style="display:none;"></video>
+			   
+		<img
+			id="MOTORISTAPAG_Login_seg_foto_resultado"
+			alt="Foto de segurança"
+			style="display:none; width:100%; border-radius:16px; margin-top:12px;"
+		>	   
 
         <button type="button"
                 id="MOTORISTAPAG_Login_seg_btn_parar_gravacao"
@@ -29521,9 +29531,10 @@ function MOTORISTAPAG_Login_func_limparGravacaoSeguranca() {
     const audioPreview = document.getElementById("MOTORISTAPAG_Login_seg_audio_preview");
     const videoPreview = document.getElementById("MOTORISTAPAG_Login_seg_video_preview");
     const videoResultado = document.getElementById("MOTORISTAPAG_Login_seg_video_resultado");
-    const acoesArquivo = document.getElementById("MOTORISTAPAG_Login_seg_acoes_arquivo");
-
-    MOTORISTAPAG_Login_func_pararStreamSeguranca();
+	const fotoResultado = document.getElementById("MOTORISTAPAG_Login_seg_foto_resultado");
+	const acoesArquivo = document.getElementById("MOTORISTAPAG_Login_seg_acoes_arquivo");
+    
+	MOTORISTAPAG_Login_func_pararStreamSeguranca();
 
     clearTimeout(MOTORISTAPAG_Login_segTimerLimite);
     MOTORISTAPAG_Login_segTimerLimite = null;
@@ -29569,6 +29580,11 @@ function MOTORISTAPAG_Login_func_limparGravacaoSeguranca() {
         videoResultado.removeAttribute("src");
         videoResultado.style.display = "none";
     }
+	
+	if (fotoResultado) {
+		fotoResultado.removeAttribute("src");
+		fotoResultado.style.display = "none";
+	}
 }
 
 /* ==================================================
@@ -29904,6 +29920,101 @@ function MOTORISTAPAG_Login_func_criarArquivoCompartilhamentoSeguranca() {
         MOTORISTAPAG_Login_segArquivoNomeAtual || "tnp-mob-motorista-gravacao-seguranca.webm",
         { type: MOTORISTAPAG_Login_segArquivoBlobAtual.type || "video/webm" }
     );
+}
+
+function MOTORISTAPAG_Login_func_fotoSegurancaSelecionada(input) {
+    if (MOTORISTAPAG_Login_segAcaoEmAndamento) return;
+
+    const arquivo = input && input.files && input.files[0]
+        ? input.files[0]
+        : null;
+
+    if (!arquivo) return;
+
+    if (!arquivo.type || !arquivo.type.startsWith("image/")) {
+        alert("Selecione uma imagem válida.");
+        if (input) input.value = "";
+        return;
+    }
+
+    MOTORISTAPAG_Login_segAcaoEmAndamento = true;
+
+    try {
+        MOTORISTAPAG_Login_func_limparGravacaoSeguranca();
+
+        const box = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_box");
+        const titulo = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_titulo");
+        const status = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_status");
+        const fotoResultado = document.getElementById("MOTORISTAPAG_Login_seg_foto_resultado");
+        const audioPreview = document.getElementById("MOTORISTAPAG_Login_seg_audio_preview");
+        const videoPreview = document.getElementById("MOTORISTAPAG_Login_seg_video_preview");
+        const videoResultado = document.getElementById("MOTORISTAPAG_Login_seg_video_resultado");
+        const acoesArquivo = document.getElementById("MOTORISTAPAG_Login_seg_acoes_arquivo");
+        const btnParar = document.getElementById("MOTORISTAPAG_Login_seg_btn_parar_gravacao");
+
+        const extensao = arquivo.type === "image/png" ? "png" : "jpg";
+        const dataAgora = new Date().toISOString().replace(/[:.]/g, "-");
+        const url = URL.createObjectURL(arquivo);
+
+        MOTORISTAPAG_Login_segTipoGravacao = "foto";
+        MOTORISTAPAG_Login_segArquivoBlobAtual = arquivo;
+        MOTORISTAPAG_Login_segArquivoUrlAtual = url;
+        MOTORISTAPAG_Login_segArquivoNomeAtual =
+            "tnp-mob-motorista-seguranca-foto-" + dataAgora + "." + extensao;
+
+        if (box) box.style.display = "block";
+
+        if (titulo) {
+            titulo.innerText = "📸 Foto de segurança capturada";
+        }
+
+        if (status) {
+            status.innerText =
+                "Foto de segurança pronta. O arquivo não foi enviado automaticamente. " +
+                "Você pode baixar, compartilhar por sua conta, compartilhar com suporte ou descartar.";
+        }
+
+        if (audioPreview) {
+            audioPreview.removeAttribute("src");
+            audioPreview.style.display = "none";
+        }
+
+        if (videoPreview) {
+            videoPreview.srcObject = null;
+            videoPreview.style.display = "none";
+        }
+
+        if (videoResultado) {
+            videoResultado.removeAttribute("src");
+            videoResultado.style.display = "none";
+        }
+
+        if (fotoResultado) {
+            fotoResultado.src = url;
+            fotoResultado.style.display = "block";
+        }
+
+        if (btnParar) {
+            btnParar.style.display = "none";
+        }
+
+        if (acoesArquivo) {
+            acoesArquivo.style.display = "grid";
+        }
+
+        MOTORISTAPAG_Login_func_centralizarBoxGravacaoSeguranca();
+
+    } catch (erro) {
+        console.error("Erro ao preparar foto de segurança:", erro);
+        alert("Não foi possível preparar a foto de segurança. Tente novamente.");
+
+    } finally {
+        MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+
+        if (input) {
+            input.value = "";
+        }
+    }
 }
 
 async function MOTORISTAPAG_Login_func_compartilharArquivoSeguranca() {
