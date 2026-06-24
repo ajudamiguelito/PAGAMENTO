@@ -2139,10 +2139,38 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_menu_header span {
     position: relative;
     z-index: 5;
     display: grid;
-    grid-template-columns: 44px 1fr 44px;
+    grid-template-columns: 44px 1fr 44px 28px;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 16px 16px 10px;
+}
+
+.MOTORISTAPAG_Login_btn_sos_discreto {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.16);
+    background: rgba(30, 27, 25, 0.34);
+    color: rgba(197, 169, 141, 0.35);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.55;
+}
+
+.MOTORISTAPAG_Login_btn_sos_discreto:active {
+    transform: scale(0.94);
+    opacity: 0.9;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_btn_sos_discreto {
+    background: rgba(255, 255, 255, 0.45);
+    border-color: rgba(123, 84, 56, 0.14);
+    color: rgba(123, 84, 56, 0.32);
 }
 
 .MOTORISTAPAG_Login_home_btn_menu,
@@ -10870,6 +10898,18 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 			🔔
 			<span id="NOTIFICACOES_badge_motorista" class="NOTIFICACOES_badge" style="display:none;">0</span>
 		</button>
+		
+		<button
+			type="button"
+			id="MOTORISTAPAG_Login_btn_sos_discreto"
+			class="MOTORISTAPAG_Login_btn_sos_discreto"
+			onclick="MOTORISTAPAG_Login_func_toqueSosDiscreto()"
+			aria-label="Botão discreto de segurança do motorista"
+			title="Segurança"
+		>
+			•
+		</button>
+		
 </div>
 
   <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES FINAL -->
@@ -38291,10 +38331,231 @@ function PASSAGEIROPAG_Login_func_salvarPreferenciaPagamento() {
 
 // ========== MODAL ESCOLHER FORMA DE PAGAMENTO DA CORRIDA FINAL ========== 
 
-
  
 
  //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
+let MOTORISTAPAG_Login_sosToques = 0;
+let MOTORISTAPAG_Login_sosTimerToques = null;
+let MOTORISTAPAG_Login_sosEmAndamento = false;
+let MOTORISTAPAG_Login_sosUltimoAcionadoMs = 0;
+
+function MOTORISTAPAG_Login_func_toqueSosDiscreto() {
+    MOTORISTAPAG_Login_sosToques++;
+
+    clearTimeout(MOTORISTAPAG_Login_sosTimerToques);
+
+    MOTORISTAPAG_Login_sosTimerToques = setTimeout(function() {
+        MOTORISTAPAG_Login_sosToques = 0;
+    }, 1200);
+
+    if (MOTORISTAPAG_Login_sosToques < 3) {
+        return;
+    }
+
+    clearTimeout(MOTORISTAPAG_Login_sosTimerToques);
+    MOTORISTAPAG_Login_sosToques = 0;
+
+    MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista();
+}
+
+function MOTORISTAPAG_Login_func_obterLocalizacaoSosMotorista() {
+    return new Promise(function(resolve) {
+        if (!navigator.geolocation) {
+            resolve(null);
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function(posicao) {
+                resolve({
+                    latitude: posicao.coords.latitude,
+                    longitude: posicao.coords.longitude,
+                    accuracy: posicao.coords.accuracy || null,
+                    altitude: posicao.coords.altitude || null,
+                    heading: posicao.coords.heading || null,
+                    speed: posicao.coords.speed || null,
+                    coletadoEmMs: Date.now()
+                });
+            },
+            function(erro) {
+                console.warn("SOS silencioso: localização não capturada:", erro);
+                resolve(null);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 8000,
+                maximumAge: 5000
+            }
+        );
+    });
+}
+
+async function MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista() {
+    if (MOTORISTAPAG_Login_sosEmAndamento) return;
+
+		const agoraMs = Date.now();
+
+		if (
+			MOTORISTAPAG_Login_sosUltimoAcionadoMs &&
+			agoraMs - MOTORISTAPAG_Login_sosUltimoAcionadoMs < 5 * 60 * 1000
+		) {
+			return;
+		}
+
+		MOTORISTAPAG_Login_sosUltimoAcionadoMs = agoraMs;
+    const user =
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+            ? PRIMEIRAPAG_Login_auth.currentUser
+            : firebase.auth().currentUser;
+
+    if (!user) {
+        return;
+    }
+
+    MOTORISTAPAG_Login_sosEmAndamento = true;
+
+    try {
+        const db =
+            typeof PRIMEIRAPAG_Login_db !== "undefined"
+                ? PRIMEIRAPAG_Login_db
+                : firebase.firestore();
+
+        const localizacao = await MOTORISTAPAG_Login_func_obterLocalizacaoSosMotorista();
+
+        const alertaRef = db.collection("alertasSeguranca").doc();
+        const chamadoRef = db.collection("suporteChamados").doc(alertaRef.id);
+
+        const textoCurto = "SOS silencioso acionado pelo motorista.";
+
+        const payloadLocalizacao = localizacao
+            ? {
+                latitudeAtual: localizacao.latitude,
+                longitudeAtual: localizacao.longitude,
+                localizacaoAtual: localizacao,
+                localizacaoDisponivel: true
+            }
+            : {
+                latitudeAtual: null,
+                longitudeAtual: null,
+                localizacaoAtual: null,
+                localizacaoDisponivel: false
+            };
+
+        await alertaRef.set({
+            origem: "motorista",
+            origemPerfil: "motorista",
+            motoristaUid: user.uid,
+            motoristaEmail: user.email || "",
+            motoristaNome: user.displayName || "",
+
+            tipo: "sos_silencioso_motorista",
+            status: "ativo",
+            prioridade: "alta",
+            silencioso: true,
+
+            suporteNotificado: true,
+
+            videoAoVivoSuporte: false,
+            videoStatus: "aguardando_fase_video",
+
+            motoristasProximosNotificados: 0,
+            motoristasProximosStatus: "aguardando_localizacao_real_dos_motoristas",
+
+            ...payloadLocalizacao,
+
+            atualizadoLocalizacaoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        await chamadoRef.set({
+            origem: "motorista",
+            origemPerfil: "motorista",
+            destinoPerfil: "suporte",
+
+            categoria: "suporte_motorista",
+            tipo: "chat_suporte_motorista",
+            tipoAtendimento: "sos_silencioso",
+            titulo: "🚨 SOS silencioso do motorista",
+
+            status: "em_atendimento",
+            suporteMediando: true,
+            chatDiretoLiberado: false,
+
+            motoristaUid: user.uid,
+            motoristaEmail: user.email || "",
+            nomeMotorista: user.displayName || "Motorista",
+
+            alertaSegurancaId: alertaRef.id,
+
+            ...payloadLocalizacao,
+
+            ultimaMensagem: textoCurto,
+            ultimaMensagemTexto: textoCurto,
+            ultimaMensagemOrigem: "motorista",
+            ultimaMensagemDestino: "suporte",
+
+            naoLidasAdmin: 1,
+
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        await chamadoRef.collection("mensagens").add({
+            origem: "motorista",
+            origemReal: "motorista",
+            origemUid: user.uid,
+            exibidoComo: user.displayName || "Motorista",
+
+            destinoReal: "suporte",
+            encaminhadoPara: "suporte",
+
+            tipo: "sos_silencioso",
+            categoria: "seguranca",
+
+            texto: textoCurto,
+            textoOriginal: textoCurto,
+            textoExibido: textoCurto,
+
+            alertaSegurancaId: alertaRef.id,
+
+            latitudeAtual: payloadLocalizacao.latitudeAtual,
+            longitudeAtual: payloadLocalizacao.longitudeAtual,
+            localizacaoAtual: payloadLocalizacao.localizacaoAtual,
+            localizacaoDisponivel: payloadLocalizacao.localizacaoDisponivel,
+
+            visivelParaMotorista: true,
+            visivelParaPassageiro: false,
+            visivelParaSuporte: true,
+
+            visibilidades: {
+                motorista: true,
+                passageiro: false,
+                suporte: true
+            },
+
+            lidaAdmin: false,
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        console.log("SOS silencioso enviado para o suporte:", alertaRef.id);
+
+       } catch (erro) {
+        console.error("Erro ao acionar SOS silencioso do motorista:", erro);
+
+    } finally {
+        MOTORISTAPAG_Login_sosEmAndamento = false;
+    }
+}
+
+window.MOTORISTAPAG_Login_func_toqueSosDiscreto =
+    MOTORISTAPAG_Login_func_toqueSosDiscreto;
+
+window.MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista =
+    MOTORISTAPAG_Login_func_acionarSosSilenciosoMotorista;
+
+
+ 
  // -- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
 
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
