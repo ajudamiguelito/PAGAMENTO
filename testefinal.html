@@ -7061,6 +7061,384 @@ body.TNP_TEMA_CLARO .MODALSUPERCORRECAO_select {
     background: #ffffff;
     color: #1f1f1f;
 }
+
+/* ==================================================
+   MOTORISTA - CENTRAL DE SEGURANÇA
+================================================== */
+
+.MOTORISTAPAG_Login_screen_central_seguranca {
+    padding: 22px 18px 120px;
+    overflow-y: auto;
+    background: var(--Fame_card);
+}
+
+.MOTORISTAPAG_Login_seg_topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.MOTORISTAPAG_Login_seg_btn_voltar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.35);
+    background: rgba(30, 27, 25, 0.85);
+    color: var(--Fame_gold);
+    font-size: 22px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.MOTORISTAPAG_Login_seg_topo_textos h2 {
+    color: #ffffff;
+    font-size: 1.35rem;
+    margin-bottom: 4px;
+}
+
+.MOTORISTAPAG_Login_seg_topo_textos p {
+    color: var(--Fame_gold);
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+.MOTORISTAPAG_Login_seg_alerta {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(127, 29, 29, 0.38);
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    color: var(--Fame_text);
+    margin-bottom: 14px;
+}
+
+.MOTORISTAPAG_Login_seg_alerta_icone {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.MOTORISTAPAG_Login_seg_alerta strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.MOTORISTAPAG_Login_seg_alerta p {
+    color: #ffffff;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.MOTORISTAPAG_Login_seg_botoes_emergencia {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.MOTORISTAPAG_Login_seg_botoes_emergencia button {
+    min-height: 52px;
+    border: none;
+    border-radius: 16px;
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 0.86rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.MOTORISTAPAG_Login_seg_botoes_emergencia button:first-child {
+    background: linear-gradient(135deg, #991b1b, #7f1d1d);
+}
+
+.MOTORISTAPAG_Login_seg_botoes_emergencia button:last-child {
+    background: linear-gradient(135deg, #7b5438, #4d2b1a);
+}
+
+.MOTORISTAPAG_Login_seg_bloco_titulo {
+    color: var(--Fame_gold);
+    font-size: 0.96rem;
+    font-weight: 900;
+    margin: 18px 2px 10px;
+}
+
+.MOTORISTAPAG_Login_seg_card {
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(197, 169, 141, 0.08);
+    border: 1px solid rgba(197, 169, 141, 0.22);
+    margin-bottom: 22px;
+}
+
+.MOTORISTAPAG_Login_seg_item {
+    width: 100%;
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: 44px 1fr 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: none;
+    border-bottom: 1px solid rgba(197, 169, 141, 0.14);
+    background: transparent;
+    color: var(--Fame_text);
+    text-align: left;
+    cursor: pointer;
+}
+
+.MOTORISTAPAG_Login_seg_item:last-child {
+    border-bottom: none;
+}
+
+.MOTORISTAPAG_Login_seg_item span {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(197, 169, 141, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.MOTORISTAPAG_Login_seg_item strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.MOTORISTAPAG_Login_seg_item small {
+    display: block;
+    color: var(--Fame_gold);
+    font-size: 0.74rem;
+    line-height: 1.35;
+}
+
+.MOTORISTAPAG_Login_seg_item em {
+    color: var(--Fame_gold);
+    font-style: normal;
+    font-size: 24px;
+    text-align: right;
+}
+
+.MOTORISTAPAG_Login_seg_item_label {
+    cursor: pointer;
+}
+
+.MOTORISTAPAG_Login_seg_item_label input {
+    display: none;
+}
+
+.MOTORISTAPAG_Login_seg_gravacao_box {
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(197, 169, 141, 0.08);
+    border: 1px solid rgba(197, 169, 141, 0.25);
+    color: var(--Fame_text);
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+.MOTORISTAPAG_Login_seg_gravacao_box strong {
+    display: block;
+    color: var(--Fame_gold);
+    font-size: 0.96rem;
+    margin-bottom: 8px;
+}
+
+.MOTORISTAPAG_Login_seg_gravacao_box p {
+    color: var(--Fame_text);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+}
+
+.MOTORISTAPAG_Login_seg_cronometro {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(239, 68, 68, 0.16);
+    color: #ef4444;
+    font-size: 0.74rem;
+    font-weight: 900;
+}
+
+#MOTORISTAPAG_Login_seg_video_preview,
+#MOTORISTAPAG_Login_seg_video_resultado {
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid rgba(197, 169, 141, 0.32);
+    background: #000000;
+    margin: 10px 0 12px;
+}
+
+#MOTORISTAPAG_Login_seg_audio_preview {
+    width: 100%;
+    margin: 10px 0 12px;
+}
+
+#MOTORISTAPAG_Login_seg_btn_parar_gravacao {
+    width: 100%;
+    min-height: 46px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #991b1b, #7f1d1d);
+    color: #ffffff;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.MOTORISTAPAG_Login_seg_acoes_arquivo {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.MOTORISTAPAG_Login_seg_acoes_arquivo button {
+    width: 100%;
+    min-height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(197, 169, 141, 0.30);
+    background: rgba(30, 27, 25, 0.9);
+    color: var(--Fame_gold);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* ==================================================
+   MOTORISTA - CENTRAL DE SEGURANÇA - TEMA CLARO
+================================================== */
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_screen_central_seguranca {
+    background: #f7f2ec;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_btn_voltar {
+    background: #ffffff;
+    border-color: rgba(123, 84, 56, 0.28);
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_topo_textos h2 {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_topo_textos p {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_alerta {
+    background: rgba(153, 27, 27, 0.10);
+    border-color: rgba(153, 27, 27, 0.35);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_alerta_icone {
+    background: rgba(153, 27, 27, 0.10);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_alerta strong {
+    color: #7f1d1d;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_alerta p {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_bloco_titulo {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_card,
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_gravacao_box {
+    background: #ffffff;
+    border-color: rgba(123, 84, 56, 0.25);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_item {
+    border-bottom-color: rgba(123, 84, 56, 0.14);
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_item span {
+    background: #f3eee8;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_item strong {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_item small,
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_item em,
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_gravacao_box strong {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_gravacao_box p {
+    color: #1f1f1f;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_seg_acoes_arquivo button {
+    background: #ffffff;
+    border-color: rgba(123, 84, 56, 0.30);
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO #MOTORISTAPAG_Login_seg_video_preview,
+body.TNP_TEMA_CLARO #MOTORISTAPAG_Login_seg_video_resultado {
+    border-color: rgba(123, 84, 56, 0.30);
+}
+
+/* ==================================================
+   CORREÇÃO - CENTRAL DE SEGURANÇA DENTRO DA HOME
+================================================== */
+
+#MOTORISTAPAG_Login_screen_central_seguranca.MOTORISTAPAG_Login_modal_home {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 80;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 22px 18px 120px;
+    background: var(--Fame_card);
+    border-radius: 0;
+}
+
+#MOTORISTAPAG_Login_screen_central_seguranca.MOTORISTAPAG_Login_modal_home.active {
+    display: block !important;
+}
+
+#MOTORISTAPAG_Login_screen_central_seguranca .MOTORISTAPAG_Login_seg_topo,
+#MOTORISTAPAG_Login_screen_central_seguranca .MOTORISTAPAG_Login_seg_alerta,
+#MOTORISTAPAG_Login_screen_central_seguranca .MOTORISTAPAG_Login_seg_botoes_emergencia,
+#MOTORISTAPAG_Login_screen_central_seguranca .MOTORISTAPAG_Login_seg_bloco_titulo,
+#MOTORISTAPAG_Login_screen_central_seguranca .MOTORISTAPAG_Login_seg_card,
+#MOTORISTAPAG_Login_screen_central_seguranca .MOTORISTAPAG_Login_seg_gravacao_box {
+    width: 100%;
+}
+
+body.TNP_TEMA_CLARO #MOTORISTAPAG_Login_screen_central_seguranca.MOTORISTAPAG_Login_modal_home {
+    background: #f7f2ec;
+}
+
 	  
 </style>
 </head>
@@ -10593,17 +10971,21 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 	</button> 
 	
 	
-	
-	
-	
 	<button
     type="button"
     onclick="MOTORISTAPAG_Login_func_carregarTelaMensagensMotorista()"
 	>
 		💬 Mensagens
 	</button>  
-   	<button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui ficarão orientações e recursos de segurança.')">🛡️ Central de segurança</button>
-    <button onclick="MOTORISTAPAG_Login_func_abrirGanhos()">💰 Meus ganhos</button>
+   	
+<button
+    type="button"
+    onclick="MOTORISTAPAG_Login_func_carregarCentralSeguranca()"
+>
+    🛡️ Central de segurança
+</button>
+    
+	<button onclick="MOTORISTAPAG_Login_func_abrirGanhos()">💰 Meus ganhos</button>
     <button onclick="MOTORISTAPAG_Login_func_abrirConfiguracoesMotorista()">⚙️ Configurações</button>
     <button onclick="PASSAGEIROPAG_Login_func_usarComoPassageiro()">🙋 Usar como passageiro</button>
     <button onclick="TESTEMOTORISTA_func_sair()">🚪 Sair</button>
@@ -10702,7 +11084,7 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
                 📜 Termos do motorista
             </button>
 
-            <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Central de segurança', 'Aqui ficarão recursos de segurança e suporte em viagem.')">
+            <button onclick="MOTORISTAPAG_Login_func_carregarCentralSeguranca()">
                 🛡️ Central de segurança
             </button>
 
@@ -10758,9 +11140,6 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
     </div>
 </div>
 <!-- //--========== MODAL MOTORISTA: CENTRAL DE AJUDA FINAL ========== // -->
-
- 
-
 
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL FERRAMENTAS -->
 
@@ -10855,6 +11234,209 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
         </div>
     </div>
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL REPORTAR FINAL -->
+
+<!-- //--========== MOTORISTA: CENTRAL DE SEGURANÇA ========== // -->
+<div id="MOTORISTAPAG_Login_screen_central_seguranca"
+     class="MOTORISTAPAG_Login_modal_home MOTORISTAPAG_Login_screen_central_seguranca"
+     style="width:100%; left:0; right:0; top:0; bottom:0; overflow-x:hidden; background:var(--Fame_card);">
+
+    <div class="MOTORISTAPAG_Login_seg_topo">
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_btn_voltar"
+                onclick="MOTORISTAPAG_Login_func_fecharCentralSeguranca()">
+            ←
+        </button>
+
+        <div class="MOTORISTAPAG_Login_seg_topo_textos">
+            <h2>Central de Segurança</h2>
+            <p>Recursos rápidos para situações de segurança do motorista.</p>
+        </div>
+    </div>
+
+    <div class="MOTORISTAPAG_Login_seg_alerta">
+        <div class="MOTORISTAPAG_Login_seg_alerta_icone">🚨</div>
+        <div>
+            <strong>Em perigo imediato?</strong>
+            <p>
+                Procure um local seguro, encerre a situação se possível e acione ajuda.
+                Use os recursos abaixo para registrar ou pedir suporte.
+            </p>
+        </div>
+    </div>
+
+    <div class="MOTORISTAPAG_Login_seg_botoes_emergencia">
+        <button type="button" onclick="MOTORISTAPAG_Login_func_ligarEmergencia190()">
+            📞 Ligar 190
+        </button>
+
+        <button type="button" onclick="MOTORISTAPAG_Login_func_falarSuporteSeguranca('Situação de risco do motorista')">
+            💬 Suporte TNP MoB
+        </button>
+    </div>
+
+    <div class="MOTORISTAPAG_Login_seg_bloco_titulo">Gravação de segurança</div>
+
+    <div class="MOTORISTAPAG_Login_seg_card MOTORISTAPAG_Login_seg_card_gravacao">
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_iniciarAudioSeguranca()">
+            <span>🎙️</span>
+            <div>
+                <strong>Gravar áudio de segurança</strong>
+                <small>Inicia gravação com permissão do aparelho.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_iniciarVideoSeguranca()">
+            <span>📹</span>
+            <div>
+                <strong>Gravar vídeo de segurança</strong>
+                <small>Abre a câmera e microfone com aviso visível.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <label class="MOTORISTAPAG_Login_seg_item MOTORISTAPAG_Login_seg_item_label">
+            <span>📸</span>
+            <div>
+                <strong>Tirar foto de segurança</strong>
+                <small>Abre a câmera traseira para registrar uma imagem.</small>
+            </div>
+            <em>›</em>
+
+            <input type="file"
+                   accept="image/*"
+                   capture="environment"
+                   onchange="MOTORISTAPAG_Login_func_fotoSegurancaSelecionada(this)">
+        </label>
+
+    </div>
+
+    <div id="MOTORISTAPAG_Login_seg_gravacao_box"
+         class="MOTORISTAPAG_Login_seg_gravacao_box"
+         style="display:none;">
+
+        <strong id="MOTORISTAPAG_Login_seg_gravacao_titulo">Gravação ativa</strong>
+        <p id="MOTORISTAPAG_Login_seg_gravacao_status">Aguardando...</p>
+
+        <video id="MOTORISTAPAG_Login_seg_video_preview"
+               autoplay
+               muted
+               playsinline
+               style="display:none;"></video>
+
+        <audio id="MOTORISTAPAG_Login_seg_audio_preview"
+               controls
+               style="display:none;"></audio>
+
+        <video id="MOTORISTAPAG_Login_seg_video_resultado"
+               controls
+               playsinline
+               style="display:none;"></video>
+
+        <button type="button"
+                id="MOTORISTAPAG_Login_seg_btn_parar_gravacao"
+                onclick="MOTORISTAPAG_Login_func_pararGravacaoSeguranca()">
+            Parar gravação
+        </button>
+
+        <div id="MOTORISTAPAG_Login_seg_acoes_arquivo"
+             class="MOTORISTAPAG_Login_seg_acoes_arquivo"
+             style="display:none;">
+
+            <button type="button" onclick="MOTORISTAPAG_Login_func_baixarArquivoSeguranca()">
+                ⬇️ Baixar gravação
+            </button>
+
+            <button type="button" onclick="MOTORISTAPAG_Login_func_compartilharArquivoSeguranca()">
+                📤 Compartilhar por minha conta
+            </button>
+
+            <button type="button" onclick="MOTORISTAPAG_Login_func_descartarArquivoSeguranca()">
+                🗑️ Descartar
+            </button>
+        </div>
+    </div>
+
+    <div class="MOTORISTAPAG_Login_seg_bloco_titulo">Durante a corrida</div>
+
+    <div class="MOTORISTAPAG_Login_seg_card MOTORISTAPAG_Login_seg_card_corrida">
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_compartilharViagemSeguranca()">
+            <span>📤</span>
+            <div>
+                <strong>Compartilhar viagem</strong>
+                <small>Disponível quando a corrida estiver em andamento.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_falarSuporteSeguranca('Passageiro diferente do aplicativo')">
+            <span>👤</span>
+            <div>
+                <strong>Passageiro diferente do app</strong>
+                <small>Use se a pessoa não bater com os dados da chamada.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_falarSuporteSeguranca('Local de embarque inseguro')">
+            <span>📍</span>
+            <div>
+                <strong>Local de embarque inseguro</strong>
+                <small>Registre quando o local oferecer risco ao motorista.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_falarSuporteSeguranca('Passageiro agressivo ou ameaçador')">
+            <span>⚠️</span>
+            <div>
+                <strong>Passageiro agressivo ou ameaçador</strong>
+                <small>Ameaça, agressão, assédio, discriminação ou risco.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_falarSuporteSeguranca('Objeto suspeito ou proibido')">
+            <span>📦</span>
+            <div>
+                <strong>Objeto suspeito ou proibido</strong>
+                <small>Use se houver risco com pacote, objeto ou transporte indevido.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+        <button type="button"
+                class="MOTORISTAPAG_Login_seg_item"
+                onclick="MOTORISTAPAG_Login_func_falarSuporteSeguranca('Relatar incidente de segurança do motorista')">
+            <span>📝</span>
+            <div>
+                <strong>Reportar incidente de segurança</strong>
+                <small>Registre qualquer situação que precise de análise do suporte.</small>
+            </div>
+            <em>›</em>
+        </button>
+
+    </div>
+
+</div>
+<!-- //--========== MOTORISTA: CENTRAL DE SEGURANÇA FINAL ========== // -->
+
 
 <!-- TELA MOTORISTA 9: HOME DO MOTORISTA - MODAL GANHOS -->
       <div id="MOTORISTAPAG_Login_modal_ganhos" class="MOTORISTAPAG_Login_modal_home">
@@ -20187,7 +20769,7 @@ window.PASSAGEIROPAG_Login_func_abrirHistoricoMensagensAjuda = PASSAGEIROPAG_Log
     
 // ============  TELA 22 MENSAGENS Final  ============= // --> 
 
-// //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== //
+ //--========== TELA 23 PASSAGEIRO: CENTRAL DE SEGURANÇA ========== //
 
 const PASSAGEIROPAG_Login_segWhatsappSuporte = "5531996645814";
 
@@ -28615,6 +29197,602 @@ function MOTORISTAPAG_Login_func_botaoConectar() {
 }
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - ABRIR CHAMADAS FINAL -->
 
+//--========== MOTORISTA: CENTRAL DE SEGURANÇA  ========== // 
+
+/* ==================================================
+   MOTORISTA - CENTRAL DE SEGURANÇA
+================================================== */
+
+const MOTORISTAPAG_Login_segWhatsappSuporte = "5531996645814";
+
+let MOTORISTAPAG_Login_segMediaRecorder = null;
+let MOTORISTAPAG_Login_segStreamAtual = null;
+let MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+
+let MOTORISTAPAG_Login_segMidiaChunks = [];
+let MOTORISTAPAG_Login_segTipoGravacao = "";
+
+let MOTORISTAPAG_Login_segArquivoBlobAtual = null;
+let MOTORISTAPAG_Login_segArquivoUrlAtual = "";
+let MOTORISTAPAG_Login_segArquivoNomeAtual = "";
+let MOTORISTAPAG_Login_segTimerLimite = null;
+
+let MOTORISTAPAG_Login_segTimerCronometro = null;
+let MOTORISTAPAG_Login_segInicioGravacaoMs = 0;
+
+const MOTORISTAPAG_Login_segLimiteAudioMs = 10 * 60 * 1000;
+const MOTORISTAPAG_Login_segLimiteVideoMs = 3 * 60 * 1000;
+
+function MOTORISTAPAG_Login_func_carregarCentralSeguranca() {
+    const tela = document.getElementById("MOTORISTAPAG_Login_screen_central_seguranca");
+
+    if (!tela) {
+        alert("Tela Central de Segurança do motorista não encontrada no HTML.");
+        return;
+    }
+
+    if (typeof MOTORISTAPAG_Login_func_fecharMenuLateral === "function") {
+        MOTORISTAPAG_Login_func_fecharMenuLateral();
+    }
+
+   if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+		MOTORISTAPAG_Login_func_fecharModais();
+	}
+
+	tela.style.display = "block";
+	tela.classList.add("active");
+
+    MOTORISTAPAG_Login_func_limparGravacaoSeguranca();
+    MOTORISTAPAG_Login_func_scrollTopoCentralSeguranca();
+}
+
+function MOTORISTAPAG_Login_func_fecharCentralSeguranca() {
+    const tela = document.getElementById("MOTORISTAPAG_Login_screen_central_seguranca");
+
+    if (
+        MOTORISTAPAG_Login_segMediaRecorder &&
+        MOTORISTAPAG_Login_segMediaRecorder.state === "recording"
+    ) {
+        const confirmar = confirm(
+            "Existe uma gravação de segurança em andamento.\n\n" +
+            "Deseja parar a gravação e sair da Central de Segurança?"
+        );
+
+        if (!confirmar) return;
+
+        MOTORISTAPAG_Login_func_pararGravacaoSeguranca();
+    } else {
+        MOTORISTAPAG_Login_func_pararStreamSeguranca();
+    }
+
+    if (tela) {
+        tela.classList.remove("active");
+        tela.style.display = "none";
+    }
+}
+
+function MOTORISTAPAG_Login_func_scrollTopoCentralSeguranca() {
+    const tela = document.getElementById("MOTORISTAPAG_Login_screen_central_seguranca");
+    const area = document.getElementById("PRIMEIRAPAG_Login_content_area");
+
+    if (tela) tela.scrollTop = 0;
+    if (area) area.scrollTop = 0;
+}
+
+function MOTORISTAPAG_Login_func_ligarEmergencia190() {
+    window.location.href = "tel:190";
+}
+
+function MOTORISTAPAG_Login_func_falarSuporteSeguranca(tipo) {
+    const user = typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+        ? PRIMEIRAPAG_Login_auth.currentUser
+        : null;
+
+    const emailUsuario = user && user.email ? user.email : "não informado";
+    const uidUsuario = user && user.uid ? user.uid : "não informado";
+
+    const mensagem = encodeURIComponent(
+        "Olá, preciso de ajuda na Central de Segurança do Motorista TNP MoB.\n\n" +
+        "Tipo: " + (tipo || "Segurança do motorista") + "\n" +
+        "E-mail: " + emailUsuario + "\n" +
+        "UID: " + uidUsuario
+    );
+
+    window.open(
+        "https://wa.me/" + MOTORISTAPAG_Login_segWhatsappSuporte + "?text=" + mensagem,
+        "_blank"
+    );
+}
+
+function MOTORISTAPAG_Login_func_compartilharViagemSeguranca() {
+    alert("Compartilhar viagem do motorista será ligado quando a corrida estiver em andamento.");
+}
+
+function MOTORISTAPAG_Login_func_pararStreamSeguranca() {
+    if (MOTORISTAPAG_Login_segStreamAtual) {
+        MOTORISTAPAG_Login_segStreamAtual.getTracks().forEach(function(track) {
+            track.stop();
+        });
+    }
+
+    MOTORISTAPAG_Login_segStreamAtual = null;
+}
+
+function MOTORISTAPAG_Login_func_limparGravacaoSeguranca() {
+    const box = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_box");
+    const status = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_status");
+    const titulo = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_titulo");
+    const btnParar = document.getElementById("MOTORISTAPAG_Login_seg_btn_parar_gravacao");
+    const audioPreview = document.getElementById("MOTORISTAPAG_Login_seg_audio_preview");
+    const videoPreview = document.getElementById("MOTORISTAPAG_Login_seg_video_preview");
+    const videoResultado = document.getElementById("MOTORISTAPAG_Login_seg_video_resultado");
+    const acoesArquivo = document.getElementById("MOTORISTAPAG_Login_seg_acoes_arquivo");
+
+    MOTORISTAPAG_Login_func_pararStreamSeguranca();
+
+    clearTimeout(MOTORISTAPAG_Login_segTimerLimite);
+    MOTORISTAPAG_Login_segTimerLimite = null;
+
+    MOTORISTAPAG_Login_func_pararCronometroSeguranca();
+    MOTORISTAPAG_Login_segInicioGravacaoMs = 0;
+
+    if (MOTORISTAPAG_Login_segArquivoUrlAtual) {
+        URL.revokeObjectURL(MOTORISTAPAG_Login_segArquivoUrlAtual);
+    }
+
+    MOTORISTAPAG_Login_segMediaRecorder = null;
+    MOTORISTAPAG_Login_segMidiaChunks = [];
+    MOTORISTAPAG_Login_segTipoGravacao = "";
+    MOTORISTAPAG_Login_segArquivoBlobAtual = null;
+    MOTORISTAPAG_Login_segArquivoUrlAtual = "";
+    MOTORISTAPAG_Login_segArquivoNomeAtual = "";
+    MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+
+    if (box) box.style.display = "none";
+    if (status) status.innerText = "Aguardando...";
+    if (titulo) titulo.innerText = "Gravação ativa";
+
+    if (btnParar) {
+        btnParar.disabled = false;
+        btnParar.innerText = "Parar gravação";
+        btnParar.style.display = "block";
+    }
+
+    if (acoesArquivo) acoesArquivo.style.display = "none";
+
+    if (audioPreview) {
+        audioPreview.removeAttribute("src");
+        audioPreview.style.display = "none";
+    }
+
+    if (videoPreview) {
+        videoPreview.srcObject = null;
+        videoPreview.style.display = "none";
+    }
+
+    if (videoResultado) {
+        videoResultado.removeAttribute("src");
+        videoResultado.style.display = "none";
+    }
+}
+
+/* ==================================================
+   MOTORISTA - BOTÕES DE GRAVAÇÃO PREPARADOS
+   Depois vamos substituir pela gravação real.
+================================================== */
+
+function MOTORISTAPAG_Login_func_formatarTempoSeguranca(totalSegundos) {
+    const minutos = Math.floor(totalSegundos / 60);
+    const segundos = totalSegundos % 60;
+
+    return String(minutos).padStart(2, "0") + ":" + String(segundos).padStart(2, "0");
+}
+
+function MOTORISTAPAG_Login_func_atualizarCronometroSeguranca() {
+    const cronometro = document.getElementById("MOTORISTAPAG_Login_seg_cronometro");
+
+    if (!cronometro || !MOTORISTAPAG_Login_segInicioGravacaoMs) return;
+
+    const segundos = Math.floor((Date.now() - MOTORISTAPAG_Login_segInicioGravacaoMs) / 1000);
+
+    cronometro.innerText = MOTORISTAPAG_Login_func_formatarTempoSeguranca(segundos);
+}
+
+function MOTORISTAPAG_Login_func_iniciarCronometroSeguranca() {
+    clearInterval(MOTORISTAPAG_Login_segTimerCronometro);
+
+    MOTORISTAPAG_Login_segInicioGravacaoMs = Date.now();
+
+    MOTORISTAPAG_Login_func_atualizarCronometroSeguranca();
+
+    MOTORISTAPAG_Login_segTimerCronometro = setInterval(function() {
+        MOTORISTAPAG_Login_func_atualizarCronometroSeguranca();
+    }, 1000);
+}
+
+function MOTORISTAPAG_Login_func_pararCronometroSeguranca() {
+    clearInterval(MOTORISTAPAG_Login_segTimerCronometro);
+    MOTORISTAPAG_Login_segTimerCronometro = null;
+}
+
+function MOTORISTAPAG_Login_func_centralizarBoxGravacaoSeguranca() {
+    const box = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_box");
+
+    if (!box) return;
+
+    setTimeout(function() {
+        try {
+            box.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        } catch (erro) {
+            box.scrollIntoView();
+        }
+    }, 180);
+}
+
+function MOTORISTAPAG_Login_func_navegadorSuportaGravacaoSeguranca() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Seu navegador não permite acessar câmera ou microfone nesta tela.");
+        return false;
+    }
+
+    if (typeof MediaRecorder === "undefined") {
+        alert("Seu navegador não suporta gravação de áudio/vídeo.");
+        return false;
+    }
+
+    return true;
+}
+
+async function MOTORISTAPAG_Login_func_iniciarAudioSeguranca() {
+    if (MOTORISTAPAG_Login_segAcaoEmAndamento) return;
+
+    MOTORISTAPAG_Login_segAcaoEmAndamento = true;
+
+    try {
+        if (!MOTORISTAPAG_Login_func_navegadorSuportaGravacaoSeguranca()) return;
+
+        const confirmar = confirm(
+            "A gravação de áudio será iniciada com sua permissão.\n\n" +
+            "O TNP MoB não envia nem armazena automaticamente esta gravação.\n" +
+            "O arquivo ficará temporariamente no aparelho até você baixar, compartilhar ou descartar.\n\n" +
+            "Use apenas em situações de segurança."
+        );
+
+        if (!confirmar) return;
+
+        MOTORISTAPAG_Login_func_limparGravacaoSeguranca();
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: false
+        });
+
+        MOTORISTAPAG_Login_segTipoGravacao = "audio";
+        MOTORISTAPAG_Login_func_iniciarGravacaoSeguranca(stream, "audio");
+
+    } catch (erro) {
+        alert("Não foi possível acessar o microfone. Verifique as permissões do aparelho.");
+        console.error("Erro ao iniciar áudio de segurança:", erro);
+
+    } finally {
+        MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+    }
+}
+
+async function MOTORISTAPAG_Login_func_iniciarVideoSeguranca() {
+    if (MOTORISTAPAG_Login_segAcaoEmAndamento) return;
+
+    MOTORISTAPAG_Login_segAcaoEmAndamento = true;
+
+    try {
+        if (!MOTORISTAPAG_Login_func_navegadorSuportaGravacaoSeguranca()) return;
+
+        const confirmar = confirm(
+            "A gravação de vídeo será iniciada com sua permissão.\n\n" +
+            "O TNP MoB não envia nem armazena automaticamente esta gravação.\n" +
+            "O arquivo ficará temporariamente no aparelho até você baixar, compartilhar ou descartar.\n\n" +
+            "Use apenas em situações de segurança."
+        );
+
+        if (!confirmar) return;
+
+        MOTORISTAPAG_Login_func_limparGravacaoSeguranca();
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: {
+                facingMode: "environment"
+            }
+        });
+
+        MOTORISTAPAG_Login_segTipoGravacao = "video";
+        MOTORISTAPAG_Login_func_iniciarGravacaoSeguranca(stream, "video");
+
+    } catch (erro) {
+        alert("Não foi possível acessar a câmera/microfone. Verifique as permissões do aparelho.");
+        console.error("Erro ao iniciar vídeo de segurança:", erro);
+
+    } finally {
+        MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+    }
+}
+
+function MOTORISTAPAG_Login_func_iniciarGravacaoSeguranca(stream, tipo) {
+    const box = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_box");
+    const titulo = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_titulo");
+    const status = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_status");
+    const videoPreview = document.getElementById("MOTORISTAPAG_Login_seg_video_preview");
+    const acoesArquivo = document.getElementById("MOTORISTAPAG_Login_seg_acoes_arquivo");
+    const btnParar = document.getElementById("MOTORISTAPAG_Login_seg_btn_parar_gravacao");
+
+    MOTORISTAPAG_Login_segStreamAtual = stream;
+    MOTORISTAPAG_Login_segMidiaChunks = [];
+
+    if (box) box.style.display = "block";
+    if (acoesArquivo) acoesArquivo.style.display = "none";
+
+    if (btnParar) {
+        btnParar.disabled = false;
+        btnParar.innerText = "Parar gravação";
+        btnParar.style.display = "block";
+    }
+
+    if (videoPreview) {
+        videoPreview.srcObject = null;
+        videoPreview.style.display = "none";
+    }
+
+    if (titulo) {
+        titulo.innerHTML = tipo === "video"
+            ? '📹 Modo segurança ativo <span id="MOTORISTAPAG_Login_seg_cronometro" class="MOTORISTAPAG_Login_seg_cronometro">00:00</span>'
+            : '🎙️ Modo segurança ativo <span id="MOTORISTAPAG_Login_seg_cronometro" class="MOTORISTAPAG_Login_seg_cronometro">00:00</span>';
+    }
+
+    if (status) {
+        status.innerText = tipo === "video"
+            ? "Gravando vídeo de segurança. A câmera está ativa com sua permissão. Toque em PARAR GRAVAÇÃO quando terminar."
+            : "Gravando áudio de segurança. O microfone está ativo com sua permissão. Toque em PARAR GRAVAÇÃO quando terminar.";
+    }
+
+    MOTORISTAPAG_Login_func_iniciarCronometroSeguranca();
+    MOTORISTAPAG_Login_func_centralizarBoxGravacaoSeguranca();
+
+    MOTORISTAPAG_Login_segMediaRecorder = new MediaRecorder(stream);
+
+    MOTORISTAPAG_Login_segMediaRecorder.ondataavailable = function(event) {
+        if (event.data && event.data.size > 0) {
+            MOTORISTAPAG_Login_segMidiaChunks.push(event.data);
+        }
+    };
+
+    MOTORISTAPAG_Login_segMediaRecorder.onstop = function() {
+        MOTORISTAPAG_Login_func_finalizarArquivoSeguranca(tipo);
+    };
+
+    MOTORISTAPAG_Login_segMediaRecorder.start();
+
+    clearTimeout(MOTORISTAPAG_Login_segTimerLimite);
+
+    MOTORISTAPAG_Login_segTimerLimite = setTimeout(function() {
+        MOTORISTAPAG_Login_func_pararGravacaoSeguranca();
+
+        alert(
+            "Gravação finalizada automaticamente por segurança.\n\n" +
+            "O arquivo não foi enviado automaticamente."
+        );
+    }, tipo === "video" ? MOTORISTAPAG_Login_segLimiteVideoMs : MOTORISTAPAG_Login_segLimiteAudioMs);
+}
+
+function MOTORISTAPAG_Login_func_pararGravacaoSeguranca() {
+    if (
+        !MOTORISTAPAG_Login_segMediaRecorder ||
+        MOTORISTAPAG_Login_segMediaRecorder.state === "inactive"
+    ) {
+        return;
+    }
+
+    const btnParar = document.getElementById("MOTORISTAPAG_Login_seg_btn_parar_gravacao");
+
+    if (btnParar) {
+        btnParar.disabled = true;
+        btnParar.innerText = "Finalizando...";
+    }
+
+    MOTORISTAPAG_Login_segMediaRecorder.stop();
+    MOTORISTAPAG_Login_func_pararStreamSeguranca();
+}
+
+function MOTORISTAPAG_Login_func_finalizarArquivoSeguranca(tipo) {
+    const status = document.getElementById("MOTORISTAPAG_Login_seg_gravacao_status");
+    const audioPreview = document.getElementById("MOTORISTAPAG_Login_seg_audio_preview");
+    const videoResultado = document.getElementById("MOTORISTAPAG_Login_seg_video_resultado");
+    const videoPreview = document.getElementById("MOTORISTAPAG_Login_seg_video_preview");
+    const acoesArquivo = document.getElementById("MOTORISTAPAG_Login_seg_acoes_arquivo");
+    const btnParar = document.getElementById("MOTORISTAPAG_Login_seg_btn_parar_gravacao");
+
+    const mimeType = tipo === "video" ? "video/webm" : "audio/webm";
+    const extensao = "webm";
+    const dataAgora = new Date().toISOString().replace(/[:.]/g, "-");
+
+    if (!MOTORISTAPAG_Login_segMidiaChunks.length) {
+        if (status) {
+            status.innerText = "Nenhum áudio/vídeo foi capturado. Tente gravar novamente.";
+        }
+
+        if (btnParar) {
+            btnParar.disabled = false;
+            btnParar.innerText = "Parar gravação";
+            btnParar.style.display = "block";
+        }
+
+        clearTimeout(MOTORISTAPAG_Login_segTimerLimite);
+        MOTORISTAPAG_Login_func_pararCronometroSeguranca();
+
+        return;
+    }
+
+    const blob = new Blob(MOTORISTAPAG_Login_segMidiaChunks, { type: mimeType });
+    const url = URL.createObjectURL(blob);
+
+    MOTORISTAPAG_Login_segArquivoBlobAtual = blob;
+    MOTORISTAPAG_Login_segArquivoUrlAtual = url;
+    MOTORISTAPAG_Login_segArquivoNomeAtual = "tnp-mob-motorista-seguranca-" + tipo + "-" + dataAgora + "." + extensao;
+
+    if (videoPreview) {
+        videoPreview.srcObject = null;
+        videoPreview.style.display = "none";
+    }
+
+    if (tipo === "audio" && audioPreview) {
+        audioPreview.src = url;
+        audioPreview.style.display = "block";
+    }
+
+    if (tipo === "video" && videoResultado) {
+        videoResultado.src = url;
+        videoResultado.style.display = "block";
+    }
+
+    if (status) {
+        status.innerText =
+            "Gravação finalizada. O arquivo não foi enviado automaticamente. " +
+            "Você pode baixar, compartilhar por sua conta ou descartar.";
+    }
+
+    if (btnParar) {
+        btnParar.style.display = "none";
+    }
+
+    if (acoesArquivo) {
+        acoesArquivo.style.display = "grid";
+    }
+
+    clearTimeout(MOTORISTAPAG_Login_segTimerLimite);
+    MOTORISTAPAG_Login_func_pararCronometroSeguranca();
+}
+
+function MOTORISTAPAG_Login_func_baixarArquivoSeguranca() {
+    if (!MOTORISTAPAG_Login_segArquivoBlobAtual || !MOTORISTAPAG_Login_segArquivoUrlAtual) {
+        alert("Nenhuma gravação disponível para baixar.");
+        return;
+    }
+
+    const link = document.createElement("a");
+    link.href = MOTORISTAPAG_Login_segArquivoUrlAtual;
+    link.download = MOTORISTAPAG_Login_segArquivoNomeAtual || "tnp-mob-motorista-gravacao-seguranca.webm";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function MOTORISTAPAG_Login_func_criarArquivoCompartilhamentoSeguranca() {
+    if (!MOTORISTAPAG_Login_segArquivoBlobAtual) {
+        return null;
+    }
+
+    const tipoAtual = MOTORISTAPAG_Login_segTipoGravacao || "";
+    const dataAgora = new Date().toISOString().replace(/[:.]/g, "-");
+
+    if (tipoAtual === "audio") {
+        return new File(
+            [MOTORISTAPAG_Login_segArquivoBlobAtual],
+            "tnp-mob-motorista-seguranca-audio-" + dataAgora + ".ogg",
+            { type: "audio/ogg" }
+        );
+    }
+
+    return new File(
+        [MOTORISTAPAG_Login_segArquivoBlobAtual],
+        MOTORISTAPAG_Login_segArquivoNomeAtual || "tnp-mob-motorista-gravacao-seguranca.webm",
+        { type: MOTORISTAPAG_Login_segArquivoBlobAtual.type || "video/webm" }
+    );
+}
+
+async function MOTORISTAPAG_Login_func_compartilharArquivoSeguranca() {
+    if (MOTORISTAPAG_Login_segAcaoEmAndamento) return;
+
+    if (!MOTORISTAPAG_Login_segArquivoBlobAtual) {
+        alert("Nenhuma gravação disponível para compartilhar.");
+        return;
+    }
+
+    MOTORISTAPAG_Login_segAcaoEmAndamento = true;
+
+    try {
+        const arquivo = MOTORISTAPAG_Login_func_criarArquivoCompartilhamentoSeguranca();
+
+        if (!arquivo) {
+            alert("Não foi possível preparar o arquivo para compartilhamento.");
+            return;
+        }
+
+        if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+            await navigator.share({
+                title: "Gravação de segurança TNP MoB",
+                text: "Gravação de segurança feita por mim no TNP MoB.",
+                files: [arquivo]
+            });
+
+            return;
+        }
+
+        alert(
+            "Seu navegador não permite compartilhar esse arquivo diretamente.\n\n" +
+            "Toque em BAIXAR GRAVAÇÃO e depois envie manualmente pelo WhatsApp."
+        );
+
+    } catch (erro) {
+        console.warn("Compartilhamento não concluído:", erro);
+
+        alert(
+            "Não foi possível compartilhar direto.\n\n" +
+            "Use a opção BAIXAR GRAVAÇÃO e envie manualmente pelo WhatsApp."
+        );
+
+    } finally {
+        MOTORISTAPAG_Login_segAcaoEmAndamento = false;
+    }
+}
+
+function MOTORISTAPAG_Login_func_descartarArquivoSeguranca() {
+    if (
+        MOTORISTAPAG_Login_segMediaRecorder &&
+        MOTORISTAPAG_Login_segMediaRecorder.state === "recording"
+    ) {
+        alert("Pare a gravação antes de descartar o arquivo.");
+        return;
+    }
+
+    const confirmar = confirm("Deseja descartar esta gravação? Essa ação remove o arquivo temporário da tela.");
+
+    if (!confirmar) return;
+
+    MOTORISTAPAG_Login_func_limparGravacaoSeguranca();
+
+    alert("Gravação descartada. Nenhum arquivo foi enviado.");
+}
+
+/* Disponibiliza as funções para onclick no HTML */
+window.MOTORISTAPAG_Login_func_carregarCentralSeguranca = MOTORISTAPAG_Login_func_carregarCentralSeguranca;
+window.MOTORISTAPAG_Login_func_fecharCentralSeguranca = MOTORISTAPAG_Login_func_fecharCentralSeguranca;
+window.MOTORISTAPAG_Login_func_ligarEmergencia190 = MOTORISTAPAG_Login_func_ligarEmergencia190;
+window.MOTORISTAPAG_Login_func_falarSuporteSeguranca = MOTORISTAPAG_Login_func_falarSuporteSeguranca;
+window.MOTORISTAPAG_Login_func_compartilharViagemSeguranca = MOTORISTAPAG_Login_func_compartilharViagemSeguranca;
+window.MOTORISTAPAG_Login_func_iniciarAudioSeguranca = MOTORISTAPAG_Login_func_iniciarAudioSeguranca;
+window.MOTORISTAPAG_Login_func_iniciarVideoSeguranca = MOTORISTAPAG_Login_func_iniciarVideoSeguranca;
+window.MOTORISTAPAG_Login_func_pararGravacaoSeguranca = MOTORISTAPAG_Login_func_pararGravacaoSeguranca;
+window.MOTORISTAPAG_Login_func_fotoSegurancaSelecionada = MOTORISTAPAG_Login_func_fotoSegurancaSelecionada;
+window.MOTORISTAPAG_Login_func_baixarArquivoSeguranca = MOTORISTAPAG_Login_func_baixarArquivoSeguranca;
+window.MOTORISTAPAG_Login_func_compartilharArquivoSeguranca = MOTORISTAPAG_Login_func_compartilharArquivoSeguranca;
+window.MOTORISTAPAG_Login_func_descartarArquivoSeguranca = MOTORISTAPAG_Login_func_descartarArquivoSeguranca;
+
+
+
+
+//--========== MOTORISTA: CENTRAL DE SEGURANÇA FINAL ========== // 
 
 
 //-- ===================================================== 
