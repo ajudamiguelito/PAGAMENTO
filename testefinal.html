@@ -7554,6 +7554,149 @@ body.TNP_TEMA_CLARO .MOTORISTAMENSAGENS_sos_resumo_box button {
     color: #ffffff;
 }
 
+.MOTORISTAPAG_Login_preferencias_box {
+    max-height: 82vh;
+    overflow-y: auto;
+}
+
+.MOTORISTAPAG_Login_preferencias_box h3 {
+    margin: 0 0 14px;
+    color: var(--Fame_texto);
+}
+
+.MOTORISTAPAG_Login_preferencias_grupo {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(197, 169, 141, 0.14);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.MOTORISTAPAG_Login_preferencias_grupo h4 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--Fame_destaque);
+}
+
+.MOTORISTAPAG_Login_preferencia_linha {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(197, 169, 141, 0.10);
+    color: var(--Fame_texto);
+    font-size: 0.88rem;
+}
+
+.MOTORISTAPAG_Login_preferencia_linha:last-child {
+    border-bottom: none;
+}
+
+.MOTORISTAPAG_Login_preferencia_linha input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #c5a98d;
+}
+
+.MOTORISTAPAG_Login_preferencia_linha select {
+    min-width: 86px;
+    border-radius: 10px;
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    background: rgba(0, 0, 0, 0.22);
+    color: var(--Fame_texto);
+    padding: 7px 8px;
+}
+
+.MOTORISTAPAG_Login_preferencia_info {
+    color: var(--Fame_texto);
+    font-size: 0.86rem;
+    line-height: 1.5;
+}
+
+.MOTORISTAPAG_Login_preferencia_info small {
+    color: var(--Fame_texto_suave);
+}
+
+.MOTORISTAPAG_Login_btn_preferencia_teste,
+.MOTORISTAPAG_Login_btn_preferencia_salvar {
+    width: 100%;
+    border: none;
+    border-radius: 14px;
+    padding: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #c5a98d;
+    color: #241b14;
+    margin-top: 10px;
+}
+
+.MOTORISTAPAG_Login_btn_preferencia_teste {
+    background: rgba(197, 169, 141, 0.16);
+    color: var(--Fame_texto);
+    border: 1px solid rgba(197, 169, 141, 0.22);
+}
+
+/* TEMA CLARO - PREFERÊNCIAS DO MOTORISTA */
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencias_box {
+    background: #ffffff;
+    color: #2b211a;
+    box-shadow: 0 18px 45px rgba(80, 55, 35, 0.18);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencias_box h3 {
+    color: #2b211a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencias_grupo {
+    background: #fffaf5;
+    border: 1px solid rgba(123, 84, 56, 0.16);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencias_grupo h4 {
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencia_linha {
+    color: #2b211a;
+    border-bottom: 1px solid rgba(123, 84, 56, 0.12);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencia_linha input[type="checkbox"] {
+    accent-color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencia_linha select {
+    background: #ffffff;
+    color: #2b211a;
+    border: 1px solid rgba(123, 84, 56, 0.24);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencia_info {
+    color: #2b211a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_preferencia_info small {
+    color: rgba(43, 33, 26, 0.68);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_btn_preferencia_salvar {
+    background: #7b5438;
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_btn_preferencia_teste {
+    background: rgba(123, 84, 56, 0.10);
+    color: #2b211a;
+    border: 1px solid rgba(123, 84, 56, 0.22);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_btn_preferencia_teste:active,
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_btn_preferencia_salvar:active {
+    transform: scale(0.98);
+}
+
 	  
 </style>
 </head>
@@ -11346,13 +11489,14 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
             <h3>Reportar um problema</h3>
 
             <div class="MOTORISTAPAG_Login_reportar_grid">
-                <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Trânsito', 'Reporte de trânsito registrado em teste.')">🚗<span>Trânsito</span></button>
-                <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Polícia', 'Reporte de polícia registrado em teste.')">👮<span>Polícia</span></button>
-                <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Acidente', 'Reporte de acidente registrado em teste.')">🚑<span>Acidente</span></button>
-                <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Perigo', 'Reporte de perigo registrado em teste.')">⚠️<span>Perigo</span></button>
-                <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Faixa fechada', 'Reporte de faixa fechada registrado em teste.')">⛔<span>Faixa fechada</span></button>
-                <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Mau tempo', 'Reporte de mau tempo registrado em teste.')">🌧️<span>Mau tempo</span></button>
-            </div>
+                <button onclick="MOTORISTAPAG_Login_func_criarAlertaMapaTeste('transito')">🚗<span>Trânsito</span></button>
+                <button onclick="MOTORISTAPAG_Login_func_criarAlertaMapaTeste('policia')">👮<span>Polícia</span></button>
+                <button onclick="MOTORISTAPAG_Login_func_criarAlertaMapaTeste('acidente')">🚑<span>Acidente</span></button>
+                <button onclick="MOTORISTAPAG_Login_func_criarAlertaMapaTeste('perigo')">⚠️<span>Perigo</span></button>
+                <button onclick="MOTORISTAPAG_Login_func_criarAlertaMapaTeste('Faixa fechada')">⛔<span>Faixa fechada</span></button>
+                <button onclick="MOTORISTAPAG_Login_func_criarAlertaMapaTeste('Mau tempo')">🌧️<span>Mau tempo</span></button>
+            
+			</div>
         </div>
     </div>
 
@@ -11643,13 +11787,10 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
 			🚘 Gerenciar veículos
 		</button>
 		
-		
-
-        <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Preferências', 'Aqui depois ficarão notificações, sons, vibração e preferências do motorista.')">
-            ⚙️ Preferências do motorista
-        </button>
-		
-		
+		<button onclick="MOTORISTAPAG_Login_func_abrirPreferenciasMotorista()">
+			⚙️ Preferências do motorista
+		</button>
+    			
 	</div>
 </div>
  
@@ -12448,6 +12589,9 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 
 
 </div>
+
+
+
 <!-- TELA CONFIGURAÇÕES: ADICIONAR VEÍCULO DO MOTORISTA -->
 <div id="MOTORISTAPAG_Login_screen_adicionar_veiculo" class="PRIMEIRAPAG_Login_screen" style="padding:20px 14px 90px;">
 
@@ -12670,14 +12814,73 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 
 </div>
 
+<!-- TELA CONFIGURAÇÕES: DOCUMENTOS DO NOVO VEÍCULO fINAL -->
 
 
+<!-- TELA PREFERÊNCIA DO MOTORISTA  -->
+<div id="MOTORISTAPAG_Login_modal_preferencias_motorista" class="MOTORISTAPAG_Login_modal_home">
+    <div class="MOTORISTAPAG_Login_modal_home_box MOTORISTAPAG_Login_preferencias_box">
+
+        <button class="MOTORISTAPAG_Login_modal_home_fechar" onclick="MOTORISTAPAG_Login_func_fecharModais()">
+            ×
+        </button>
+
+        <h3>Preferências do motorista</h3>
+
+        <div class="MOTORISTAPAG_Login_preferencias_grupo">
+            <h4>Notificações</h4>
+
+            <label class="MOTORISTAPAG_Login_preferencia_linha">
+                <span>Receber notificações</span>
+                <input type="checkbox" id="MOTORISTAPAG_Login_pref_notificacoes" onchange="MOTORISTAPAG_Login_func_salvarPreferenciasMotorista()">
+            </label>
+
+            <label class="MOTORISTAPAG_Login_preferencia_linha">
+                <span>Som das notificações</span>
+                <input type="checkbox" id="MOTORISTAPAG_Login_pref_som" onchange="MOTORISTAPAG_Login_func_salvarPreferenciasMotorista()">
+            </label>
+
+            <label class="MOTORISTAPAG_Login_preferencia_linha">
+                <span>Vibração</span>
+                <input type="checkbox" id="MOTORISTAPAG_Login_pref_vibracao" onchange="MOTORISTAPAG_Login_func_salvarPreferenciasMotorista()">
+            </label>
+
+            <button type="button" class="MOTORISTAPAG_Login_btn_preferencia_teste" onclick="MOTORISTAPAG_Login_func_testarVibracaoMotorista()">
+                Testar vibração
+            </button>
+        </div>
+
+        <div class="MOTORISTAPAG_Login_preferencias_grupo">
+            <h4>Alertas do mapa</h4>
+
+            <label class="MOTORISTAPAG_Login_preferencia_linha">
+                <span>Receber alertas do mapa</span>
+                <input type="checkbox" id="MOTORISTAPAG_Login_pref_alertas_mapa" onchange="MOTORISTAPAG_Login_func_salvarPreferenciasMotorista()">
+            </label>
+
+         </div>
+
+        <div class="MOTORISTAPAG_Login_preferencias_grupo">
+            <h4>Segurança</h4>
+
+            <div class="MOTORISTAPAG_Login_preferencia_info">
+                <strong>SOS discreto:</strong> ativo
+                <br>
+                <strong>Vídeo SOS:</strong> 1 minuto
+                <br>
+                <small>Essas opções ficam fixas por segurança.</small>
+            </div>
+        </div>
+
+        <button type="button" class="MOTORISTAPAG_Login_btn_preferencia_salvar" onclick="MOTORISTAPAG_Login_func_salvarPreferenciasMotorista(true)">
+            Salvar preferências
+        </button>
+
+    </div>
+</div>
 
 
-
-
-
-
+<!-- TELA PREFERÊNCIA DO MOTORISTA fINAL -->
 
 
 <!-- ===================================================== -->
@@ -29454,6 +29657,156 @@ function MOTORISTAPAG_Login_func_abrirReportarProblema() {
     document.getElementById('MOTORISTAPAG_Login_modal_reportar')?.classList.add('active');
 }
 
+async function MOTORISTAPAG_Login_func_criarAlertaMapaTeste(tipoAlerta) {
+    const user =
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+            ? PRIMEIRAPAG_Login_auth.currentUser
+            : firebase.auth().currentUser;
+
+    if (!user) {
+        alert("Você precisa estar logado para criar alerta de teste.");
+        return;
+    }
+
+    const db =
+        typeof PRIMEIRAPAG_Login_db !== "undefined"
+            ? PRIMEIRAPAG_Login_db
+            : firebase.firestore();
+
+    const nomes = {
+        transito: "Trânsito",
+        policia: "Polícia",
+        acidente: "Acidente",
+        perigo: "Perigo",
+        faixa_fechada: "Faixa fechada",
+        mau_tempo: "Mau tempo"
+    };
+
+    const titulo = nomes[tipoAlerta] || "Alerta";
+
+    try {
+        const alertaRef = db.collection("alertasMapa").doc();
+
+        await alertaRef.set({
+            alertaId: alertaRef.id,
+
+            tipo: tipoAlerta,
+            titulo: titulo,
+
+            origem: "motorista",
+            criadoPorUid: user.uid,
+            criadoPorEmail: user.email || "",
+
+            modoTeste: true,
+            semLocalizacao: true,
+
+            latitude: null,
+            longitude: null,
+            raioKm: 2,
+
+            confirmacoes: 1,
+            negacoes: 0,
+            confianca: 1,
+
+            status: "ativo",
+            visivelNoMapa: false,
+            motivoSemMapa: "teste_sem_localizacao",
+
+            corridaId: "",
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        await alertaRef.collection("votos").doc(user.uid).set({
+            uid: user.uid,
+            voto: "confirmou",
+            origem: "criador",
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert("Alerta de teste criado: " + titulo);
+
+    } catch (erro) {
+        console.error("Erro ao criar alerta de teste:", erro);
+        alert("Não foi possível criar o alerta de teste.");
+    }
+}
+
+async function MOTORISTAPAG_Login_func_votarAlertaMapaTeste(alertaId, voto) {
+    alertaId = String(alertaId || "").trim();
+    voto = String(voto || "").trim();
+
+    if (!alertaId || (voto !== "confirmou" && voto !== "negou")) {
+        return;
+    }
+
+    const user =
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" && PRIMEIRAPAG_Login_auth.currentUser
+            ? PRIMEIRAPAG_Login_auth.currentUser
+            : firebase.auth().currentUser;
+
+    if (!user) return;
+
+    const db =
+        typeof PRIMEIRAPAG_Login_db !== "undefined"
+            ? PRIMEIRAPAG_Login_db
+            : firebase.firestore();
+
+    try {
+        const alertaRef = db.collection("alertasMapa").doc(alertaId);
+        const votoRef = alertaRef.collection("votos").doc(user.uid);
+
+        const votoAntigoSnap = await votoRef.get();
+        const votoAntigo = votoAntigoSnap.exists ? votoAntigoSnap.data().voto : "";
+
+        let ajusteConfirmacoes = 0;
+        let ajusteNegacoes = 0;
+
+        if (votoAntigo === "confirmou") ajusteConfirmacoes--;
+        if (votoAntigo === "negou") ajusteNegacoes--;
+
+        if (voto === "confirmou") ajusteConfirmacoes++;
+        if (voto === "negou") ajusteNegacoes++;
+
+        await votoRef.set({
+            uid: user.uid,
+            voto: voto,
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+        await db.runTransaction(async function(transaction) {
+            const alertaSnap = await transaction.get(alertaRef);
+
+            if (!alertaSnap.exists) return;
+
+            const dados = alertaSnap.data() || {};
+
+            const confirmacoes = Math.max(0, Number(dados.confirmacoes || 0) + ajusteConfirmacoes);
+            const negacoes = Math.max(0, Number(dados.negacoes || 0) + ajusteNegacoes);
+            const confianca = confirmacoes - negacoes;
+
+            transaction.update(alertaRef, {
+                confirmacoes: confirmacoes,
+                negacoes: negacoes,
+                confianca: confianca,
+                status: confianca < 0 ? "questionado" : "ativo",
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        });
+
+    } catch (erro) {
+        console.error("Erro ao votar no alerta:", erro);
+    }
+}
+
+window.MOTORISTAPAG_Login_func_criarAlertaMapaTeste =
+    MOTORISTAPAG_Login_func_criarAlertaMapaTeste;
+
+window.MOTORISTAPAG_Login_func_votarAlertaMapaTeste =
+    MOTORISTAPAG_Login_func_votarAlertaMapaTeste;
+
+
+
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - RELATAR PROBLEMAS FINAL -->
 
 //-- TELA MOTORISTA 9: HOME DO MOTORISTA - ESCOLHER PREVOSÕES -->
@@ -32911,11 +33264,183 @@ async function MOTORISTAPAG_Login_func_excluirVeiculoGerenciado(veiculoId) {
 
 //-- TELA MOTORISTA 15: MODAL VEÍCULO EM USO FINAL ---->
 
+//-- TELA PREFERÊNCIA DO MOTORISTA  -->
+var MOTORISTAPAG_Login_preferenciasMotorista = {
+    notificacoesAtivas: true,
+    somNotificacoes: true,
+    vibracaoAtiva: true,
 
+    alertasMapaAtivos: true,
 
+    mensagensRapidasAtivas: true,
 
+    sosSilenciosoAtivo: true,
+    sosVideoSegundos: 60
+};
 
+function MOTORISTAPAG_Login_func_obterDbPreferenciasMotorista() {
+    if (typeof PRIMEIRAPAG_Login_db !== "undefined") {
+        return PRIMEIRAPAG_Login_db;
+    }
 
+    return firebase.firestore();
+}
+
+function MOTORISTAPAG_Login_func_obterUserPreferenciasMotorista() {
+    if (
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" &&
+        PRIMEIRAPAG_Login_auth.currentUser
+    ) {
+        return PRIMEIRAPAG_Login_auth.currentUser;
+    }
+
+    return firebase.auth().currentUser;
+}
+
+function MOTORISTAPAG_Login_func_abrirPreferenciasMotorista() {
+    MOTORISTAPAG_Login_func_fecharModais();
+
+    const modal = document.getElementById("MOTORISTAPAG_Login_modal_preferencias_motorista");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+
+    MOTORISTAPAG_Login_func_carregarPreferenciasMotorista();
+}
+
+async function MOTORISTAPAG_Login_func_carregarPreferenciasMotorista() {
+    const user = MOTORISTAPAG_Login_func_obterUserPreferenciasMotorista();
+
+    if (!user) return;
+
+    try {
+        const db = MOTORISTAPAG_Login_func_obterDbPreferenciasMotorista();
+
+        const snap = await db.collection("motoristas").doc(user.uid).get();
+
+        const dados = snap.exists ? (snap.data() || {}) : {};
+        const preferenciasSalvas = dados.preferencias || {};
+
+        MOTORISTAPAG_Login_preferenciasMotorista = {
+            ...MOTORISTAPAG_Login_preferenciasMotorista,
+            ...preferenciasSalvas,
+
+            sosSilenciosoAtivo: true,
+            sosVideoSegundos: 60
+        };
+
+        MOTORISTAPAG_Login_func_preencherTelaPreferenciasMotorista();
+
+    } catch (erro) {
+        console.error("Erro ao carregar preferências do motorista:", erro);
+    }
+}
+
+function MOTORISTAPAG_Login_func_preencherTelaPreferenciasMotorista() {
+    const prefs = MOTORISTAPAG_Login_preferenciasMotorista || {};
+
+    const campoNotificacoes = document.getElementById("MOTORISTAPAG_Login_pref_notificacoes");
+    const campoSom = document.getElementById("MOTORISTAPAG_Login_pref_som");
+    const campoVibracao = document.getElementById("MOTORISTAPAG_Login_pref_vibracao");
+    const campoAlertasMapa = document.getElementById("MOTORISTAPAG_Login_pref_alertas_mapa");
+
+    if (campoNotificacoes) campoNotificacoes.checked = prefs.notificacoesAtivas !== false;
+    if (campoSom) campoSom.checked = prefs.somNotificacoes !== false;
+    if (campoVibracao) campoVibracao.checked = prefs.vibracaoAtiva !== false;
+    if (campoAlertasMapa) campoAlertasMapa.checked = prefs.alertasMapaAtivos !== false;
+}
+
+async function MOTORISTAPAG_Login_func_salvarPreferenciasMotorista(mostrarAviso) {
+    const user = MOTORISTAPAG_Login_func_obterUserPreferenciasMotorista();
+
+    if (!user) {
+        alert("Você precisa estar logado para salvar preferências.");
+        return;
+    }
+
+    const campoNotificacoes = document.getElementById("MOTORISTAPAG_Login_pref_notificacoes");
+    const campoSom = document.getElementById("MOTORISTAPAG_Login_pref_som");
+    const campoVibracao = document.getElementById("MOTORISTAPAG_Login_pref_vibracao");
+    const campoAlertasMapa = document.getElementById("MOTORISTAPAG_Login_pref_alertas_mapa");
+
+    const preferencias = {
+        notificacoesAtivas: campoNotificacoes ? campoNotificacoes.checked === true : true,
+        somNotificacoes: campoSom ? campoSom.checked === true : true,
+        vibracaoAtiva: campoVibracao ? campoVibracao.checked === true : true,
+
+        alertasMapaAtivos: campoAlertasMapa ? campoAlertasMapa.checked === true : true,
+        mensagensRapidasAtivas: true,
+
+        sosSilenciosoAtivo: true,
+        sosVideoSegundos: 60
+    };
+
+    try {
+        const db = MOTORISTAPAG_Login_func_obterDbPreferenciasMotorista();
+
+        await db.collection("motoristas").doc(user.uid).set({
+            preferencias: preferencias,
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+        MOTORISTAPAG_Login_preferenciasMotorista = preferencias;
+
+        if (mostrarAviso === true) {
+            alert("Preferências salvas.");
+        }
+
+    } catch (erro) {
+        console.error("Erro ao salvar preferências do motorista:", erro);
+        alert("Não foi possível salvar as preferências.");
+    }
+}
+
+function MOTORISTAPAG_Login_func_vibrarMotorista(padrao) {
+    const podeVibrar =
+        typeof navigator !== "undefined" &&
+        typeof navigator.vibrate === "function";
+
+    if (!podeVibrar) return;
+
+    const prefs = MOTORISTAPAG_Login_preferenciasMotorista || {};
+
+    if (prefs.vibracaoAtiva === false) return;
+
+    if (padrao === "alerta") {
+        navigator.vibrate([200, 100, 200]);
+        return;
+    }
+
+    if (padrao === "mensagem") {
+        navigator.vibrate(120);
+        return;
+    }
+
+    if (padrao === "sos") {
+        navigator.vibrate([300, 120, 300, 120, 500]);
+        return;
+    }
+
+    navigator.vibrate(100);
+}
+
+function MOTORISTAPAG_Login_func_testarVibracaoMotorista() {
+    MOTORISTAPAG_Login_func_vibrarMotorista("alerta");
+}
+
+window.MOTORISTAPAG_Login_func_abrirPreferenciasMotorista =
+    MOTORISTAPAG_Login_func_abrirPreferenciasMotorista;
+
+window.MOTORISTAPAG_Login_func_salvarPreferenciasMotorista =
+    MOTORISTAPAG_Login_func_salvarPreferenciasMotorista;
+
+window.MOTORISTAPAG_Login_func_testarVibracaoMotorista =
+    MOTORISTAPAG_Login_func_testarVibracaoMotorista;
+
+window.MOTORISTAPAG_Login_func_vibrarMotorista =
+    MOTORISTAPAG_Login_func_vibrarMotorista;
+//-- TELA PREFERÊNCIA DO MOTORISTA  FINAL -->
 
 //-- TELA MOTORISTA 16: MODAL DADOS PESSOAIS ---->
 async function MOTORISTAPAG_Login_func_abrirModalDadosPessoaisMotorista() {
@@ -39540,6 +40065,12 @@ async function NOTIFICACOES_func_responderUltima() {
         alert('Campo de resposta não encontrado.');
         return;
     }
+	
+	if (NOTIFICACOES_modoLeituraAtivo) {
+		NOTIFICACOES_func_definirModoLeitura(false);
+		campo.focus();
+		return;
+	}
 
     const textoOriginal = String(campo.value || '').trim();
 
