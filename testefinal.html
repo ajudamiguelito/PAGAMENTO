@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
     <script src="https://sdk.mercadopago.com/js/v2"></script>	
+	<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
 	
 /* ==================================================
@@ -7697,6 +7698,260 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_btn_preferencia_salvar:active {
     transform: scale(0.98);
 }
 
+/* ================================
+   PIX MOTORISTA - MODAIS
+================================ */
+
+.MOTORISTAPAG_Login_pix_box {
+    position: relative;
+    width: 92%;
+    max-width: 390px;
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 22px 18px 18px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(38, 31, 26, 0.98), rgba(25, 21, 18, 0.98));
+    border: 1px solid rgba(197, 169, 141, 0.26);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.48);
+}
+
+/* Corrige o botão fechar para não virar uma barra feia */
+.MOTORISTAPAG_Login_pix_box .MOTORISTAPAG_Login_modal_home_fechar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 169, 141, 0.24);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f2dec8;
+    font-size: 1.2rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.MOTORISTAPAG_Login_pix_box .MOTORISTAPAG_Login_modal_home_fechar:active {
+    transform: scale(0.94);
+}
+
+.MOTORISTAPAG_Login_pix_box h3 {
+    margin: 4px 42px 14px;
+    text-align: center;
+    color: #f2dec8;
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.MOTORISTAPAG_Login_pix_texto {
+    margin: 0 0 16px;
+    color: rgba(245, 229, 211, 0.82);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+/* Caixa de status do Pix carregado */
+.MOTORISTAPAG_Login_pix_resumo {
+    background: rgba(197, 169, 141, 0.12);
+    border: 1px solid rgba(197, 169, 141, 0.25);
+    color: #f2dec8;
+    border-radius: 16px;
+    padding: 12px;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+/* Campo de colar ou mostrar copia e cola */
+.MOTORISTAPAG_Login_pix_label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #f2dec8;
+    font-size: 0.86rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.MOTORISTAPAG_Login_pix_textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    border-radius: 18px;
+    border: 1px solid rgba(197, 169, 141, 0.28);
+    background: rgba(10, 8, 7, 0.72);
+    color: #ffffff;
+    padding: 13px;
+    outline: none;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.MOTORISTAPAG_Login_pix_textarea:focus {
+    border-color: rgba(242, 222, 200, 0.65);
+    box-shadow: 0 0 0 3px rgba(197, 169, 141, 0.12);
+}
+
+.MOTORISTAPAG_Login_pix_textarea_resultado {
+    min-height: 105px;
+    font-size: 0.76rem;
+    margin-top: 12px;
+}
+
+/* QR Code */
+.MOTORISTAPAG_Login_pix_qrcode {
+    width: 220px;
+    min-height: 220px;
+    margin: 16px auto 14px;
+    padding: 14px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 4px solid rgba(197, 169, 141, 0.55);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MOTORISTAPAG_Login_pix_qrcode:empty {
+    display: none;
+}
+
+.MOTORISTAPAG_Login_pix_qrcode small {
+    color: #6b5a4d;
+    text-align: center;
+    font-size: 0.78rem;
+}
+
+/* Botão principal */
+.MOTORISTAPAG_Login_pix_btn_principal {
+    width: 100%;
+    border: none;
+    border-radius: 18px;
+    padding: 14px 12px;
+    font-weight: 900;
+    cursor: pointer;
+    background: linear-gradient(180deg, #d8b48a, #b98b5d);
+    color: #241b14;
+    margin-top: 8px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+.MOTORISTAPAG_Login_pix_btn_principal:active {
+    transform: scale(0.98);
+}
+
+/* Botões copiar / compartilhar */
+.MOTORISTAPAG_Login_pix_acoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.MOTORISTAPAG_Login_pix_acoes button {
+    border: 1px solid rgba(197, 169, 141, 0.38);
+    border-radius: 17px;
+    padding: 13px 10px;
+    background: rgba(197, 169, 141, 0.16);
+    color: #f2dec8;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.MOTORISTAPAG_Login_pix_acoes button:first-child {
+    background: linear-gradient(180deg, #d8b48a, #b98b5d);
+    color: #241b14;
+    border-color: rgba(216, 180, 138, 0.75);
+}
+
+.MOTORISTAPAG_Login_pix_acoes button:last-child {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.MOTORISTAPAG_Login_pix_acoes button:active {
+    transform: scale(0.97);
+}
+
+/* ================================
+   TEMA CLARO - PIX MOTORISTA
+================================ */
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_box {
+    background: linear-gradient(180deg, #ffffff, #fff8f0);
+    border: 1px solid rgba(123, 84, 56, 0.22);
+    box-shadow: 0 22px 55px rgba(80, 55, 35, 0.20);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_box .MOTORISTAPAG_Login_modal_home_fechar {
+    background: rgba(123, 84, 56, 0.10);
+    border: 1px solid rgba(123, 84, 56, 0.20);
+    color: #7b5438;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_box h3 {
+    color: #2b211a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_texto {
+    color: rgba(43, 33, 26, 0.72);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_resumo {
+    background: rgba(123, 84, 56, 0.08);
+    border: 1px solid rgba(123, 84, 56, 0.16);
+    color: #2b211a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_label {
+    color: #2b211a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_textarea {
+    background: #fffaf5;
+    color: #2b211a;
+    border: 1px solid rgba(123, 84, 56, 0.24);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_textarea:focus {
+    border-color: rgba(123, 84, 56, 0.55);
+    box-shadow: 0 0 0 3px rgba(123, 84, 56, 0.10);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_qrcode {
+    background: #ffffff;
+    border: 4px solid rgba(123, 84, 56, 0.35);
+    box-shadow: 0 14px 30px rgba(80, 55, 35, 0.18);
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_btn_principal {
+    background: linear-gradient(180deg, #8b6242, #6f472d);
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_acoes button {
+    background: rgba(123, 84, 56, 0.10);
+    border: 1px solid rgba(123, 84, 56, 0.22);
+    color: #2b211a;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_acoes button:first-child {
+    background: linear-gradient(180deg, #8b6242, #6f472d);
+    color: #ffffff;
+}
+
+body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_acoes button:last-child {
+    background: rgba(123, 84, 56, 0.08);
+    color: #2b211a;
+}
 	  
 </style>
 </head>
@@ -11341,22 +11596,19 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - MODAIS DA HOME
             <button onclick="MOTORISTAPAG_Login_func_abrirModalDadosPessoaisMotorista()">
                 👤 Dados pessoais
             </button>
-
-            <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Documentos do motorista', 'Aqui ficarão CNH, selfie com CNH e documentos enviados.')">
-                📄 Documentos do motorista
-            </button>
+            
         </div>
 
         <div class="MOTORISTAPAG_Login_perfil_secao">
             <strong>Recebimentos</strong>
 
-            <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('Pix para recebimento', 'Aqui o motorista poderá revisar a chave Pix para receber corridas.')">
-                💸 Pix para recebimento
-            </button>
+            <button onclick="MOTORISTAPAG_Login_func_abrirGerarPixMotorista()">
+				💸 Gerar Pix
+			</button>
 
-            <button onclick="MOTORISTAPAG_Login_func_abrirPaginaProvisoria('ID TNP e cashback', 'Aqui ficarão ID TNP, benefícios e cashback do motorista.')">
-                🟤 ID TNP / Cashback
-            </button>
+			<button onclick="MOTORISTAPAG_Login_func_abrirCadastrarPixMotorista()">
+				🟤 Cadastrar Pix
+			</button>
         </div>
 
         <div class="MOTORISTAPAG_Login_perfil_secao">
@@ -13521,6 +13773,77 @@ TELA MOTORISTA 9: HOME DO MOTORISTA - SUB MODAIS 2 DA HOME fINAL
 
 
 <!-- MODAL ESCOLHER FORMA DE PAGAMENTO DA CORRIDA FINAL -->
+
+<!-- MODAL GERAR PIX MOTORISTA -->
+<div id="MOTORISTAPAG_Login_modal_gerar_pix" class="MOTORISTAPAG_Login_modal_home">
+    <div class="MOTORISTAPAG_Login_modal_home_box MOTORISTAPAG_Login_pix_box">
+
+        <button class="MOTORISTAPAG_Login_modal_home_fechar" onclick="MOTORISTAPAG_Login_func_fecharModais()">
+            ×
+        </button>
+
+        <h3>Gerar Pix</h3>
+
+        <p class="MOTORISTAPAG_Login_pix_texto">
+            Use este QR Code ou copie o Pix copia e cola para cobrar o passageiro.
+        </p>
+
+        <div id="MOTORISTAPAG_Login_pix_status_gerar" class="MOTORISTAPAG_Login_pix_resumo">
+            Carregando Pix cadastrado...
+        </div>
+
+        <div id="MOTORISTAPAG_Login_pix_qrcode" class="MOTORISTAPAG_Login_pix_qrcode"></div>
+
+        <textarea
+            id="MOTORISTAPAG_Login_pix_copia_cola_gerado"
+            class="MOTORISTAPAG_Login_pix_textarea MOTORISTAPAG_Login_pix_textarea_resultado"
+            readonly
+            placeholder="Pix copia e cola aparecerá aqui"
+        ></textarea>
+
+        <div class="MOTORISTAPAG_Login_pix_acoes">
+            <button type="button" onclick="MOTORISTAPAG_Login_func_copiarPixMotorista()">
+                Copiar
+            </button>
+
+            <button type="button" onclick="MOTORISTAPAG_Login_func_compartilharPixMotorista()">
+                Compartilhar
+            </button>
+        </div>
+
+    </div>
+</div>
+<!-- MODAL GERAR PIX MOTORISTA fINAL -->
+<!-- MODAL CADASTRAR PIX MOTORISTA -->
+<div id="MOTORISTAPAG_Login_modal_cadastrar_pix" class="MOTORISTAPAG_Login_modal_home">
+    <div class="MOTORISTAPAG_Login_modal_home_box MOTORISTAPAG_Login_pix_box">
+
+        <button class="MOTORISTAPAG_Login_modal_home_fechar" onclick="MOTORISTAPAG_Login_func_fecharModais()">
+            ×
+        </button>
+
+        <h3>Cadastrar Pix</h3>
+
+        <p class="MOTORISTAPAG_Login_pix_texto">
+            Cole aqui o Pix copia e cola que será usado para gerar o QR Code de cobrança.
+        </p>
+
+        <label class="MOTORISTAPAG_Login_pix_label">
+            Pix copia e cola
+            <textarea
+                id="MOTORISTAPAG_Login_pix_copia_cola_base"
+                class="MOTORISTAPAG_Login_pix_textarea"
+                placeholder="Cole aqui o Pix copia e cola..."
+            ></textarea>
+        </label>
+
+        <button type="button" class="MOTORISTAPAG_Login_pix_btn_principal" onclick="MOTORISTAPAG_Login_func_salvarPixMotorista()">
+            Salvar Pix
+        </button>
+
+    </div>
+</div>
+<!-- MODAL CADASTRAR PIX MOTORISTA FINAL -->
 
 
 <!-- MODAL UNIVERSAL DE NOTIFICAÇÕES / ÚLTIMA MENSAGEM -->
@@ -38943,7 +39266,273 @@ function PASSAGEIROPAG_Login_func_salvarPreferenciaPagamento() {
 
 // ========== MODAL ESCOLHER FORMA DE PAGAMENTO DA CORRIDA FINAL ========== 
 
- 
+//-- MODAL GERAR PIX MOTORISTA FINAL -->
+
+//-- GERAR PIX MOTORISTA -->
+
+var MOTORISTAPAG_Login_pixCopiaColaAtual = "";
+
+async function MOTORISTAPAG_Login_func_abrirGerarPixMotorista() {
+    MOTORISTAPAG_Login_func_fecharModais();
+
+    const modal = document.getElementById("MOTORISTAPAG_Login_modal_gerar_pix");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+
+    await MOTORISTAPAG_Login_func_carregarPixMotorista();
+
+    MOTORISTAPAG_Login_func_mostrarPixMotorista();
+}
+
+function MOTORISTAPAG_Login_func_mostrarPixMotorista() {
+    const pix = MOTORISTAPAG_Login_pixMotoristaAtual || {};
+
+    const status = document.getElementById("MOTORISTAPAG_Login_pix_status_gerar");
+    const areaQr = document.getElementById("MOTORISTAPAG_Login_pix_qrcode");
+    const campoCopiaCola = document.getElementById("MOTORISTAPAG_Login_pix_copia_cola_gerado");
+
+    if (areaQr) {
+        areaQr.innerHTML = "";
+    }
+
+    if (campoCopiaCola) {
+        campoCopiaCola.value = "";
+    }
+
+    MOTORISTAPAG_Login_pixCopiaColaAtual = "";
+
+    if (!pix.copiaCola) {
+        if (status) {
+            status.innerHTML = "Nenhum Pix cadastrado. Primeiro cadastre o Pix copia e cola.";
+        }
+
+        return;
+    }
+
+    MOTORISTAPAG_Login_pixCopiaColaAtual = pix.copiaCola;
+
+    if (status) {
+        status.innerHTML = "Pix carregado. Mostre o QR Code ou copie o código para o passageiro.";
+    }
+
+    if (campoCopiaCola) {
+        campoCopiaCola.value = pix.copiaCola;
+    }
+
+    if (areaQr) {
+        if (typeof QRCode !== "undefined") {
+            new QRCode(areaQr, {
+                text: pix.copiaCola,
+                width: 190,
+                height: 190,
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        } else {
+            areaQr.innerHTML = "<small>Biblioteca QR Code não carregada.</small>";
+        }
+    }
+}
+
+async function MOTORISTAPAG_Login_func_copiarPixMotorista() {
+    const campo = document.getElementById("MOTORISTAPAG_Login_pix_copia_cola_gerado");
+
+    const texto =
+        MOTORISTAPAG_Login_pixCopiaColaAtual ||
+        (campo ? String(campo.value || "").trim() : "");
+
+    if (!texto) {
+        alert("Nenhum Pix foi gerado.");
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(texto);
+        alert("Pix copia e cola copiado.");
+    } catch (erro) {
+        if (campo) {
+            campo.focus();
+            campo.select();
+            document.execCommand("copy");
+            alert("Pix copia e cola copiado.");
+        }
+    }
+}
+
+async function MOTORISTAPAG_Login_func_compartilharPixMotorista() {
+    const campo = document.getElementById("MOTORISTAPAG_Login_pix_copia_cola_gerado");
+
+    const texto =
+        MOTORISTAPAG_Login_pixCopiaColaAtual ||
+        (campo ? String(campo.value || "").trim() : "");
+
+    if (!texto) {
+        alert("Nenhum Pix foi gerado.");
+        return;
+    }
+
+    const mensagem =
+        "Pix para pagamento TNP MoB:\n\n" +
+        texto;
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: "Pix TNP MoB",
+                text: mensagem
+            });
+            return;
+        } catch (erro) {
+            console.warn("Compartilhamento cancelado ou indisponível:", erro);
+        }
+    }
+
+    await MOTORISTAPAG_Login_func_copiarPixMotorista();
+}
+
+window.MOTORISTAPAG_Login_func_abrirGerarPixMotorista =
+    MOTORISTAPAG_Login_func_abrirGerarPixMotorista;
+
+window.MOTORISTAPAG_Login_func_copiarPixMotorista =
+    MOTORISTAPAG_Login_func_copiarPixMotorista;
+
+window.MOTORISTAPAG_Login_func_compartilharPixMotorista =
+    MOTORISTAPAG_Login_func_compartilharPixMotorista;
+
+//-- GERAR PIX MOTORISTA FINAL -->
+
+//-- MODAL GERAR PIX MOTORISTA FINAL -->
+
+
+//-- MODAL CADASTRAR PIX MOTORISTA  -->
+//-- CADASTRAR PIX COPIA E COLA MOTORISTA -->
+
+var MOTORISTAPAG_Login_pixMotoristaAtual = null;
+
+function MOTORISTAPAG_Login_func_obterDbPixMotorista() {
+    if (typeof PRIMEIRAPAG_Login_db !== "undefined") {
+        return PRIMEIRAPAG_Login_db;
+    }
+
+    return firebase.firestore();
+}
+
+function MOTORISTAPAG_Login_func_obterUserPixMotorista() {
+    if (
+        typeof PRIMEIRAPAG_Login_auth !== "undefined" &&
+        PRIMEIRAPAG_Login_auth.currentUser
+    ) {
+        return PRIMEIRAPAG_Login_auth.currentUser;
+    }
+
+    return firebase.auth().currentUser;
+}
+
+function MOTORISTAPAG_Login_func_abrirCadastrarPixMotorista() {
+    MOTORISTAPAG_Login_func_fecharModais();
+
+    const modal = document.getElementById("MOTORISTAPAG_Login_modal_cadastrar_pix");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+
+    MOTORISTAPAG_Login_func_carregarPixMotorista();
+}
+
+async function MOTORISTAPAG_Login_func_carregarPixMotorista() {
+    const user = MOTORISTAPAG_Login_func_obterUserPixMotorista();
+
+    if (!user) return;
+
+    try {
+        const db = MOTORISTAPAG_Login_func_obterDbPixMotorista();
+
+        const snap = await db.collection("motoristas").doc(user.uid).get();
+
+        const dados = snap.exists ? (snap.data() || {}) : {};
+
+        MOTORISTAPAG_Login_pixMotoristaAtual = dados.pixRecebimento || null;
+
+        MOTORISTAPAG_Login_func_preencherCadastroPixMotorista();
+
+    } catch (erro) {
+        console.error("Erro ao carregar Pix do motorista:", erro);
+    }
+}
+
+function MOTORISTAPAG_Login_func_preencherCadastroPixMotorista() {
+    const pix = MOTORISTAPAG_Login_pixMotoristaAtual || {};
+
+    const campoPix = document.getElementById("MOTORISTAPAG_Login_pix_copia_cola_base");
+
+    if (campoPix) {
+        campoPix.value = pix.copiaCola || "";
+    }
+}
+
+async function MOTORISTAPAG_Login_func_salvarPixMotorista() {
+    const user = MOTORISTAPAG_Login_func_obterUserPixMotorista();
+
+    if (!user) {
+        alert("Você precisa estar logado para salvar o Pix.");
+        return;
+    }
+
+    const campoPix = document.getElementById("MOTORISTAPAG_Login_pix_copia_cola_base");
+
+    const copiaCola = campoPix ? String(campoPix.value || "").trim() : "";
+
+    if (!copiaCola) {
+        alert("Cole o Pix copia e cola.");
+        return;
+    }
+
+    if (copiaCola.length < 20) {
+        alert("Esse Pix copia e cola parece incompleto.");
+        return;
+    }
+
+    const pixRecebimento = {
+        copiaCola: copiaCola,
+        ativo: true,
+        origem: "motorista",
+        tipo: "pix_copia_e_cola",
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    try {
+		const db = MOTORISTAPAG_Login_func_obterDbPixMotorista();
+
+		await db.collection("motoristas").doc(user.uid).set({
+			pixRecebimento: pixRecebimento,
+			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+		}, { merge: true });
+
+		MOTORISTAPAG_Login_pixMotoristaAtual = pixRecebimento;
+
+		if (typeof MOTORISTAPAG_Login_func_fecharModais === "function") {
+			MOTORISTAPAG_Login_func_fecharModais();
+		}
+
+		alert("Pix copia e cola salvo.");
+
+	} catch (erro) {
+		console.error("Erro ao salvar Pix do motorista:", erro);
+		alert("Não foi possível salvar o Pix.");
+	}
+}
+
+window.MOTORISTAPAG_Login_func_abrirCadastrarPixMotorista =
+    MOTORISTAPAG_Login_func_abrirCadastrarPixMotorista;
+
+window.MOTORISTAPAG_Login_func_salvarPixMotorista =
+    MOTORISTAPAG_Login_func_salvarPixMotorista;
+
+//-- CADASTRAR PIX COPIA E COLA MOTORISTA FINAL -->
+
+<!-- MODAL CADASTRAR PIX MOTORISTA FINAL --> 
 
  //-- TELA MOTORISTA 9: HOME DO MOTORISTA - NOTIFICAÇÕES --> 
 let MOTORISTAPAG_Login_sosToques = 0;
