@@ -7952,6 +7952,40 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_acoes button:last-child {
     background: rgba(123, 84, 56, 0.08);
     color: #2b211a;
 }
+/* ================================
+   LOGO DA TNP 
+================================ */
+
+.PRIMEIRAPAG_Login_header {
+    margin-bottom: 220px; /* Puxa os campos para cima, diminuindo o espaço depois da logo */
+}
+
+.PRIMEIRAPAG_Login_logo_area {
+    width: 100%; /* Ocupa toda a largura disponível */
+    display: flex; /* Ativa alinhamento flexível */
+    justify-content: center; /* Centraliza a logo na horizontal */
+    align-items: center; /* Centraliza a logo na vertical */
+
+    margin-top: -120px; /* Sobe a logo */
+    margin-bottom: -250px; /* Remove espaço abaixo da logo */
+}
+
+.PRIMEIRAPAG_Login_logo_img {
+    width: 320px; /* Tamanho da logo */
+    max-width: 95%; /* Impede passar da largura do card */
+    height: auto; /* Mantém a proporção original */
+    object-fit: contain; /* Mantém a logo inteira sem deformar */
+    display: block; /* Remove espaço extra de imagem */
+
+    transform: translateX(18px); /* Move a logo um pouco para a direita */
+}
+
+
+
+/* ================================
+   LOGO DA TNP FINAL
+================================ */
+
 	  
 </style>
 </head>
@@ -7961,10 +7995,13 @@ body.TNP_TEMA_CLARO .MOTORISTAPAG_Login_pix_acoes button:last-child {
     <div id="PRIMEIRAPAG_Login_container_main" class="Fame_moldura">
         <div id="PRIMEIRAPAG_Login_content_area" class="Fame_content">
 
-            <div id="PRIMEIRAPAG_Login_header_topo" class="PRIMEIRAPAG_Login_header">
-				<h1>TNP MoB 🚗</h1>
-				<p class="PRIMEIRAPAG_Login_subtitle">Escolha seu perfil e acesse sua conta com segurança</p>
-			</div>
+            <div class="PRIMEIRAPAG_Login_logo_area">
+			<img
+				src="./logo-tnp-mob-mais-letra.svg"
+				alt="TNP MoB"
+				class="PRIMEIRAPAG_Login_logo_img"
+			>
+		</div>
 
             <!-- TELA 1: LOGIN PRINCIPAL mais termos-->
             <div id="PRIMEIRAPAG_Login_screen_main" class="PRIMEIRAPAG_Login_screen active">
@@ -9310,7 +9347,7 @@ class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_secondary PRIMEIRAPAG_Login_m
 
             <button
                 class="PRIMEIRAPAG_Login_btn PRIMEIRAPAG_Login_btn_primary"
-                onclick="PASSAGEIROPAG_Login_func_irParaTela('PASSAGEIROPAG_Login_screen_pedir_corrida')"
+                onclick="PASSAGEIROPAG_Login_func_iniciarPedidoCorrida()"
             >
                 PEDIR CORRIDA
             </button>
@@ -20397,6 +20434,32 @@ function PASSAGEIROPAG_Login_func_fimArrastePainel() {
 }
 //-- PAINEL DE CORRIDA FINAL -->
 
+async function PASSAGEIROPAG_Login_func_iniciarPedidoCorrida() {
+    const user = PRIMEIRAPAG_Login_auth.currentUser;
+
+    if (!user) {
+        PRIMEIRAPAG_Login_func_irPara('PRIMEIRAPAG_Login_screen_main');
+        return;
+    }
+
+    const podeContinuar =
+        await PASSAGEIROPAG_Login_func_verificarLiberacaoInicialPassageiro();
+
+    if (!podeContinuar) return;
+
+    const telaPedido = document.getElementById('PASSAGEIROPAG_Login_screen_pedir_corrida');
+
+    if (telaPedido) {
+        PRIMEIRAPAG_Login_func_irPara('PASSAGEIROPAG_Login_screen_pedir_corrida');
+        return;
+    }
+
+    alert(
+        "Pedido de corrida ainda não foi ligado.\n\n" +
+        "A trava de cadastro passou corretamente. Agora podemos criar a tela real de corrida."
+    );
+}
+
 async function PASSAGEIROPAG_Login_func_verificarLiberacaoInicialPassageiro() {
 	const user = PRIMEIRAPAG_Login_auth.currentUser;
 
@@ -20502,29 +20565,48 @@ async function PASSAGEIROPAG_Login_func_verificarLiberacaoInicialPassageiro() {
 		return false;
 	}
 
-	// Chegou aqui: dados, endereço e contato estão ok.
-	// Então o que falta para liberar é o ID TNP.
-	await usuarioRef.set({
-		bloqueadoPorCadastro: true,
-		bloqueadoPorTnp: true,
-		etapaCadastro: "revisao_final",
-		etapaCadastroCompleto: "revisao_final",
+	const corridasSemTnpLimite = dados.corridasSemTnpLimite || 10;
+const corridasUsadasSemTnp = dados.corridasUsadasSemTnp || 0;
 
-		status: {
-			...(dados.status || {}),
-			geral: "bloqueado_por_cadastro",
-			etapa: "revisao_final",
-			tipo: "passageiro",
-			mensagem: "Você usou as corridas iniciais. Informe seu ID TNP para continuar.",
-			atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-		},
+const idTnpOk =
+    dados.cadastroTnpConcluido === true ||
+    dados.idTnpInformado === true ||
+    !!dados.idTnp;
 
-		atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-	}, { merge: true });
+// Chegou aqui: dados, endereço e contato estão ok.
+// Se ainda não chegou na 11ª corrida, libera.
+if (corridasUsadasSemTnp < corridasSemTnpLimite || idTnpOk) {
+    await usuarioRef.set({
+        bloqueadoPorCadastro: false,
+        bloqueadoPorTnp: false,
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
 
-	DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
-	return false;
+    return true;
 }
+
+// Aqui sim: chegou na 11ª corrida sem ID TNP.
+await usuarioRef.set({
+    bloqueadoPorCadastro: false,
+    bloqueadoPorTnp: true,
+    etapaCadastro: "revisao_final",
+    etapaCadastroCompleto: "revisao_final",
+
+    status: {
+        ...(dados.status || {}),
+        geral: "bloqueado_por_tnp",
+        etapa: "revisao_final",
+        tipo: "passageiro",
+        mensagem: "Você atingiu o limite de corridas sem informar seu ID TNP. Informe seu ID TNP para continuar.",
+        atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    },
+
+    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+}, { merge: true });
+
+DECIMAPRIMEIRAPAG_Login_func_carregarRevisaoFinal();
+return false;
+
 
 // Aí antes de chamar corrida, usa:
 // const podeContinuar =
@@ -20547,6 +20629,8 @@ async function PASSAGEIROPAG_Login_func_verificarLiberacaoInicialPassageiro() {
 //-- COMANDO DE CHAMADAS FINAL -->
 
 //-- CARD DE AVISO 1 PASSAGEIRO --> 
+
+}
 function PASSAGEIROPAG_Login_func_fecharCardVerificacao() {
     const card = document.getElementById('PASSAGEIROPAG_Login_card_verificacao');
 
